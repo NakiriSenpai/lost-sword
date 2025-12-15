@@ -59,14 +59,18 @@ function renderTeam(){
   teamEl.innerHTML="";
   team.forEach(c=>{
     const d=document.createElement("div");
-    d.className="team-card"; // ⬅️ class BARU
+    d.style.border = "2px solid red";
+    d.style.padding = "8px";
+    d.style.minWidth = "120px";
 
     d.innerHTML = `
-      <img src="${c.image}" onerror="this.src='${FALLBACK_IMG}'">
-      <span>${c.name}</span>
+      <p>${c.name}</p>
+      <img 
+        src="images/characters/Palamedes.webp"
+        style="width:100px;height:100px;border:2px solid yellow;"
+      >
     `;
 
-    d.onclick = () => removeFromTeam(c.name);
     teamEl.appendChild(d);
   });
 }
