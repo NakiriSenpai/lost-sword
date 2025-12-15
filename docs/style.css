@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.container {
+  padding: 12px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card:hover {
+  background: #334155;
+}
+
+.team {
+  margin-top: 12px;
+}
+
+.team-item {
+  background: #334155;
+  padding: 6px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+}
