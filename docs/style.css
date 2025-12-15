@@ -36,15 +36,21 @@ header button {
   cursor: pointer;
 }
 
-/* ===== TEAM SECTION ===== */
+/* ===== TEAM SECTION (BACKGROUND BARU) ===== */
 .team-section {
   padding: 16px;
-  border-bottom: 1px solid #1e293b;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 204, 21, 0.15),
+    rgba(251, 146, 60, 0.15)
+  );
+  border-bottom: 1px solid #fbbf24;
 }
 
 .team-section h2 {
   margin-bottom: 10px;
   font-size: 16px;
+  color: #fde68a;
 }
 
 /* TEAM HORIZONTAL */
@@ -89,6 +95,7 @@ header button {
   display: flex;
   gap: 10px;
   padding: 16px;
+  background: #020617;
 }
 
 .filters select {
