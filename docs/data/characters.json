@@ -1,0 +1,44 @@
+[
+  { "name": "Anessa", "element": "Frost", "class": "Knight", "position": "Front", "image": "" },
+  { "name": "Circe", "element": "Chaos", "class": "Wizard", "position": "Back", "image": "" },
+  { "name": "Claire", "element": "Radiance", "class": "Knight", "position": "Middle", "image": "" },
+  { "name": "Belsey", "element": "Fire", "class": "Knight", "position": "Front", "image": "" },
+  { "name": "Cristina", "element": "Fire", "class": "Wizard", "position": "Back", "image": "" },
+
+  { "name": "Dian Cecht", "element": "Radiance", "class": "Healer", "position": "Middle", "image": "" },
+  { "name": "Elizabeth", "element": "Fire", "class": "Knight", "position": "Front", "image": "" },
+  { "name": "Enya", "element": "Fire", "class": "Archer", "position": "Back", "image": "" },
+  { "name": "Erin", "element": "Radiance", "class": "Wizard", "position": "Back", "image": "" },
+  { "name": "Estheria", "element": "Chaos", "class": "Wizard", "position": "Back", "image": "" },
+
+  { "name": "Eva", "element": "Shock", "class": "Wizard", "position": "Back", "image": "" },
+  { "name": "Galahad", "element": "Radiance", "class": "Knight", "position": "Front", "image": "" },
+  { "name": "Gawain", "element": "Nature", "class": "Knight", "position": "Front", "image": "" },
+  { "name": "Guinevere", "element": "Frost", "class": "Healer", "position": "Back", "image": "" },
+  { "name": "Isabel", "element": "Frost", "class": "Archer", "position": "Middle", "image": "" },
+
+  { "name": "Isolde", "element": "Nature", "class": "Healer", "position": "Back", "image": "" },
+  { "name": "Joan Of Arc", "element": "Frost", "class": "Archer", "position": "Back", "image": "" },
+  { "name": "Katrin", "element": "Frost", "class": "Wizard", "position": "Back", "image": "" },
+  { "name": "Kay", "element": "Fire", "class": "Knight", "position": "Front", "image": "" },
+  { "name": "Lancelot", "element": "Radiance", "class": "Knight", "position": "Front", "image": "" },
+
+  { "name": "Lilith", "element": "Chaos", "class": "Knight", "position": "Middle", "image": "" },
+  { "name": "Lisa", "element": "Chaos", "class": "Archer", "position": "Middle", "image": "" },
+  { "name": "Lohengrin", "element": "Chaos", "class": "Knight", "position": "Back", "image": "" },
+  { "name": "Lua", "element": "Shock", "class": "Knight", "position": "Front", "image": "" },
+  { "name": "Merlim", "element": "Holy", "class": "Wizard", "position": "Back", "image": "" },
+
+  { "name": "Mia", "element": "Shock", "class": "Knight", "position": "Front", "image": "" },
+  { "name": "Morgana", "element": "Chaos", "class": "Wizard", "position": "Back", "image": "" },
+  { "name": "Morgause", "element": "Fire", "class": "Wizard", "position": "Back", "image": "" },
+  { "name": "NEO Bedivere", "element": "Holy", "class": "Archer", "position": "Middle", "image": "" },
+  { "name": "Peecival", "element": "Frost", "class": "Knight", "position": "Front", "image": "" },
+
+  { "name": "Ran", "element": "Holy", "class": "Knight", "position": "Feont", "image": "" },
+  { "name": "Ria", "element": "Fire", "class": "Healer", "position": "Back", "image": "" },
+  { "name": "Summer Merry", "element": "Frost", "class": "Wizard", "position": "Back", "image": "" },
+  { "name": "Tiamat", "element": "Holy", "class": "Wizard", "position": "Back", "image": "" },
+  { "name": "Tristan", "element": "Nature", "class": "Archer", "position": "Back", "image": "" },
+  { "name": "Vivien", "element": "Nature", "class": "Wizard", "position": "Middle", "image": "" }
+    ]
