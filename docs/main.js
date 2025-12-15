@@ -1,33 +1,55 @@
-let characters=[], team=[];
-const charsEl=document.getElementById("characters");
-const teamEl=document.getElementById("team");
-const elF=document.getElementById("elementFilter");
-const clF=document.getElementById("classFilter");
-const shareBtn=document.getElementById("shareBtn");
+let characters = [];
+let team = [];
 
-const FALLBACK_IMG="https://via.placeholder.com/300x200?text=No+Image";
+const charsEl = document.getElementById("characters");
+const teamEl = document.getElementById("team");
+const elF = document.getElementById("elementFilter");
+const clF = document.getElementById("classFilter");
+const shareBtn = document.getElementById("shareBtn");
 
-// --- LOAD DATA ---
-fetch("data/characters.json").then(r=>r.json()).then(data=>{
-  characters=data.map(c=>({
-    ...c,
-    image: c.image && c.image.trim() ? c.image : FALLBACK_IMG
-  }));
-  initFilters();
-  loadFromURLorStorage();
-  renderCharacters();
-  renderTeam();
-});
+const FALLBACK_IMG = "https://via.placeholder.com/300x200?text=No+Image";
 
-// --- FILTERS ---
-function initFilters(){
-  [...new Set(characters.map(c=>c.element))].forEach(v=>elF.innerHTML+=`<option>${v}</option>`);
-  [...new Set(characters.map(c=>c.class))].forEach(v=>clF.innerHTML+=`<option>${v}</option>`);
+/* =======================
+   PERSIST (WAJIB ADA)
+======================= */
+function persist() {
+  localStorage.setItem("team", JSON.stringify(team));
 }
-elF.onchange=clF.onchange=renderCharacters;
 
-// --- RENDER CHARACTERS ---
-function renderCharacters(){
+/* =======================
+   LOAD DATA
+======================= */
+fetch("data/characters.json")
+  .then(r => r.json())
+  .then(data => {
+    characters = data.map(c => ({
+      ...c,
+      image: c.image && c.image.trim() ? c.image : FALLBACK_IMG
+    }));
+
+    initFilters();
+    loadFromURLorStorage();
+    renderCharacters();
+    renderTeam();
+  });
+
+/* =======================
+   FILTERS
+======================= */
+function initFilters() {
+  [...new Set(characters.map(c => c.element))]
+    .forEach(v => elF.innerHTML += `<option value="${v}">${v}</option>`);
+
+  [...new Set(characters.map(c => c.class))]
+    .forEach(v => clF.innerHTML += `<option value="${v}">${v}</option>`);
+}
+
+elF.onchange = clF.onchange = renderCharacters;
+
+/* =======================
+   RENDER CHARACTERS
+======================= */
+function renderCharacters() {
   charsEl.innerHTML = "";
 
   characters
@@ -57,8 +79,10 @@ function renderCharacters(){
     });
 }
 
-// --- TEAM LOGIC ---
-function addToTeam(c){
+/* =======================
+   TEAM LOGIC
+======================= */
+function addToTeam(c) {
   if (team.some(t => t.name === c.name)) return;
   if (team.length >= 5) {
     alert("Max 5 characters");
@@ -70,13 +94,15 @@ function addToTeam(c){
   updateURL();
   renderTeam();
 }
-function removeFromTeam(name){
+
+function removeFromTeam(name) {
   team = team.filter(t => t.name !== name);
   persist();
   updateURL();
   renderTeam();
 }
-function renderTeam(){
+
+function renderTeam() {
   teamEl.innerHTML = "";
 
   team.forEach(c => {
@@ -95,35 +121,26 @@ function renderTeam(){
     teamEl.appendChild(d);
   });
 
-  renderCharacters(); // refresh highlight
+  renderCharacters();
 }
 
-// Persist
-function persist(){
-  localStorage.setItem("team", JSON.stringify(team));
+/* =======================
+   SHARE LINK
+======================= */
+function updateURL() {
+  const names = team.map(t => encodeURIComponent(t.name)).join(",");
+  history.replaceState(null, "", names ? `?team=${names}` : location.pathname);
 }
 
-// --- DRAG & DROP (HP OK) ---
-teamEl.ondragover=e=>e.preventDefault();
-teamEl.ondrop=e=>{
-  e.preventDefault();
-  const name=e.dataTransfer.getData("text/plain");
-  const c=characters.find(x=>x.name===name);
-  if(c) addToTeam(c);
-};
-
-// --- SHARE LINK ---
-function updateURL(){
-  const names=team.map(t=>encodeURIComponent(t.name)).join(",");
-  history.replaceState(null,"",names?`?team=${names}`:location.pathname);
-}
-shareBtn.onclick=()=>{
+shareBtn.onclick = () => {
   navigator.clipboard.writeText(location.href);
   alert("Link copied!");
 };
 
-// --- LOAD FROM URL / STORAGE ---
-function loadFromURLorStorage(){
+/* =======================
+   LOAD FROM URL / STORAGE
+======================= */
+function loadFromURLorStorage() {
   const p = new URLSearchParams(location.search).get("team");
 
   if (p) {
@@ -136,4 +153,4 @@ function loadFromURLorStorage(){
 
   const s = localStorage.getItem("team");
   if (s) team = JSON.parse(s);
-}
+        }
