@@ -169,37 +169,49 @@ header button {
   margin-top:4px;
 }
 
-/* ===== CHARACTER CARD BACKGROUND (YELLOW → ORANGE) ===== */
+/* ===== FORCE OVERRIDE SEMUA CARD ===== */
+#characters .card,
+#team .card,
 .card{
-  background: linear-gradient(135deg,#fde047,#fb923c);
-  border-radius:16px;
-  padding:10px;
-  box-shadow:0 10px 25px rgba(251,146,60,.35);
-  transition:.25s ease;
+  background: linear-gradient(135deg, #facc15 0%, #fb923c 100%) !important;
+  border-radius:16px !important;
+  padding:10px !important;
+  box-shadow:0 12px 30px rgba(251,146,60,.5) !important;
+  background-image: linear-gradient(135deg, #facc15 0%, #fb923c 100%) !important;
 }
 
-.card:hover{
-  transform:translateY(-4px) scale(1.02);
-  box-shadow:0 16px 35px rgba(251,146,60,.55);
+/* ===== PASTIKAN TIDAK ADA IMAGE NUTUP ===== */
+.card::before,
+.card::after{
+  content:none !important;
 }
 
-/* IMAGE tetap jelas */
+/* ===== IMAGE CHARACTER ===== */
 .card img{
-  background:#000;
+  width:100%;
+  height:auto;
   border-radius:12px;
+  background:#111;
+  display:block;
 }
 
-/* ===== TEAM SLOT BACKGROUND ===== */
-.team-card{
-  background: linear-gradient(135deg,#fde047,#fb923c);
-  box-shadow:0 8px 20px rgba(251,146,60,.4);
+/* ===== TEAM CARD (HORIZONTAL) ===== */
+#team{
+  display:flex !important;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+#team .card{
+  min-width:120px;
+  text-align:center;
 }
 
 /* ===== TEXT BIAR KONTRAS ===== */
 .card strong,
-.card .badge,
-.team-card span{
-  color:#1f2933;
+.card span,
+.card .badge{
+  color:#1f2937 !important;
   font-weight:700;
 }
 
