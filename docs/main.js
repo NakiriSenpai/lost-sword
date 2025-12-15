@@ -49,19 +49,32 @@ function renderCharacters(){
         <span>${c.element} • ${c.class} • ${c.position}</span>
       `;
 
-      d.onclick = () => addToTeam(c);
+      d.addEventListener("click", () => {
+        addToTeam(c);
+      });
+
       charsEl.appendChild(d);
     });
 }
 
 // --- TEAM LOGIC ---
 function addToTeam(c){
-  if(team.find(t=>t.name===c.name))return;
-  if(team.length>=5){alert("Max 5");return;}
-  team.push(c); persist(); renderTeam(); updateURL();
+  if (team.some(t => t.name === c.name)) return;
+  if (team.length >= 5) {
+    alert("Max 5 characters");
+    return;
+  }
+
+  team.push(c);
+  persist();
+  updateURL();
+  renderTeam();
 }
 function removeFromTeam(name){
-  team=team.filter(t=>t.name!==name); persist(); renderTeam(); updateURL();
+  team = team.filter(t => t.name !== name);
+  persist();
+  updateURL();
+  renderTeam();
 }
 function renderTeam(){
   teamEl.innerHTML = "";
@@ -75,11 +88,14 @@ function renderTeam(){
       <strong>${c.name}</strong>
     `;
 
-    d.onclick = () => removeFromTeam(c.name);
+    d.addEventListener("click", () => {
+      removeFromTeam(c.name);
+    });
+
     teamEl.appendChild(d);
   });
 
-  renderCharacters();
+  renderCharacters(); // refresh highlight
 }
 
 // --- DRAG & DROP (HP OK) ---
