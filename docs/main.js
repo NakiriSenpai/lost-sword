@@ -98,6 +98,11 @@ function renderTeam(){
   renderCharacters(); // refresh highlight
 }
 
+// Persist
+function persist(){
+  localStorage.setItem("team", JSON.stringify(team));
+}
+
 // --- DRAG & DROP (HP OK) ---
 teamEl.ondragover=e=>e.preventDefault();
 teamEl.ondrop=e=>{
