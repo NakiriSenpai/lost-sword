@@ -169,6 +169,26 @@ body .team-section h2{
   color: #fde68a !important;
 }
 
+/* ===== FIX CHARACTER CARD BACKGROUND (FINAL) ===== */
+.grid .character-card{
+  background: linear-gradient(135deg, #facc15, #fb923c) !important;
+  border-radius: 16px !important;
+  padding: 10px !important;
+  box-shadow: 0 10px 25px rgba(251,146,60,.45) !important;
+}
+
+/* IMAGE TIDAK NUTUP BACKGROUND */
+.grid .character-card img{
+  background: transparent !important;
+  border-radius: 12px;
+}
+
+/* NAMA CHARACTER */
+.grid .character-card h3{
+  color: #1f2937 !important;
+  font-weight: 700;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
   header h1 {
