@@ -1,73 +1,101 @@
-let characters = [];
-let team = [];
+let characters=[], team=[];
+const charsEl=document.getElementById("characters");
+const teamEl=document.getElementById("team");
+const elF=document.getElementById("elementFilter");
+const clF=document.getElementById("classFilter");
+const shareBtn=document.getElementById("shareBtn");
 
-const charsEl = document.getElementById("characters");
-const teamEl = document.getElementById("team");
-const elementFilter = document.getElementById("elementFilter");
-const classFilter = document.getElementById("classFilter");
+const FALLBACK_IMG="https://via.placeholder.com/300x200?text=No+Image";
 
-fetch("data/characters.json")
-  .then(res => res.json())
-  .then(data => {
-    characters = data;
-    initFilters();
-    renderCharacters();
-  });
+// --- LOAD DATA ---
+fetch("data/characters.json").then(r=>r.json()).then(data=>{
+  characters=data.map(c=>({
+    ...c,
+    image: c.image && c.image.trim() ? c.image : FALLBACK_IMG
+  }));
+  initFilters();
+  loadFromURLorStorage();
+  renderCharacters();
+  renderTeam();
+});
 
-function initFilters() {
-  [...new Set(characters.map(c => c.element))].forEach(el => {
-    elementFilter.innerHTML += `<option value="${el}">${el}</option>`;
-  });
+// --- FILTERS ---
+function initFilters(){
+  [...new Set(characters.map(c=>c.element))].forEach(v=>elF.innerHTML+=`<option>${v}</option>`);
+  [...new Set(characters.map(c=>c.class))].forEach(v=>clF.innerHTML+=`<option>${v}</option>`);
+}
+elF.onchange=clF.onchange=renderCharacters;
 
-  [...new Set(characters.map(c => c.class))].forEach(cl => {
-    classFilter.innerHTML += `<option value="${cl}">${cl}</option>`;
+// --- RENDER CHARACTERS ---
+function renderCharacters(){
+  charsEl.innerHTML="";
+  characters.filter(c=>
+    (!elF.value||c.element===elF.value)&&(!clF.value||c.class===clF.value)
+  ).forEach(c=>{
+    const d=document.createElement("div");
+    d.className="card";
+    d.draggable=true;
+    d.ondragstart=e=>e.dataTransfer.setData("text/plain",c.name);
+    d.innerHTML=`
+      <img src="${c.image}" onerror="this.src='${FALLBACK_IMG}'">
+      <strong>${c.name}</strong>
+      <div class="badge">${c.element} • ${c.class} • ${c.position}</div>
+    `;
+    d.onclick=()=>addToTeam(c);
+    charsEl.appendChild(d);
   });
 }
 
-elementFilter.onchange = classFilter.onchange = renderCharacters;
-
-function renderCharacters() {
-  charsEl.innerHTML = "";
-
-  characters
-    .filter(c =>
-      (!elementFilter.value || c.element === elementFilter.value) &&
-      (!classFilter.value || c.class === classFilter.value)
-    )
-    .forEach(c => {
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerHTML = `
-        <strong>${c.name}</strong><br>
-        ${c.element}<br>
-        ${c.class}<br>
-        ${c.position}
-      `;
-      div.onclick = () => addToTeam(c);
-      charsEl.appendChild(div);
-    });
+// --- TEAM LOGIC ---
+function addToTeam(c){
+  if(team.find(t=>t.name===c.name))return;
+  if(team.length>=5){alert("Max 5");return;}
+  team.push(c); persist(); renderTeam(); updateURL();
+}
+function removeFromTeam(name){
+  team=team.filter(t=>t.name!==name); persist(); renderTeam(); updateURL();
+}
+function renderTeam(){
+  teamEl.innerHTML="";
+  team.forEach(c=>{
+    const d=document.createElement("div");
+    d.className="card";
+    d.innerHTML=`<strong>${c.name}</strong>`;
+    d.onclick=()=>removeFromTeam(c.name);
+    teamEl.appendChild(d);
+  });
 }
 
-function addToTeam(c) {
-  if (team.includes(c)) return;
-  if (team.length >= 5) {
-    alert("Max 5 characters");
+// --- DRAG & DROP (HP OK) ---
+teamEl.ondragover=e=>e.preventDefault();
+teamEl.ondrop=e=>{
+  e.preventDefault();
+  const name=e.dataTransfer.getData("text/plain");
+  const c=characters.find(x=>x.name===name);
+  if(c) addToTeam(c);
+};
+
+// --- SHARE LINK ---
+function updateURL(){
+  const names=team.map(t=>encodeURIComponent(t.name)).join(",");
+  history.replaceState(null,"",names?`?team=${names}`:location.pathname);
+}
+shareBtn.onclick=()=>{
+  navigator.clipboard.writeText(location.href);
+  alert("Link copied!");
+};
+
+// --- LOAD FROM URL / STORAGE ---
+function loadFromURLorStorage(){
+  const p=new URLSearchParams(location.search).get("team");
+  if(p){
+    const names=p.split(",").map(decodeURIComponent);
+    team=characters.filter(c=>names.includes(c.name));
     return;
   }
-  team.push(c);
-  renderTeam();
+  const s=localStorage.getItem("team");
+  if(s) team=JSON.parse(s);
 }
-
-function renderTeam() {
-  teamEl.innerHTML = "";
-  team.forEach(c => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `<strong>${c.name}</strong>`;
-    div.onclick = () => {
-      team = team.filter(t => t !== c);
-      renderTeam();
-    };
-    teamEl.appendChild(div);
-  });
-      }
+function persist(){
+  localStorage.setItem("team",JSON.stringify(team));
+}
