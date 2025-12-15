@@ -55,33 +55,33 @@ header button {
   padding-bottom: 6px;
 }
 
-.team::-webkit-scrollbar {
-  height: 6px;
-}
-
-/* SLOT TEAM */
-.team .slot {
+/* ===== TEAM SLOT (YELLOW–ORANGE) ===== */
+.team .slot,
+.team-card {
   min-width: 90px;
-  background: #020617;
-  border: 1px dashed #334155;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #facc15, #fb923c);
+  border-radius: 14px;
   padding: 6px;
   text-align: center;
+  box-shadow: 0 8px 20px rgba(251,146,60,.4);
 }
 
-.team .slot img {
+.team .slot img,
+.team-card img {
   width: 100%;
   height: 100px;
   object-fit: cover;
-  border-radius: 8px;
-  background: #020617;
+  border-radius: 10px;
+  background: transparent;
 }
 
-.team .slot span {
+.team .slot span,
+.team-card span {
   display: block;
   font-size: 12px;
   margin-top: 4px;
-  color: #f8fafc;
+  color: #1f2937;
+  font-weight: 700;
 }
 
 /* ===== FILTER ===== */
@@ -117,144 +117,35 @@ header button {
   gap: 12px;
 }
 
-/* ===== CHARACTER CARD ===== */
+/* ===== CHARACTER CARD (YELLOW–ORANGE) ===== */
 .character-card {
   background: linear-gradient(135deg, #facc15, #fb923c);
-  border-radius: 14px;
-  padding: 8px;
+  border-radius: 16px;
+  padding: 10px;
   text-align: center;
   cursor: pointer;
+  box-shadow: 0 10px 25px rgba(251,146,60,.45);
   transition: transform .15s ease, box-shadow .15s ease;
 }
 
 .character-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+  box-shadow: 0 14px 30px rgba(251,146,60,.6);
 }
 
 .character-card img {
   width: 100%;
   height: 130px;
   object-fit: cover;
-  border-radius: 10px;
-  background: #020617;
+  border-radius: 12px;
+  background: transparent;
 }
 
 .character-card h3 {
   font-size: 13px;
   margin-top: 6px;
-  color: #020617;
+  color: #1f2937;
   font-weight: 700;
-}
-
-/* ===== TEAM CARD ===== */
-.team-card{
-  min-width:90px;
-  background:#020617;
-  border-radius:12px;
-  padding:6px;
-  text-align:center;
-}
-
-.team-card img{
-  width:100%;
-  height:100px;
-  object-fit:cover;
-  border-radius:8px;
-}
-
-.team-card span{
-  display:block;
-  font-size:12px;
-  margin-top:4px;
-}
-
-/* ===== FORCE OVERRIDE SEMUA CARD ===== */
-#characters .card,
-#team .card,
-.card{
-  background: linear-gradient(135deg, #facc15 0%, #fb923c 100%) !important;
-  border-radius:16px !important;
-  padding:10px !important;
-  box-shadow:0 12px 30px rgba(251,146,60,.5) !important;
-  background-image: linear-gradient(135deg, #facc15 0%, #fb923c 100%) !important;
-}
-
-/* ===== PASTIKAN TIDAK ADA IMAGE NUTUP ===== */
-.card::before,
-.card::after{
-  content:none !important;
-}
-
-/* ===== IMAGE CHARACTER ===== */
-.card img{
-  width:100%;
-  height:auto;
-  border-radius:12px;
-  background:#111;
-  display:block;
-}
-
-/* ===== TEAM CARD (HORIZONTAL) ===== */
-#team{
-  display:flex !important;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-#team .card{
-  min-width:120px;
-  text-align:center;
-}
-
-/* ===== TEXT BIAR KONTRAS ===== */
-.card strong,
-.card span,
-.card .badge{
-  color:#1f2937 !important;
-  font-weight:700;
-}
-
-/* ===== CARD JADI WRAPPER ===== */
-.card{
-  position:relative !important;
-  background: linear-gradient(135deg,#facc15,#fb923c) !important;
-  padding:12px !important;
-  border-radius:18px !important;
-  overflow:hidden;
-}
-
-/* ===== GRADIENT LAYER ===== */
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(135deg,#facc15,#fb923c);
-  z-index:0;
-}
-
-/* ===== IMAGE DI ATAS GRADIENT ===== */
-.card img{
-  position:relative;
-  z-index:1;
-  background:transparent !important;
-  border-radius:14px;
-  width:100%;
-}
-
-/* ===== TEXT DI ATAS ===== */
-.card *{
-  position:relative;
-  z-index:1;
-  color:#1f2937 !important;
-  font-weight:700;
-}
-
-/* ===== TEAM ===== */
-#team{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -263,11 +154,12 @@ header button {
     font-size: 20px;
   }
 
-  .team .slot {
+  .team .slot,
+  .team-card {
     min-width: 110px;
   }
 
   .character-card img {
     height: 160px;
   }
-  }
+}
