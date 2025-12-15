@@ -1,20 +1,39 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lost Sword Team Builder</title>
-
-  <!-- React CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="root"></div>
 
-  <script type="text/babel" src="main.jsx"></script>
+<header>
+  <h1>Lost Sword Team Builder</h1>
+</header>
+
+<section class="filters">
+  <select id="elementFilter">
+    <option value="">All Elements</option>
+  </select>
+
+  <select id="classFilter">
+    <option value="">All Classes</option>
+  </select>
+</section>
+
+<main class="container">
+  <section>
+    <h2>Characters</h2>
+    <div id="characters" class="grid"></div>
+  </section>
+
+  <section>
+    <h2>Your Team (max 5)</h2>
+    <div id="team" class="team"></div>
+  </section>
+</main>
+
+<script src="main.js"></script>
 </body>
 </html>
