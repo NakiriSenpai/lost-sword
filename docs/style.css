@@ -215,6 +215,48 @@ header button {
   font-weight:700;
 }
 
+/* ===== CARD JADI WRAPPER ===== */
+.card{
+  position:relative !important;
+  background: linear-gradient(135deg,#facc15,#fb923c) !important;
+  padding:12px !important;
+  border-radius:18px !important;
+  overflow:hidden;
+}
+
+/* ===== GRADIENT LAYER ===== */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg,#facc15,#fb923c);
+  z-index:0;
+}
+
+/* ===== IMAGE DI ATAS GRADIENT ===== */
+.card img{
+  position:relative;
+  z-index:1;
+  background:transparent !important;
+  border-radius:14px;
+  width:100%;
+}
+
+/* ===== TEXT DI ATAS ===== */
+.card *{
+  position:relative;
+  z-index:1;
+  color:#1f2937 !important;
+  font-weight:700;
+}
+
+/* ===== TEAM ===== */
+#team{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
   header h1 {
