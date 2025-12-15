@@ -169,6 +169,40 @@ header button {
   margin-top:4px;
 }
 
+/* ===== CHARACTER CARD BACKGROUND (YELLOW → ORANGE) ===== */
+.card{
+  background: linear-gradient(135deg,#fde047,#fb923c);
+  border-radius:16px;
+  padding:10px;
+  box-shadow:0 10px 25px rgba(251,146,60,.35);
+  transition:.25s ease;
+}
+
+.card:hover{
+  transform:translateY(-4px) scale(1.02);
+  box-shadow:0 16px 35px rgba(251,146,60,.55);
+}
+
+/* IMAGE tetap jelas */
+.card img{
+  background:#000;
+  border-radius:12px;
+}
+
+/* ===== TEAM SLOT BACKGROUND ===== */
+.team-card{
+  background: linear-gradient(135deg,#fde047,#fb923c);
+  box-shadow:0 8px 20px rgba(251,146,60,.4);
+}
+
+/* ===== TEXT BIAR KONTRAS ===== */
+.card strong,
+.card .badge,
+.team-card span{
+  color:#1f2933;
+  font-weight:700;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
   header h1 {
