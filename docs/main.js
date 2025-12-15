@@ -34,14 +34,13 @@ function renderCharacters(){
   ).forEach(c=>{
     const d=document.createElement("div");
     d.className="card";
-    d.draggable=true;
-    d.ondragstart=e=>e.dataTransfer.setData("text/plain",c.name);
+    d.draggable = false; // 
     d.innerHTML=`
       <img src="${c.image}" onerror="this.src='${FALLBACK_IMG}'">
       <strong>${c.name}</strong>
       <div class="badge">${c.element} • ${c.class} • ${c.position}</div>
     `;
-    d.onclick=()=>addToTeam(c);
+    d.onclick = () => addToTeam(c);
     charsEl.appendChild(d);
   });
 }
@@ -59,18 +58,14 @@ function renderTeam(){
   teamEl.innerHTML="";
   team.forEach(c=>{
     const d=document.createElement("div");
-    d.style.border = "2px solid red";
-    d.style.padding = "8px";
-    d.style.minWidth = "120px";
+    d.className="team-card";
 
     d.innerHTML = `
-      <p>${c.name}</p>
-      <img 
-        src="images/characters/Palamedes.webp"
-        style="width:100px;height:100px;border:2px solid yellow;"
-      >
+      <img src="${c.image}" onerror="this.src='${FALLBACK_IMG}'">
+      <span>${c.name}</span>
     `;
 
+    d.onclick = () => removeFromTeam(c.name);
     teamEl.appendChild(d);
   });
 }
