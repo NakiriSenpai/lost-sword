@@ -59,7 +59,7 @@ function renderTeam(){
   teamEl.innerHTML="";
   team.forEach(c=>{
     const d=document.createElement("div");
-    d.className="card";
+    d.className="team-card"; // ⬅️ class BARU
 
     d.innerHTML = `
       <img src="${c.image}" onerror="this.src='${FALLBACK_IMG}'">
