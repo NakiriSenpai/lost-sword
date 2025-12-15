@@ -149,28 +149,25 @@ header button {
 
 /* ===== TEAM CARD ===== */
 .team-card{
-  min-width: 90px;
-  background: #020617;
-  border: 1px dashed #334155;
-  border-radius: 12px;
-  padding: 6px;
-  text-align: center;
+  min-width:90px;
+  background:#020617;
+  border-radius:12px;
+  padding:6px;
+  text-align:center;
 }
 
 .team-card img{
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
+  width:100%;
+  height:100px;
+  object-fit:cover;
+  border-radius:8px;
 }
 
 .team-card span{
-  display: block;
-  font-size: 12px;
-  margin-top: 4px;
-  color: #f8fafc;
-  }
+  display:block;
+  font-size:12px;
+  margin-top:4px;
+}
 
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
