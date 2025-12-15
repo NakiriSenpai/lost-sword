@@ -28,21 +28,30 @@ elF.onchange=clF.onchange=renderCharacters;
 
 // --- RENDER CHARACTERS ---
 function renderCharacters(){
-  charsEl.innerHTML="";
-  characters.filter(c=>
-    (!elF.value||c.element===elF.value)&&(!clF.value||c.class===clF.value)
-  ).forEach(c=>{
-    const d=document.createElement("div");
-    d.className="card";
-    d.draggable = false; // 
-    d.innerHTML=`
-      <img src="${c.image}" onerror="this.src='${FALLBACK_IMG}'">
-      <strong>${c.name}</strong>
-      <div class="badge">${c.element} • ${c.class} • ${c.position}</div>
-    `;
-    d.onclick = () => addToTeam(c);
-    charsEl.appendChild(d);
-  });
+  charsEl.innerHTML = "";
+
+  characters
+    .filter(c =>
+      (!elF.value || c.element === elF.value) &&
+      (!clF.value || c.class === clF.value)
+    )
+    .forEach(c => {
+      const d = document.createElement("div");
+      d.className = "card";
+
+      if (team.some(t => t.name === c.name)) {
+        d.classList.add("in-team");
+      }
+
+      d.innerHTML = `
+        <img src="${c.image}">
+        <strong>${c.name}</strong>
+        <span>${c.element} • ${c.class} • ${c.position}</span>
+      `;
+
+      d.onclick = () => addToTeam(c);
+      charsEl.appendChild(d);
+    });
 }
 
 // --- TEAM LOGIC ---
@@ -55,19 +64,22 @@ function removeFromTeam(name){
   team=team.filter(t=>t.name!==name); persist(); renderTeam(); updateURL();
 }
 function renderTeam(){
-  teamEl.innerHTML="";
-  team.forEach(c=>{
-    const d=document.createElement("div");
-    d.className="team-card";
+  teamEl.innerHTML = "";
+
+  team.forEach(c => {
+    const d = document.createElement("div");
+    d.className = "card";
 
     d.innerHTML = `
-      <img src="${c.image}" onerror="this.src='${FALLBACK_IMG}'">
-      <span>${c.name}</span>
+      <img src="${c.image}">
+      <strong>${c.name}</strong>
     `;
 
     d.onclick = () => removeFromTeam(c.name);
     teamEl.appendChild(d);
   });
+
+  renderCharacters();
 }
 
 // --- DRAG & DROP (HP OK) ---
@@ -91,15 +103,16 @@ shareBtn.onclick=()=>{
 
 // --- LOAD FROM URL / STORAGE ---
 function loadFromURLorStorage(){
-  const p=new URLSearchParams(location.search).get("team");
-  if(p){
-    const names=p.split(",").map(decodeURIComponent);
-    team=characters.filter(c=>names.includes(c.name));
+  const p = new URLSearchParams(location.search).get("team");
+
+  if (p) {
+    const names = p.split(",").map(decodeURIComponent);
+    team = names
+      .map(n => characters.find(c => c.name === n))
+      .filter(Boolean);
     return;
   }
-  const s=localStorage.getItem("team");
-  if(s) team=JSON.parse(s);
-}
-function persist(){
-  localStorage.setItem("team",JSON.stringify(team));
+
+  const s = localStorage.getItem("team");
+  if (s) team = JSON.parse(s);
 }
