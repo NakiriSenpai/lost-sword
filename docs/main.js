@@ -1,60 +1,73 @@
-const { useState, useEffect } = React;
+let characters = [];
+let team = [];
 
-function App() {
-  const [characters, setCharacters] = useState([]);
-  const [team, setTeam] = useState([]);
+const charsEl = document.getElementById("characters");
+const teamEl = document.getElementById("team");
+const elementFilter = document.getElementById("elementFilter");
+const classFilter = document.getElementById("classFilter");
 
-  useEffect(() => {
-    // GANTI URL INI SETELAH BACKEND DEPLOY
-    fetch("data/characters.json")
+fetch("data/characters.json")
   .then(res => res.json())
   .then(data => {
     characters = data;
+    initFilters();
     renderCharacters();
   });
 
-  function addToTeam(char) {
-    if (team.length >= 5) return;
-    setTeam([...team, char]);
-  }
+function initFilters() {
+  [...new Set(characters.map(c => c.element))].forEach(el => {
+    elementFilter.innerHTML += `<option value="${el}">${el}</option>`;
+  });
 
-  function removeFromTeam(index) {
-    setTeam(team.filter((_, i) => i !== index));
-  }
-
-  return (
-    <div className="container">
-      <h1>Lost Sword Team Builder</h1>
-
-      <div className="grid">
-        {characters.map((c, i) => (
-          <div
-            key={i}
-            className="card"
-            onClick={() => addToTeam(c)}
-          >
-            <b>{c.name}</b>
-            <div>{c.element}</div>
-            <small>{c.class} • {c.position}</small>
-          </div>
-        ))}
-      </div>
-
-      <div className="team">
-        <h2>Tim ({team.length}/5)</h2>
-
-        {team.map((c, i) => (
-          <div
-            key={i}
-            className="team-item"
-            onClick={() => removeFromTeam(i)}
-          >
-            {c.name}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  [...new Set(characters.map(c => c.class))].forEach(cl => {
+    classFilter.innerHTML += `<option value="${cl}">${cl}</option>`;
+  });
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+elementFilter.onchange = classFilter.onchange = renderCharacters;
+
+function renderCharacters() {
+  charsEl.innerHTML = "";
+
+  characters
+    .filter(c =>
+      (!elementFilter.value || c.element === elementFilter.value) &&
+      (!classFilter.value || c.class === classFilter.value)
+    )
+    .forEach(c => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <strong>${c.name}</strong><br>
+        ${c.element}<br>
+        ${c.class}<br>
+        ${c.position}
+      `;
+      div.onclick = () => addToTeam(c);
+      charsEl.appendChild(div);
+    });
+}
+
+function addToTeam(c) {
+  if (team.includes(c)) return;
+  if (team.length >= 5) {
+    alert("Max 5 characters");
+    return;
+  }
+  team.push(c);
+  renderTeam();
+}
+
+function renderTeam() {
+  teamEl.innerHTML = "";
+  team.forEach(c => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `<strong>${c.name}</strong>`;
+    div.onclick = () => {
+      team = team.filter(t => t !== c);
+      renderTeam();
+    };
+    teamEl.appendChild(div);
+  });
+      }
