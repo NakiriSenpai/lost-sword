@@ -60,8 +60,13 @@ function renderTeam(){
   team.forEach(c=>{
     const d=document.createElement("div");
     d.className="card";
-    d.innerHTML=`<strong>${c.name}</strong>`;
-    d.onclick=()=>removeFromTeam(c.name);
+
+    d.innerHTML = `
+      <img src="${c.image}" onerror="this.src='${FALLBACK_IMG}'">
+      <span>${c.name}</span>
+    `;
+
+    d.onclick = () => removeFromTeam(c.name);
     teamEl.appendChild(d);
   });
 }
