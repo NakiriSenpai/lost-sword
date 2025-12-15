@@ -155,6 +155,20 @@ header button {
   font-weight: 700;
 }
 
+/* ===== FORCE TEAM SECTION BACKGROUND ===== */
+body .team-section{
+  background: linear-gradient(
+    180deg,
+    rgba(250, 204, 21, 0.25),
+    rgba(251, 146, 60, 0.25)
+  ) !important;
+  border-bottom: 1px solid #fbbf24 !important;
+}
+
+body .team-section h2{
+  color: #fde68a !important;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
   header h1 {
