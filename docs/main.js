@@ -1,354 +1,112 @@
-"use strict";
+// ====================================================== // MAIN.JS VERSI BARU (LOOTANDWAIFUS STYLE) // - Drag & Drop Desktop // - Touch Drag Mobile // - Drag antar Team Slot // - Synergy Bonus // ======================================================
 
-/* ================= CONSTANT ================= */
-const MAX_TEAM = 5;
-const FALLBACK_IMG =
-  "https://via.placeholder.com/300x200?text=No+Image";
+console.log("MAIN JS LOADED (NEW VERSION)");
 
-/* ================= STATE ================= */
-let characters = [];
-let team = [];
+const charsEl = document.getElementById("characters"); const teamEl = document.getElementById("team");
 
-let activeFilters = {
-  position: [],
-  element: [],
-  class: []
-};
+let characters = []; let team = Array(5).fill(null);
 
-/* ================= DOM ================= */
-const charsEl = document.getElementById("characters");
-const teamEl = document.getElementById("team");
-const shareBtn = document.getElementById("shareBtn");
-const searchInput = document.getElementById("searchInput");
-const filtersBar = document.querySelector(".filters-bar");
+/* ================= LOAD DATA ================= */ fetch("characters.json") .then(r => r.json()) .then(data => { characters = data; renderCharacters(); renderTeam(); });
 
-/* ================= RESET BUTTON ================= */
-const resetFilterBtn = document.createElement("button");
-resetFilterBtn.id = "resetFilterBtn";
-resetFilterBtn.textContent = "RESET FILTER";
-resetFilterBtn.style.display = "none";
-filtersBar.appendChild(resetFilterBtn);
+/* ================= RENDER CHARACTERS ================= */ function renderCharacters() { charsEl.innerHTML = "";
 
-/* ================= INIT ================= */
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("data/characters.json")
-    .then(function (r) {
-      return r.json();
-    })
-    .then(function (data) {
-      characters = data.map(function (c) {
-        return {
-          name: c.name,
-          element: c.element,
-          class: c.class,
-          position: c.position,
-          image:
-            c.image && c.image.trim()
-              ? c.image
-              : FALLBACK_IMG
-        };
-      });
+characters.forEach(c => { const card = document.createElement("div"); card.className = "card";
 
-      loadFromURLorStorage();
-      setupFilters();
-      renderCharacters();
-      renderTeam();
-    })
-    .catch(function (err) {
-      console.error("JSON LOAD ERROR", err);
-    });
+card.innerHTML = `
+  <img src="${c.image}" />
+  <strong>${c.name}</strong>
+  <span>${c.element} • ${c.class} • ${c.position}</span>
+`;
+
+// DESKTOP DRAG
+card.draggable = true;
+card.addEventListener("dragstart", e => {
+  e.dataTransfer.setData("name", c.name);
 });
 
-/* ================= FILTER ================= */
-function setupFilters() {
-  document.querySelectorAll(".filter-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      const type = btn.dataset.type;
-      const value = btn.dataset.value;
+// TAP ADD
+card.onclick = () => addToFirstEmptySlot(c);
 
-      if (value === "") {
-        activeFilters[type] = [];
-        document
-          .querySelectorAll(
-            '.filter-btn[data-type="' + type + '"]'
-          )
-          .forEach(function (b) {
-            b.classList.remove("active");
-          });
-        btn.classList.add("active");
-      } else {
-        const allBtn = document.querySelector(
-          '.filter-btn[data-type="' +
-            type +
-            '"][data-value=""]'
-        );
-        if (allBtn) allBtn.classList.remove("active");
+// MOBILE TOUCH DRAG
+enableTouchDrag(card, c);
 
-        btn.classList.toggle("active");
+charsEl.appendChild(card);
 
-        if (btn.classList.contains("active")) {
-          if (activeFilters[type].indexOf(value) === -1) {
-            activeFilters[type].push(value);
-          }
-        } else {
-          activeFilters[type] = activeFilters[type].filter(
-            function (v) {
-              return v !== value;
-            }
-          );
-        }
-      }
+}); }
 
-      toggleResetButton();
-      renderCharacters();
-    });
+/* ================= TEAM ================= */ function renderTeam() { teamEl.innerHTML = "";
+
+team.forEach((c, index) => { const slot = document.createElement("div"); slot.className = c ? "team-card" : "team-slot"; slot.dataset.index = index;
+
+slot.addEventListener("dragover", e => e.preventDefault());
+
+slot.addEventListener("drop", e => {
+  const name = e.dataTransfer.getData("name");
+  const char = characters.find(x => x.name === name);
+  if (char) placeCharToSlot(char, index);
+});
+
+if (c) {
+  slot.innerHTML = `
+    <img src="${c.image}" />
+    <strong>${c.name}</strong>
+  `;
+
+  // DRAG ANTAR SLOT (DESKTOP)
+  slot.draggable = true;
+  slot.addEventListener("dragstart", e => {
+    e.dataTransfer.setData("from", index);
   });
 
-  searchInput.addEventListener("input", function () {
-    toggleResetButton();
-    renderCharacters();
+  slot.addEventListener("drop", e => {
+    const from = e.dataTransfer.getData("from");
+    if (from !== "") swapTeam(from, index);
   });
 }
 
-/* ================= RESET ================= */
-resetFilterBtn.onclick = function () {
-  activeFilters = {
-    position: [],
-    element: [],
-    class: []
-  };
+teamEl.appendChild(slot);
 
-  searchInput.value = "";
+});
 
-  document.querySelectorAll(".filter-btn").forEach(function (btn) {
-    btn.classList.remove("active");
-    if (btn.dataset.value === "") {
-      btn.classList.add("active");
-    }
-  });
+renderSynergy(); }
 
-  resetFilterBtn.style.display = "none";
-  renderCharacters();
-};
+function addToFirstEmptySlot(character) { if (team.some(t => t?.name === character.name)) return;
 
-function toggleResetButton() {
-  const active =
-    activeFilters.position.length ||
-    activeFilters.element.length ||
-    activeFilters.class.length ||
-    searchInput.value.trim();
+const idx = team.findIndex(s => s === null); if (idx === -1) return;
 
-  resetFilterBtn.style.display = active ? "block" : "none";
+team[idx] = character; renderTeam(); }
+
+function placeCharToSlot(character, index) { if (team.some(t => t?.name === character.name)) return; team[index] = character; renderTeam(); }
+
+function swapTeam(from, to) { const tmp = team[from]; team[from] = team[to]; team[to] = tmp; renderTeam(); }
+
+/* ================= SYNERGY ================= */ function renderSynergy() { const counts = {};
+
+team.forEach(c => { if (!c) return; counts[c.element] = (counts[c.element] || 0) + 1; });
+
+console.table(counts); }
+
+/* ================= TOUCH DRAG (MOBILE) ================= */ let touchChar = null; let ghost = null;
+
+function enableTouchDrag(el, character) { el.addEventListener("touchstart", e => { touchChar = character; ghost = el.cloneNode(true); ghost.classList.add("dragging"); document.body.appendChild(ghost); moveGhost(e.touches[0]); });
+
+el.addEventListener("touchmove", e => { if (!ghost) return; e.preventDefault(); moveGhost(e.touches[0]); });
+
+el.addEventListener("touchend", e => { if (!ghost) return;
+
+const t = e.changedTouches[0];
+const target = document.elementFromPoint(t.clientX, t.clientY);
+const slot = target?.closest(".team-slot, .team-card");
+
+if (slot) {
+  const idx = Number(slot.dataset.index);
+  placeCharToSlot(touchChar, idx);
 }
 
-/* ================= RENDER CHARACTERS ================= */
-function renderCharacters() {
-  charsEl.innerHTML = "";
+ghost.remove();
+ghost = null;
+touchChar = null;
 
-  characters
-    .filter(function (c) {
-      return (
-        (!activeFilters.position.length ||
-          activeFilters.position.indexOf(c.position) !== -1) &&
-        (!activeFilters.element.length ||
-          activeFilters.element.indexOf(c.element) !== -1) &&
-        (!activeFilters.class.length ||
-          activeFilters.class.indexOf(c.class) !== -1) &&
-        c.name
-          .toLowerCase()
-          .indexOf(searchInput.value.toLowerCase()) !==
-          -1
-      );
-    })
-    .forEach(function (c) {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.draggable = true;
+}); }
 
-      if (team.some(function (t) { return t.name === c.name; })) {
-        card.classList.add("in-team");
-      }
-
-      card.innerHTML =
-        '<img src="' +
-        c.image +
-        '">' +
-        "<strong>" +
-        c.name +
-        "</strong>" +
-        "<span>" +
-        c.element +
-        " • " +
-        c.class +
-        " • " +
-        c.position +
-        "</span>";
-
-      card.onclick = function () {
-        addToTeam(c);
-      };
-
-      card.addEventListener("dragstart", function (e) {
-        e.dataTransfer.setData("char", c.name);
-      });
-
-      charsEl.appendChild(card);
-    });
-}
-
-/* ================= TEAM ================= */
-function addToTeam(c) {
-  if (team.some(function (t) { return t.name === c.name; })) return;
-  if (team.length >= MAX_TEAM) {
-    alert("Max 5 characters");
-    return;
-  }
-
-  team.push(c);
-  persist();
-  updateURL();
-  renderTeam();
-}
-
-function removeFromTeam(name) {
-  team = team.filter(function (t) {
-    return t.name !== name;
-  });
-  persist();
-  updateURL();
-  renderTeam();
-}
-
-function renderTeam() {
-  teamEl.innerHTML = "";
-
-  for (let i = 0; i < MAX_TEAM; i++) {
-    const slot = document.createElement("div");
-    slot.dataset.index = i;
-
-    slot.addEventListener("dragover", function (e) {
-      e.preventDefault();
-    });
-
-    slot.addEventListener("drop", onDrop);
-
-    if (team[i]) {
-      slot.className = "team-card";
-      slot.draggable = true;
-      slot.innerHTML =
-        '<img src="' +
-        team[i].image +
-        '">' +
-        "<strong>" +
-        team[i].name +
-        "</strong>";
-
-      slot.onclick = function () {
-        removeFromTeam(team[i].name);
-      };
-
-      slot.addEventListener("dragstart", function (e) {
-        e.dataTransfer.setData("from", i);
-      });
-    } else {
-      slot.className = "team-slot";
-    }
-
-    teamEl.appendChild(slot);
-  }
-
-  renderSynergy();
-  renderCharacters();
-}
-
-function onDrop(e) {
-  e.preventDefault();
-
-  const index = Number(this.dataset.index);
-  const from = e.dataTransfer.getData("from");
-  const charName = e.dataTransfer.getData("char");
-
-  if (from !== "") {
-    const fromIndex = Number(from);
-    const tmp = team[fromIndex];
-    team[fromIndex] = team[index];
-    team[index] = tmp;
-  } else if (charName) {
-    const c = characters.find(function (x) {
-      return x.name === charName;
-    });
-    if (!c) return;
-    team[index] = c;
-  }
-
-  team = team.filter(Boolean);
-  persist();
-  updateURL();
-  renderTeam();
-}
-
-/* ================= SYNERGY ================= */
-function renderSynergy() {
-  document.querySelectorAll(".synergy").forEach(function (e) {
-    e.remove();
-  });
-
-  const count = {};
-
-  team.forEach(function (c) {
-    count[c.element] = (count[c.element] || 0) + 1;
-  });
-
-  for (let el in count) {
-    if (count[el] >= 2) {
-      const badge = document.createElement("div");
-      badge.className = "synergy";
-      badge.textContent = "+" + count[el] + " " + el;
-      teamEl.appendChild(badge);
-    }
-  }
-}
-
-/* ================= PERSIST ================= */
-function persist() {
-  localStorage.setItem("team", JSON.stringify(team));
-}
-
-function loadFromURLorStorage() {
-  const p = new URLSearchParams(location.search).get("team");
-  if (p) {
-    team = p
-      .split(",")
-      .map(decodeURIComponent)
-      .map(function (n) {
-        return characters.find(function (c) {
-          return c.name === n;
-        });
-      })
-      .filter(Boolean);
-    return;
-  }
-
-  const s = localStorage.getItem("team");
-  if (s) team = JSON.parse(s);
-}
-
-/* ================= SHARE ================= */
-function updateURL() {
-  const names = team
-    .map(function (t) {
-      return encodeURIComponent(t.name);
-    })
-    .join(",");
-
-  history.replaceState(
-    null,
-    "",
-    names ? "?team=" + names : location.pathname
-  );
-}
-
-shareBtn.onclick = function () {
-  navigator.clipboard.writeText(location.href);
-  alert("Link copied!");
-};
+function moveGhost(t) { ghost.style.left = t.clientX - 50 + "px"; ghost.style.top = t.clientY - 70 + "px"; }
