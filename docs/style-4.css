@@ -368,7 +368,7 @@ header button:hover {
   z-index: 999;
 }
 
-.card-popup {
+.card-popup.hidden {
   display: none;
 }
 
