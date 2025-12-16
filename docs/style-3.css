@@ -9,6 +9,7 @@
   --dark-bg: #020617;
   --gray-dark: #1f2937;
   --gray-darker: #0f172a;
+  --border: #334155;
 }
 
 /* ================= RESET ================= */
@@ -33,10 +34,28 @@ header {
   border-bottom: 1px solid #1e293b;
 }
 
+header h1 {
+  color: #ffffff;
+}
+
+header button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #020617;
+  color: #ffffff;
+  cursor: pointer;
+}
+
 /* ================= TEAM SECTION ================= */
 .team-section {
   padding: 16px;
   background: linear-gradient(135deg, #3b2a12, #6b4a1f);
+}
+
+.team-section h2 {
+  color: #ffffff;
+  margin-bottom: 10px;
 }
 
 .team {
@@ -70,34 +89,72 @@ header {
   color: #ffffff;
 }
 
-/* ================= FILTER ================= */
-.filters {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
+/* ================= FILTER UI ================= */
+.filters-ui {
   padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* FILTER SELECT */
-.filters select {
-  width: auto;
-  min-width: 110px;
-  padding: 6px 10px;
+/* SEARCH */
+#searchInput {
+  width: 100%;
+  padding: 8px 12px;
   border-radius: 10px;
-  background: var(--dark-bg);
-  border: 1px solid #334155;
-  color: #ffffff; /* TEXT PUTIH */
-}
-
-/* OPTION TEXT */
-.filters select option {
-  background: var(--dark-bg);
+  border: 1px solid var(--border);
+  background: #020617;
   color: #ffffff;
 }
 
+/* FILTER ROW (HORIZONTAL + WRAP) */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* FILTER BUTTON */
+.filter-btn {
+  width: 42px;
+  height: 42px;
+
+  background: #020617;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+/* ICON IMAGE */
+.filter-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* TEXT "ALL" */
+.filter-btn {
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ACTIVE FILTER */
+.filter-btn.active {
+  outline: 2px solid #22c55e;
+}
+
 /* ================= CHARACTER GRID ================= */
+.characters-section h2 {
+  padding: 0 16px;
+  color: #ffffff;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -105,7 +162,7 @@ header {
   padding: 16px;
 }
 
-/* ================= CARD GLOBAL ================= */
+/* ================= CARD ================= */
 .card {
   background: var(--gold-gradient);
   border-radius: 18px;
@@ -120,7 +177,7 @@ header {
   box-shadow: 0 10px 25px rgba(0,0,0,.45);
 }
 
-/* CARD IMAGE */
+/* IMAGE */
 .card img {
   width: 100%;
   height: 130px;
@@ -129,7 +186,7 @@ header {
   background: #111;
 }
 
-/* CARD TEXT (PUTIH, AMAN) */
+/* CARD TEXT */
 .card strong,
 .card span {
   display: block;
@@ -139,7 +196,7 @@ header {
   color: #ffffff;
 }
 
-/* CHARACTER SUDAH MASUK TEAM */
+/* CHARACTER IN TEAM */
 .card.in-team {
   outline: 3px solid #22c55e;
   box-shadow: 0 0 0 3px rgba(34,197,94,.4);
