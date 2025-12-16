@@ -37,19 +37,10 @@ resetFilterBtn.style.display = "none";
 filtersBar.appendChild(resetFilterBtn);
 
 /* ================= POPUP CARD ================= */
-const popup = document.createElement("div");
-popup.id = "cardPopup";
-popup.className = "popup hidden";
-
-popup.innerHTML = `
-  <div class="popup-content">
-    <button class="popup-close">✕</button>
-    <input type="text" class="popup-search" placeholder="Search card..." />
-    <div class="popup-cards"></div>
-  </div>
-`;
-
-document.body.appendChild(popup);
+const popup = document.getElementById("cardPopup");
+const popupCardsEl = document.getElementById("popupCards");
+const popupSearch = document.getElementById("popupSearch");
+const popupClose = document.getElementById("closePopup");
 
 const popupCardsEl = popup.querySelector(".popup-cards");
 const popupSearch = popup.querySelector(".popup-search");
