@@ -1,4 +1,4 @@
-console.log("JS OK");
+console.log("MAIN JS EXECUTED", Date.now());
 
 fetch("./data/characters.json")
   .then(r => r.json())
