@@ -98,6 +98,12 @@ header button:hover {
   font-size: 13px;
 }
 
+.team-card.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.25s ease;
+}
+
 .team-slot {
   height: 190px;
   background: #1f2937;
@@ -107,6 +113,12 @@ header button:hover {
 .team-slot:hover {
   background: #334155;
   transform: scale(1.05);
+}
+
+.team-slot.drag-over,
+.team-card.drag-over {
+  outline: 3px dashed #facc15;
+  background: rgba(250, 204, 21, 0.15);
 }
 
 /* ================= SYNERGY ================= */
