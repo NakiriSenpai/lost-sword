@@ -257,7 +257,7 @@ function renderTeam() {
     teamEl.appendChild(slot);
   }
 
-  renderSynergy();
+  renderSynergyWarning();
   renderCharacters();
 }
 
@@ -287,26 +287,75 @@ function onDrop(e) {
   renderTeam();
 }
 
-/* ================= SYNERGY ================= */
-function renderSynergy() {
-  document.querySelectorAll(".synergy").forEach(function (e) {
-    e.remove();
-  });
+/* ================= TEAM SYNERGY WARNING ================= */
+let synergyWarningEl = null;
 
-  const count = {};
-
-  team.forEach(function (c) {
-    count[c.element] = (count[c.element] || 0) + 1;
-  });
-
-  for (let el in count) {
-    if (count[el] >= 2) {
-      const badge = document.createElement("div");
-      badge.className = "synergy";
-      badge.textContent = "+" + count[el] + " " + el;
-      teamEl.appendChild(badge);
-    }
+function renderSynergyWarning() {
+  // hapus warning lama
+  if (synergyWarningEl) {
+    synergyWarningEl.remove();
+    synergyWarningEl = null;
   }
+
+  if (team.length === 0) return;
+
+  const classes = team.map(c => c.class);
+
+  const hasKnight = classes.includes("Knight");
+  const hasHealer = classes.includes("Healer");
+
+  const onlyDps =
+    classes.every(c =>
+      c === "Knight" ||
+      c === "Wizard" ||
+      c === "Archer"
+    );
+
+  const noFrontline =
+    classes.every(c =>
+      c === "Wizard" ||
+      c === "Archer" ||
+      c === "Healer"
+    );
+
+  const onlyWizardArcher =
+    classes.every(c =>
+      c === "Wizard" ||
+      c === "Archer"
+    );
+
+  let messages = [];
+
+  // RULE 1
+  if (onlyDps && !hasHealer) {
+    messages.push(
+      "Anda tidak memiliki unit sustain (shield, lifesteal, heals) di dalam tim"
+    );
+  }
+
+  // RULE 2
+  if (noFrontline && !hasKnight) {
+    messages.push(
+      "Anda tidak memiliki unit frontline (Knight) untuk menahan serangan"
+    );
+  }
+
+  // RULE 3
+  if (onlyWizardArcher) {
+    messages = [
+      "Anda tidak memiliki unit sustain (shield, lifesteal, heals) di dalam tim",
+      "Anda tidak memiliki unit frontline (Knight) untuk menahan serangan"
+    ];
+  }
+
+  if (!messages.length) return;
+
+  synergyWarningEl = document.createElement("div");
+  synergyWarningEl.className = "synergy-warning";
+  synergyWarningEl.innerHTML = messages.map(m => `<div>⚠ ${m}</div>`).join("");
+
+  const filtersUI = document.querySelector(".filters-ui");
+  filtersUI.parentNode.insertBefore(synergyWarningEl, filtersUI);
 }
 
 /* ================= PERSIST ================= */
