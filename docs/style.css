@@ -111,3 +111,42 @@ header {
   outline: 3px solid #22c55e;
   box-shadow: 0 0 0 3px rgba(34,197,94,.4);
 }
+
+/* FILTER UI */
+.filters-ui {
+  padding: 16px;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+
+.filters-ui input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: #020617;
+  border: 1px solid #334155;
+  color: #e5e7eb;
+  margin-bottom: 14px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: #020617;
+  border: 1px solid #334155;
+  color: #e5e7eb;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: #1e293b;
+  outline: 2px solid #eab308;
+}
