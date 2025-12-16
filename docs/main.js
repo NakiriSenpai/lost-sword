@@ -6,6 +6,9 @@ const FALLBACK_IMG =
   "https://via.placeholder.com/300x200?text=No+Image";
 
 /* ================= STATE ================= */
+const MAX_PETS = 3;
+let petSlots = Array(MAX_PETS).fill(null);
+
 let activeCardSlotIndex = null;
 
 let cards = [];
@@ -22,6 +25,8 @@ let activeFilters = {
 };
 
 /* ================= DOM ================= */
+const petsEl = document.getElementById("pets");
+
 const cardPopup = document.getElementById("cardPopup");
 const closeCardPopupBtn = document.getElementById("closeCardPopup");
 
@@ -136,6 +141,27 @@ resetFilterBtn.onclick = () => {
   resetFilterBtn.style.display = "none";
   renderCharacters();
 };
+
+/* ================= RENDER PETS =========== */
+function renderPets() {
+  petsEl.innerHTML = "";
+
+  for (let i = 0; i < MAX_PETS; i++) {
+    const slot = document.createElement("div");
+    slot.className = petSlots[i]
+      ? "pet-slot"
+      : "pet-slot empty";
+
+    if (petSlots[i]) {
+      slot.innerHTML = `
+        <img src="${petSlots[i].img}">
+        <strong>${petSlots[i].name}</strong>
+      `;
+    }
+
+    petsEl.appendChild(slot);
+  }
+}
 
 /* ================= CHARACTER LIST ================= */
 function renderCharacters() {
@@ -304,6 +330,7 @@ cardSlot.onclick = () => {
 
   renderSynergyWarning();
   renderCharacters();
+  renderPets();
 }
 
 function selectSlot(index, el) {
