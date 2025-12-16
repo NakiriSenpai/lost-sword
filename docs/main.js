@@ -165,7 +165,7 @@ function renderCharacters() {
       card.className = "card";
       card.draggable = true;
 
-      if (team.some(function (t) { return t.name === c.name; })) {
+      if (team.some(function (t) { return t && t.name === c.name; })) {
         card.classList.add("in-team");
       }
 
@@ -329,13 +329,14 @@ function renderSynergyWarning() {
   synergyWarningEls.forEach(el => el.remove());
   synergyWarningEls = [];
 
-  if (team.length === 0) return;
+ const filledTeam = team.filter(Boolean);
+if (filledTeam.length === 0) return;
 
   // 🔥 EXCEPTION: CLAIRE
-  const hasClaire = team.some(c => c.name === "Claire");
+  const hasClaire = team.some(c => c && c.name === "Claire");
   if (hasClaire) return;
 
-  const classes = team.map(c => c.class);
+  const classes = team.filter(Boolean).map(c => c.class);
 
   const hasKnight = classes.includes("Knight");
   const hasHealer = classes.includes("Healer");
