@@ -99,6 +99,25 @@
   <div id="characters" class="grid"></div>
 </section>
 
+<!-- ================= CARD SELECTOR POPUP ================= -->
+<div id="cardPopup" class="card-popup hidden">
+  <div class="card-popup-content">
+    <button id="closeCardPopup" class="popup-close">✕</button>
+
+    <h2>Select Card</h2>
+
+    <input
+      type="text"
+      id="cardSearchInput"
+      placeholder="Search card..."
+    />
+
+    <div id="cardList" class="card-grid">
+      <!-- cards injected by JS -->
+    </div>
+  </div>
+</div>
+  
 <script src="main.js?v=73" defer></script>
 </body>
 </html>
