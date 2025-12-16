@@ -42,10 +42,6 @@ const popupCardsEl = document.getElementById("popupCards");
 const popupSearch = document.getElementById("popupSearch");
 const popupClose = document.getElementById("closePopup");
 
-const popupCardsEl = popup.querySelector(".popup-cards");
-const popupSearch = popup.querySelector(".popup-search");
-const popupClose = popup.querySelector(".popup-close");
-
 /* ================= INIT ================= */
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
