@@ -93,12 +93,12 @@ fetch("data/pets.json")
   .then(data => {
     pets = data.map(p => ({
       id: p.id,
-      name: p.name,
+      name: p.name || "Unknown Pet",
       img: p.img?.trim() ? p.img : FALLBACK_IMG
     }));
 
-    loadPetsFromStorage?.(); // optional kalau ada
-    renderPetList();         // 🔥 penting
+    renderPets();      // 🔥 WAJIB
+    renderPetList();   // optional
   });
 });
 
@@ -189,7 +189,8 @@ function renderPets() {
 function openPetPopup(index) {
   activePetSlotIndex = index;
 
-  renderPetList(); // 🔥 WAJIB ADA
+  petSearchInput.value = "";   // 🔥 WAJIB
+  renderPetList();             // 🔥 render ulang dari nol
 
   document.querySelectorAll(".pet-slot").forEach((slot, i) => {
     slot.classList.toggle("active", i === index);
