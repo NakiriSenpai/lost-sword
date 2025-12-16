@@ -69,35 +69,59 @@ header {
   border: 2px solid #111827;
 }
 
-/* ================= FILTER UI ================= */
+/* ================= FILTER UI (FIX LOOTANDWAIFUS) ================= */
 .filters-ui {
-  padding: 12px 16px;
+  padding: 16px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px; /* JARAK ANTAR GRUP */
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* SEARCH */
+.filter-header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
 #searchInput {
-  width: 100%;
+  flex: 1;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 8px 12px;
+  padding: 10px 14px;
   color: #fff;
 }
 
+/* FILTER ROW (SEMUA GROUP DALAM 1 BARIS) */
+.filters-ui > .filter-group {
+  display: inline-flex;
+}
+
+/* BAR FILTER */
+.filters-ui {
+  --group-gap: 28px;
+}
+
+.filters-ui::after {
+  content: "";
+}
+
+/* WRAP GROUPS */
+.filters-ui {
+  flex-wrap: nowrap;
+}
+
 /* FILTER GROUP */
-.filter-row {
+.filter-group {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 /* FILTER BUTTON */
 .filter-btn {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -111,13 +135,26 @@ header {
 }
 
 .filter-btn img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
+/* ACTIVE */
 .filter-btn.active {
   outline: 2px solid var(--green);
+}
+
+/* RESET BUTTON (KANAN) */
+#resetFilterBtn {
+  margin-left: auto;
+  padding: 8px 18px;
+  background: var(--bg);
+  color: var(--red);
+  border: 2px solid var(--red);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 /* ================= RESET FILTER ================= */
