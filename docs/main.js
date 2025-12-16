@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pets = data.map(p => ({
       id: p.id,
       name: p.name,
-      image: p.image?.trim() ? p.image : FALLBACK_IMG
+      image: p.image || p.img || FALLBACK_IMG
     }));
     loadPetsFromStorage();
     renderPets();
