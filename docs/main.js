@@ -342,6 +342,7 @@ shareBtn.onclick = () => {
   alert("Link copied!");
 };
 
+/* ============== CARD POPUP EVENT ========= */
 closeCardPopupBtn.onclick = closeCardPopup;
 
 cardPopup.onclick = (e) => {
