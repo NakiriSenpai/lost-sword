@@ -165,31 +165,43 @@ function renderCharacters() {
 /* =========================================================
    TEAM LOGIC
 ========================================================= */
-function toggleCharacterInTeam(c) {
-  const existingIndex = team.findIndex(t => t?.name === c.name);
+function toggleCharacterInTeam(character) {
+  // JIKA CHARACTER SUDAH ADA → REMOVE
+  const existingIndex = team.findIndex(
+    t => t && t.name === character.name
+  );
 
-  // REMOVE
   if (existingIndex !== -1) {
-    animateSlot(existingIndex, () => {
-      team[existingIndex] = null;
-      normalizeTeam();
-      persist();
-      updateURL();
-      renderTeam();
-    });
+    team[existingIndex] = null;
+    clearSelectedSlot();
+    persist();
+    updateURL();
+    renderTeam();
     return;
   }
 
-  // INSERT TO SELECTED SLOT
+  // JIKA SLOT SUDAH DIPILIH SEBELUMNYA
   if (selectedTeamSlot !== null) {
-    animateSlot(selectedTeamSlot, () => {
-      team[selectedTeamSlot] = c;
-      clearSelection();
-      normalizeTeam();
-      persist();
-      updateURL();
-      renderTeam();
-    });
+    team[selectedTeamSlot] = character;
+    clearSelectedSlot();
+    persist();
+    updateURL();
+    renderTeam();
+    return;
+  }
+
+  // DEFAULT: MASUK KE SLOT KOSONG PERTAMA
+  const emptyIndex = team.findIndex(t => t === null);
+  if (emptyIndex === -1) {
+    alert("Max 5 characters");
+    return;
+  }
+
+  team[emptyIndex] = character;
+  persist();
+  updateURL();
+  renderTeam();
+});
     return;
   }
 
