@@ -35,8 +35,8 @@ filtersUI.appendChild(resetFilterBtn);
 /* ================= LOAD DATA ================= */
 
 Promise.all([
-  fetch("./data/characters.json").then(r => r.json()),
-  fetch("./data/cards.json").then(r => r.json())
+  fetch("data/characters.json").then(r => r.json()),
+  fetch("data/cards.json").then(r => r.json())
 ]).then(([charData, cardData]) => {
   characters = charData.map(c => ({
     ...c,
@@ -276,4 +276,19 @@ function renderCardList() {
     .forEach(c => {
       const d = document.createElement("div");
       d.innerHTML = `
-        <img src="${c.img
+        <img src="${c.img}">
+        <small>${c.name}</small>
+      `;
+      d.onclick = () => selectCard(c);
+      cardList.appendChild(d);
+    });
+}
+
+function selectCard(card) {
+  if (activeTeamIndex === null) return;
+
+  team[activeTeamIndex].card = card;
+  persist();
+  popup.classList.add("hidden");
+  renderTeam();
+    }
