@@ -37,7 +37,12 @@ Promise.all([
   fetch("data/characters.json"),
   fetch("data/cards.json")
 ])
-  .then(responses => Promise.all(responses.map(r => r.json())))
+  .then(responses => {
+    if (!responses[0].ok || !responses[1].ok) {
+      throw new Error("JSON gagal dimuat, cek path data/");
+    }
+    return Promise.all(responses.map(r => r.json()));
+  })
   .then(([charData, cardData]) => {
     characters = charData.map(c => ({
       ...c,
@@ -55,8 +60,8 @@ Promise.all([
     renderTeam();
   })
   .catch(err => {
-    console.error("FETCH ERROR:", err);
     alert("JSON gagal dimuat, cek path data/");
+    console.error(err);
   });
 
 
