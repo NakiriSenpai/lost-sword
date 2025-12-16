@@ -195,8 +195,12 @@ el.onclick = () => {
   if (activeCardSlotIndex === null) return;
 
   cardSlots[activeCardSlotIndex] = card;
+
+  persistCards();       // simpan dulu
+  renderTeam();         // update slot
+  renderCardList();     // 🔥 PENTING: update status used
+
   closeCardPopup();
-  saveAndRenderCards();
 };
 
       cardListEl.appendChild(el);
@@ -279,7 +283,10 @@ if (cardSlots[i]) {
 removeBtn.onclick = (e) => {
   e.stopPropagation();
   cardSlots[i] = null;
-  saveAndRenderCards();
+
+  persistCards();
+  renderTeam();
+  renderCardList();   // 🔥 bikin kartu aktif lagi di popup
 };
 } else {
   cardSlot.className = "card-slot empty";
