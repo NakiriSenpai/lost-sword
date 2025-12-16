@@ -1,3 +1,9 @@
+/* =========================================================
+   LOST SWORD TEAM BUILDER
+   style-4.css
+   ========================================================= */
+
+/* ================= ROOT ================= */
 :root {
   --bg: #020617;
   --bg-dark: #0f172a;
@@ -12,7 +18,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -29,6 +35,23 @@ header {
   border-bottom: 1px solid var(--border);
 }
 
+header h1 {
+  font-size: 22px;
+}
+
+header button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-dark);
+  color: #fff;
+  cursor: pointer;
+}
+
+header button:hover {
+  background: #1e293b;
+}
+
 /* ================= TEAM ================= */
 .team-section {
   padding: 16px;
@@ -40,6 +63,7 @@ header {
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .team-card,
@@ -48,11 +72,17 @@ header {
   border-radius: 18px;
   padding: 10px;
   text-align: center;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .team-card {
   background: var(--gold);
-  cursor: pointer;
+  cursor: grab;
+}
+
+.team-card:active {
+  cursor: grabbing;
+  transform: scale(0.95);
 }
 
 .team-card img {
@@ -63,10 +93,31 @@ header {
   margin-bottom: 6px;
 }
 
+.team-card strong {
+  display: block;
+  font-size: 13px;
+}
+
 .team-slot {
   height: 190px;
   background: #1f2937;
-  border: 2px solid #111827;
+  border: 2px dashed #111827;
+}
+
+.team-slot:hover {
+  background: #334155;
+  transform: scale(1.05);
+}
+
+/* ================= SYNERGY ================= */
+.synergy {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: #16a34a;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 999px;
+  font-size: 13px;
 }
 
 /* ================= FILTER UI ================= */
@@ -77,7 +128,7 @@ header {
   gap: 14px;
 }
 
-/* SEARCH FULL WIDTH */
+/* SEARCH */
 .filter-header input {
   width: 100%;
   padding: 10px 14px;
@@ -87,7 +138,7 @@ header {
   color: #fff;
 }
 
-/* BAR FILTER */
+/* FILTER BAR */
 .filters-bar {
   display: flex;
   align-items: center;
@@ -111,7 +162,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   cursor: pointer;
 }
 
@@ -125,7 +175,7 @@ header {
   outline: 2px solid var(--green);
 }
 
-/* RESET FILTER BUTTON */
+/* RESET FILTER */
 #resetFilterBtn {
   margin-left: auto;
   padding: 8px 16px;
@@ -142,6 +192,10 @@ header {
 }
 
 /* ================= CHARACTERS ================= */
+.characters-section h2 {
+  padding: 0 16px;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -155,6 +209,11 @@ header {
   padding: 10px;
   text-align: center;
   cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
 }
 
 .card img {
@@ -175,4 +234,33 @@ header {
 
 .card.in-team {
   outline: 3px solid var(--green);
+}
+
+/* ================= MOBILE POLISH ================= */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 18px;
+  }
+
+  .team {
+    gap: 8px;
+  }
+
+  .team-card,
+  .team-slot {
+    width: 90px;
+  }
+
+  .team-card img {
+    height: 100px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .filter-btn {
+    width: 36px;
+    height: 36px;
+  }
 }
