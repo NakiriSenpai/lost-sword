@@ -1,7 +1,7 @@
 // ===================== CONFIG ===================== const FALLBACK_IMG = "https://via.placeholder.com/300x200?text=No+Image"; const MAX_TEAM = 5;
 
 // ===================== STATE ===================== let characters = []; let team = [];
-
+alert("MAIN JS LOADED");
 let activeFilters = { position: [], element: [], class: [] };
 
 // ===================== ELEMENTS ===================== const charsEl = document.getElementById("characters"); const teamEl = document.getElementById("team"); const shareBtn = document.getElementById("shareBtn"); const searchInput = document.getElementById("searchInput"); const filtersBar = document.querySelector(".filters-bar");
