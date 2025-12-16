@@ -33,26 +33,32 @@ resetFilterBtn.style.display = "none";
 filtersUI.appendChild(resetFilterBtn);
 
 /* ================= LOAD DATA ================= */
-
 Promise.all([
-  fetch("./data/characters.json").then(r => r.json()),
-  fetch("./data/cards.json").then(r => r.json())
-]).then(([charData, cardData]) => {
-  characters = charData.map(c => ({
-    ...c,
-    image: c.image?.trim() ? c.image : FALLBACK_IMG
-  }));
+  fetch("data/characters.json"),
+  fetch("data/cards.json")
+])
+  .then(responses => Promise.all(responses.map(r => r.json())))
+  .then(([charData, cardData]) => {
+    characters = charData.map(c => ({
+      ...c,
+      image: c.image?.trim() ? c.image : FALLBACK_IMG
+    }));
 
-  cards = cardData.map(c => ({
-    ...c,
-    img: c.img?.trim() ? c.img : FALLBACK_CARD
-  }));
+    cards = cardData.map(c => ({
+      ...c,
+      img: c.img?.trim() ? c.img : FALLBACK_CARD
+    }));
 
-  loadFromURLorStorage();
-  setupFilters();
-  renderCharacters();
-  renderTeam();
-});
+    loadFromURLorStorage();
+    setupFilters();
+    renderCharacters();
+    renderTeam();
+  })
+  .catch(err => {
+    console.error("FETCH ERROR:", err);
+    alert("JSON gagal dimuat, cek path data/");
+  });
+
 
 /* ================= FILTER LOGIC ================= */
 
