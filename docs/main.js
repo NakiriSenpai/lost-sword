@@ -288,74 +288,74 @@ function onDrop(e) {
 }
 
 /* ================= TEAM SYNERGY WARNING ================= */
-let synergyWarningEl = null;
+let synergyWarningEls = [];
 
 function renderSynergyWarning() {
   // hapus warning lama
-  if (synergyWarningEl) {
-    synergyWarningEl.remove();
-    synergyWarningEl = null;
-  }
+  synergyWarningEls.forEach(el => el.remove());
+  synergyWarningEls = [];
 
   if (team.length === 0) return;
+
+  // 🔥 EXCEPTION: CLAIRE
+  const hasClaire = team.some(c => c.name === "Claire");
+  if (hasClaire) return;
 
   const classes = team.map(c => c.class);
 
   const hasKnight = classes.includes("Knight");
   const hasHealer = classes.includes("Healer");
 
-  const onlyDps =
-    classes.every(c =>
-      c === "Knight" ||
-      c === "Wizard" ||
-      c === "Archer"
-    );
+  const onlyKnightWizardArcher = classes.every(c =>
+    c === "Knight" || c === "Wizard" || c === "Archer"
+  );
 
-  const noFrontline =
-    classes.every(c =>
-      c === "Wizard" ||
-      c === "Archer" ||
-      c === "Healer"
-    );
+  const onlyWizardArcherHealer = classes.every(c =>
+    c === "Wizard" || c === "Archer" || c === "Healer"
+  );
 
-  const onlyWizardArcher =
-    classes.every(c =>
-      c === "Wizard" ||
-      c === "Archer"
-    );
+  const onlyWizardArcher = classes.every(c =>
+    c === "Wizard" || c === "Archer"
+  );
 
-  let messages = [];
+  const warnings = [];
 
-  // RULE 1
-  if (onlyDps && !hasHealer) {
-    messages.push(
+  // RULE 3 (PALING SPESIFIK, DULUAN)
+  if (onlyWizardArcher) {
+    warnings.push(
       "Anda tidak memiliki unit sustain (shield, lifesteal, heals) di dalam tim"
     );
-  }
-
-  // RULE 2
-  if (noFrontline && !hasKnight) {
-    messages.push(
+    warnings.push(
       "Anda tidak memiliki unit frontline (Knight) untuk menahan serangan"
     );
+  } else {
+    // RULE 1
+    if (onlyKnightWizardArcher && !hasHealer) {
+      warnings.push(
+        "Anda tidak memiliki unit sustain (shield, lifesteal, heals) di dalam tim"
+      );
+    }
+
+    // RULE 2
+    if (onlyWizardArcherHealer && !hasKnight) {
+      warnings.push(
+        "Anda tidak memiliki unit frontline (Knight) untuk menahan serangan"
+      );
+    }
   }
 
-  // RULE 3
-  if (onlyWizardArcher) {
-    messages = [
-      "Anda tidak memiliki unit sustain (shield, lifesteal, heals) di dalam tim",
-      "Anda tidak memiliki unit frontline (Knight) untuk menahan serangan"
-    ];
-  }
-
-  if (!messages.length) return;
-
-  synergyWarningEl = document.createElement("div");
-  synergyWarningEl.className = "synergy-warning";
-  synergyWarningEl.innerHTML = messages.map(m => `<div>⚠ ${m}</div>`).join("");
+  if (!warnings.length) return;
 
   const filtersUI = document.querySelector(".filters-ui");
-  filtersUI.parentNode.insertBefore(synergyWarningEl, filtersUI);
+
+  warnings.forEach(text => {
+    const box = document.createElement("div");
+    box.className = "synergy-warning";
+    box.textContent = "⚠ " + text;
+
+    filtersUI.parentNode.insertBefore(box, filtersUI);
+    synergyWarningEls.push(box);
+  });
 }
 
 /* ================= PERSIST ================= */
