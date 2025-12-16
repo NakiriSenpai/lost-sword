@@ -186,7 +186,12 @@ function renderCardList() {
         <strong>${card.name}</strong>
       `;
 
-      el.onclick = () => {
+      const used = isCardUsed(card.id);
+
+el.classList.toggle("used", used);
+
+el.onclick = () => {
+  if (used) return;
   if (activeCardSlotIndex === null) return;
 
   cardSlots[activeCardSlotIndex] = card;
@@ -266,9 +271,16 @@ cardSlot.dataset.index = i;
 if (cardSlots[i]) {
   cardSlot.className = "card-slot";
   cardSlot.innerHTML = `
-    <img src="${cardSlots[i].image}">
-    <strong>${cardSlots[i].name}</strong>
-  `;
+  <button class="remove-card">✕</button>
+  <img src="${cardSlots[i].image}">
+  <strong>${cardSlots[i].name}</strong>
+`;
+  const removeBtn = cardSlot.querySelector(".remove-card");
+removeBtn.onclick = (e) => {
+  e.stopPropagation();
+  cardSlots[i] = null;
+  saveAndRenderCards();
+};
 } else {
   cardSlot.className = "card-slot empty";
 }
@@ -354,18 +366,32 @@ function renderSynergyWarning() {
 /* ============ Close Popup ============ */
 function openCardPopup(index) {
   activeCardSlotIndex = index;
-  cardPopup.classList.remove("hidden");
+
+  document.querySelectorAll(".card-slot").forEach((slot, i) => {
+    slot.classList.toggle("active", i === index);
+  });
+
+  cardPopup.classList.add("show");
 }
 
 function closeCardPopup() {
+  cardPopup.classList.remove("show");
   activeCardSlotIndex = null;
-  cardPopup.classList.add("hidden");
+
+  document.querySelectorAll(".card-slot").forEach(slot => {
+    slot.classList.remove("active");
+  });
 }
 
 /* ========== SAVE RENDER CARD SLOT ======= */
 function saveAndRenderCards() {
   persistCards();
   renderTeam();
+}
+
+/* ======== HELPER FUNCTION ======= */
+function isCardUsed(cardId) {
+  return cardSlots.some(c => c && c.id === cardId);
 }
 
 /* ================= STORAGE ================= */
