@@ -149,32 +149,11 @@ function toggleResetButton() {
 /* ================= RENDER CHARACTERS ================= */
 
 function renderCharacters() {
-  charsEl.innerHTML = "";
+  charsEl.innerHTML = "<h2 style='color:red'>RENDER TEST</h2>";
 
-  characters
-    .filter(c =>
-      (!activeFilters.position.length ||
-        activeFilters.position.includes(c.position)) &&
-      (!activeFilters.element.length ||
-        activeFilters.element.includes(c.element)) &&
-      (!activeFilters.class.length ||
-        activeFilters.class.includes(c.class)) &&
-      c.name.toLowerCase().includes(searchInput.value.toLowerCase())
-    )
-    .forEach(c => {
-      const d = document.createElement("div");
-      d.className = "card";
-      if (team.some(t => t.name === c.name)) d.classList.add("in-team");
-
-      d.innerHTML = `
-        <img src="${c.image}">
-        <strong>${c.name}</strong>
-        <span>${c.element} • ${c.class} • ${c.position}</span>
-      `;
-
-      d.onclick = () => addToTeam(c);
-      charsEl.appendChild(d);
-    });
+  characters.forEach(c => {
+    charsEl.innerHTML += `<div>${c.name}</div>`;
+  });
 }
 
 /* ================= TEAM ================= */
