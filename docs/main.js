@@ -87,19 +87,18 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCardList();
   });
 
-/* ===== FETCH PETS ===== */
+/* ===== FETCH PETS (NEW) ===== */
 fetch("data/pets.json")
   .then(r => r.json())
   .then(data => {
     pets = data.map(p => ({
       id: p.id,
-      name: p.name || "Unknown Pet",
+      name: p.name,
       img: p.img?.trim() ? p.img : FALLBACK_IMG
     }));
 
-    loadPetsFromStorage();   // kalau nanti mau persistent
-    renderPets();            // render slot pets
-    renderPetList();         // render popup list
+    loadPetsFromStorage?.(); // optional kalau ada
+    renderPetList();         // 🔥 penting
   });
 });
 
