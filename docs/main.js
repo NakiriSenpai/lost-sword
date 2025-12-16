@@ -1,9 +1,6 @@
 "use strict";
 
 /* ================= CONSTANT ================= */
-if (location.search.includes("debug=pets")) {
-  alert("Pets loaded: " + pets.length);
-}
 const MAX_TEAM = 5;
 const FALLBACK_IMG =
   "https://via.placeholder.com/300x200?text=No+Image";
