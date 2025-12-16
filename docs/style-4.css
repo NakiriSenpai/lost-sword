@@ -252,6 +252,22 @@ header button:hover {
   margin-top: 6px;
 }
 
+/* ================= SYNERGY WARNING (PER BOX) ================= */
+.synergy-warning {
+  width: calc(100% - 32px);
+  margin: 12px 16px;
+  padding: 12px 16px;
+
+  border: 2px solid #facc15;
+  border-radius: 12px;
+
+  color: #facc15 !important;
+  background: rgba(250, 204, 21, 0.08);
+
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
