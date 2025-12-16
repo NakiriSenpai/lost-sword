@@ -371,6 +371,16 @@ header button:hover {
   align-items: center;
   justify-content: center;
   z-index: 999;
+   opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.card-popup.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 .card-popup.hidden {
@@ -430,6 +440,12 @@ header button:hover {
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s;
+}
+
+.card-item.used {
+  opacity: 0.4;
+  filter: grayscale(1);
+  pointer-events: none;
 }
 
 .card-item:hover {
