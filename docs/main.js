@@ -389,6 +389,7 @@ cardSlot.onclick = () => {
 
   renderSynergyWarning();
   renderCharacters();
+  renderPets();
 }
 
 function selectSlot(index, el) {
