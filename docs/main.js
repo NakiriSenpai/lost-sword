@@ -89,16 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ===== FETCH PETS ===== */
 fetch("data/pets.json")
+/* ===== FETCH PETS ===== */
+fetch("data/pets.json")
   .then(r => r.json())
   .then(data => {
     pets = data.map(p => ({
-      name: p.name,
+      id: p.id,
+      name: p.name || "Unknown Pet",
       img: p.img?.trim() ? p.img : FALLBACK_IMG
     }));
 
-    loadPetsFromStorage(); // (lihat poin 2)
-    renderPets();
-    renderPetList();
+    loadPetsFromStorage();   // kalau nanti mau persistent
+    renderPets();            // render slot pets
+    renderPetList();         // render popup list
   });
 });
 
