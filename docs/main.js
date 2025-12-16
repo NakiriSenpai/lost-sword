@@ -185,8 +185,8 @@ function renderCharacters() {
         "</span>";
 
       card.onclick = function () {
-        addToTeam(c);
-      };
+         toggleCharacterInTeam(c);
+       };
 
       card.addEventListener("dragstart", function (e) {
         e.dataTransfer.setData("char", c.name);
@@ -214,6 +214,26 @@ function removeFromTeam(name) {
   team = team.filter(function (t) {
     return t.name !== name;
   });
+  persist();
+  updateURL();
+  renderTeam();
+}
+
+function toggleCharacterInTeam(character) {
+  const index = team.findIndex(t => t.name === character.name);
+
+  if (index !== -1) {
+    // sudah ada → hapus
+    team.splice(index, 1);
+  } else {
+    // belum ada → tambah
+    if (team.length >= MAX_TEAM) {
+      alert("Max 5 characters");
+      return;
+    }
+    team.push(character);
+  }
+
   persist();
   updateURL();
   renderTeam();
