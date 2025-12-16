@@ -462,6 +462,18 @@ header button:hover {
   font-size: 13px;
 }
 
+/* ========= PETS SECTION ======== */
+.pets-section {
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.pets {
+  display: flex;
+  gap: 12px;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
