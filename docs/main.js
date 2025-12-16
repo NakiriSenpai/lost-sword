@@ -106,7 +106,8 @@ function onCharacterClick(character) {
 
 team[emptyIndex] = character; normalizeTeam(); persist(); updateURL(); renderTeam(); }
 
-/* ================= TEAM RENDER ================= */ function renderTeam() { teamEl.innerHTML = "";
+/* ================= TEAM RENDER ================= */
+function renderTeam() { teamEl.innerHTML = "";
 
 for (let i = 0; i < MAX_TEAM; i++) { const slot = document.createElement("div"); slot.dataset.index = i;
 
