@@ -182,6 +182,10 @@ function renderTeam() {
   teamEl.innerHTML = "";
 
   for (let i = 0; i < MAX_TEAM; i++) {
+    const pair = document.createElement("div");
+    pair.className = "team-pair";
+
+    /* ===== TEAM SLOT (EXISTING LOGIC) ===== */
     const slot = document.createElement("div");
     slot.dataset.index = i;
 
@@ -201,7 +205,19 @@ function renderTeam() {
       slot.onclick = () => selectSlot(i, slot);
     }
 
-    teamEl.appendChild(slot);
+    /* ===== CARD SLOT (NEW UI ONLY) ===== */
+    const cardSlot = document.createElement("div");
+    cardSlot.className = "card-slot empty";
+    cardSlot.dataset.index = i;
+
+    cardSlot.onclick = () => {
+      console.log("Card slot clicked:", i);
+    };
+
+    /* ===== APPEND ===== */
+    pair.appendChild(slot);
+    pair.appendChild(cardSlot);
+    teamEl.appendChild(pair);
   }
 
   renderSynergyWarning();
