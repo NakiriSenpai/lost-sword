@@ -164,25 +164,20 @@ resetFilterBtn.onclick = () => {
 };
 
 /* ================= RENDER PETS =========== */
-function renderPets() {
-  petsEl.innerHTML = "";
+function renderPetList() {
+  petListEl.innerHTML = "";
 
-  for (let i = 0; i < MAX_PETS; i++) {
-  const slot = document.createElement("div");
-  slot.className = petSlots[i]
-    ? "pet-slot"
-    : "pet-slot empty";
+  pets.forEach(pet => {
+    const div = document.createElement("div");
+    div.className = "card-item";
 
-  if (petSlots[i]) {
-    slot.innerHTML = `
-      <img src="${petSlots[i].img}">
-      <strong>${petSlots[i].name}</strong>
+    div.innerHTML = `
+      <img src="${pet.img}" />
+      <strong>${pet.name}</strong>
     `;
-  }
 
-  slot.onclick = () => openPetPopup(i);
-  petsEl.appendChild(slot);
-}
+    petListEl.appendChild(div);
+  });
 }
 
 /* ============== OPEN CLOSE PET POPUP ========== */
