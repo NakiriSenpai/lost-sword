@@ -265,3 +265,16 @@ header button:hover {
     color: white;
   }
 }
+/* =========== Dragging ====== */
+.dragging {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.team-slot.highlight,
+.team-card.highlight {
+  outline: 3px dashed #22c55e;
+}
