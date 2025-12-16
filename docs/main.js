@@ -253,6 +253,7 @@ function renderPets() {
         petSlots[i] = null;
         persistPets();
         renderPets();
+        renderPetList(); // 🔥 penting
       };
     } else {
       slot.classList.add("empty");
@@ -274,23 +275,29 @@ function renderPetList() {
       const el = document.createElement("div");
       el.className = "card-item";
 
+      const used = isPetUsed(pet.id);
+      el.classList.toggle("used", used);
+
       el.innerHTML = `
         <img src="${pet.image}">
         <strong>${pet.name}</strong>
       `;
 
       el.onclick = () => {
+        if (used) return;
         if (activePetSlotIndex === null) return;
 
         petSlots[activePetSlotIndex] = pet;
         persistPets();
         renderPets();
+        renderPetList(); // 🔥 update status used
         closePetPopup();
       };
 
       petListEl.appendChild(el);
     });
 }
+
 
 /* ================= CHARACTER CLICK ================= */
 function onCharacterClick(character) {
@@ -307,7 +314,38 @@ function onCharacterClick(character) {
   }
 
   // INSERT KE SLOT YANG DIPILIH
-  if (selectedSlotIndex !== null) {
+function renderPetList() {
+  const keyword = petSearchInput.value.toLowerCase();
+  petListEl.innerHTML = "";
+
+  pets
+    .filter(p => p.name.toLowerCase().includes(keyword))
+    .forEach(pet => {
+      const el = document.createElement("div");
+      el.className = "card-item";
+
+      const used = isPetUsed(pet.id);
+      el.classList.toggle("used", used);
+
+      el.innerHTML = `
+        <img src="${pet.image}">
+        <strong>${pet.name}</strong>
+      `;
+
+      el.onclick = () => {
+        if (used) return;
+        if (activePetSlotIndex === null) return;
+
+        petSlots[activePetSlotIndex] = pet;
+        persistPets();
+        renderPets();
+        renderPetList(); // 🔥 update status used
+        closePetPopup();
+      };
+
+      petListEl.appendChild(el);
+    });
+}  if (selectedSlotIndex !== null) {
     team[selectedSlotIndex] = character;
     clearSelectedSlot();
     saveAndRender();
@@ -505,6 +543,10 @@ function saveAndRenderCards() {
 /* ======== HELPER FUNCTION ======= */
 function isCardUsed(cardId) {
   return cardSlots.some(c => c && c.id === cardId);
+}
+
+function isPetUsed(petId) {
+  return petSlots.some(p => p && p.id === petId);
 }
 
 /* ================= STORAGE ================= */
