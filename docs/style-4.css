@@ -237,6 +237,21 @@ header button:hover {
   outline: 3px solid var(--green);
 }
 
+/* ================= SYNERGY WARNING ================= */
+.synergy-warning {
+  margin: 16px;
+  padding: 12px 16px;
+  border: 2px solid #facc15; /* kuning */
+  border-radius: 12px;
+  color: #facc15;
+  font-weight: 700;
+  background: rgba(250, 204, 21, 0.05);
+}
+
+.synergy-warning div + div {
+  margin-top: 6px;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
