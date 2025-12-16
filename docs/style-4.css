@@ -163,6 +163,7 @@ header button:hover {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: white;
 }
 
 .filter-btn img {
@@ -259,9 +260,5 @@ header button:hover {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
 
-  .filter-btn {
-    width: 36px;
-    height: 36px;
-    color: white;
-  }
+  
 }
