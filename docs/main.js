@@ -7,6 +7,9 @@ const FALLBACK_IMG =
 
 /* ================= STATE ================= */
 let activeCardSlotIndex = null;
+
+let cards = [];
+
 let characters = [];
 let team = Array(MAX_TEAM).fill(null);
 let selectedSlotIndex = null;
@@ -20,7 +23,11 @@ let activeFilters = {
 /* ================= DOM ================= */
 const cardPopup = document.getElementById("cardPopup");
 const closeCardPopupBtn = document.getElementById("closeCardPopup");
+
+const cardListEl = document.getElementById("cardList");
+const cardSearchInput = document.getElementById("cardSearchInput");
 const charsEl = document.getElementById("characters");
+
 const teamEl = document.getElementById("team");
 const shareBtn = document.getElementById("shareBtn");
 const searchInput = document.getElementById("searchInput");
@@ -35,6 +42,7 @@ filtersBar.appendChild(resetFilterBtn);
 
 /* ================= INIT ================= */
 document.addEventListener("DOMContentLoaded", () => {
+  /* ===== FETCH CHARACTERS (EXISTING) ===== */
   fetch("data/characters.json")
     .then(r => r.json())
     .then(data => {
@@ -50,6 +58,18 @@ document.addEventListener("DOMContentLoaded", () => {
       setupFilters();
       renderCharacters();
       renderTeam();
+    });
+
+  /* ===== FETCH CARDS (NEW) ===== */
+  fetch("data/cards.json")
+    .then(r => r.json())
+    .then(data => {
+      cards = data.map(c => ({
+        name: c.name,
+        image: c.image?.trim() ? c.image : FALLBACK_IMG
+      }));
+
+      renderCardList();
     });
 });
 
@@ -144,6 +164,30 @@ function renderCharacters() {
 
       card.onclick = () => onCharacterClick(c);
       charsEl.appendChild(card);
+    });
+}
+
+/* ============ RENDER CARDLIST ======== */
+function renderCardList() {
+  const keyword = cardSearchInput.value.toLowerCase();
+  cardListEl.innerHTML = "";
+
+  cards
+    .filter(c => c.name.toLowerCase().includes(keyword))
+    .forEach(card => {
+      const el = document.createElement("div");
+      el.className = "card-item";
+
+      el.innerHTML = `
+        <img src="${card.image}">
+        <strong>${card.name}</strong>
+      `;
+
+      el.onclick = () => {
+        console.log("Selected card:", card.name);
+      };
+
+      cardListEl.appendChild(el);
     });
 }
 
@@ -350,3 +394,6 @@ cardPopup.onclick = (e) => {
     closeCardPopup();
   }
 };
+
+/* ======== SEARCH CARD IN POPUP ======= */
+cardSearchInput.oninput = renderCardList;
