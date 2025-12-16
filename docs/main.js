@@ -9,6 +9,7 @@ const FALLBACK_IMG =
 let activeCardSlotIndex = null;
 
 let cards = [];
+let cardSlots = Array(MAX_TEAM).fill(null);
 
 let characters = [];
 let team = Array(MAX_TEAM).fill(null);
@@ -69,6 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
       name: c.name,
       image: c.img?.trim() ? c.img : FALLBACK_IMG
     }));
+    loadCardsFromStorage();
+    renderTeam();
     renderCardList();
   });
 });
@@ -184,8 +187,12 @@ function renderCardList() {
       `;
 
       el.onclick = () => {
-        console.log("Selected card:", card.name);
-      };
+  if (activeCardSlotIndex === null) return;
+
+  cardSlots[activeCardSlotIndex] = card;
+  closeCardPopup();
+  saveAndRenderCards();
+};
 
       cardListEl.appendChild(el);
     });
@@ -252,14 +259,23 @@ function renderTeam() {
       slot.onclick = () => selectSlot(i, slot);
     }
 
-    /* ===== CARD SLOT (NEW UI ONLY) ===== */
+    /* ===== CARD SLOT ===== */
     const cardSlot = document.createElement("div");
-    cardSlot.className = "card-slot empty";
-    cardSlot.dataset.index = i;
+cardSlot.dataset.index = i;
 
-    cardSlot.onclick = () => {
-        openCardPopup(i);
-  };
+if (cardSlots[i]) {
+  cardSlot.className = "card-slot";
+  cardSlot.innerHTML = `
+    <img src="${cardSlots[i].image}">
+    <strong>${cardSlots[i].name}</strong>
+  `;
+} else {
+  cardSlot.className = "card-slot empty";
+}
+
+cardSlot.onclick = () => {
+  openCardPopup(i);
+};
 
     /* ===== APPEND ===== */
     pair.appendChild(slot);
@@ -346,6 +362,12 @@ function closeCardPopup() {
   cardPopup.classList.add("hidden");
 }
 
+/* ========== SAVE RENDER CARD SLOT ======= */
+function saveAndRenderCards() {
+  persistCards();
+  renderTeam();
+}
+
 /* ================= STORAGE ================= */
 function saveAndRender() {
   persist();
@@ -367,6 +389,17 @@ function loadFromURLorStorage() {
       const c = characters.find(x => x.name === name);
       if (c && i < MAX_TEAM) team[i] = c;
     });
+}
+
+function persistCards() {
+  localStorage.setItem("cardSlots", JSON.stringify(cardSlots));
+}
+
+function loadCardsFromStorage() {
+  const saved = JSON.parse(localStorage.getItem("cardSlots"));
+  if (Array.isArray(saved)) {
+    cardSlots = saved;
+  }
 }
 
 function updateURL() {
