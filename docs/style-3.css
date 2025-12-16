@@ -57,36 +57,37 @@ header {
   border: 2px solid #111827;
 }
 
-/* ================= FILTER UI ================= */
+/* ================= FILTER UI (FIX) ================= */
 .filters-ui {
-  padding: 16px;
+  padding: 12px 16px;
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  flex-direction: column; /* PENTING */
+  gap: 12px;
 }
 
 /* SEARCH FULL WIDTH */
 #searchInput {
   width: 100%;
-  padding: 10px 14px;
-  border-radius: 10px;
   background: var(--bg);
   border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
   color: #fff;
 }
 
-/* ================= FILTER BAR ================= */
-.filters-bar {
+/* BAR ISI FILTER (HORIZONTAL) */
+.filters-ui > .filter-row {
   display: flex;
+  gap: 16px;
   align-items: center;
-  gap: 20px;
-  width: 100%;
+  flex-wrap: nowrap; /* PENTING: jangan turun ke bawah */
 }
 
-/* EACH FILTER GROUP */
+/* TIAP FILTER GROUP */
 .filter-row {
   display: flex;
   gap: 8px;
+  flex-direction: row; /* PASTI HORIZONTAL */
 }
 
 /* FILTER BUTTON */
@@ -99,6 +100,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;              /* FIX: ALL PUTIH */
+  font-size: 11px;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -108,6 +112,7 @@ header {
   object-fit: contain;
 }
 
+/* ACTIVE */
 .filter-btn.active {
   outline: 2px solid var(--green);
 }
@@ -124,8 +129,9 @@ header {
   cursor: pointer;
 }
 
-#resetFilterBtn:hover {
-  background: var(--bg-dark);
+/* HILANGKAN RESET PUTIH NYEMPIL (JIKA ADA) */
+.filters-ui button:not(#resetFilterBtn):not(.filter-btn) {
+  display: none !important;
 }
 
 /* ================= CHARACTERS ================= */
