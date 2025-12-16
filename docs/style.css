@@ -8,7 +8,9 @@
   --dark-bg: #020617;
 }
 
-/* RESET */
+/* =======================
+   RESET
+======================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,11 +19,13 @@
 }
 
 body {
-  background: #020617;
+  background: var(--dark-bg);
   color: #e5e7eb;
 }
 
-/* HEADER */
+/* =======================
+   HEADER
+======================= */
 header {
   padding: 16px;
   display: flex;
@@ -30,7 +34,21 @@ header {
   border-bottom: 1px solid #1e293b;
 }
 
-/* TEAM SECTION */
+header h1 {
+  font-size: 18px;
+}
+
+header button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+/* =======================
+   TEAM SECTION
+======================= */
 .team-section {
   padding: 16px;
   background: linear-gradient(135deg, #3b2a12, #6b4a1f);
@@ -38,27 +56,82 @@ header {
 
 .team {
   display: flex;
-  gap: 12px;
+  justify-content: center;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
-/* FILTER */
-.filters {
+/* TEAM CARD (ISI) */
+.team-card {
+  cursor: pointer;
+}
+
+/* TEAM SLOT (KOSONG) */
+.team-slot {
+  width: 120px;
+  height: 180px;
+  background: #1f2937;
+  border: 2px dashed #0f172a;
+  border-radius: 18px;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,.25);
+}
+
+/* =======================
+   FILTER UI
+======================= */
+.filters-ui {
+  padding: 16px;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* SEARCH */
+.filters-ui input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: #020617;
+  border: 1px solid #334155;
+  color: #e5e7eb;
+  margin-bottom: 14px;
+}
+
+/* FILTER ROW */
+.filter-row {
   display: flex;
   gap: 10px;
-  padding: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
 }
 
-.filters select {
-  flex: 1;
+/* FILTER BUTTON */
+.filter-btn {
+  width: 44px;
+  height: 44px;
+  padding: 6px;
+  border-radius: 12px;
   background: #020617;
-  color: #e5e7eb;
   border: 1px solid #334155;
-  border-radius: 8px;
-  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
-/* CHARACTER GRID */
+.filter-btn img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.filter-btn.active {
+  background: #1e293b;
+  outline: 2px solid #eab308;
+}
+
+/* =======================
+   CHARACTER GRID
+======================= */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -66,7 +139,9 @@ header {
   padding: 16px;
 }
 
-/* CARD (DIPAKAI SEMUA) */
+/* =======================
+   CARD (GLOBAL)
+======================= */
 .card {
   background: var(--gold-gradient);
   border-radius: 18px;
@@ -92,8 +167,7 @@ header {
 
 /* TEXT */
 .card strong,
-.card span,
-.card .badge {
+.card span {
   display: block;
   margin-top: 6px;
   color: #1f2937;
@@ -101,52 +175,17 @@ header {
   font-size: 13px;
 }
 
-/* TEAM CARD */
+/* =======================
+   TEAM CARD SIZE
+======================= */
 #team .card {
-  min-width: 120px;
+  width: 120px;
 }
 
-/* HIGHLIGHT CHARACTER SUDAH MASUK TEAM */
+/* =======================
+   IN TEAM HIGHLIGHT
+======================= */
 .card.in-team {
   outline: 3px solid #22c55e;
   box-shadow: 0 0 0 3px rgba(34,197,94,.4);
-}
-
-/* FILTER UI */
-.filters-ui {
-  padding: 16px;
-  background: #020617;
-  border-bottom: 1px solid #1e293b;
-}
-
-.filters-ui input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  background: #020617;
-  border: 1px solid #334155;
-  color: #e5e7eb;
-  margin-bottom: 14px;
-}
-
-.filter-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  background: #020617;
-  border: 1px solid #334155;
-  color: #e5e7eb;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.filter-btn.active {
-  background: #1e293b;
-  outline: 2px solid #eab308;
 }
