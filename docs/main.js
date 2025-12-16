@@ -87,8 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCardList();
   });
 
-  /* ===== FETCH PETS ===== */
-fetch("data/pets.json")
 /* ===== FETCH PETS ===== */
 fetch("data/pets.json")
   .then(r => r.json())
