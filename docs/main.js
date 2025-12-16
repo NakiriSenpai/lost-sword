@@ -132,7 +132,6 @@ function renderTeam() {
 
   const MAX = 5;
 
-  // render character card
   team.forEach(c => {
     const d = document.createElement("div");
     d.className = "card team-card";
@@ -146,10 +145,9 @@ function renderTeam() {
     teamEl.appendChild(d);
   });
 
-  // render empty slots
   for (let i = team.length; i < MAX; i++) {
     const empty = document.createElement("div");
-    empty.className = "card team-slot";
+    empty.className = "team-slot";
     teamEl.appendChild(empty);
   }
 
