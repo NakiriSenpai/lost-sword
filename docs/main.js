@@ -479,12 +479,14 @@ function closeCardPopup() {
 /* ======= OPEN CLOSE POPUP PETS ====== */
 function openPetPopup(index) {
   activePetSlotIndex = index;
+  renderPetList();            // 🔥 INI YANG HILANG
   petPopup.classList.add("show");
 }
 
 function closePetPopup() {
   petPopup.classList.remove("show");
   activePetSlotIndex = null;
+  petSearchInput.value = "";
 }
 
 closePetPopupBtn.onclick = closePetPopup;
