@@ -1,6 +1,3 @@
-/* =======================
-   STATE
-======================= */
 let characters = [];
 let team = [];
 
@@ -10,9 +7,6 @@ let activeFilters = {
   class: []
 };
 
-/* =======================
-   ELEMENTS
-======================= */
 const charsEl = document.getElementById("characters");
 const teamEl = document.getElementById("team");
 const shareBtn = document.getElementById("shareBtn");
@@ -21,48 +15,33 @@ const filtersUI = document.querySelector(".filters-ui");
 
 const FALLBACK_IMG = "https://via.placeholder.com/300x200?text=No+Image";
 
-/* =======================
-   RESET FILTER BUTTON
-======================= */
+/* RESET BUTTON */
 const resetFilterBtn = document.createElement("button");
 resetFilterBtn.id = "resetFilterBtn";
 resetFilterBtn.textContent = "RESET FILTER";
 resetFilterBtn.style.display = "none";
 filtersUI.appendChild(resetFilterBtn);
 
-/* =======================
-   PERSIST
-======================= */
-function persist() {
-  localStorage.setItem("team", JSON.stringify(team));
-}
-
-/* =======================
-   LOAD DATA
-======================= */
+/* LOAD DATA */
 fetch("data/characters.json")
   .then(r => r.json())
   .then(data => {
     characters = data.map(c => ({
       ...c,
-      image: c.image && c.image.trim() ? c.image : FALLBACK_IMG
+      image: c.image?.trim() ? c.image : FALLBACK_IMG
     }));
 
     loadFromURLorStorage();
     setupFilters();
     renderCharacters();
     renderTeam();
-    toggleResetButton();
   });
 
-/* =======================
-   FILTERS (MULTI SELECT)
-======================= */
+/* FILTER LOGIC (MULTI SELECT) */
 function setupFilters() {
   document.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      const type = btn.dataset.type;
-      const value = btn.dataset.value;
+      const { type, value } = btn.dataset;
 
       if (value === "") {
         activeFilters[type] = [];
@@ -95,10 +74,8 @@ function setupFilters() {
   });
 }
 
-/* =======================
-   RESET FILTER
-======================= */
-resetFilterBtn.addEventListener("click", () => {
+/* RESET */
+resetFilterBtn.onclick = () => {
   activeFilters.position = [];
   activeFilters.element = [];
   activeFilters.class = [];
@@ -111,21 +88,19 @@ resetFilterBtn.addEventListener("click", () => {
 
   resetFilterBtn.style.display = "none";
   renderCharacters();
-});
+};
 
 function toggleResetButton() {
-  const hasActive =
+  const active =
     activeFilters.position.length ||
     activeFilters.element.length ||
     activeFilters.class.length ||
-    searchInput.value.trim() !== "";
+    searchInput.value.trim();
 
-  resetFilterBtn.style.display = hasActive ? "block" : "none";
+  resetFilterBtn.style.display = active ? "block" : "none";
 }
 
-/* =======================
-   RENDER CHARACTERS
-======================= */
+/* RENDER CHARACTERS */
 function renderCharacters() {
   charsEl.innerHTML = "";
 
@@ -139,7 +114,6 @@ function renderCharacters() {
     .forEach(c => {
       const d = document.createElement("div");
       d.className = "card";
-
       if (team.some(t => t.name === c.name)) d.classList.add("in-team");
 
       d.innerHTML = `
@@ -153,13 +127,10 @@ function renderCharacters() {
     });
 }
 
-/* =======================
-   TEAM
-======================= */
+/* TEAM */
 function addToTeam(c) {
   if (team.some(t => t.name === c.name)) return;
   if (team.length >= 5) return alert("Max 5 characters");
-
   team.push(c);
   persist();
   updateURL();
@@ -175,7 +146,6 @@ function removeFromTeam(name) {
 
 function renderTeam() {
   teamEl.innerHTML = "";
-
   for (let i = 0; i < 5; i++) {
     if (team[i]) {
       const d = document.createElement("div");
@@ -187,13 +157,14 @@ function renderTeam() {
       teamEl.appendChild(document.createElement("div")).className = "team-slot";
     }
   }
-
   renderCharacters();
 }
 
-/* =======================
-   SHARE + LOAD
-======================= */
+/* PERSIST + SHARE */
+function persist() {
+  localStorage.setItem("team", JSON.stringify(team));
+}
+
 function updateURL() {
   const names = team.map(t => encodeURIComponent(t.name)).join(",");
   history.replaceState(null, "", names ? `?team=${names}` : location.pathname);
@@ -212,7 +183,6 @@ function loadFromURLorStorage() {
       .filter(Boolean);
     return;
   }
-
   const s = localStorage.getItem("team");
   if (s) team = JSON.parse(s);
-            }
+    }
