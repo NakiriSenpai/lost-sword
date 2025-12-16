@@ -5,9 +5,9 @@ let characters = [];
 let team = [];
 
 let activeFilters = {
-  position: "",
-  element: "",
-  class: ""
+  position: [],
+  element: [],
+  class: []
 };
 
 /* =======================
@@ -56,7 +56,7 @@ fetch("data/characters.json")
   });
 
 /* =======================
-   FILTER BUTTONS
+   FILTERS (MULTI SELECT)
 ======================= */
 function setupFilters() {
   document.querySelectorAll(".filter-btn").forEach(btn => {
@@ -64,41 +64,49 @@ function setupFilters() {
       const type = btn.dataset.type;
       const value = btn.dataset.value;
 
-      document
-        .querySelectorAll(`.filter-btn[data-type="${type}"]`)
-        .forEach(b => b.classList.remove("active"));
+      if (value === "") {
+        activeFilters[type] = [];
+        document
+          .querySelectorAll(`.filter-btn[data-type="${type}"]`)
+          .forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      } else {
+        document
+          .querySelector(`.filter-btn[data-type="${type}"][data-value=""]`)
+          ?.classList.remove("active");
 
-      btn.classList.add("active");
-      activeFilters[type] = value;
+        btn.classList.toggle("active");
+
+        if (btn.classList.contains("active")) {
+          activeFilters[type].push(value);
+        } else {
+          activeFilters[type] = activeFilters[type].filter(v => v !== value);
+        }
+      }
 
       toggleResetButton();
       renderCharacters();
     });
   });
 
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      toggleResetButton();
-      renderCharacters();
-    });
-  }
+  searchInput.addEventListener("input", () => {
+    toggleResetButton();
+    renderCharacters();
+  });
 }
 
 /* =======================
-   RESET FILTER LOGIC
+   RESET FILTER
 ======================= */
 resetFilterBtn.addEventListener("click", () => {
-  activeFilters.position = "";
-  activeFilters.element = "";
-  activeFilters.class = "";
-
-  if (searchInput) searchInput.value = "";
+  activeFilters.position = [];
+  activeFilters.element = [];
+  activeFilters.class = [];
+  searchInput.value = "";
 
   document.querySelectorAll(".filter-btn").forEach(btn => {
     btn.classList.remove("active");
-    if (btn.dataset.value === "") {
-      btn.classList.add("active");
-    }
+    if (btn.dataset.value === "") btn.classList.add("active");
   });
 
   resetFilterBtn.style.display = "none";
@@ -107,10 +115,10 @@ resetFilterBtn.addEventListener("click", () => {
 
 function toggleResetButton() {
   const hasActive =
-    activeFilters.position ||
-    activeFilters.element ||
-    activeFilters.class ||
-    (searchInput && searchInput.value.trim() !== "");
+    activeFilters.position.length ||
+    activeFilters.element.length ||
+    activeFilters.class.length ||
+    searchInput.value.trim() !== "";
 
   resetFilterBtn.style.display = hasActive ? "block" : "none";
 }
@@ -123,19 +131,16 @@ function renderCharacters() {
 
   characters
     .filter(c =>
-      (!activeFilters.position || c.position === activeFilters.position) &&
-      (!activeFilters.element || c.element === activeFilters.element) &&
-      (!activeFilters.class || c.class === activeFilters.class) &&
-      (!searchInput.value ||
-        c.name.toLowerCase().includes(searchInput.value.toLowerCase()))
+      (!activeFilters.position.length || activeFilters.position.includes(c.position)) &&
+      (!activeFilters.element.length || activeFilters.element.includes(c.element)) &&
+      (!activeFilters.class.length || activeFilters.class.includes(c.class)) &&
+      c.name.toLowerCase().includes(searchInput.value.toLowerCase())
     )
     .forEach(c => {
       const d = document.createElement("div");
       d.className = "card";
 
-      if (team.some(t => t.name === c.name)) {
-        d.classList.add("in-team");
-      }
+      if (team.some(t => t.name === c.name)) d.classList.add("in-team");
 
       d.innerHTML = `
         <img src="${c.image}">
@@ -143,21 +148,17 @@ function renderCharacters() {
         <span>${c.element} • ${c.class} • ${c.position}</span>
       `;
 
-      d.addEventListener("click", () => addToTeam(c));
+      d.onclick = () => addToTeam(c);
       charsEl.appendChild(d);
     });
 }
 
 /* =======================
-   TEAM LOGIC
+   TEAM
 ======================= */
 function addToTeam(c) {
   if (team.some(t => t.name === c.name)) return;
-
-  if (team.length >= 5) {
-    alert("Max 5 characters");
-    return;
-  }
+  if (team.length >= 5) return alert("Max 5 characters");
 
   team.push(c);
   persist();
@@ -175,67 +176,43 @@ function removeFromTeam(name) {
 function renderTeam() {
   teamEl.innerHTML = "";
 
-  const MAX = 5;
-
-  team.forEach(c => {
-    const d = document.createElement("div");
-    d.className = "card team-card";
-
-    d.innerHTML = `
-      <img src="${c.image}">
-      <strong>${c.name}</strong>
-    `;
-
-    d.addEventListener("click", () => removeFromTeam(c.name));
-    teamEl.appendChild(d);
-  });
-
-  for (let i = team.length; i < MAX; i++) {
-    const empty = document.createElement("div");
-    empty.className = "team-slot";
-    teamEl.appendChild(empty);
+  for (let i = 0; i < 5; i++) {
+    if (team[i]) {
+      const d = document.createElement("div");
+      d.className = "team-card";
+      d.innerHTML = `<img src="${team[i].image}"><strong>${team[i].name}</strong>`;
+      d.onclick = () => removeFromTeam(team[i].name);
+      teamEl.appendChild(d);
+    } else {
+      teamEl.appendChild(document.createElement("div")).className = "team-slot";
+    }
   }
 
   renderCharacters();
 }
 
 /* =======================
-   SHARE LINK
+   SHARE + LOAD
 ======================= */
 function updateURL() {
   const names = team.map(t => encodeURIComponent(t.name)).join(",");
-  history.replaceState(
-    null,
-    "",
-    names ? `?team=${names}` : location.pathname
-  );
+  history.replaceState(null, "", names ? `?team=${names}` : location.pathname);
 }
 
-shareBtn.addEventListener("click", () => {
+shareBtn.onclick = () => {
   navigator.clipboard.writeText(location.href);
   alert("Link copied!");
-});
+};
 
-/* =======================
-   LOAD FROM URL / STORAGE
-======================= */
 function loadFromURLorStorage() {
   const p = new URLSearchParams(location.search).get("team");
-
   if (p) {
-    const names = p.split(",").map(decodeURIComponent);
-    team = names
+    team = p.split(",").map(decodeURIComponent)
       .map(n => characters.find(c => c.name === n))
       .filter(Boolean);
     return;
   }
 
   const s = localStorage.getItem("team");
-  if (s) {
-    try {
-      team = JSON.parse(s);
-    } catch {
-      team = [];
-    }
-  }
-   }
+  if (s) team = JSON.parse(s);
+            }
