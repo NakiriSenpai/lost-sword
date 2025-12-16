@@ -7,7 +7,9 @@ const FALLBACK_IMG =
 
 /* ================= STATE ================= */
 const MAX_PETS = 3;
+let pets = [];
 let petSlots = Array(MAX_PETS).fill(null);
+let activePetSlotIndex = null;
 
 let activeCardSlotIndex = null;
 
@@ -26,6 +28,11 @@ let activeFilters = {
 
 /* ================= DOM ================= */
 const petsEl = document.getElementById("pets");
+/* ================= PET POPUP DOM ================= */
+const petPopup = document.getElementById("petPopup");
+const closePetPopupBtn = document.getElementById("closePetPopup");
+const petListEl = document.getElementById("petList");
+const petSearchInput = document.getElementById("petSearchInput");
 
 const cardPopup = document.getElementById("cardPopup");
 const closeCardPopupBtn = document.getElementById("closeCardPopup");
@@ -161,6 +168,55 @@ function renderPets() {
 
     petsEl.appendChild(slot);
   }
+}
+
+/* ============== OPEN CLOSE PET POPUP ========== */
+function openPetPopup(index) {
+  activePetSlotIndex = index;
+
+  document.querySelectorAll(".pet-slot").forEach((slot, i) => {
+    slot.classList.toggle("active", i === index);
+  });
+
+  petPopup.classList.add("show");
+}
+
+function closePetPopup() {
+  petPopup.classList.remove("show");
+  activePetSlotIndex = null;
+
+  document.querySelectorAll(".pet-slot").forEach(slot => {
+    slot.classList.remove("active");
+  });
+}
+
+/* ================ RENDER PETLIST ============ */
+function renderPetList() {
+  const keyword = petSearchInput.value.toLowerCase();
+  petListEl.innerHTML = "";
+
+  pets
+    .filter(p => p.name.toLowerCase().includes(keyword))
+    .forEach(pet => {
+      const el = document.createElement("div");
+      el.className = "card-item";
+
+      el.innerHTML = `
+        <img src="${pet.img}">
+        <strong>${pet.name}</strong>
+      `;
+
+      // ✅ NOMER 5 ADA DI SINI
+      el.onclick = () => {
+        if (activePetSlotIndex === null) return;
+
+        petSlots[activePetSlotIndex] = pet;
+        closePetPopup();
+        saveAndRenderPets();
+      };
+
+      petListEl.appendChild(el);
+    });
 }
 
 /* ================= CHARACTER LIST ================= */
@@ -423,6 +479,12 @@ function saveAndRenderCards() {
   renderTeam();
 }
 
+/* ========== SAVE RENDER PET SLOT ======= */
+function saveAndRenderPets() {
+  persistPets();
+  renderTeam();
+}
+
 /* ======== HELPER FUNCTION ======= */
 function isCardUsed(cardId) {
   return cardSlots.some(c => c && c.id === cardId);
@@ -485,6 +547,15 @@ closeCardPopupBtn.onclick = closeCardPopup;
 cardPopup.onclick = (e) => {
   if (e.target === cardPopup) {
     closeCardPopup();
+  }
+};
+
+/* ============== PET POPUP EVENT ========= */
+closePetPopupBtn.onclick = closePetPopup;
+
+petPopup.onclick = (e) => {
+  if (e.target === petPopup) {
+    closePetPopup();
   }
 };
 
