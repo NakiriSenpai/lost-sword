@@ -20,15 +20,50 @@
   <div id="team" class="team dropzone"></div>
 </section>
 
-<!-- FILTER -->
-<section class="filters">
-  <select id="elementFilter">
-    <option value="">All Elements</option>
-  </select>
+<section class="filters-ui">
 
-  <select id="classFilter">
-    <option value="">All Classes</option>
-  </select>
+  <!-- SEARCH -->
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Filter characters"
+  />
+
+  <!-- POSITION -->
+  <div class="filter-row">
+    <button class="filter-btn active" data-type="position" data-value="">
+      ALL
+    </button>
+    <button class="filter-btn" data-type="position" data-value="Front">🛡️</button>
+    <button class="filter-btn" data-type="position" data-value="Middle">⚔️</button>
+    <button class="filter-btn" data-type="position" data-value="Back">🏹</button>
+  </div>
+
+  <!-- ELEMENT -->
+  <div class="filter-row">
+    <button class="filter-btn active" data-type="element" data-value="">
+      ALL
+    </button>
+    <button class="filter-btn" data-type="element" data-value="Radiance">☀️</button>
+    <button class="filter-btn" data-type="element" data-value="Fire">🔥</button>
+    <button class="filter-btn" data-type="element" data-value="Frost">❄️</button>
+    <button class="filter-btn" data-type="element" data-value="Nature">🍃</button>
+    <button class="filter-btn" data-type="element" data-value="Shock">⚡</button>
+    <button class="filter-btn" data-type="element" data-value="Chaos">🌑</button>
+    <button class="filter-btn" data-type="element" data-value="Holy">✨</button>
+  </div>
+
+  <!-- CLASS -->
+  <div class="filter-row">
+    <button class="filter-btn active" data-type="class" data-value="">
+      ALL
+    </button>
+    <button class="filter-btn" data-type="class" data-value="Knight">🛡️</button>
+    <button class="filter-btn" data-type="class" data-value="Wizard">🧙</button>
+    <button class="filter-btn" data-type="class" data-value="Archer">🏹</button>
+    <button class="filter-btn" data-type="class" data-value="Healer">➕</button>
+  </div>
+
 </section>
 
 <!-- CHARACTER LIST -->
