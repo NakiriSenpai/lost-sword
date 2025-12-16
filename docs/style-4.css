@@ -69,7 +69,7 @@ header {
   border: 2px solid #111827;
 }
 
-/* ================= FILTER UI (FIX LOOTANDWAIFUS) ================= */
+/* ================= FILTER UI ================= */
 .filters-ui {
   padding: 16px;
   display: flex;
@@ -77,15 +77,13 @@ header {
   gap: 16px;
 }
 
-/* SEARCH */
+/* SEARCH 100% */
 .filter-header {
-  display: flex;
-  gap: 16px;
-  align-items: center;
+  width: 100%;
 }
 
 #searchInput {
-  flex: 1;
+  width: 100%;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -93,23 +91,11 @@ header {
   color: #fff;
 }
 
-/* FILTER ROW (SEMUA GROUP DALAM 1 BARIS) */
-.filters-ui > .filter-group {
-  display: inline-flex;
-}
-
-/* BAR FILTER */
-.filters-ui {
-  --group-gap: 28px;
-}
-
-.filters-ui::after {
-  content: "";
-}
-
-/* WRAP GROUPS */
-.filters-ui {
-  flex-wrap: nowrap;
+/* 🔥 BAR FILTER HORIZONTAL */
+.filters-row {
+  display: flex;
+  align-items: center;
+  gap: 24px; /* jarak antar grup */
 }
 
 /* FILTER GROUP */
@@ -128,9 +114,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
   cursor: pointer;
 }
 
@@ -138,6 +121,23 @@ header {
   width: 20px;
   height: 20px;
   object-fit: contain;
+}
+
+/* ACTIVE */
+.filter-btn.active {
+  outline: 2px solid var(--green);
+}
+
+/* RESET BUTTON (NEMPEL KE FILTER TERAKHIR) */
+#resetFilterBtn {
+  margin-left: 16px; /* ⬅️ BUKAN auto */
+  padding: 8px 16px;
+  background: var(--bg);
+  color: var(--red);
+  border: 2px solid var(--red);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 /* ACTIVE */
