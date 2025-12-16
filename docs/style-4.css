@@ -262,5 +262,6 @@ header button:hover {
   .filter-btn {
     width: 36px;
     height: 36px;
+    color: white;
   }
 }
