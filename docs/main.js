@@ -29,7 +29,8 @@ searchInput.addEventListener("input", () => { toggleResetButton(); renderCharact
 
 function handleFilterClick(btn) { const { type, value } = btn.dataset;
 
-ALL button if (value === "") { activeFilters[type] = []; document .querySelectorAll(.filter-btn[data-type="${type}"]) .forEach(b => b.classList.remove("active")); btn.classList.add("active"); } else { document .querySelector(.filter-btn[data-type="${type}"][data-value=""]) ?.classList.remove("active");
+// ALL button if 
+(value === "") { activeFilters[type] = []; document .querySelectorAll(.filter-btn[data-type="${type}"]) .forEach(b => b.classList.remove("active")); btn.classList.add("active"); } else { document .querySelector(.filter-btn[data-type="${type}"][data-value=""]) ?.classList.remove("active");
 
 btn.classList.toggle("active");
 
