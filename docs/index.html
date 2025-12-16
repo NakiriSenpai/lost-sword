@@ -13,6 +13,11 @@
   <button id="shareBtn">Share Team</button>
 </header>
 
+<!-- ================= PETS ================= -->
+<section class="pets-section">
+  <div id="pets" class="pets"></div>
+</section>
+  
 <!-- ================= TEAM ================= -->
 <section class="team-section">
   <h2>Your Team (max 5)</h2>
@@ -115,6 +120,23 @@
     <div id="cardList" class="card-grid">
       <!-- cards injected by JS -->
     </div>
+  </div>
+</div>
+
+  <!-- ================= PET SELECTOR POPUP ================= -->
+<div id="petPopup" class="card-popup">
+  <div class="card-popup-content">
+    <button id="closePetPopup" class="popup-close">✕</button>
+
+    <h2>Select Pet</h2>
+
+    <input
+      type="text"
+      id="petSearchInput"
+      placeholder="Search pet..."
+    />
+
+    <div id="petList" class="card-grid"></div>
   </div>
 </div>
   
