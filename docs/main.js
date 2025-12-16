@@ -52,6 +52,25 @@ Promise.all([
     // 🔍 DEBUG (TAMBAHKAN DI SINI)
     console.log("CHARACTERS:", characters);
     console.log("CARDS:", cards);
+    document.body.insertAdjacentHTML(
+  "beforeend",
+  `<pre style="
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    max-height:40%;
+    overflow:auto;
+    background:#000;
+    color:#0f0;
+    font-size:12px;
+    z-index:9999;
+  ">
+CHARACTERS: ${JSON.stringify(characters.slice(0,2), null, 2)}
+
+CARDS: ${JSON.stringify(cards.slice(0,2), null, 2)}
+</pre>`
+);
 
     loadFromURLorStorage();
     setupFilters();
