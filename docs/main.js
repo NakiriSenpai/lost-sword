@@ -86,6 +86,20 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTeam();
     renderCardList();
   });
+
+  /* ===== FETCH PETS ===== */
+fetch("data/pets.json")
+  .then(r => r.json())
+  .then(data => {
+    pets = data.map(p => ({
+      name: p.name,
+      img: p.img?.trim() ? p.img : FALLBACK_IMG
+    }));
+
+    loadPetsFromStorage(); // (lihat poin 2)
+    renderPets();
+    renderPetList();
+  });
 });
 
 /* ================= FILTER ================= */
@@ -154,20 +168,21 @@ function renderPets() {
   petsEl.innerHTML = "";
 
   for (let i = 0; i < MAX_PETS; i++) {
-    const slot = document.createElement("div");
-    slot.className = petSlots[i]
-      ? "pet-slot"
-      : "pet-slot empty";
+  const slot = document.createElement("div");
+  slot.className = petSlots[i]
+    ? "pet-slot"
+    : "pet-slot empty";
 
-    if (petSlots[i]) {
-      slot.innerHTML = `
-        <img src="${petSlots[i].img}">
-        <strong>${petSlots[i].name}</strong>
-      `;
-    }
-
-    petsEl.appendChild(slot);
+  if (petSlots[i]) {
+    slot.innerHTML = `
+      <img src="${petSlots[i].img}">
+      <strong>${petSlots[i].name}</strong>
+    `;
   }
+
+  slot.onclick = () => openPetPopup(i);
+  petsEl.appendChild(slot);
+}
 }
 
 /* ============== OPEN CLOSE PET POPUP ========== */
@@ -513,6 +528,17 @@ function loadFromURLorStorage() {
     });
 }
 
+function persistPets() {
+  localStorage.setItem("petSlots", JSON.stringify(petSlots));
+}
+
+function loadPetsFromStorage() {
+  const saved = JSON.parse(localStorage.getItem("petSlots"));
+  if (Array.isArray(saved)) {
+    petSlots = saved;
+  }
+}
+
 function persistCards() {
   localStorage.setItem("cardSlots", JSON.stringify(cardSlots));
 }
@@ -558,6 +584,9 @@ petPopup.onclick = (e) => {
     closePetPopup();
   }
 };
+
+/* ======== SEARCH PETS IN POPUP ===== */
+petSearchInput.oninput = renderPetList;
 
 /* ======== SEARCH CARD IN POPUP ======= */
 cardSearchInput.oninput = renderCardList;
