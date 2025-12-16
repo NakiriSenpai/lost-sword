@@ -35,8 +35,8 @@ filtersUI.appendChild(resetFilterBtn);
 /* ================= LOAD DATA ================= */
 
 Promise.all([
-  fetch("data/characters.json").then(r => r.json()),
-  fetch("data/cards.json").then(r => r.json())
+  fetch("./data/characters.json").then(r => r.json()),
+  fetch("./data/cards.json").then(r => r.json())
 ]).then(([charData, cardData]) => {
   characters = charData.map(c => ({
     ...c,
