@@ -1,0 +1,489 @@
+/* =========================================================
+   LOST SWORD TEAM BUILDER
+   style-4.css
+   ========================================================= */
+
+/* ================= ROOT ================= */
+:root {
+  --bg: #020617;
+  --bg-dark: #0f172a;
+  --border: #334155;
+  --gold: linear-gradient(135deg, #7a4a12, #c18a2e, #e09f3e);
+  --red: #ef4444;
+  --green: #22c55e;
+}
+
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: #fff;
+}
+
+/* ================= HEADER ================= */
+header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 22px;
+}
+
+header button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-dark);
+  color: #fff;
+  cursor: pointer;
+}
+
+header button:hover {
+  background: #1e293b;
+}
+
+/* ================= TEAM ================= */
+.team-section {
+  padding: 16px;
+  background: linear-gradient(135deg, #3b2a12, #6b4a1f);
+}
+
+.team {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.team-card,
+.team-slot {
+  width: 120px;
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.team-card {
+  background: var(--gold);
+  cursor: grab;
+}
+
+.team-card:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+
+.team-card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 6px;
+}
+
+.team-card strong {
+  display: block;
+  font-size: 13px;
+}
+
+.team-card.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.25s ease;
+}
+
+.team-slot {
+  height: 190px;
+  background: #1f2937;
+  border: 2px dashed #111827;
+}
+
+.team-slot:hover {
+  background: #334155;
+  transform: scale(1.05);
+}
+
+.team-slot.drag-over,
+.team-card.drag-over {
+  outline: 3px dashed #facc15;
+  background: rgba(250, 204, 21, 0.15);
+}
+
+/* ================= SYNERGY ================= */
+.synergy {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background: #16a34a;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+/* ================= FILTER UI ================= */
+.filters-ui {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* SEARCH */
+.filter-header input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: #fff;
+}
+
+/* FILTER BAR */
+.filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* FILTER GROUP */
+.filter-group {
+  display: flex;
+  gap: 8px;
+}
+
+/* FILTER BUTTON */
+.filter-btn {
+  width: 40px;
+  height: 40px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+}
+
+.filter-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+/* ACTIVE FILTER */
+.filter-btn.active {
+  outline: 2px solid var(--green);
+}
+
+/* RESET FILTER */
+#resetFilterBtn {
+  margin-left: auto;
+  padding: 8px 16px;
+  background: var(--bg);
+  color: var(--red);
+  border: 2px solid var(--red);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#resetFilterBtn:hover {
+  background: var(--bg-dark);
+}
+
+/* ================= CHARACTERS ================= */
+.characters-section h2 {
+  padding: 0 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+  padding: 16px;
+}
+
+.card {
+  background: var(--gold);
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.card strong,
+.card span {
+  display: block;
+  margin-top: 6px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.card.in-team {
+  outline: 3px solid var(--green);
+}
+
+.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.2s ease;
+}
+
+.swap {
+  transform: scale(1.08);
+  transition: transform 0.25s ease;
+}
+
+.selected-slot {
+  outline: 3px solid #22c55e;
+  box-shadow: 0 0 12px rgba(34,197,94,0.6);
+}
+
+/* ================= SYNERGY WARNING ================= */
+.synergy-warning {
+  margin: 16px;
+  padding: 12px 16px;
+  border: 2px solid #facc15; /* kuning */
+  border-radius: 12px;
+  color: #facc15;
+  font-weight: 700;
+  background: rgba(250, 204, 21, 0.05);
+}
+
+.synergy-warning div + div {
+  margin-top: 6px;
+}
+
+/* ================= SYNERGY WARNING (PER BOX) ================= */
+.synergy-warning {
+  width: calc(100% - 32px);
+  margin: 12px 16px;
+  padding: 12px 16px;
+
+  border: 2px solid #facc15;
+  border-radius: 12px;
+
+  color: #facc15 !important;
+  background: rgba(250, 204, 21, 0.08);
+
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* ================= CARD SLOT ================= */
+.card-slot {
+  width: 120px;
+  height: 190px;
+
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+
+  background: #020617;
+  border: 2px dashed #334155;
+
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.card-slot:hover {
+  background: #1e293b;
+  transform: scale(1.05);
+}
+
+.card-slot img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 6px;
+}
+
+.card-slot strong {
+  display: block;
+  font-size: 13px;
+}
+
+/* slot card kosong */
+.card-slot.empty::after {
+  content: "+ CARD";
+  font-weight: 700;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.card-slot.active {
+  outline: 3px solid #ffd700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+/* ================= TEAM PAIR ================= */
+.team-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .card-slot {
+    width: 90px;
+  }
+
+  .card-slot img {
+    height: 100px;
+  }
+}
+
+/* ================= CARD POPUP ================= */
+.card-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+   opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.card-popup.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+
+.card-popup-content {
+  width: min(900px, 92%);
+  max-height: 85vh;
+  background: var(--bg-dark);
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* close button */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* search */
+#cardSearchInput {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: #fff;
+}
+
+/* card grid */
+.card-grid {
+  flex: 1;
+  overflow-y: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+}
+
+/* single card item */
+.card-item {
+  background: var(--gold);
+  border-radius: 16px;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card-item.used {
+  opacity: 0.4;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.card-item:hover {
+  transform: scale(1.05);
+}
+
+.card-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.card-item strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+/* ================= MOBILE POLISH ================= */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 18px;
+  }
+
+  .team {
+    gap: 8px;
+  }
+
+  .team-card,
+  .team-slot {
+    width: 90px;
+  }
+
+  .team-card img {
+    height: 100px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  
+}
