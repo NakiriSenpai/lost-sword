@@ -27,6 +27,12 @@ let activeFilters = {
 };
 
 /* ================= DOM ================= */
+const petsRowEl = document.getElementById("petsRow");
+
+const MAX_PETS = 3;
+let petSlots = Array(MAX_PETS).fill(null);
+let activePetSlotIndex = null;
+
 const petsEl = document.getElementById("pets");
 /* ================= PET POPUP DOM ================= */
 const petPopup = document.getElementById("petPopup");
@@ -100,6 +106,7 @@ fetch("data/pets.json")
     renderPets();      // 🔥 WAJIB
     renderPetList();   // optional
   });
+  renderPetSlots(); 
 });
 
 /* ================= FILTER ================= */
@@ -164,21 +171,7 @@ resetFilterBtn.onclick = () => {
 };
 
 /* ================= RENDER PETS =========== */
-function renderPetList() {
-  petListEl.innerHTML = "";
 
-  pets.forEach(pet => {
-    const div = document.createElement("div");
-    div.className = "card-item";
-
-    div.innerHTML = `
-      <img src="${pet.img}" />
-      <strong>${pet.name}</strong>
-    `;
-
-    petListEl.appendChild(div);
-  });
-}
 
 /* ============== OPEN CLOSE PET POPUP ========== */
 function openPetPopup(index) {
@@ -398,7 +391,7 @@ cardSlot.onclick = () => {
 
   renderSynergyWarning();
   renderCharacters();
-  renderPets();
+  
 }
 
 function selectSlot(index, el) {
@@ -412,6 +405,26 @@ function clearSelectedSlot() {
   document
     .querySelectorAll(".selected-slot")
     .forEach(el => el.classList.remove("selected-slot"));
+}
+
+/* ======== RENDER PETS SLOTS ======= */
+function renderPetSlots() {
+  petsRowEl.innerHTML = "";
+
+  for (let i = 0; i < MAX_PETS; i++) {
+    const slot = document.createElement("div");
+    slot.className = "pet-slot" + (petSlots[i] ? "" : " empty");
+
+    if (petSlots[i]) {
+      slot.innerHTML = `
+        <img src="${petSlots[i].img}">
+        <strong>${petSlots[i].name}</strong>
+      `;
+    }
+
+    slot.onclick = () => openPetPopup(i);
+    petsRowEl.appendChild(slot);
+  }
 }
 
 /* ================= SYNERGY WARNING ================= */
