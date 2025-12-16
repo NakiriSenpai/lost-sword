@@ -7,9 +7,15 @@ const FALLBACK_IMG =
 
 /* ================= STATE ================= */
 let characters = [];
-let team = Array(MAX_TEAM).fill(null);
-let selectedSlotIndex = null;
+let cardsData = [];
 
+let team = Array(MAX_TEAM).fill(null);
+let teamSubCards = Array(MAX_TEAM).fill(null);
+
+let selectedSlotIndex = null;
+let activePopupSlot = null;
+
+/* ================= FILTER STATE ================= */
 let activeFilters = {
   position: [],
   element: [],
@@ -30,24 +36,49 @@ resetFilterBtn.textContent = "RESET FILTER";
 resetFilterBtn.style.display = "none";
 filtersBar.appendChild(resetFilterBtn);
 
+/* ================= POPUP CARD ================= */
+const popup = document.createElement("div");
+popup.id = "cardPopup";
+popup.className = "popup hidden";
+
+popup.innerHTML = `
+  <div class="popup-content">
+    <button class="popup-close">✕</button>
+    <input type="text" class="popup-search" placeholder="Search card..." />
+    <div class="popup-cards"></div>
+  </div>
+`;
+
+document.body.appendChild(popup);
+
+const popupCardsEl = popup.querySelector(".popup-cards");
+const popupSearch = popup.querySelector(".popup-search");
+const popupClose = popup.querySelector(".popup-close");
+
 /* ================= INIT ================= */
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("data/characters.json")
-    .then(r => r.json())
-    .then(data => {
-      characters = data.map(c => ({
-        name: c.name,
-        element: c.element,
-        class: c.class,
-        position: c.position,
-        image: c.image?.trim() ? c.image : FALLBACK_IMG
-      }));
+  Promise.all([
+    fetch("data/characters.json").then(r => r.json()),
+    fetch("data/cards.json").then(r => r.json())
+  ]).then(([charData, cardData]) => {
+    characters = charData.map(c => ({
+      name: c.name,
+      element: c.element,
+      class: c.class,
+      position: c.position,
+      image: c.image?.trim() ? c.image : FALLBACK_IMG
+    }));
 
-      loadFromURLorStorage();
-      setupFilters();
-      renderCharacters();
-      renderTeam();
-    });
+    cardsData = cardData.map(c => ({
+      name: c.name,
+      image: c.image?.trim() ? c.image : FALLBACK_IMG
+    }));
+
+    loadFromURLorStorage();
+    setupFilters();
+    renderCharacters();
+    renderTeam();
+  });
 });
 
 /* ================= FILTER ================= */
@@ -64,16 +95,20 @@ function setupFilters() {
         btn.classList.add("active");
       } else {
         document
-          .querySelector(`.filter-btn[data-type="${type}"][data-value=""]`)
+          .querySelector(
+            `.filter-btn[data-type="${type}"][data-value=""]`
+          )
           ?.classList.remove("active");
 
         btn.classList.toggle("active");
 
         if (btn.classList.contains("active")) {
-          activeFilters[type].push(value);
+          if (!activeFilters[type].includes(value))
+            activeFilters[type].push(value);
         } else {
-          activeFilters[type] =
-            activeFilters[type].filter(v => v !== value);
+          activeFilters[type] = activeFilters[type].filter(
+            v => v !== value
+          );
         }
       }
 
@@ -116,14 +151,17 @@ function renderCharacters() {
   charsEl.innerHTML = "";
 
   characters
-    .filter(c =>
-      (!activeFilters.position.length ||
-        activeFilters.position.includes(c.position)) &&
-      (!activeFilters.element.length ||
-        activeFilters.element.includes(c.element)) &&
-      (!activeFilters.class.length ||
-        activeFilters.class.includes(c.class)) &&
-      c.name.toLowerCase().includes(searchInput.value.toLowerCase())
+    .filter(
+      c =>
+        (!activeFilters.position.length ||
+          activeFilters.position.includes(c.position)) &&
+        (!activeFilters.element.length ||
+          activeFilters.element.includes(c.element)) &&
+        (!activeFilters.class.length ||
+          activeFilters.class.includes(c.class)) &&
+        c.name
+          .toLowerCase()
+          .includes(searchInput.value.toLowerCase())
     )
     .forEach(c => {
       const card = document.createElement("div");
@@ -146,19 +184,17 @@ function renderCharacters() {
 
 /* ================= CHARACTER CLICK ================= */
 function onCharacterClick(character) {
-  // REMOVE JIKA SUDAH ADA
   const existIndex = team.findIndex(
     t => t && t.name === character.name
   );
 
   if (existIndex !== -1) {
     team[existIndex] = null;
-    clearSelectedSlot();
+    teamSubCards[existIndex] = null;
     saveAndRender();
     return;
   }
 
-  // INSERT KE SLOT YANG DIPILIH
   if (selectedSlotIndex !== null) {
     team[selectedSlotIndex] = character;
     clearSelectedSlot();
@@ -166,7 +202,6 @@ function onCharacterClick(character) {
     return;
   }
 
-  // INSERT KE SLOT KOSONG PERTAMA
   const emptyIndex = team.findIndex(t => t === null);
   if (emptyIndex === -1) {
     alert("Max 5 characters");
@@ -182,8 +217,10 @@ function renderTeam() {
   teamEl.innerHTML = "";
 
   for (let i = 0; i < MAX_TEAM; i++) {
+    const wrap = document.createElement("div");
+    wrap.className = "team-wrap";
+
     const slot = document.createElement("div");
-    slot.dataset.index = i;
 
     if (team[i]) {
       slot.className = "team-card";
@@ -193,7 +230,7 @@ function renderTeam() {
       `;
       slot.onclick = () => {
         team[i] = null;
-        clearSelectedSlot();
+        teamSubCards[i] = null;
         saveAndRender();
       };
     } else {
@@ -201,13 +238,28 @@ function renderTeam() {
       slot.onclick = () => selectSlot(i, slot);
     }
 
-    teamEl.appendChild(slot);
+    const sub = document.createElement("div");
+    sub.className = "sub-card";
+    sub.onclick = () => openCardPopup(i);
+
+    if (teamSubCards[i]) {
+      sub.innerHTML = `
+        <img src="${teamSubCards[i].image}">
+        <div>${teamSubCards[i].name}</div>
+      `;
+    } else {
+      sub.textContent = "+ Select Card";
+    }
+
+    wrap.appendChild(slot);
+    wrap.appendChild(sub);
+    teamEl.appendChild(wrap);
   }
 
-  renderSynergyWarning();
   renderCharacters();
 }
 
+/* ================= SLOT ================= */
 function selectSlot(index, el) {
   clearSelectedSlot();
   selectedSlotIndex = index;
@@ -221,55 +273,53 @@ function clearSelectedSlot() {
     .forEach(el => el.classList.remove("selected-slot"));
 }
 
-/* ================= SYNERGY WARNING ================= */
-let synergyWarningEls = [];
+/* ================= POPUP ================= */
+function openCardPopup(slotIndex) {
+  activePopupSlot = slotIndex;
+  popup.classList.remove("hidden");
+  popup.classList.add("show");
+  popupSearch.value = "";
+  renderPopupCards();
+}
 
-function renderSynergyWarning() {
-  synergyWarningEls.forEach(el => el.remove());
-  synergyWarningEls = [];
+popupClose.onclick = closePopup;
+popup.onclick = e => {
+  if (e.target === popup) closePopup();
+};
 
-  const activeTeam = team.filter(Boolean);
-  if (!activeTeam.length) return;
-  if (activeTeam.some(c => c.name === "Claire")) return;
+function closePopup() {
+  popup.classList.remove("show");
+  popup.classList.add("hidden");
+  activePopupSlot = null;
+}
 
-  const classes = activeTeam.map(c => c.class);
-  const hasKnight = classes.includes("Knight");
-  const hasHealer = classes.includes("Healer");
+popupSearch.oninput = renderPopupCards;
 
-  const warnings = [];
+function renderPopupCards() {
+  popupCardsEl.innerHTML = "";
 
-  if (classes.every(c => c === "Wizard" || c === "Archer")) {
-    warnings.push("Tidak ada sustain");
-    warnings.push("Tidak ada frontline");
-  } else {
-    if (
-      classes.every(c =>
-        ["Knight", "Wizard", "Archer"].includes(c)
-      ) &&
-      !hasHealer
-    ) {
-      warnings.push("Tidak ada sustain");
-    }
-    if (
-      classes.every(c =>
-        ["Wizard", "Archer", "Healer"].includes(c)
-      ) &&
-      !hasKnight
-    ) {
-      warnings.push("Tidak ada frontline");
-    }
-  }
+  cardsData
+    .filter(c =>
+      c.name
+        .toLowerCase()
+        .includes(popupSearch.value.toLowerCase())
+    )
+    .forEach(card => {
+      const el = document.createElement("div");
+      el.className = "popup-card";
+      el.innerHTML = `
+        <img src="${card.image}">
+        <span>${card.name}</span>
+      `;
 
-  if (!warnings.length) return;
+      el.onclick = () => {
+        teamSubCards[activePopupSlot] = card;
+        closePopup();
+        renderTeam();
+      };
 
-  const filtersUI = document.querySelector(".filters-ui");
-  warnings.forEach(text => {
-    const box = document.createElement("div");
-    box.className = "synergy-warning";
-    box.textContent = "⚠ " + text;
-    filtersUI.parentNode.insertBefore(box, filtersUI);
-    synergyWarningEls.push(box);
-  });
+      popupCardsEl.appendChild(el);
+    });
 }
 
 /* ================= STORAGE ================= */
@@ -307,6 +357,7 @@ function updateURL() {
   );
 }
 
+/* ================= SHARE ================= */
 shareBtn.onclick = () => {
   navigator.clipboard.writeText(location.href);
   alert("Link copied!");
