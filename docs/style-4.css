@@ -383,9 +383,6 @@ header button:hover {
   pointer-events: auto;
 }
 
-.card-popup.hidden {
-  display: none;
-}
 
 .card-popup-content {
   width: min(900px, 92%);
