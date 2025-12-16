@@ -6,6 +6,12 @@ const FALLBACK_IMG =
   "https://via.placeholder.com/300x200?text=No+Image";
 
 /* ================= STATE ================= */
+const MAX_PETS = 3;
+
+let pets = [];
+let petSlots = Array(MAX_PETS).fill(null);
+let activePetSlotIndex = null;
+
 let activeCardSlotIndex = null;
 
 let cards = [];
@@ -22,6 +28,12 @@ let activeFilters = {
 };
 
 /* ================= DOM ================= */
+const petsEl = document.getElementById("pets");
+const petPopup = document.getElementById("petPopup");
+const closePetPopupBtn = document.getElementById("closePetPopup");
+const petListEl = document.getElementById("petList");
+const petSearchInput = document.getElementById("petSearchInput");
+
 const cardPopup = document.getElementById("cardPopup");
 const closeCardPopupBtn = document.getElementById("closeCardPopup");
 
@@ -73,6 +85,19 @@ document.addEventListener("DOMContentLoaded", () => {
     loadCardsFromStorage();
     renderTeam();
     renderCardList();
+  });
+
+  fetch("data/pets.json")
+  .then(r => r.json())
+  .then(data => {
+    pets = data.map(p => ({
+      id: p.id,
+      name: p.name,
+      image: p.image?.trim() ? p.image : FALLBACK_IMG
+    }));
+    loadPetsFromStorage();
+    renderPets();
+    renderPetList();
   });
 });
 
@@ -204,6 +229,66 @@ el.onclick = () => {
 };
 
       cardListEl.appendChild(el);
+    });
+}
+
+/* ======= RENDER PETS ====== */
+function renderPets() {
+  petsEl.innerHTML = "";
+
+  for (let i = 0; i < MAX_PETS; i++) {
+    const slot = document.createElement("div");
+    slot.className = "card-slot";
+    slot.dataset.index = i;
+
+    if (petSlots[i]) {
+      slot.innerHTML = `
+        <button class="remove-card">✕</button>
+        <img src="${petSlots[i].image}">
+        <strong>${petSlots[i].name}</strong>
+      `;
+
+      slot.querySelector(".remove-card").onclick = (e) => {
+        e.stopPropagation();
+        petSlots[i] = null;
+        persistPets();
+        renderPets();
+      };
+    } else {
+      slot.classList.add("empty");
+    }
+
+    slot.onclick = () => openPetPopup(i);
+    petsEl.appendChild(slot);
+  }
+}
+
+/* =========== RENDER PETLIST POPUP ========= */
+function renderPetList() {
+  const keyword = petSearchInput.value.toLowerCase();
+  petListEl.innerHTML = "";
+
+  pets
+    .filter(p => p.name.toLowerCase().includes(keyword))
+    .forEach(pet => {
+      const el = document.createElement("div");
+      el.className = "card-item";
+
+      el.innerHTML = `
+        <img src="${pet.image}">
+        <strong>${pet.name}</strong>
+      `;
+
+      el.onclick = () => {
+        if (activePetSlotIndex === null) return;
+
+        petSlots[activePetSlotIndex] = pet;
+        persistPets();
+        renderPets();
+        closePetPopup();
+      };
+
+      petListEl.appendChild(el);
     });
 }
 
@@ -390,6 +475,24 @@ function closeCardPopup() {
   });
 }
 
+/* ======= OPEN CLOSE POPUP PETS ====== */
+function openPetPopup(index) {
+  activePetSlotIndex = index;
+  petPopup.classList.add("show");
+}
+
+function closePetPopup() {
+  petPopup.classList.remove("show");
+  activePetSlotIndex = null;
+}
+
+closePetPopupBtn.onclick = closePetPopup;
+petPopup.onclick = (e) => {
+  if (e.target === petPopup) closePetPopup();
+};
+
+petSearchInput.oninput = renderPetList;
+
 /* ========== SAVE RENDER CARD SLOT ======= */
 function saveAndRenderCards() {
   persistCards();
@@ -433,6 +536,15 @@ function loadCardsFromStorage() {
   if (Array.isArray(saved)) {
     cardSlots = saved;
   }
+}
+
+function persistPets() {
+  localStorage.setItem("petSlots", JSON.stringify(petSlots));
+}
+
+function loadPetsFromStorage() {
+  const saved = JSON.parse(localStorage.getItem("petSlots"));
+  if (Array.isArray(saved)) petSlots = saved;
 }
 
 function updateURL() {
