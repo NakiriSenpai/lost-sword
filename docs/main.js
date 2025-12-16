@@ -1,16 +1,27 @@
+/* =======================
+   STATE
+======================= */
 let characters = [];
 let team = [];
 
+let activeFilters = {
+  position: "",
+  element: "",
+  class: ""
+};
+
+/* =======================
+   ELEMENTS
+======================= */
 const charsEl = document.getElementById("characters");
 const teamEl = document.getElementById("team");
-const elF = document.getElementById("elementFilter");
-const clF = document.getElementById("classFilter");
 const shareBtn = document.getElementById("shareBtn");
+const searchInput = document.getElementById("searchInput");
 
 const FALLBACK_IMG = "https://via.placeholder.com/300x200?text=No+Image";
 
 /* =======================
-   PERSIST (WAJIB ADA)
+   PERSIST
 ======================= */
 function persist() {
   localStorage.setItem("team", JSON.stringify(team));
@@ -27,24 +38,36 @@ fetch("data/characters.json")
       image: c.image && c.image.trim() ? c.image : FALLBACK_IMG
     }));
 
-    initFilters();
     loadFromURLorStorage();
+    setupFilters();
     renderCharacters();
     renderTeam();
   });
 
 /* =======================
-   FILTERS
+   FILTER BUTTONS
 ======================= */
-function initFilters() {
-  [...new Set(characters.map(c => c.element))]
-    .forEach(v => elF.innerHTML += `<option value="${v}">${v}</option>`);
+function setupFilters() {
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const type = btn.dataset.type;
+      const value = btn.dataset.value;
 
-  [...new Set(characters.map(c => c.class))]
-    .forEach(v => clF.innerHTML += `<option value="${v}">${v}</option>`);
+      document
+        .querySelectorAll(`.filter-btn[data-type="${type}"]`)
+        .forEach(b => b.classList.remove("active"));
+
+      btn.classList.add("active");
+      activeFilters[type] = value;
+
+      renderCharacters();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener("input", renderCharacters);
+  }
 }
-
-elF.onchange = clF.onchange = renderCharacters;
 
 /* =======================
    RENDER CHARACTERS
@@ -54,8 +77,11 @@ function renderCharacters() {
 
   characters
     .filter(c =>
-      (!elF.value || c.element === elF.value) &&
-      (!clF.value || c.class === clF.value)
+      (!activeFilters.position || c.position === activeFilters.position) &&
+      (!activeFilters.element || c.element === activeFilters.element) &&
+      (!activeFilters.class || c.class === activeFilters.class) &&
+      (!searchInput.value ||
+        c.name.toLowerCase().includes(searchInput.value.toLowerCase()))
     )
     .forEach(c => {
       const d = document.createElement("div");
@@ -71,9 +97,7 @@ function renderCharacters() {
         <span>${c.element} • ${c.class} • ${c.position}</span>
       `;
 
-      d.addEventListener("click", () => {
-        addToTeam(c);
-      });
+      d.addEventListener("click", () => addToTeam(c));
 
       charsEl.appendChild(d);
     });
@@ -84,6 +108,7 @@ function renderCharacters() {
 ======================= */
 function addToTeam(c) {
   if (team.some(t => t.name === c.name)) return;
+
   if (team.length >= 5) {
     alert("Max 5 characters");
     return;
@@ -114,9 +139,7 @@ function renderTeam() {
       <strong>${c.name}</strong>
     `;
 
-    d.addEventListener("click", () => {
-      removeFromTeam(c.name);
-    });
+    d.addEventListener("click", () => removeFromTeam(c.name));
 
     teamEl.appendChild(d);
   });
@@ -129,13 +152,17 @@ function renderTeam() {
 ======================= */
 function updateURL() {
   const names = team.map(t => encodeURIComponent(t.name)).join(",");
-  history.replaceState(null, "", names ? `?team=${names}` : location.pathname);
+  history.replaceState(
+    null,
+    "",
+    names ? `?team=${names}` : location.pathname
+  );
 }
 
-shareBtn.onclick = () => {
+shareBtn.addEventListener("click", () => {
   navigator.clipboard.writeText(location.href);
   alert("Link copied!");
-};
+});
 
 /* =======================
    LOAD FROM URL / STORAGE
@@ -152,5 +179,11 @@ function loadFromURLorStorage() {
   }
 
   const s = localStorage.getItem("team");
-  if (s) team = JSON.parse(s);
-        }
+  if (s) {
+    try {
+      team = JSON.parse(s);
+    } catch {
+      team = [];
+    }
+  }
+}
