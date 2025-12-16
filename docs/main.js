@@ -188,5 +188,4 @@ return;
 }
 const s = localStorage.getItem("team");
 if (s) team = JSON.parse(s);
-      }
-  
+    }
