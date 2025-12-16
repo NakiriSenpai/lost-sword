@@ -61,12 +61,13 @@ header {
   border: 2px solid #111827;
 }
 
-/* ================= FILTER UI (lootandwaifus spacing) ================= */
+/* ================= FILTER UI ================= */
 .filters-ui {
-  padding: 16px;
+  padding: 12px 16px;
   display: flex;
-  flex-direction: column;
-  gap: 18px; /* jarak search ke filter */
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px; /* JARAK ANTAR GRUP */
 }
 
 /* SEARCH */
@@ -75,28 +76,20 @@ header {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   color: #fff;
-}
-
-/* BAR FILTER (SEMUA GRUP) */
-.filters-ui > .filter-row {
-  display: flex;
-  align-items: center;
-  gap: 28px;           /* JARAK ANTAR GRUP (INI KUNCI) */
-  flex-wrap: nowrap;
 }
 
 /* FILTER GROUP */
 .filter-row {
   display: flex;
-  gap: 10px;           /* JARAK ANTAR ICON */
+  gap: 8px;
 }
 
 /* FILTER BUTTON */
 .filter-btn {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -109,22 +102,20 @@ header {
   cursor: pointer;
 }
 
-/* ICON */
 .filter-btn img {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
 }
 
-/* ACTIVE */
 .filter-btn.active {
   outline: 2px solid var(--green);
 }
 
 /* ================= RESET FILTER ================= */
 #resetFilterBtn {
-  margin-left: auto;   /* DORONG KE KANAN */
-  padding: 8px 18px;
+  margin-left: auto;
+  padding: 8px 16px;
   background: var(--bg);
   color: var(--red);
   border: 2px solid var(--red);
@@ -133,9 +124,8 @@ header {
   cursor: pointer;
 }
 
-/* HILANGKAN RESET LIAR */
-.filters-ui button:not(#resetFilterBtn):not(.filter-btn) {
-  display: none !important;
+#resetFilterBtn:hover {
+  background: var(--bg-dark);
 }
 
 /* ================= CHARACTERS ================= */
