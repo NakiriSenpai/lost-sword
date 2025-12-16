@@ -130,9 +130,12 @@ function removeFromTeam(name) {
 function renderTeam() {
   teamEl.innerHTML = "";
 
+  const MAX = 5;
+
+  // render character card
   team.forEach(c => {
     const d = document.createElement("div");
-    d.className = "card";
+    d.className = "card team-card";
 
     d.innerHTML = `
       <img src="${c.image}">
@@ -140,9 +143,15 @@ function renderTeam() {
     `;
 
     d.addEventListener("click", () => removeFromTeam(c.name));
-
     teamEl.appendChild(d);
   });
+
+  // render empty slots
+  for (let i = team.length; i < MAX; i++) {
+    const empty = document.createElement("div");
+    empty.className = "card team-slot";
+    teamEl.appendChild(empty);
+  }
 
   renderCharacters();
 }
