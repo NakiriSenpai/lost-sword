@@ -62,15 +62,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ===== FETCH CARDS (NEW) ===== */
   fetch("data/cards.json")
-    .then(r => r.json())
-    .then(data => {
-      cards = data.map(c => ({
-        name: c.name,
-        image: c.image?.trim() ? c.image : FALLBACK_IMG
-      }));
-
-      renderCardList();
-    });
+  .then(r => r.json())
+  .then(data => {
+    cards = data.map(c => ({
+      id: c.id,
+      name: c.name,
+      image: c.img?.trim() ? c.img : FALLBACK_IMG
+    }));
+    renderCardList();
+  });
 });
 
 /* ================= FILTER ================= */
