@@ -338,6 +338,14 @@ header button:hover {
   color: #64748b;
 }
 
+/* ================= TEAM PAIR ================= */
+.team-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
 /* mobile */
 @media (max-width: 768px) {
   .card-slot {
