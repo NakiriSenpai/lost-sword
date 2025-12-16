@@ -190,13 +190,14 @@ function renderPets() {
 function openPetPopup(index) {
   activePetSlotIndex = index;
 
+  renderPetList(); // 🔥 WAJIB ADA
+
   document.querySelectorAll(".pet-slot").forEach((slot, i) => {
     slot.classList.toggle("active", i === index);
   });
 
   petPopup.classList.add("show");
 }
-
 function closePetPopup() {
   petPopup.classList.remove("show");
   activePetSlotIndex = null;
