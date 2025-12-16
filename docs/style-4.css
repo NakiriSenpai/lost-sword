@@ -257,7 +257,6 @@ header button:hover {
 }
 
 /* ================= POPUP ================= */
-.popup {
 .card-popup {
   position: fixed;
   inset: 0;
