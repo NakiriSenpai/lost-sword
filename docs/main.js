@@ -17,8 +17,18 @@ const charsEl = document.getElementById("characters");
 const teamEl = document.getElementById("team");
 const shareBtn = document.getElementById("shareBtn");
 const searchInput = document.getElementById("searchInput");
+const filtersUI = document.querySelector(".filters-ui");
 
 const FALLBACK_IMG = "https://via.placeholder.com/300x200?text=No+Image";
+
+/* =======================
+   RESET FILTER BUTTON
+======================= */
+const resetFilterBtn = document.createElement("button");
+resetFilterBtn.id = "resetFilterBtn";
+resetFilterBtn.textContent = "RESET FILTER";
+resetFilterBtn.style.display = "none";
+filtersUI.appendChild(resetFilterBtn);
 
 /* =======================
    PERSIST
@@ -42,6 +52,7 @@ fetch("data/characters.json")
     setupFilters();
     renderCharacters();
     renderTeam();
+    toggleResetButton();
   });
 
 /* =======================
@@ -60,13 +71,48 @@ function setupFilters() {
       btn.classList.add("active");
       activeFilters[type] = value;
 
+      toggleResetButton();
       renderCharacters();
     });
   });
 
   if (searchInput) {
-    searchInput.addEventListener("input", renderCharacters);
+    searchInput.addEventListener("input", () => {
+      toggleResetButton();
+      renderCharacters();
+    });
   }
+}
+
+/* =======================
+   RESET FILTER LOGIC
+======================= */
+resetFilterBtn.addEventListener("click", () => {
+  activeFilters.position = "";
+  activeFilters.element = "";
+  activeFilters.class = "";
+
+  if (searchInput) searchInput.value = "";
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.classList.remove("active");
+    if (btn.dataset.value === "") {
+      btn.classList.add("active");
+    }
+  });
+
+  resetFilterBtn.style.display = "none";
+  renderCharacters();
+});
+
+function toggleResetButton() {
+  const hasActive =
+    activeFilters.position ||
+    activeFilters.element ||
+    activeFilters.class ||
+    (searchInput && searchInput.value.trim() !== "");
+
+  resetFilterBtn.style.display = hasActive ? "block" : "none";
 }
 
 /* =======================
@@ -98,7 +144,6 @@ function renderCharacters() {
       `;
 
       d.addEventListener("click", () => addToTeam(c));
-
       charsEl.appendChild(d);
     });
 }
@@ -193,4 +238,4 @@ function loadFromURLorStorage() {
       team = [];
     }
   }
-}
+   }
