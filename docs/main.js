@@ -1,5 +1,9 @@
+/* ================= GLOBAL STATE ================= */
+
 let characters = [];
 let team = [];
+let cards = [];
+let activeTeamIndex = null;
 
 let activeFilters = {
   position: [],
@@ -7,40 +11,54 @@ let activeFilters = {
   class: []
 };
 
+const FALLBACK_IMG =
+  "https://via.placeholder.com/300x200?text=No+Image";
+const FALLBACK_CARD =
+  "https://via.placeholder.com/80x80?text=Card";
+
+/* ================= DOM ================= */
+
 const charsEl = document.getElementById("characters");
 const teamEl = document.getElementById("team");
 const shareBtn = document.getElementById("shareBtn");
 const searchInput = document.getElementById("searchInput");
 const filtersUI = document.querySelector(".filters-ui");
 
-const FALLBACK_IMG = "https://via.placeholder.com/300x200?text=No+Image";
+/* ================= RESET BUTTON ================= */
 
-/* RESET BUTTON */
 const resetFilterBtn = document.createElement("button");
 resetFilterBtn.id = "resetFilterBtn";
 resetFilterBtn.textContent = "RESET FILTER";
 resetFilterBtn.style.display = "none";
 filtersUI.appendChild(resetFilterBtn);
 
-/* LOAD DATA */
-fetch("data/characters.json")
-  .then(r => r.json())
-  .then(data => {
-    characters = data.map(c => ({
-      ...c,
-      image: c.image?.trim() ? c.image : FALLBACK_IMG
-    }));
+/* ================= LOAD DATA ================= */
 
-    loadFromURLorStorage();
-    setupFilters();
-    renderCharacters();
-    renderTeam();
-  });
+Promise.all([
+  fetch("data/characters.json").then(r => r.json()),
+  fetch("data/cards.json").then(r => r.json())
+]).then(([charData, cardData]) => {
+  characters = charData.map(c => ({
+    ...c,
+    image: c.image?.trim() ? c.image : FALLBACK_IMG
+  }));
 
-/* FILTER LOGIC (MULTI SELECT) */
+  cards = cardData.map(c => ({
+    ...c,
+    img: c.img?.trim() ? c.img : FALLBACK_CARD
+  }));
+
+  loadFromURLorStorage();
+  setupFilters();
+  renderCharacters();
+  renderTeam();
+});
+
+/* ================= FILTER LOGIC ================= */
+
 function setupFilters() {
   document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.onclick = () => {
       const { type, value } = btn.dataset;
 
       if (value === "") {
@@ -65,16 +83,17 @@ function setupFilters() {
 
       toggleResetButton();
       renderCharacters();
-    });
+    };
   });
 
-  searchInput.addEventListener("input", () => {
+  searchInput.oninput = () => {
     toggleResetButton();
     renderCharacters();
-  });
+  };
 }
 
-/* RESET */
+/* ================= RESET ================= */
+
 resetFilterBtn.onclick = () => {
   activeFilters.position = [];
   activeFilters.element = [];
@@ -100,15 +119,19 @@ function toggleResetButton() {
   resetFilterBtn.style.display = active ? "block" : "none";
 }
 
-/* RENDER CHARACTERS */
+/* ================= RENDER CHARACTERS ================= */
+
 function renderCharacters() {
   charsEl.innerHTML = "";
 
   characters
     .filter(c =>
-      (!activeFilters.position.length || activeFilters.position.includes(c.position)) &&
-      (!activeFilters.element.length || activeFilters.element.includes(c.element)) &&
-      (!activeFilters.class.length || activeFilters.class.includes(c.class)) &&
+      (!activeFilters.position.length ||
+        activeFilters.position.includes(c.position)) &&
+      (!activeFilters.element.length ||
+        activeFilters.element.includes(c.element)) &&
+      (!activeFilters.class.length ||
+        activeFilters.class.includes(c.class)) &&
       c.name.toLowerCase().includes(searchInput.value.toLowerCase())
     )
     .forEach(c => {
@@ -127,11 +150,13 @@ function renderCharacters() {
     });
 }
 
-/* TEAM */
+/* ================= TEAM ================= */
+
 function addToTeam(c) {
   if (team.some(t => t.name === c.name)) return;
   if (team.length >= 5) return alert("Max 5 characters");
-  team.push(c);
+
+  team.push({ ...c, card: null });
   persist();
   updateURL();
   renderTeam();
@@ -146,21 +171,42 @@ function removeFromTeam(name) {
 
 function renderTeam() {
   teamEl.innerHTML = "";
+
   for (let i = 0; i < 5; i++) {
     if (team[i]) {
       const d = document.createElement("div");
       d.className = "team-card";
-      d.innerHTML = `<img src="${team[i].image}"><strong>${team[i].name}</strong>`;
+      d.innerHTML = `
+        <img src="${team[i].image}">
+        <strong>${team[i].name}</strong>
+
+        <div class="card-slot" data-index="${i}">
+          ${
+            team[i].card
+              ? `<img src="${team[i].card.img}">`
+              : `<span>+</span>`
+          }
+        </div>
+      `;
+
       d.onclick = () => removeFromTeam(team[i].name);
+
+      d.querySelector(".card-slot").onclick = e => {
+        e.stopPropagation();
+        openCardPopup(i);
+      };
+
       teamEl.appendChild(d);
     } else {
       teamEl.appendChild(document.createElement("div")).className = "team-slot";
     }
   }
+
   renderCharacters();
 }
 
-/* PERSIST + SHARE */
+/* ================= PERSIST + SHARE ================= */
+
 function persist() {
   localStorage.setItem("team", JSON.stringify(team));
 }
@@ -178,11 +224,56 @@ shareBtn.onclick = () => {
 function loadFromURLorStorage() {
   const p = new URLSearchParams(location.search).get("team");
   if (p) {
-    team = p.split(",").map(decodeURIComponent)
+    team = p
+      .split(",")
+      .map(decodeURIComponent)
       .map(n => characters.find(c => c.name === n))
-      .filter(Boolean);
+      .filter(Boolean)
+      .map(c => ({ ...c, card: null }));
     return;
   }
+
   const s = localStorage.getItem("team");
   if (s) team = JSON.parse(s);
 }
+
+/* ================= CARD POPUP ================= */
+
+const popup = document.createElement("div");
+popup.id = "cardPopup";
+popup.className = "popup hidden";
+popup.innerHTML = `
+  <div class="popup-box">
+    <button class="close">✕</button>
+    <input id="cardSearch" placeholder="Search card..." />
+    <div id="cardList" class="card-grid"></div>
+  </div>
+`;
+document.body.appendChild(popup);
+
+const cardList = popup.querySelector("#cardList");
+const cardSearch = popup.querySelector("#cardSearch");
+
+function openCardPopup(index) {
+  activeTeamIndex = index;
+  cardSearch.value = "";
+  popup.classList.remove("hidden");
+  renderCardList();
+}
+
+popup.querySelector(".close").onclick = () =>
+  popup.classList.add("hidden");
+
+cardSearch.oninput = renderCardList;
+
+function renderCardList() {
+  cardList.innerHTML = "";
+
+  cards
+    .filter(c =>
+      c.name.toLowerCase().includes(cardSearch.value.toLowerCase())
+    )
+    .forEach(c => {
+      const d = document.createElement("div");
+      d.innerHTML = `
+        <img src="${c.img
