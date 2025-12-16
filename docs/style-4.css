@@ -72,14 +72,15 @@ header {
 /* ================= FILTER UI ================= */
 .filters-ui {
   padding: 16px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
   gap: 16px;
+  align-items: center;
 }
 
-/* SEARCH 100% */
+/* SEARCH 100% FULL */
 .filter-header {
-  width: 100%;
+  grid-column: 1 / -1;
 }
 
 #searchInput {
@@ -91,14 +92,7 @@ header {
   color: #fff;
 }
 
-/* 🔥 BAR FILTER HORIZONTAL */
-.filters-row {
-  display: flex;
-  align-items: center;
-  gap: 24px; /* jarak antar grup */
-}
-
-/* FILTER GROUP */
+/* FILTER GROUPS HORIZONTAL */
 .filter-group {
   display: flex;
   gap: 10px;
@@ -115,12 +109,28 @@ header {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: #fff;
 }
 
 .filter-btn img {
   width: 20px;
   height: 20px;
-  object-fit: contain;
+}
+
+/* ACTIVE */
+.filter-btn.active {
+  outline: 2px solid var(--green);
+}
+
+/* RESET FILTER (DEKAT FILTER TERAKHIR) */
+#resetFilterBtn {
+  padding: 8px 16px;
+  background: var(--bg);
+  color: var(--red);
+  border: 2px solid var(--red);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 /* ACTIVE */
