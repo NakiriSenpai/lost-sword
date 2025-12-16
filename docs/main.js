@@ -6,6 +6,7 @@ const FALLBACK_IMG =
   "https://via.placeholder.com/300x200?text=No+Image";
 
 /* ================= STATE ================= */
+let activeCardSlotIndex = null;
 let characters = [];
 let team = Array(MAX_TEAM).fill(null);
 let selectedSlotIndex = null;
@@ -17,6 +18,8 @@ let activeFilters = {
 };
 
 /* ================= DOM ================= */
+const cardPopup = document.getElementById("cardPopup");
+const closeCardPopupBtn = document.getElementById("closeCardPopup");
 const charsEl = document.getElementById("characters");
 const teamEl = document.getElementById("team");
 const shareBtn = document.getElementById("shareBtn");
@@ -211,8 +214,8 @@ function renderTeam() {
     cardSlot.dataset.index = i;
 
     cardSlot.onclick = () => {
-      console.log("Card slot clicked:", i);
-    };
+        openCardPopup(i);
+  };
 
     /* ===== APPEND ===== */
     pair.appendChild(slot);
@@ -288,6 +291,17 @@ function renderSynergyWarning() {
   });
 }
 
+/* ============ Close Popup ============ */
+function openCardPopup(index) {
+  activeCardSlotIndex = index;
+  cardPopup.classList.remove("hidden");
+}
+
+function closeCardPopup() {
+  activeCardSlotIndex = null;
+  cardPopup.classList.add("hidden");
+}
+
 /* ================= STORAGE ================= */
 function saveAndRender() {
   persist();
@@ -326,4 +340,12 @@ function updateURL() {
 shareBtn.onclick = () => {
   navigator.clipboard.writeText(location.href);
   alert("Link copied!");
+};
+
+closeCardPopupBtn.onclick = closeCardPopup;
+
+cardPopup.onclick = (e) => {
+  if (e.target === cardPopup) {
+    closeCardPopup();
+  }
 };
