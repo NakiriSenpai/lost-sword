@@ -72,30 +72,33 @@ header {
 /* ================= FILTER UI ================= */
 .filters-ui {
   padding: 16px;
-  display: grid;
-  grid-template-columns: 1fr auto auto auto;
-  gap: 16px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-/* SEARCH 100% FULL */
-.filter-header {
-  grid-column: 1 / -1;
-}
-
-#searchInput {
+/* SEARCH FULL WIDTH */
+.filter-header input {
   width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 14px;
   color: #fff;
 }
 
-/* FILTER GROUPS HORIZONTAL */
+/* BAR FILTER (SEMUA GRUP SEJAJAR) */
+.filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* TIAP GRUP FILTER */
 .filter-group {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 /* FILTER BUTTON */
@@ -108,13 +111,30 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   color: #fff;
+  cursor: pointer;
 }
 
 .filter-btn img {
   width: 20px;
   height: 20px;
+}
+
+/* ACTIVE */
+.filter-btn.active {
+  outline: 2px solid var(--green);
+}
+
+/* RESET FILTER (NEMPEL KE GRUP TERAKHIR) */
+#resetFilterBtn {
+  margin-left: 12px;
+  padding: 8px 16px;
+  background: var(--bg);
+  color: var(--red);
+  border: 2px solid var(--red);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 /* ACTIVE */
