@@ -37,12 +37,7 @@ Promise.all([
   fetch("data/characters.json"),
   fetch("data/cards.json")
 ])
-  .then(responses => {
-    if (!responses[0].ok || !responses[1].ok) {
-      throw new Error("JSON gagal dimuat, cek path data/");
-    }
-    return Promise.all(responses.map(r => r.json()));
-  })
+  .then(responses => Promise.all(responses.map(r => r.json())))
   .then(([charData, cardData]) => {
     characters = charData.map(c => ({
       ...c,
@@ -54,16 +49,18 @@ Promise.all([
       img: c.img?.trim() ? c.img : FALLBACK_CARD
     }));
 
+    // 🔍 DEBUG (TAMBAHKAN DI SINI)
+    console.log("CHARACTERS:", characters);
+    console.log("CARDS:", cards);
+
     loadFromURLorStorage();
     setupFilters();
     renderCharacters();
     renderTeam();
   })
   .catch(err => {
-    alert("JSON gagal dimuat, cek path data/");
-    console.error(err);
+    console.error("FETCH ERROR:", err);
   });
-
 
 /* ================= FILTER LOGIC ================= */
 
