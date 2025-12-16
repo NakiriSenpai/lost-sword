@@ -1,5 +1,5 @@
 /* ================= GLOBAL STATE ================= */
-
+alert("MAIN.JS TERLOAD");
 let characters = [];
 let team = [];
 let cards = [];
