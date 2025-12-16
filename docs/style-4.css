@@ -338,6 +338,11 @@ header button:hover {
   color: #64748b;
 }
 
+.card-slot.active {
+  outline: 3px solid #ffd700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
 /* ================= TEAM PAIR ================= */
 .team-pair {
   display: flex;
