@@ -121,6 +121,11 @@ header button:hover {
   background: rgba(250, 204, 21, 0.15);
 }
 
+.selected-slot {
+  outline: 3px solid #22c55e;
+  box-shadow: 0 0 12px rgba(34,197,94,0.6);
+}
+
 /* ================= SYNERGY ================= */
 .synergy {
   margin-top: 10px;
