@@ -189,8 +189,9 @@ function renderCharacters() {
        };
 
       card.addEventListener("dragstart", function (e) {
-        e.dataTransfer.setData("char", c.name);
-      });
+  e.dataTransfer.setData("type", "character");
+  e.dataTransfer.setData("char", c.name);
+});
 
       charsEl.appendChild(card);
     });
@@ -240,6 +241,11 @@ function toggleCharacterInTeam(character) {
 }
 
 function renderTeam() {
+  // PASTIKAN SLOT SELALU 5 (INDEX STABIL)
+  while (team.length < MAX_TEAM) {
+    team.push(null);
+  }
+
   teamEl.innerHTML = "";
 
   for (let i = 0; i < MAX_TEAM; i++) {
@@ -255,21 +261,22 @@ function renderTeam() {
     if (team[i]) {
       slot.className = "team-card";
       slot.draggable = true;
-      slot.innerHTML =
-        '<img src="' +
-        team[i].image +
-        '">' +
-        "<strong>" +
-        team[i].name +
-        "</strong>";
 
+      slot.innerHTML =
+        '<img src="' + team[i].image + '">' +
+        "<strong>" + team[i].name + "</strong>";
+
+      // klik = remove
       slot.onclick = function () {
         removeFromTeam(team[i].name);
       };
 
+      // drag antar team slot
       slot.addEventListener("dragstart", function (e) {
+        e.dataTransfer.setData("type", "team");
         e.dataTransfer.setData("from", i);
       });
+
     } else {
       slot.className = "team-slot";
     }
@@ -284,24 +291,31 @@ function renderTeam() {
 function onDrop(e) {
   e.preventDefault();
 
-  const index = Number(this.dataset.index);
-  const from = e.dataTransfer.getData("from");
-  const charName = e.dataTransfer.getData("char");
+  const targetIndex = Number(this.dataset.index);
+  const type = e.dataTransfer.getData("type");
 
-  if (from !== "") {
-    const fromIndex = Number(from);
-    const tmp = team[fromIndex];
-    team[fromIndex] = team[index];
-    team[index] = tmp;
-  } else if (charName) {
-    const c = characters.find(function (x) {
-      return x.name === charName;
-    });
+  // DRAG DARI CHARACTER LIST
+  if (type === "character") {
+    const name = e.dataTransfer.getData("char");
+    const c = characters.find(x => x.name === name);
     if (!c) return;
-    team[index] = c;
+
+    // kalau sudah ada di team → ignore
+    if (team.some(t => t && t.name === c.name)) return;
+
+    team[targetIndex] = c;
   }
 
-  team = team.filter(Boolean);
+  // DRAG ANTAR TEAM SLOT
+  if (type === "team") {
+    const fromIndex = Number(e.dataTransfer.getData("from"));
+    if (fromIndex === targetIndex) return;
+
+    const temp = team[fromIndex];
+    team[fromIndex] = team[targetIndex];
+    team[targetIndex] = temp;
+  }
+
   persist();
   updateURL();
   renderTeam();
