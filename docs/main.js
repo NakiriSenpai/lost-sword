@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   }
   
-  // renderEquipSlots();
+  renderEquipSlots();
   fetchEquipData();
   // EQUIP POPUP CLOSE
   equipPopupCloseEl.addEventListener("click", closeEquipPopup);
