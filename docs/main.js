@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPetList();
   });
   /* ===== EQUIP (INI POSISI YANG BENAR) ===== */
-  loadEquips();        // ⬅️ fetch weapon / armor / acc / rune
+  //loadEquips();        // ⬅️ fetch weapon / armor / acc / rune
   renderEquipSlots();  // ⬅️ render grid 5 x 4
 });
 
@@ -313,34 +313,21 @@ function renderPetList() {
 
 /* =========== RENDER EQUIP SLOT ===========*/
 function renderEquipSlots() {
-  const container = document.getElementById("equip-slots");
-  container.innerHTML = "";
+  const equipEl = document.getElementById("equip");
 
-  const typeLabels = ["W", "A", "C", "R"];
+  // 🔴 kalau ini null, berarti HTML salah
+  if (!equipEl) {
+    alert("EQUIP ELEMENT NOT FOUND");
+    return;
+  }
 
-  for (let col = 0; col < EQUIP_COLS; col++) {
-    for (let row = 0; row < EQUIP_ROWS; row++) {
-      const slot = document.createElement("div");
-      slot.className = "equip-slot";
-      slot.dataset.row = row;
-      slot.dataset.col = col;
-      slot.dataset.type = typeLabels[col];
+  equipEl.innerHTML = "";
 
-      const equip = equipSlots[row][col];
-      if (equip) {
-        const img = document.createElement("img");
-        img.src = equip.image;
-        slot.appendChild(img);
-      }
-
-      slot.onclick = () => {
-        activeEquipRow = row;
-        activeEquipCol = col;
-        console.log("Equip slot clicked:", row + 1, col + 1);
-      };
-
-      container.appendChild(slot);
-    }
+  for (let i = 0; i < 20; i++) {
+    const slot = document.createElement("div");
+    slot.className = "equip-slot";
+    slot.textContent = i + 1; // cuma buat test
+    equipEl.appendChild(slot);
   }
 }
 
