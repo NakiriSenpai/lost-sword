@@ -5,21 +5,31 @@
 
 /* ================= ROOT ================= */
 :root {
-  --bg-main: #020617;          /* hitam kebiruan */
-  --bg-section: #020617cc;     /* hitam keabuan */
-  --bg-light: #02061780;
+  /* ===== Dark Fantasy Core ===== */
+  --bg-main: #0E1320;
+  --bg-section: #12182B;
+  --bg-card: #1A2238;
+  --bg-card-hover: #202A45;
+  --bg-input: #12182B;
 
-  --border-strong: #f59e0b;    /* kuning */
-  --border-soft: #fbbf24;      /* kuning soft */
+  --border-card: #2E3A5F;
+  --border-card-hover: #3A4B7A;
+  --border-active: #4DF0FF;
+  --border-disabled: #2A2F45;
 
-  --grad-gold: linear-gradient(
-    135deg,
-    #fbbf24,
-    #f59e0b,
-    #ea580c
-  );
+  --text-main: #E6E9F0;
+  --text-secondary: #AAB1C6;
+  --text-muted: #6B738E;
+  --text-disabled: #50566E;
 
-  --text-main: #e5e7eb;
+  --name-character: #8FB9FF;
+  --name-pet: #6FE3B4;
+  --name-card: #C5B8FF;
+
+  --highlight-pick: #FFD166;
+
+  --success: #2ECC71;
+  --warning: #E5484D;
 }
 
 /* ================= RESET ================= */
@@ -736,4 +746,135 @@ header button:hover {
   }
 
   
+}
+
+
+
+/* =========================================================
+   COLOR PALETTE OVERRIDE (DARK FANTASY)
+   !!! WARNA SAJA – JANGAN UBAH LAYOUT !!!
+   ========================================================= */
+
+/* ===== GLOBAL ===== */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* ===== SECTION / PANEL ===== */
+section,
+.filters-ui,
+.team-section,
+.popup-content,
+.card-popup-content,
+.equip-popup-content {
+  background-color: var(--bg-section);
+}
+
+/* ===== HEADER ===== */
+header {
+  border-bottom-color: var(--border-card);
+}
+
+header button {
+  background-color: var(--bg-card);
+  border-color: var(--border-card);
+  color: var(--text-main);
+}
+
+header button:hover {
+  background-color: var(--bg-card-hover);
+}
+
+/* ===== INPUT / SEARCH ===== */
+input,
+.filter-header input,
+#cardSearchInput,
+#petSearchInput {
+  background-color: var(--bg-input);
+  border-color: var(--border-card);
+  color: var(--text-main);
+}
+
+/* ===== FILTER BUTTON ===== */
+.filter-btn {
+  background-color: var(--bg-card);
+  border-color: var(--border-card);
+}
+
+.filter-btn.active {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-active);
+}
+
+/* ===== CHARACTER CARD ===== */
+.card,
+.team-card,
+.card-slot,
+.team-slot {
+  background-color: var(--bg-card);
+  border-color: var(--border-card);
+}
+
+.card:hover,
+.team-slot:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.card strong,
+.team-card strong {
+  color: var(--name-character);
+}
+
+.card span {
+  color: var(--text-secondary);
+}
+
+.card.in-team,
+.selected-slot {
+  outline-color: var(--border-active);
+}
+
+/* ===== CARD SLOT UNDER TEAM ===== */
+.card-slot strong {
+  color: var(--name-card);
+}
+
+.card-slot.active {
+  outline-color: var(--highlight-pick);
+}
+
+/* ===== POPUP BACKDROP ===== */
+.card-popup,
+.equip-popup {
+  background-color: rgba(14, 19, 32, 0.85);
+}
+
+/* ===== POPUP ITEM ===== */
+.card-item,
+.equip-popup-card {
+  background-color: var(--bg-card);
+  border-color: var(--border-card);
+}
+
+.card-item strong {
+  color: var(--name-card);
+}
+
+/* ===== PET ===== */
+#pets .card-slot strong {
+  color: var(--name-pet);
+}
+
+/* ===== SYNERGY WARNING ===== */
+.synergy-warning {
+  border-color: var(--warning);
+  color: var(--warning);
+  background-color: rgba(229, 72, 77, 0.08);
+}
+
+/* ===== EQUIP ===== */
+.equip-popup-card.disabled {
+  border-color: var(--border-disabled);
+  color: var(--text-disabled);
 }
