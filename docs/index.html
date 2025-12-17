@@ -4,56 +4,137 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lost Sword Team Builder</title>
-  <link rel="stylesheet" href="style-4.css" />
+  <link rel="stylesheet" href="style-4.css?v=99" />
 </head>
 <body>
 
-<header class="header">
+<header>
   <h1>Lost Sword Team Builder</h1>
   <button id="shareBtn">Share Team</button>
 </header>
 
+<!-- ================= PETS ================= -->
 <section class="pets-section">
   <div id="pets" class="pets"></div>
 </section>
 
+<!-- ================= TEAM + CARD + EQUIP ================= -->
 <section class="team-section">
-  <h2>Your Team</h2>
+  <h2>Your Team (max 5)</h2>
 
-  <div class="team-wrapper">
-    <div id="team" class="team dropzone"></div>
-    <div id="equip" class="equip-grid"></div>
+  <!-- WRAPPER BARU (UNTUK SEJAJAR VERTIKAL) -->
+  <div class="team-columns">
+
+    <!-- KOLOM PER CHARACTER -->
+    <div id="team" class="team dropzone">
+      <!-- team slots injected by JS -->
+    </div>
+
   </div>
 </section>
 
-<section class="filters-ui">
-  <input id="searchInput" placeholder="Search character..." />
-  <div class="filters-bar"></div>
+<!-- ================= EQUIP ================= -->
+<section class="equip-section">
+  <h2>Equipment</h2>
+  <div id="equip" class="equip-grid"></div>
 </section>
 
+<!-- ================= FILTER UI ================= -->
+<section class="filters-ui">
+
+  <div class="filter-header">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search character..."
+    />
+  </div>
+
+  <div class="filters-bar">
+
+    <!-- POSITION -->
+    <div class="filter-group">
+      <button class="filter-btn active" data-type="position" data-value="">ALL</button>
+      <button class="filter-btn" data-type="position" data-value="Front">
+        <img src="images/icons/lostsword-front.png">
+      </button>
+      <button class="filter-btn" data-type="position" data-value="Middle">
+        <img src="images/icons/lostsword-middle.png">
+      </button>
+      <button class="filter-btn" data-type="position" data-value="Back">
+        <img src="images/icons/lostsword-back.png">
+      </button>
+    </div>
+
+    <!-- ELEMENT -->
+    <div class="filter-group">
+      <button class="filter-btn active" data-type="element" data-value="">ALL</button>
+      <button class="filter-btn" data-type="element" data-value="Fire">
+        <img src="images/icons/lostsword-fire.png">
+      </button>
+      <button class="filter-btn" data-type="element" data-value="Frost">
+        <img src="images/icons/lostsword-frost.webp">
+      </button>
+      <button class="filter-btn" data-type="element" data-value="Nature">
+        <img src="images/icons/lostsword-nature.webp">
+      </button>
+      <button class="filter-btn" data-type="element" data-value="Chaos">
+        <img src="images/icons/lostsword-chaos.webp">
+      </button>
+      <button class="filter-btn" data-type="element" data-value="Radiance">
+        <img src="images/icons/lostsword-radiance.png">
+      </button>
+      <button class="filter-btn" data-type="element" data-value="Holy">
+        <img src="images/icons/lostsword-holy.webp">
+      </button>
+    </div>
+
+    <!-- CLASS -->
+    <div class="filter-group">
+      <button class="filter-btn active" data-type="class" data-value="">ALL</button>
+      <button class="filter-btn" data-type="class" data-value="Knight">
+        <img src="images/icons/lostsword-knight.webp">
+      </button>
+      <button class="filter-btn" data-type="class" data-value="Wizard">
+        <img src="images/icons/lostsword-wizard.webp">
+      </button>
+      <button class="filter-btn" data-type="class" data-value="Archer">
+        <img src="images/icons/lostsword-ranger.webp">
+      </button>
+      <button class="filter-btn" data-type="class" data-value="Healer">
+        <img src="images/icons/lostsword-healer.png">
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= CHARACTERS ================= -->
 <section class="characters-section">
   <h2>Characters</h2>
   <div id="characters" class="grid"></div>
 </section>
 
-<!-- CARD POPUP -->
-<div id="cardPopup" class="popup">
-  <div class="popup-content">
-    <button id="closeCardPopup">✕</button>
-    <input id="cardSearchInput" placeholder="Search card..." />
-    <div id="cardList" class="grid"></div>
+<!-- ================= CARD POPUP ================= -->
+<div id="cardPopup" class="card-popup">
+  <div class="card-popup-content">
+    <button id="closeCardPopup" class="popup-close">✕</button>
+    <h2>Select Card</h2>
+    <input type="text" id="cardSearchInput" placeholder="Search card..." />
+    <div id="cardList" class="card-grid"></div>
   </div>
 </div>
 
-<!-- PET POPUP -->
-<div id="petPopup" class="popup">
-  <div class="popup-content">
-    <button id="closePetPopup">✕</button>
-    <input id="petSearchInput" placeholder="Search pet..." />
-    <div id="petList" class="grid"></div>
+<!-- ================= PET POPUP ================= -->
+<div id="petPopup" class="card-popup">
+  <div class="card-popup-content">
+    <button id="closePetPopup" class="popup-close">✕</button>
+    <h2>Select Pet</h2>
+    <input type="text" id="petSearchInput" placeholder="Search pet..." />
+    <div id="petList" class="card-grid"></div>
   </div>
 </div>
 
-<script src="main.js" defer></script>
+<script src="main.js?v=99" defer></script>
 </body>
-</html>
+                                                                             </html>
