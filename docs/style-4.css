@@ -61,7 +61,7 @@ header button:hover {
 .team {
   display: grid;
   grid-template-columns: repeat(5, 96px);
-  gap: 12px;
+  gap: 16px;
   justify-content: center;
 }
 
@@ -347,7 +347,8 @@ header button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+
+  gap: 10px;              /* 🔥 JARAK ANTAR SLOT */
 }
 
 /* mobile */
@@ -493,7 +494,7 @@ header button:hover {
 .equip-grid {
   display: grid;
   grid-template-columns: repeat(5, 96px);
-  gap: 12px;
+  gap: 16px;
   justify-content: center;
 }
 
