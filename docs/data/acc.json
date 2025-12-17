@@ -1,0 +1,11 @@
+[
+  { "id": "acc_01", "img": "images/acc/acc_1.png" },
+  { "id": "acc_02", "img": "images/acc/acc_2.webp" },
+  { "id": "acc_03", "img": "images/acc/acc_3.png" },
+  { "id": "acc_04", "img": "images/acc/acc_4.webp" },
+  { "id": "acc_05", "img": "images/acc/acc_5.png" },
+  { "id": "acc_06", "img": "images/acc/acc_6.webp" },
+  { "id": "acc_07", "img": "images/acc/acc_7.png" },
+  { "id": "acc_08", "img": "images/acc/acc_8.webp" },
+  { "id": "acc_09", "img": "images/acc/acc_9.webp" }
+]
