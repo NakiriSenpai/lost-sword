@@ -703,6 +703,8 @@ function closeEquipPopup() {
 function renderEquipPopupContent(col) {
   const body = equipPopupEl.querySelector(".equip-popup-body");
   body.innerHTML = "";
+  let hasCharacter = true;
+  let charClass = null;
   const type = EQUIP_TYPES[col];
 let list = equipData[type] || [];
 
@@ -713,8 +715,6 @@ warning.className = "equip-popup-warning";
 let list = equipData[type] || [];
 
 /* ===== STEP E: WEAPON LOGIC ===== */
-let hasCharacter = true;
-let charClass = null;
 
 if (type === "weapon" && activeEquipSlot) {
   charClass = getCharacterClassByRow(activeEquipSlot.row);
@@ -723,7 +723,7 @@ if (type === "weapon" && activeEquipSlot) {
   if (hasCharacter) {
     list = list.filter(item => {
       if (item.class === "universal") {
-        return charClass === "wizard" || charClass === "healer";
+        return charClass === "Wizard" || charClass === "Healer";
       }
       return item.class === charClass;
     });
@@ -734,7 +734,7 @@ if (type === "weapon" && activeEquipSlot) {
   warning.className = "equip-popup-warning";
   warning.textContent = "⚠ Isi slot character terlebih dahulu";
   body.appendChild(warning);
-  }
+}
   
   const grid = document.createElement("div");
   grid.className = "equip-popup-grid";
