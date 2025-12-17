@@ -1,0 +1,19 @@
+[
+  { "id": "wep_01", "class": "knight", "img": "images/weapon/wepkni_1.webp" },
+  { "id": "wep_02", "class": "knight", "img": "images/weapon/wepkni_2.webp" },
+  { "id": "wep_03", "class": "knight", "img": "images/weapon/wepkni_3.png" },
+  { "id": "wep_04", "class": "knight", "img": "images/weapon/wepkni_4.png" },
+  { "id": "wep_05", "class": "knight", "img": "images/weapon/wepkni_5.webp" },
+  { "id": "wep_06", "class": "knight", "img": "images/weapon/wepkni_6.webp" },
+  { "id": "wep_07", "class": "knight", "img": "images/weapon/wepkni_7.webp" },
+
+  { "id": "wep_08", "class": "archer", "img": "images/weapon/weparc_1.png" },
+  { "id": "wep_09", "class": "archer", "img": "images/weapon/weparc_2.webp" },
+  { "id": "wep_10", "class": "archer", "img": "images/weapon/weparc_3.webp" },
+
+  { "id": "wep_11", "class": "healer", "img": "images/weapon/wephea_1.png" },
+  { "id": "wep_12", "class": "wizard", "img": "images/weapon/wepwiz_1.png" },
+
+  { "id": "wep_13", "class": "universal", "img": "images/weapon/wepuni_1.webp" },
+  { "id": "wep_14", "class": "universal", "img": "images/weapon/wepuni_2.webp" }
+]
