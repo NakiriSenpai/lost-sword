@@ -1,0 +1,10 @@
+[
+  { "id": "armor_01", "img": "images/armor/armor_1.png" },
+  { "id": "armor_02", "img": "images/armor/armor_2.webp" },
+  { "id": "armor_03", "img": "images/armor/armor_3.webp" },
+  { "id": "armor_04", "img": "images/armor/armor_4.webp" },
+  { "id": "armor_05", "img": "images/armor/armor_5.png" },
+  { "id": "armor_06", "img": "images/armor/armor_6.png" },
+  { "id": "armor_07", "img": "images/armor/armor_7.png" },
+  { "id": "armor_08", "img": "images/armor/armor_8.webp" }
+]
