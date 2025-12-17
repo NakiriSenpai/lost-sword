@@ -703,6 +703,11 @@ function closeEquipPopup() {
 function renderEquipPopupContent(col) {
   const body = equipPopupEl.querySelector(".equip-popup-body");
   body.innerHTML = "";
+  const type = EQUIP_TYPES[col];
+let list = equipData[type] || [];
+
+const warning = document.createElement("div");
+warning.className = "equip-popup-warning";
 
   const type = EQUIP_TYPES[col];
 let list = equipData[type] || [];
