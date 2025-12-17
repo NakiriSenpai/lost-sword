@@ -14,6 +14,14 @@ let equipSlots = Array(5)
   .fill(null)
   .map(() => Array(4).fill(null));
 
+/* ================= EQUIP DATA ================= */
+const equipData = {
+  weapon: [],
+  armor: [],
+  acc: [],
+  rune: []
+};
+
 const MAX_PETS = 3;
 
 let pets = [];
@@ -111,8 +119,27 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPets();
     renderPetList();
   });
-  renderEquipSlots();
 
+  async function fetchEquipData() {
+  const files = {
+    weapon: "data/weapon.json",
+    armor: "data/armor.json",
+    acc: "data/acc.json",
+    rune: "data/rune.json"
+  };
+
+  for (const type in files) {
+    try {
+      const res = await fetch(files[type]);
+      equipData[type] = await res.json();
+    } catch (err) {
+      console.error(`Failed to load ${type}`, err);
+    }
+  }
+  }
+  
+  renderEquipSlots();
+  fetchEquipData();
   // EQUIP POPUP CLOSE
   equipPopupCloseEl.addEventListener("click", closeEquipPopup);
   // close popup when clicking overlay
@@ -675,10 +702,34 @@ let activeEquipSlot = null;
 
 function openEquipPopup(row, col) {
   activeEquipSlot = { row, col };
+  renderEquipPopupContent(col);
   equipPopupEl.classList.remove("hidden");
 }
 
 function closeEquipPopup() {
   equipPopupEl.classList.add("hidden");
   activeEquipSlot = null;
+}
+
+/* ========= RENDER EQUIP POPUP CONTENT ===== */
+function renderEquipPopupContent(col) {
+  const body = equipPopupEl.querySelector(".equip-popup-body");
+  body.innerHTML = "";
+
+  const type = EQUIP_TYPES[col];
+  const list = equipData[type] || [];
+
+  const grid = document.createElement("div");
+  grid.className = "equip-popup-grid";
+
+  list.forEach(item => {
+    const img = document.createElement("img");
+    img.src = item.icon;
+    img.alt = item.name;
+    img.className = "equip-popup-item";
+
+    grid.appendChild(img);
+  });
+
+  body.appendChild(grid);
 }
