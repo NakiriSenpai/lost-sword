@@ -6,6 +6,14 @@ const FALLBACK_IMG =
   "https://via.placeholder.com/300x200?text=No+Image";
 
 /* ================= STATE ================= */
+/* ================= EQUIP STATE ================= */
+const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
+
+// 5 row (character) x 4 column (equip)
+let equipSlots = Array(5)
+  .fill(null)
+  .map(() => Array(4).fill(null));
+
 const MAX_PETS = 3;
 
 let pets = [];
@@ -28,6 +36,8 @@ let activeFilters = {
 };
 
 /* ================= DOM ================= */
+const equipGridEl = document.getElementById("equipGrid");
+
 const petsEl = document.getElementById("pets");
 const petPopup = document.getElementById("petPopup");
 const closePetPopupBtn = document.getElementById("closePetPopup");
@@ -99,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPets();
     renderPetList();
   });
+  renderEquipSlots();
 });
 
 /* ================= FILTER ================= */
@@ -533,6 +544,28 @@ petPopup.onclick = (e) => {
 };
 
 petSearchInput.oninput = renderPetList;
+
+/* ================= RENDER EQUIP ================= */
+function renderEquipSlots() {
+  if (!equipGridEl) return;
+
+  equipGridEl.innerHTML = "";
+
+  // column dulu (weapon → rune)
+  for (let col = 0; col < 4; col++) {
+    for (let row = 0; row < 5; row++) {
+      const slot = document.createElement("div");
+      slot.className = "equip-slot";
+
+      // simpan posisi slot
+      slot.dataset.row = row;
+      slot.dataset.col = col;
+
+      equipGridEl.appendChild(slot);
+    }
+  }
+}
+
 
 /* ========== SAVE RENDER CARD SLOT ======= */
 function saveAndRenderCards() {
