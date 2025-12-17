@@ -6,6 +6,16 @@ const FALLBACK_IMG =
   "https://via.placeholder.com/300x200?text=No+Image";
 
 /* ================= STATE ================= */
+
+const EQUIP_ROWS = 5;
+const EQUIP_COLS = 4;
+
+let equipSlots = Array.from({ length: EQUIP_ROWS }, () =>
+  Array.from({ length: EQUIP_COLS }, () => null)
+);
+let activeEquipRow = null;
+let activeEquipCol = null;
+
 const MAX_PETS = 3;
 
 let pets = [];
@@ -590,6 +600,15 @@ function persistPets() {
 function loadPetsFromStorage() {
   const saved = JSON.parse(localStorage.getItem("petSlots"));
   if (Array.isArray(saved)) petSlots = saved;
+}
+
+function persistEquips() {
+  localStorage.setItem("equipSlots", JSON.stringify(equipSlots));
+}
+
+function loadEquips() {
+  const saved = localStorage.getItem("equipSlots");
+  if (saved) equipSlots = JSON.parse(saved);
 }
 
 function updateURL() {
