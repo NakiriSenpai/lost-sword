@@ -115,6 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // EQUIP POPUP CLOSE
   equipPopupCloseEl.addEventListener("click", closeEquipPopup);
+  // close popup when clicking overlay
+  equipPopupEl.addEventListener("click", (e) => {
+    if (e.target === equipPopupEl) {
+      closeEquipPopup();
+    }
+  });
 });
 
 /* ================= FILTER ================= */
