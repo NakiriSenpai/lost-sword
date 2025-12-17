@@ -512,6 +512,46 @@ header button:hover {
   background: #020617;
 }
 
+/* ================= EQUIP POPUP ================= */
+.equip-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.equip-popup.hidden {
+  display: none;
+}
+
+.equip-popup-content {
+  position: relative;
+  width: 520px;
+  max-height: 80vh;
+  background: #020617;
+  border-radius: 18px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.equip-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #e5e7eb;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.equip-popup-body {
+  margin-top: 30px;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
