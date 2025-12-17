@@ -552,6 +552,28 @@ header button:hover {
   margin-top: 30px;
 }
 
+/* ================= EQUIP POPUP ITEMS ================= */
+.equip-popup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 10px;
+}
+
+.equip-popup-item {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: 8px;
+  background: #020617;
+  padding: 4px;
+}
+
+.equip-popup-item:hover {
+  background: #020617;
+  outline: 2px solid #38bdf8;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
