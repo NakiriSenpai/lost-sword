@@ -688,8 +688,6 @@ cardPopup.onclick = (e) => {
 cardSearchInput.oninput = renderCardList;
 
 /* ================= EQUIP POPUP ================= */
-let activeEquipSlot = null;
-
 function openEquipPopup(row, col) {
   activeEquipSlot = { row, col };
   renderEquipPopupContent(col);
