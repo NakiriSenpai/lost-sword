@@ -353,7 +353,7 @@ header button:hover {
 /* mobile */
 @media (max-width: 768px) {
   .card-slot {
-    width: 90px;
+    width: 100%:
   }
 
   .card-slot img {
@@ -474,6 +474,11 @@ header button:hover {
 }
 
 /* =========== EQUIP ======== */
+.equip-section {
+  padding: 16px;
+  background: linear-gradient(135deg, #020617, #020617);
+}
+
 .equip-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -492,6 +497,7 @@ header button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+   position: relative;
 }
 
 .equip-slot img {
@@ -524,11 +530,6 @@ header button:hover {
 
   .team {
     gap: 8px;
-  }
-
-  .team-card,
-  .team-slot {
-    width: 90px;
   }
 
   .team-card img {
