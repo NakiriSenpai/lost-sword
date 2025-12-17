@@ -79,7 +79,7 @@ resetFilterBtn.style.display = "none";
 filtersBar.appendChild(resetFilterBtn);
 
 /* ================= INIT ================= */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   /* ===== FETCH CHARACTERS (EXISTING) ===== */
   fetch("data/characters.json")
     .then(r => r.json())
@@ -143,8 +143,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   }
   
+  await fetchEquipData();
   renderEquipSlots();
-  fetchEquipData();
   // EQUIP POPUP CLOSE
   equipPopupCloseEl.addEventListener("click", closeEquipPopup);
   // close popup when clicking overlay
