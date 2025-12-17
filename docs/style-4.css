@@ -5,12 +5,21 @@
 
 /* ================= ROOT ================= */
 :root {
-  --bg: #020617;
-  --bg-dark: #0f172a;
-  --border: #334155;
-  --gold: linear-gradient(135deg, #7a4a12, #c18a2e, #e09f3e);
-  --red: #ef4444;
-  --green: #22c55e;
+  --bg-main: #020617;          /* hitam kebiruan */
+  --bg-section: #020617cc;     /* hitam keabuan */
+  --bg-light: #02061780;
+
+  --border-strong: #f59e0b;    /* kuning */
+  --border-soft: #fbbf24;      /* kuning soft */
+
+  --grad-gold: linear-gradient(
+    135deg,
+    #fbbf24,
+    #f59e0b,
+    #ea580c
+  );
+
+  --text-main: #e5e7eb;
 }
 
 /* ================= RESET ================= */
@@ -22,8 +31,15 @@
 }
 
 body {
-  background: var(--bg);
-  color: #fff;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+section,
+.filters-ui,
+.popup,
+.popup-content {
+  background: var(--bg-section);
 }
 
 /* ================= HEADER ================= */
@@ -167,14 +183,14 @@ header button:hover {
 .filter-btn {
   width: 40px;
   height: 40px;
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: var(--bg-light);
+  border: 2px solid #334155;
+  color: var(--text-main);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: white;
 }
 
 .filter-btn img {
@@ -184,7 +200,9 @@ header button:hover {
 
 /* ACTIVE FILTER */
 .filter-btn.active {
-  outline: 2px solid var(--green);
+  background: var(--grad-gold);
+  border-color: var(--border-strong);
+  color: #020617;
 }
 
 /* RESET FILTER */
@@ -342,6 +360,12 @@ header button:hover {
   box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
 }
 
+.card-slot:not(.empty),
+.team-card {
+  background: var(--grad-gold);
+  color: #020617;
+}
+
 /* ================= TEAM PAIR ================= */
 .team-pair {
   display: flex;
@@ -484,6 +508,41 @@ header button:hover {
   gap: 12px;
 }
 
+#pets .card-slot:nth-child(1) {
+  border-color: #38bdf8;
+  background: #38bdf820;
+}
+
+#pets .card-slot:nth-child(2) {
+  border-color: #fbbf24;
+  background: #fbbf2420;
+}
+
+#pets .card-slot:nth-child(3) {
+  border-color: #ef4444;
+  background: #ef444420;
+}
+
+#petSearchInput {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--bg-light);
+  border: 2px solid #334155;
+  border-radius: 8px;
+  color: var(--text-main);
+}
+
+#petList .card-item {
+  overflow: hidden;
+}
+
+#petList .card-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
 /* ================= EQUIP (FIX ALIGN) ================= */
 .equip-section {
   padding: 16px;
@@ -506,6 +565,7 @@ header button:hover {
   grid-template-columns: repeat(5, 96px);
   gap: 16px;
   justify-content: center;
+  margin-top: -6px;
 }
 
 /* 1 baris equip = 5 slot */
@@ -533,6 +593,10 @@ header button:hover {
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
+}
+
+.equip-slot:not(.empty) {
+  background: var(--grad-gold);
 }
 
 /* ================= EQUIP POPUP ================= */
@@ -592,8 +656,8 @@ header button:hover {
   width: 76px;
   height: 76px;
 
-  background: #020617;
-  border: 2px solid #334155;
+  background: var(--bg-light);
+  border: 2px solid #fbbf24;
   border-radius: 12px;
 
   display: flex;
@@ -610,7 +674,8 @@ header button:hover {
 
 .equip-popup-card:hover {
   transform: scale(1.08);
-  border-color: #38bdf8;
+  background: var(--grad-gold);
+  border-color: #ea580c;
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
 }
 
