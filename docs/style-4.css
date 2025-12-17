@@ -878,3 +878,72 @@ input,
   border-color: var(--border-disabled);
   color: var(--text-disabled);
 }
+
+
+   /* =========================================================
+   FINAL COLOR POLISH (TANPA MERUBAH LAYOUT)
+   CEGAR WARNA RUSAK SESUAI DARK FANTASY THEME
+   ========================================================= */
+
+/* ‣ Border dashed slot team & card — arcane steel blue */
+.team-slot,
+.card-slot {
+  border-color: rgba(58, 75, 122, 0.6) !important;
+}
+
+/* ‣ Border active hover di slot & team — subtle glow */
+.team-slot:hover,
+.card-slot:hover,
+.filter-btn:hover {
+  border-color: #4DF0FF !important;
+  box-shadow: 0 0 6px rgba(77, 240, 255, 0.4);
+}
+
+/* ‣ Teks sekunder (info karakter) — lebih readable tapi tidak dominan */
+.card span,
+.team-card span {
+  color: var(--text-secondary) !important;
+}
+
+/* ‣ “” + CARD” placeholder teks — muted tapi theme */
+.card-slot.empty::after {
+  color: var(--text-muted) !important;
+}
+
+/* ‣ Popup content depth */
+.card-popup-content,
+.equip-popup-content {
+  border-color: var(--border-card-hover) !important;
+  box-shadow:
+    0 0 12px rgba(0, 0, 0, 0.6),
+    0 0 4px rgba(58, 75, 122, 0.5) !important;
+}
+
+/* ‣ Popup close button hover */
+.popup-close:hover,
+.equip-popup-close:hover {
+  color: var(--border-active) !important;
+}
+
+/* ‣ Active card slot highlight — lebih subtle */
+.card-slot.active {
+  outline-color: #FFD166 !important;
+  box-shadow: 0 0 10px rgba(255, 209, 102, 0.5) !important;
+}
+
+/* ‣ Filter active background/hue (lebih consistent) */
+.filter-btn.active {
+  background-color: rgba(26, 34, 56, 0.85) !important;
+  border-color: var(--border-active) !important;
+}
+
+/* ‣ Team card outline when in team */
+.card.in-team {
+  outline: 3px solid var(--border-active) !important;
+  box-shadow: 0 0 10px rgba(77, 240, 255, 0.35) !important;
+}
+
+/* ‣ Placeholder input fade */
+input::placeholder {
+  color: var(--text-disabled) !important;
+}
