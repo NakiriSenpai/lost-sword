@@ -487,6 +487,9 @@ header button:hover {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+   /* TEMP DEBUG */
+  min-height: 120px;
+  border: 2px solid red
 }
 
 /* slot equip kosong */
