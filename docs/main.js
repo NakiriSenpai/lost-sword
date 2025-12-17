@@ -604,7 +604,7 @@ function saveAndRenderCards() {
 /* ======== HELPER FUNCTION ======= */
 function getCharacterClassByRow(row) {
   const char = team[row];
-  return char ? char.class : null;
+  return char ? char.class.toLowerCase() : null;
 }
 
 function isCardUsed(cardId) {
