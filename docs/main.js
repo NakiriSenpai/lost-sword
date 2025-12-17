@@ -703,75 +703,71 @@ function closeEquipPopup() {
 function renderEquipPopupContent(col) {
   const body = equipPopupEl.querySelector(".equip-popup-body");
   body.innerHTML = "";
+
+  const type = EQUIP_TYPES[col];
+  let list = equipData[type] || [];
+
   let hasCharacter = true;
   let charClass = null;
-  const type = EQUIP_TYPES[col];
-let list = equipData[type] || [];
 
-const warning = document.createElement("div");
-warning.className = "equip-popup-warning";
+  /* ===== WEAPON LOGIC ===== */
+  if (type === "weapon" && activeEquipSlot) {
+    charClass = getCharacterClassByRow(activeEquipSlot.row);
+    hasCharacter = !!charClass;
 
-  const type = EQUIP_TYPES[col];
-let list = equipData[type] || [];
+    if (hasCharacter) {
+      list = list.filter(item => {
+        const itemClass = item.class?.toLowerCase();
 
-/* ===== STEP E: WEAPON LOGIC ===== */
-
-if (type === "weapon" && activeEquipSlot) {
-  charClass = getCharacterClassByRow(activeEquipSlot.row);
-  hasCharacter = !!charClass;
-
-  if (hasCharacter) {
-    list = list.filter(item => {
-      if (item.class === "universal") {
-        return charClass === "Wizard" || charClass === "Healer";
-      }
-      return item.class === charClass;
-    });
+        if (itemClass === "universal") {
+          return charClass === "wizard" || charClass === "healer";
+        }
+        return itemClass === charClass;
+      });
+    }
   }
-}
+
+  /* ===== WARNING ===== */
   if (type === "weapon" && !hasCharacter) {
-  const warning = document.createElement("div");
-  warning.className = "equip-popup-warning";
-  warning.textContent = "⚠ Isi slot character terlebih dahulu";
-  body.appendChild(warning);
-}
-  
+    const warning = document.createElement("div");
+    warning.className = "equip-popup-warning";
+    warning.textContent = "⚠ Isi slot character terlebih dahulu";
+    body.appendChild(warning);
+  }
+
   const grid = document.createElement("div");
   grid.className = "equip-popup-grid";
 
   list.forEach(item => {
-  const card = document.createElement("div");
-  card.className = "equip-popup-card";
+    const card = document.createElement("div");
+    card.className = "equip-popup-card";
 
-  const img = document.createElement("img");
+    const img = document.createElement("img");
+    img.src =
+      item.image ||
+      item.img ||
+      item.icon ||
+      "https://via.placeholder.com/64?text=No+Img";
 
-  const imgSrc =
-    item.image ||
-    item.img ||
-    item.icon ||
-    "https://via.placeholder.com/64?text=No+Img";
+    img.alt = item.name || "";
+    card.appendChild(img);
 
-  img.src = imgSrc;
-  img.alt = item.name || "";
-  img.className = "equip-popup-item";
+    if (type === "weapon" && !hasCharacter) {
+      card.classList.add("disabled");
+    } else {
+      card.onclick = () => {
+        if (!activeEquipSlot) return;
 
-  if (type === "weapon" && !hasCharacter) {
-  card.classList.add("disabled");
-} else {
-  card.onclick = () => {
-    if (!activeEquipSlot) return;
+        const { row, col } = activeEquipSlot;
+        equipSlots[row][col] = item;
 
-    const { row, col } = activeEquipSlot;
-    equipSlots[row][col] = item;
+        renderEquipSlots();
+        closeEquipPopup();
+      };
+    }
 
-    renderEquipSlots();
-    closeEquipPopup();
-  };
-}
-
-  card.appendChild(img);
-  grid.appendChild(card);
-});
+    grid.appendChild(card);
+  });
 
   body.appendChild(grid);
 }
