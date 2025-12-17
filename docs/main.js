@@ -609,16 +609,29 @@ function renderEquipSlots() {
 
       slot.dataset.row = row;
       slot.dataset.col = col;
+
+      // 🔥 TAMPILKAN EQUIP JIKA ADA
+      const equip = equipSlots[row][col];
+      if (equip) {
+        const imgSrc =
+          equip.image ||
+          equip.img ||
+          equip.icon ||
+          "https://via.placeholder.com/48";
+
+        slot.innerHTML = `<img src="${imgSrc}">`;
+      }
+
       slot.addEventListener("click", () => {
-  openEquipPopup(row, col);
-});
+        openEquipPopup(row, col);
+      });
+
       rowEl.appendChild(slot);
     }
 
     equipGridEl.appendChild(rowEl);
   }
 }
-
 
 /* ========== SAVE RENDER CARD SLOT ======= */
 function saveAndRenderCards() {
