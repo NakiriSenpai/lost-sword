@@ -109,6 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPets();
     renderPetList();
   });
+  /* ===== EQUIP (INI POSISI YANG BENAR) ===== */
+  loadEquips();        // ⬅️ fetch weapon / armor / acc / rune
+  renderEquipSlots();  // ⬅️ render grid 5 x 4
 });
 
 /* ================= FILTER ================= */
@@ -307,6 +310,40 @@ function renderPetList() {
       petListEl.appendChild(el);
     });
 }
+
+/* =========== RENDER EQUIP SLOT ===========*/
+function renderEquipSlots() {
+  const container = document.getElementById("equip-slots");
+  container.innerHTML = "";
+
+  const typeLabels = ["W", "A", "C", "R"];
+
+  for (let col = 0; col < EQUIP_COLS; col++) {
+    for (let row = 0; row < EQUIP_ROWS; row++) {
+      const slot = document.createElement("div");
+      slot.className = "equip-slot";
+      slot.dataset.row = row;
+      slot.dataset.col = col;
+      slot.dataset.type = typeLabels[col];
+
+      const equip = equipSlots[row][col];
+      if (equip) {
+        const img = document.createElement("img");
+        img.src = equip.image;
+        slot.appendChild(img);
+      }
+
+      slot.onclick = () => {
+        activeEquipRow = row;
+        activeEquipCol = col;
+        console.log("Equip slot clicked:", row + 1, col + 1);
+      };
+
+      container.appendChild(slot);
+    }
+  }
+}
+
 
 
 /* ================= CHARACTER CLICK ================= */
