@@ -37,6 +37,8 @@ let activeFilters = {
 
 /* ================= DOM ================= */
 const equipGridEl = document.getElementById("equipGrid");
+const equipPopupEl = document.getElementById("equipPopup");
+const equipPopupCloseEl = document.getElementById("equipPopupClose");
 
 const petsEl = document.getElementById("pets");
 const petPopup = document.getElementById("petPopup");
@@ -110,6 +112,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPetList();
   });
   renderEquipSlots();
+
+  // EQUIP POPUP CLOSE
+  equipPopupCloseEl.addEventListener("click", closeEquipPopup);
 });
 
 /* ================= FILTER ================= */
@@ -561,7 +566,9 @@ function renderEquipSlots() {
 
       slot.dataset.row = row;
       slot.dataset.col = col;
-
+      slot.addEventListener("click", () => {
+  openEquipPopup(row, col);
+});
       rowEl.appendChild(slot);
     }
 
@@ -656,3 +663,16 @@ cardPopup.onclick = (e) => {
 
 /* ======== SEARCH CARD IN POPUP ======= */
 cardSearchInput.oninput = renderCardList;
+
+/* ================= EQUIP POPUP ================= */
+let activeEquipSlot = null;
+
+function openEquipPopup(row, col) {
+  activeEquipSlot = { row, col };
+  equipPopupEl.classList.remove("hidden");
+}
+
+function closeEquipPopup() {
+  equipPopupEl.classList.add("hidden");
+  activeEquipSlot = null;
+}
