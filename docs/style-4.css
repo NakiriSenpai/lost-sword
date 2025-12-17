@@ -474,6 +474,29 @@ header button:hover {
   gap: 12px;
 }
 
+/* ================= EQUIP (STEP 1) ================= */
+.equip-section {
+  padding: 16px;
+}
+
+.equip-section h2 {
+  margin-bottom: 10px;
+}
+
+.equip-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+/* slot equip kosong */
+.equip-slot {
+  height: 110px;
+  border-radius: 14px;
+  border: 2px dashed #334155;
+  background: #020617;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
