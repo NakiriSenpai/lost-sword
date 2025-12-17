@@ -505,11 +505,26 @@ header button:hover {
 
 /* slot equip */
 .equip-slot {
-  width: 120px;        /* SAMA dengan team-card */
-  height: 90px;        /* lebih pendek */
-  border-radius: 14px;
-  border: 2px dashed #334155;
-  background: #020617;
+  width: 64px;
+  height: 64px;          /* lebih pendek dari card */
+  border: 2px solid #444;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #111;
+  cursor: pointer;
+
+  overflow: hidden;     /* 🔥 PENTING: POTONG ISI */
+}
+
+.equip-slot img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 /* ================= EQUIP POPUP ================= */
