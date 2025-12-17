@@ -947,3 +947,97 @@ input,
 input::placeholder {
   color: var(--text-disabled) !important;
 }
+
+/* =========================================================
+   HARD FIX COLOR – DARK FANTASY UNIFICATION
+   FIX WARNA BERANTAKAN (SCREENSHOT BASED)
+   ========================================================= */
+
+/* ===== FORCE BACKGROUND SECTION (HILANGKAN COKLAT) ===== */
+.team-section,
+.team,
+#team,
+.your-team,
+section {
+  background-color: #0E1320 !important;
+}
+
+/* ===== TEAM SLOT & CARD SLOT (SATU BAHASA WARNA) ===== */
+.team-slot,
+.card-slot {
+  background-color: #12182B !important;
+  border: 2px dashed rgba(79, 104, 170, 0.45) !important;
+}
+
+/* ===== SLOT KOSONG "+ CARD" ===== */
+.card-slot.empty::after,
+.team-slot.empty::after {
+  color: #6B738E !important;
+}
+
+/* ===== SLOT AKTIF (HANYA SATU ACCENT) ===== */
+.card-slot.active,
+.selected-slot {
+  outline: 3px solid #4DF0FF !important;
+  box-shadow: 0 0 10px rgba(77, 240, 255, 0.35) !important;
+}
+
+/* ===== HAPUS WARNA KUNING / MERAH RANDOM DI SLOT ===== */
+.team-slot,
+.card-slot {
+  outline-color: transparent !important;
+}
+
+/* ===== EQUIP GRID (LEBIH DARK, BUKAN FORM UI) ===== */
+.equip-slot,
+.equip-popup-card {
+  background-color: #12182B !important;
+  border-color: rgba(79, 104, 170, 0.35) !important;
+}
+
+/* ===== EQUIP DISABLED ===== */
+.equip-popup-card.disabled {
+  opacity: 0.45 !important;
+  border-color: rgba(79, 104, 170, 0.2) !important;
+}
+
+/* ===== FILTER BAR – TONE DOWN NEON ===== */
+.filter-btn {
+  background-color: #12182B !important;
+  border-color: rgba(79, 104, 170, 0.45) !important;
+}
+
+.filter-btn.active {
+  border-color: #4DF0FF !important;
+  background-color: rgba(26, 34, 56, 0.85) !important;
+}
+
+/* ===== CHARACTER CARD CONSISTENCY ===== */
+.card {
+  background-color: #1A2238 !important;
+}
+
+.card span {
+  color: #AAB1C6 !important;
+}
+
+/* ===== POPUP PANEL (DEPTH, BUKAN FLAT) ===== */
+.card-popup-content,
+.equip-popup-content {
+  background-color: #12182B !important;
+  box-shadow:
+    0 0 0 1px rgba(79, 104, 170, 0.25),
+    0 18px 50px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* ===== HILANGKAN WARNA FORM PUTIH DEFAULT ===== */
+input,
+input:focus {
+  background-color: #12182B !important;
+  border-color: rgba(79, 104, 170, 0.45) !important;
+  color: #E6E9F0 !important;
+}
+
+input::placeholder {
+  color: #6B738E !important;
+}
