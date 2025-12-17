@@ -362,17 +362,25 @@ function onCharacterClick(character) {
   );
 
   if (existIndex !== -1) {
-    team[existIndex] = null;
-    clearSelectedSlot();
-    saveAndRender();
-    return;
-  }
+  team[existIndex] = null;        // hapus character
+  clearWeaponByRow(existIndex);   // 🔥 HAPUS WEAPON SLOT INI
+  clearSelectedSlot();
+  saveAndRender();
+  return;
+}
 if (selectedSlotIndex !== null) {
-    team[selectedSlotIndex] = character;
-    clearSelectedSlot();
-    saveAndRender();
-    return;
+  const prevChar = team[selectedSlotIndex]; // 1. simpan char lama
+  team[selectedSlotIndex] = character;      // 2. ganti char
+
+  // 3. cek class
+  if (!prevChar || prevChar.class !== character.class) {
+    clearWeaponByRow(selectedSlotIndex);    // 🔥 HAPUS WEAPON
   }
+
+  clearSelectedSlot();
+  saveAndRender();
+  return;
+}
 
   // INSERT KE SLOT KOSONG PERTAMA
   const emptyIndex = team.findIndex(t => t === null);
@@ -665,6 +673,12 @@ function loadEquipFromURL() {
     equipSlots[row][col] = item;
   });
 }
+
+function clearWeaponByRow(row) {
+  if (!equipSlots[row]) return;
+
+  equipSlots[row][0] = null; // col 0 = weapon
+}             
 
 /* ================= STORAGE ================= */
 function saveAndRender() {
