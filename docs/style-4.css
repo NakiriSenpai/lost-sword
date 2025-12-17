@@ -59,11 +59,10 @@ header button:hover {
 }
 
 .team {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(5, 96px);
   gap: 12px;
-  flex-wrap: wrap;
-  position: relative;
+  justify-content: center;
 }
 
 .team-card,
@@ -492,23 +491,23 @@ header button:hover {
 
 /* grid ikut lebar team */
 .equip-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(5, 96px);
+  gap: 12px;
+  justify-content: center;
 }
 
 /* 1 baris equip = 5 slot */
 .equip-row {
-  display: flex;
-  gap: 12px;
+  display: contents;
 }
 
 /* slot equip */
 .equip-slot {
-  width: 64px;
-  height: 64px;          /* lebih pendek dari card */
+  width: 96px;
+  height: 72px;           /* sedikit lebih pendek dari card */
   border: 2px solid #444;
-  border-radius: 8px;
+  border-radius: 10px;
 
   display: flex;
   align-items: center;
@@ -516,15 +515,13 @@ header button:hover {
 
   background: #111;
   cursor: pointer;
-
-  overflow: hidden;     /* 🔥 PENTING: POTONG ISI */
+  overflow: hidden;
 }
 
 .equip-slot img {
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
-  pointer-events: none;
 }
 
 /* ================= EQUIP POPUP ================= */
