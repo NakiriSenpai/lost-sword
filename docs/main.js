@@ -712,13 +712,15 @@ warning.className = "equip-popup-warning";
   const type = EQUIP_TYPES[col];
 let list = equipData[type] || [];
 
-/* ===== STEP E: FILTER WEAPON BY CLASS ===== */
-if (type === "weapon" && activeEquipSlot) {
-  const charClass = getCharacterClassByRow(activeEquipSlot.row);
+/* ===== STEP E: WEAPON LOGIC ===== */
+let hasCharacter = true;
+let charClass = null;
 
-  if (!charClass) {
-    list = []; // slot character kosong
-  } else {
+if (type === "weapon" && activeEquipSlot) {
+  charClass = getCharacterClassByRow(activeEquipSlot.row);
+  hasCharacter = !!charClass;
+
+  if (hasCharacter) {
     list = list.filter(item => {
       if (item.class === "universal") {
         return charClass === "wizard" || charClass === "healer";
@@ -727,7 +729,13 @@ if (type === "weapon" && activeEquipSlot) {
     });
   }
 }
-
+  if (type === "weapon" && !hasCharacter) {
+  const warning = document.createElement("div");
+  warning.className = "equip-popup-warning";
+  warning.textContent = "⚠ Isi slot character terlebih dahulu";
+  body.appendChild(warning);
+  }
+  
   const grid = document.createElement("div");
   grid.className = "equip-popup-grid";
 
@@ -747,6 +755,9 @@ if (type === "weapon" && activeEquipSlot) {
   img.alt = item.name || "";
   img.className = "equip-popup-item";
 
+  if (type === "weapon" && !hasCharacter) {
+  card.classList.add("disabled");
+} else {
   card.onclick = () => {
     if (!activeEquipSlot) return;
 
@@ -756,6 +767,7 @@ if (type === "weapon" && activeEquipSlot) {
     renderEquipSlots();
     closeEquipPopup();
   };
+}
 
   card.appendChild(img);
   grid.appendChild(card);
