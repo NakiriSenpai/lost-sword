@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   
   await fetchEquipData();
+  loadEquipFromURL();
   renderEquipSlots();
   // EQUIP POPUP CLOSE
   equipPopupCloseEl.addEventListener("click", closeEquipPopup);
@@ -615,6 +616,56 @@ function isPetUsed(petId) {
   return petSlots.some(p => p && p.id === petId);
 }
 
+function encodeEquipToURL() {
+  const list = [];
+
+  for (let row = 0; row < EQUIP_ROWS; row++) {
+    for (let col = 0; col < EQUIP_COLS; col++) {
+      const item = equipSlots[row][col];
+      if (!item || !item.id) continue;
+
+      list.push(`${row}-${col}:${item.id}`);
+    }
+  }
+
+  return list.join("|");
+}
+
+function loadEquipFromURL() {
+  const params = new URLSearchParams(location.search);
+  const equipParam = params.get("e");
+  if (!equipParam) return;
+
+  equipParam.split("|").forEach(pair => {
+    const [pos, id] = pair.split(":");
+    if (!pos || !id) return;
+
+    const [row, col] = pos.split("-").map(Number);
+    if (row >= EQUIP_ROWS || col >= EQUIP_COLS) return;
+
+    const type = EQUIP_TYPES[col];
+    const list = equipData[type];
+    if (!list) return;
+
+    const item = list.find(i => i.id === id);
+    if (!item) return;
+
+    // ❗ VALIDASI WEAPON VS CLASS
+    if (type === "weapon") {
+      const charClass = getCharacterClassByRow(row);
+      if (!charClass) return;
+
+      const itemClass = item.class?.toLowerCase();
+      if (
+        itemClass !== "universal" &&
+        itemClass !== charClass
+      ) return;
+    }
+
+    equipSlots[row][col] = item;
+  });
+}
+
 /* ================= STORAGE ================= */
 function saveAndRender() {
   persist();
@@ -659,17 +710,26 @@ function loadPetsFromStorage() {
 }
 
 function updateURL() {
+  const params = new URLSearchParams();
+
   const names = team
     .filter(Boolean)
     .map(c => encodeURIComponent(c.name))
     .join(",");
+
+  if (names) params.set("team", names);
+
+  const equipStr = encodeEquipToURL();
+  if (equipStr) params.set("e", equipStr);
+
   history.replaceState(
     null,
     "",
-    names ? "?team=" + names : location.pathname
+    params.toString()
+      ? "?" + params.toString()
+      : location.pathname
   );
 }
-
 shareBtn.onclick = () => {
   navigator.clipboard.writeText(location.href);
   alert("Link copied!");
@@ -762,6 +822,7 @@ function renderEquipPopupContent(col) {
         equipSlots[row][col] = item;
 
         renderEquipSlots();
+        updateURL();  
         closeEquipPopup();
       };
     }
