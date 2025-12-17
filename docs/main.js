@@ -314,20 +314,26 @@ function renderPetList() {
 /* =========== RENDER EQUIP SLOT ===========*/
 function renderEquipSlots() {
   const equipEl = document.getElementById("equip");
-
-  // 🔴 kalau ini null, berarti HTML salah
-  if (!equipEl) {
-    alert("EQUIP ELEMENT NOT FOUND");
-    return;
-  }
+  if (!equipEl) return;
 
   equipEl.innerHTML = "";
 
-  for (let i = 0; i < 20; i++) {
-    const slot = document.createElement("div");
-    slot.className = "equip-slot";
-    slot.textContent = i + 1; // cuma buat test
-    equipEl.appendChild(slot);
+  for (let col = 1; col <= EQUIP_COLS; col++) {
+    for (let row = 1; row <= EQUIP_ROWS; row++) {
+
+      const slot = document.createElement("div");
+      slot.className = "equip-slot";
+      slot.dataset.row = row;
+      slot.dataset.col = col;
+
+      slot.textContent = `R${row} C${col}`; // debug text
+
+      slot.onclick = () => {
+        onEquipSlotClick(row, col);
+      };
+
+      equipEl.appendChild(slot);
+    }
   }
 }
 
