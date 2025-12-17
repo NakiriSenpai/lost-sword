@@ -474,27 +474,39 @@ header button:hover {
   gap: 12px;
 }
 
-/* ================= EQUIP (STEP 1) ================= */
+/* ================= EQUIP (FIX ALIGN) ================= */
 .equip-section {
   padding: 16px;
 }
 
 .equip-section h2 {
   margin-bottom: 10px;
+  text-align: center;
 }
 
+/* wrapper ikut team */
+.equip-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* grid ikut lebar team */
 .equip-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-   /* TEMP DEBUG */
-  min-height: 120px;
-  border: 2px solid red
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-/* slot equip kosong */
+/* 1 baris equip = 5 slot */
+.equip-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* slot equip */
 .equip-slot {
-  height: 110px;
+  width: 120px;        /* SAMA dengan team-card */
+  height: 90px;        /* lebih pendek */
   border-radius: 14px;
   border: 2px dashed #334155;
   background: #020617;
