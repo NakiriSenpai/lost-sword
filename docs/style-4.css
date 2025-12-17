@@ -622,6 +622,27 @@ header button:hover {
   object-fit: contain;
 }
 
+.equip-popup-warning {
+  padding: 10px;
+  margin-bottom: 12px;
+  background: #2a2a2a;
+  border: 1px solid #555;
+  color: #ffb347;
+  font-size: 14px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.equip-popup-card.disabled {
+  opacity: 0.4;
+  filter: grayscale(100%);
+  cursor: not-allowed;
+}
+
+.equip-popup-card.disabled img {
+  pointer-events: none;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
