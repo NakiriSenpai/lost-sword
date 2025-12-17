@@ -59,16 +59,15 @@ header button:hover {
 }
 
 .team {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
-  flex-wrap: wrap;
   position: relative;
 }
 
 .team-card,
 .team-slot {
-  width: 120px;
+  width: 100%;
   border-radius: 18px;
   padding: 10px;
   text-align: center;
@@ -510,6 +509,11 @@ header button:hover {
   opacity: 0.4;
 }
 
+.team-section,
+.equip-section {
+  max-width: 520px;
+  margin: 0 auto;
+}
 
 
 /* ================= MOBILE POLISH ================= */
