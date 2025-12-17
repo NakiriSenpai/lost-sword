@@ -67,7 +67,7 @@ header button:hover {
 
 .team-card,
 .team-slot {
-  width: 120px;
+  width: 96px;
   border-radius: 18px;
   padding: 10px;
   text-align: center;
@@ -297,7 +297,7 @@ header button:hover {
 
 /* ================= CARD SLOT ================= */
 .card-slot {
-  width: 120px;
+  width: 96px;
   height: 190px;
 
   border-radius: 18px;
@@ -348,20 +348,30 @@ header button:hover {
   flex-direction: column;
   align-items: center;
 
-  gap: 30px;              /* 🔥 JARAK ANTAR SLOT */
+  gap: 12px;              /* 🔥 JARAK ANTAR SLOT */
 }
 
 /* mobile */
 @media (max-width: 768px) {
+  .team-card,
+  .team-slot,
   .card-slot {
-    width: 90px;
+    width: 72px;
   }
 
+  .team-slot {
+    height: 130px;
+  }
+
+  .card-slot {
+    height: 90px;
+  }
+
+  .team-card img,
   .card-slot img {
-    height: 100px;
+    height: 80px;
   }
 }
-
 /* ================= CARD POPUP ================= */
 .card-popup {
   position: fixed;
