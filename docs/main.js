@@ -723,20 +723,24 @@ function renderEquipPopupContent(col) {
   grid.className = "equip-popup-grid";
 
   list.forEach(item => {
-    const img = document.createElement("img");
+  const card = document.createElement("div");
+  card.className = "equip-popup-card";
 
-    const imgSrc =
-      item.image ||
-      item.img ||
-      item.icon ||
-      "https://via.placeholder.com/64?text=No+Img";
+  const img = document.createElement("img");
 
-    img.src = imgSrc;
-    img.alt = item.name || "";
-    img.className = "equip-popup-item";
+  const imgSrc =
+    item.image ||
+    item.img ||
+    item.icon ||
+    "https://via.placeholder.com/64?text=No+Img";
 
-    grid.appendChild(img);
-  });
+  img.src = imgSrc;
+  img.alt = item.name || "";
+  img.className = "equip-popup-item";
+
+  card.appendChild(img);
+  grid.appendChild(card);
+});
 
   body.appendChild(grid);
 }
