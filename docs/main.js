@@ -353,8 +353,7 @@ function renderPetList() {
 }
 
 
-tton>
-  <img src="${cardSlots[i].image/* ================= CHARACTER CLICK ================= */
+  /* ================= CHARACTER CLICK ================= */
 function onCharacterClick(character) {
   // REMOVE JIKA SUDAH ADA
   const existIndex = team.findIndex(
@@ -429,7 +428,8 @@ cardSlot.dataset.index = i;
 if (cardSlots[i]) {
   cardSlot.className = "card-slot";
   cardSlot.innerHTML = `
-  <button class="remove-card">✕</bu}">
+  <button class="remove-card">✕</button>
+  <img src="${cardSlots[i].image}">
   <strong>${cardSlots[i].name}</strong>
 `;
   const removeBtn = cardSlot.querySelector(".remove-card");
