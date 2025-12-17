@@ -551,18 +551,21 @@ function renderEquipSlots() {
 
   equipGridEl.innerHTML = "";
 
-  // column dulu (weapon → rune)
   for (let col = 0; col < 4; col++) {
+    const rowEl = document.createElement("div");
+    rowEl.className = "equip-row";
+
     for (let row = 0; row < 5; row++) {
       const slot = document.createElement("div");
       slot.className = "equip-slot";
 
-      // simpan posisi slot
       slot.dataset.row = row;
       slot.dataset.col = col;
 
-      equipGridEl.appendChild(slot);
+      rowEl.appendChild(slot);
     }
+
+    equipGridEl.appendChild(rowEl);
   }
 }
 
