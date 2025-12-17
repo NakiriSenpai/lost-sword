@@ -724,8 +724,15 @@ function renderEquipPopupContent(col) {
 
   list.forEach(item => {
     const img = document.createElement("img");
-    img.src = item.icon;
-    img.alt = item.name;
+
+    const imgSrc =
+      item.image ||
+      item.img ||
+      item.icon ||
+      "https://via.placeholder.com/64?text=No+Img";
+
+    img.src = imgSrc;
+    img.alt = item.name || "";
     img.className = "equip-popup-item";
 
     grid.appendChild(img);
