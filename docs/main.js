@@ -6,6 +6,7 @@ const FALLBACK_IMG =
   "https://via.placeholder.com/300x200?text=No+Image";
 
 /* ================= STATE ================= */
+let activeEquipSlot = null;
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 
@@ -584,9 +585,9 @@ function renderEquipSlots() {
       }
 
       slot.addEventListener("click", () => {
-        openEquipPopup(row, col);
-      });
-
+  activeEquipSlot = { row, col };
+  openEquipPopup(row, col);
+});
       rowEl.appendChild(slot);
     }
 
@@ -601,6 +602,11 @@ function saveAndRenderCards() {
 }
 
 /* ======== HELPER FUNCTION ======= */
+function getCharacterClassByRow(row) {
+  const char = teamSlots[row];
+  return char ? char.class : null;
+}
+
 function isCardUsed(cardId) {
   return cardSlots.some(c => c && c.id === cardId);
 }
