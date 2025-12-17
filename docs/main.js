@@ -685,6 +685,7 @@ function saveAndRender() {
   persist();
   updateURL();
   renderTeam();
+  renderEquipSlots(); // 🔥 INI YANG HILANG
 }
 
 function persist() {
