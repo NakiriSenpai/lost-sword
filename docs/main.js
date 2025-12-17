@@ -22,6 +22,16 @@ const equipData = {
   rune: []
 };
 
+/* ================= EQUIP STATE ================= */
+const EQUIP_ROWS = 5;
+const EQUIP_COLS = 4;
+
+let equipSlots = Array.from({ length: EQUIP_ROWS }, () =>
+  Array(EQUIP_COLS).fill(null)
+);
+
+let activeEquipSlot = null; // { row, col }
+
 const MAX_PETS = 3;
 
 let pets = [];
@@ -737,6 +747,16 @@ function renderEquipPopupContent(col) {
   img.src = imgSrc;
   img.alt = item.name || "";
   img.className = "equip-popup-item";
+
+  card.onclick = () => {
+    if (!activeEquipSlot) return;
+
+    const { row, col } = activeEquipSlot;
+    equipSlots[row][col] = item;
+
+    renderEquipSlots();
+    closeEquipPopup();
+  };
 
   card.appendChild(img);
   grid.appendChild(card);
