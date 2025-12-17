@@ -9,10 +9,6 @@ const FALLBACK_IMG =
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 
-// 5 row (character) x 4 column (equip)
-let equipSlots = Array(5)
-  .fill(null)
-  .map(() => Array(4).fill(null));
 
 /* ================= EQUIP DATA ================= */
 const equipData = {
@@ -29,8 +25,6 @@ const EQUIP_COLS = 4;
 let equipSlots = Array.from({ length: EQUIP_ROWS }, () =>
   Array(EQUIP_COLS).fill(null)
 );
-
-let activeEquipSlot = null; // { row, col }
 
 const MAX_PETS = 3;
 
@@ -371,40 +365,7 @@ function onCharacterClick(character) {
     saveAndRender();
     return;
   }
-
-  // INSERT KE SLOT YANG DIPILIH
-function renderPetList() {
-  const keyword = petSearchInput.value.toLowerCase();
-  petListEl.innerHTML = "";
-
-  pets
-    .filter(p => p.name.toLowerCase().includes(keyword))
-    .forEach(pet => {
-      const el = document.createElement("div");
-      el.className = "card-item";
-
-      const used = isPetUsed(pet.id);
-      el.classList.toggle("used", used);
-
-      el.innerHTML = `
-        <img src="${pet.image}">
-        <strong>${pet.name}</strong>
-      `;
-
-      el.onclick = () => {
-        if (used) return;
-        if (activePetSlotIndex === null) return;
-
-        petSlots[activePetSlotIndex] = pet;
-        persistPets();
-        renderPets();
-        renderPetList(); // 🔥 update status used
-        closePetPopup();
-      };
-
-      petListEl.appendChild(el);
-    });
-}  if (selectedSlotIndex !== null) {
+if (selectedSlotIndex !== null) {
     team[selectedSlotIndex] = character;
     clearSelectedSlot();
     saveAndRender();
