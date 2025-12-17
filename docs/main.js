@@ -603,7 +603,7 @@ function saveAndRenderCards() {
 
 /* ======== HELPER FUNCTION ======= */
 function getCharacterClassByRow(row) {
-  const char = teamSlots[row];
+  const char = team[row];
   return char ? char.class : null;
 }
 
@@ -707,7 +707,23 @@ function renderEquipPopupContent(col) {
   body.innerHTML = "";
 
   const type = EQUIP_TYPES[col];
-  const list = equipData[type] || [];
+let list = equipData[type] || [];
+
+/* ===== STEP E: FILTER WEAPON BY CLASS ===== */
+if (type === "weapon" && activeEquipSlot) {
+  const charClass = getCharacterClassByRow(activeEquipSlot.row);
+
+  if (!charClass) {
+    list = []; // slot character kosong
+  } else {
+    list = list.filter(item => {
+      if (item.class === "universal") {
+        return charClass === "wizard" || charClass === "healer";
+      }
+      return item.class === charClass;
+    });
+  }
+}
 
   const grid = document.createElement("div");
   grid.className = "equip-popup-grid";
