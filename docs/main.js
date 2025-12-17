@@ -242,7 +242,6 @@ function renderCharacters() {
       card.innerHTML = `
         <img src="${c.image}">
         <strong>${c.name}</strong>
-        <span>${c.element} • ${c.class} • ${c.position}</span>
       `;
 
       card.onclick = () => onCharacterClick(c);
@@ -354,7 +353,8 @@ function renderPetList() {
 }
 
 
-/* ================= CHARACTER CLICK ================= */
+tton>
+  <img src="${cardSlots[i].image/* ================= CHARACTER CLICK ================= */
 function onCharacterClick(character) {
   // REMOVE JIKA SUDAH ADA
   const existIndex = team.findIndex(
@@ -412,10 +412,11 @@ function renderTeam() {
         <strong>${team[i].name}</strong>
       `;
       slot.onclick = () => {
-        team[i] = null;
-        clearSelectedSlot();
-        saveAndRender();
-      };
+  team[i] = null;
+  clearWeaponByRow(i);   // 🔥 INI YANG KURANG
+  clearSelectedSlot();
+  saveAndRender();
+};
     } else {
       slot.className = "team-slot";
       slot.onclick = () => selectSlot(i, slot);
@@ -428,8 +429,7 @@ cardSlot.dataset.index = i;
 if (cardSlots[i]) {
   cardSlot.className = "card-slot";
   cardSlot.innerHTML = `
-  <button class="remove-card">✕</button>
-  <img src="${cardSlots[i].image}">
+  <button class="remove-card">✕</bu}">
   <strong>${cardSlots[i].name}</strong>
 `;
   const removeBtn = cardSlot.querySelector(".remove-card");
