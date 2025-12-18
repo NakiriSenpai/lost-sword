@@ -663,14 +663,46 @@ header button:hover {
 .card-slot,
 .team-card {
   position: relative;
-  overflow: visible;   /* 🔥 PENTING */
+  height: 150px;
 }
 
 .slot-inner {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  width: 100%;
   height: 100%;
 }
+
+.slot-inner img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.slot-name {
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slot-remove {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
 
 .remove-card,
 .remove-pet,
@@ -693,6 +725,8 @@ header button:hover {
   cursor: pointer;
   z-index: 20;
 }
+
+
 
 
 /* ================= EQUIP (FIX ALIGN) ================= */
