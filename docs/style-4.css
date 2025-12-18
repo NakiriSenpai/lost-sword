@@ -929,6 +929,23 @@ header button:hover {
   transform: translate(50%, -50%) scale(1.1);
 }
 
+/* ========= FIX POSISI NAIK TURUN CARD ==== */
+.team-card,
+.team-slot,
+.card-slot {
+  height: 150px;          /* FIXED */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.card-slot.empty::after {
+  content: "+ Card";
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 /* ========== REMOVE BUTTON UNIVERSAL ======= */
 .card-slot,
 .pet-slot {
