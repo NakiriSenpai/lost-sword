@@ -295,21 +295,26 @@ function renderPets() {
     slot.dataset.index = i;
 
     if (petSlots[i]) {
+      const pet = petSlots[i];
+
       slot.innerHTML = `
         <div class="slot-inner">
           <button class="slot-remove remove-pet">✕</button>
-          <img src="${petSlots[i].image}">
-          <div class="slot-name">${petSlots[i].name}</div>
+          <img src="${pet.image}">
+          <div class="slot-name">${pet.name}</div>
         </div>
       `;
 
-      slot.querySelector(".remove-pet").onclick = (e) => {
-        e.stopPropagation();
-        petSlots[i] = null;
-        persistPets();
-        renderPets();
-        renderPetList();
-      };
+      const removeBtn = slot.querySelector(".remove-pet");
+      if (removeBtn) {
+        removeBtn.onclick = (e) => {
+          e.stopPropagation();
+          petSlots[i] = null;
+          persistPets();
+          renderPets();
+          renderPetList();
+        };
+      }
     } else {
       slot.classList.add("empty");
       slot.innerHTML = `
@@ -411,13 +416,12 @@ function renderTeam() {
     if (team[i]) {
       slot.className = "team-card";
       slot.innerHTML = `
-        <div class="slot-inner">
-          <button class="slot-remove remove-card">✕</button>
-          <img src="${team[i].image}">
-          <div class="slot-name">${team[i].name}</div>
-        </div>
-      `;
-
+  <div class="slot-inner">
+    <button class="slot-remove remove-card">✕</button>
+    <img src="${team[i].image}">
+    <div class="slot-name">${team[i].name}</div>
+  </div>
+`;
       // ❌ tombol remove
       slot.querySelector(".remove-card").onclick = (e) => {
         e.stopPropagation();
