@@ -109,6 +109,37 @@ header button:hover {
   background: #1e293b;
 }
 
+/* ============= NAVIGATION ========== */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.top-nav {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.nav-btn {
+  background: #0d1325;
+  border: 1px solid #2b3566;
+  color: #aaa;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-btn.active {
+  background: #1b2347;
+  color: #fff;
+  border-color: #4f6aff;
+}
+
+
 /* ================= TEAM ================= */
 .team-section {
   padding: 16px;
