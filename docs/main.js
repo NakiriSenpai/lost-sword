@@ -934,3 +934,32 @@ function renderEquipPopupContent(col) {
 /* ========= SAVED BUTTON ========= */
 document.getElementById("save-team-btn")
   ?.addEventListener("click", saveCurrentTeam);
+
+/* ========== LOGIC PINDAH HALAMAN ======= */
+const navCurrent = document.getElementById("nav-current");
+const navSaved = document.getElementById("nav-saved");
+
+const pageCurrent = document.getElementById("page-current-team");
+const pageSaved = document.getElementById("page-saved-team");
+
+navCurrent.onclick = () => switchPage("current");
+navSaved.onclick = () => switchPage("saved");
+
+function switchPage(page) {
+  // halaman
+  pageCurrent.classList.remove("active");
+  pageSaved.classList.remove("active");
+
+  // tombol
+  navCurrent.classList.remove("active");
+  navSaved.classList.remove("active");
+
+  if (page === "current") {
+    pageCurrent.classList.add("active");
+    navCurrent.classList.add("active");
+  } else {
+    pageSaved.classList.add("active");
+    navSaved.classList.add("active");
+    renderSavedTeams(); // refresh saved team saat dibuka
+  }
+}
