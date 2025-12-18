@@ -296,10 +296,12 @@ function renderPets() {
 
     if (petSlots[i]) {
       slot.innerHTML = `
-        <button class="remove-pet">✕</button>
-        <img src="${petSlots[i].image}">
-        <strong>${petSlots[i].name}</strong>
-      `;
+  <div class="slot-inner">
+    <button class="remove-pet">✕</button>
+    <img src="${...}">
+    <strong>${...}</strong>
+  </div>
+`;
 
       slot.querySelector(".remove-pet").onclick = (e) => {
         e.stopPropagation();
@@ -406,9 +408,12 @@ function renderTeam() {
     if (team[i]) {
       slot.className = "team-card";
       slot.innerHTML = `
-        <img src="${team[i].image}">
-        <strong>${team[i].name}</strong>
-      `;
+  <div class="slot-inner">
+    <button class="remove-card">✕</button>
+    <img src="${...}">
+    <strong>${...}</strong>
+  </div>
+`;
       slot.onclick = () => {
   team[i] = null;
   clearWeaponByRow(i);   // 🔥 INI YANG KURANG
