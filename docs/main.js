@@ -410,43 +410,32 @@ function renderTeam() {
     const pair = document.createElement("div");
     pair.className = "team-pair";
 
+    /* ===== CHARACTER SLOT ===== */
     const slot = document.createElement("div");
     slot.dataset.index = i;
 
     if (team[i]) {
       slot.className = "team-card";
       slot.innerHTML = `
-  <div class="slot-inner">
-    <button class="slot-remove remove-card">✕</button>
-    <img src="${team[i].image}">
-    <div class="slot-name">${team[i].name}</div>
-  </div>
-`;
-      // ❌ tombol remove
+        <div class="slot-inner">
+          <button class="slot-remove remove-card">✕</button>
+          <img src="${team[i].image}">
+          <div class="slot-name">${team[i].name}</div>
+        </div>
+      `;
+
       slot.querySelector(".remove-card").onclick = (e) => {
         e.stopPropagation();
         team[i] = null;
         clearWeaponByRow(i);
-        clearSelectedSlot();
         saveAndRender();
       };
 
-      // klik slot
       slot.onclick = () => {
         team[i] = null;
         clearWeaponByRow(i);
-        clearSelectedSlot();
         saveAndRender();
       };
-    } else {
-      slot.className = "team-slot";
-      slot.onclick = () => selectSlot(i, slot);
-    }
-
-    pair.appendChild(slot);
-    teamEl.appendChild(pair);
-  }
-}
     } else {
       slot.className = "team-slot";
       slot.onclick = () => selectSlot(i, slot);
@@ -454,41 +443,38 @@ function renderTeam() {
 
     /* ===== CARD SLOT ===== */
     const cardSlot = document.createElement("div");
-cardSlot.dataset.index = i;
+    cardSlot.dataset.index = i;
 
-if (cardSlots[i]) {
-  cardSlot.className = "card-slot";
-  cardSlot.innerHTML = `
-  <button class="remove-card">✕</button>
-  <img src="${cardSlots[i].image}">
-  <strong>${cardSlots[i].name}</strong>
-`;
+    if (cardSlots[i]) {
+      cardSlot.className = "card-slot";
+      cardSlot.innerHTML = `
+        <button class="remove-card">✕</button>
+        <img src="${cardSlots[i].image}">
+        <strong>${cardSlots[i].name}</strong>
+      `;
 
-const removeBtn = cardSlot.querySelector(".remove-card");
-removeBtn.onclick = (e) => {
-  e.stopPropagation();
-  cardSlots[i] = null;
-  persistCards();
-  renderTeam();
-  renderCardList();
-};
-} else {
-  cardSlot.className = "card-slot empty";
-}
+      cardSlot.querySelector(".remove-card").onclick = (e) => {
+        e.stopPropagation();
+        cardSlots[i] = null;
+        persistCards();
+        renderTeam();
+        renderCardList();
+      };
+    } else {
+      cardSlot.className = "card-slot empty";
+    }
 
-cardSlot.onclick = () => {
-  openCardPopup(i);
-};
+    cardSlot.onclick = () => openCardPopup(i);
 
-    /* ===== APPEND ===== */
     pair.appendChild(slot);
     pair.appendChild(cardSlot);
     teamEl.appendChild(pair);
   }
 
-  renderSynergyWarning();
-  renderCharacters();
-  renderPets();
+  /* ===== POST RENDER ===== */
+  renderSynergyWarning();   // 🔥 WAJIB
+  renderCharacters();       // 🔥 highlight char
+  renderPets();             // 🔥 pets update
 }
 
 function selectSlot(index, el) {
