@@ -603,6 +603,63 @@ header button:hover {
   transform: translate(50%, -50%) scale(1.1);
 }
 
+/* =========== FIX SLOT CHARA & SLOT CARD ======== */
+.team-card,
+.team-slot,
+.card-slot {
+  height: 190px;           /* desktop */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.team-card img,
+.card-slot img {
+  height: 120px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.team-card strong,
+.card-slot strong {
+  margin-top: auto;           /* dorong ke bawah */
+  padding: 4px 2px 0;
+
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  max-width: 100%;
+}
+
+.team-card,
+.card-slot {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .team-card,
+  .team-slot,
+  .card-slot {
+    height: 140px;
+  }
+
+  .team-card img,
+  .card-slot img {
+    height: 80px;
+  }
+
+  .team-card strong,
+  .card-slot strong {
+    font-size: 11px;
+  }
+}
+
+
 /* ================= EQUIP (FIX ALIGN) ================= */
 .equip-section {
   padding: 16px;
