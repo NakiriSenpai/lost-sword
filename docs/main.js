@@ -6,6 +6,8 @@ const FALLBACK_IMG =
   "https://via.placeholder.com/300x200?text=No+Image";
 
 /* ================= STATE ================= */
+let savedTeams = JSON.parse(localStorage.getItem("savedTeams")) || [];
+
 let activeEquipSlot = null;
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
