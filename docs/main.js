@@ -581,7 +581,6 @@ function renderEquipSlots() {
       slot.dataset.row = row;
       slot.dataset.col = col;
 
-      // 🔥 TAMPILKAN EQUIP JIKA ADA
       const equip = equipSlots[row][col];
       if (equip) {
         const imgSrc =
@@ -590,13 +589,25 @@ function renderEquipSlots() {
           equip.icon ||
           "https://via.placeholder.com/48";
 
-        slot.innerHTML = `<img src="${imgSrc}">`;
+        slot.classList.add("filled");
+
+        slot.innerHTML = `
+          <img src="${imgSrc}">
+          <button class="remove-equip">✕</button>
+        `;
+
+        slot.querySelector(".remove-equip").onclick = (e) => {
+          e.stopPropagation();
+          equipSlots[row][col] = null;
+          saveAndRender();
+        };
       }
 
       slot.addEventListener("click", () => {
-  activeEquipSlot = { row, col };
-  openEquipPopup(row, col);
-});
+        activeEquipSlot = { row, col };
+        openEquipPopup(row, col);
+      });
+
       rowEl.appendChild(slot);
     }
 
