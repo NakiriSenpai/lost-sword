@@ -297,12 +297,12 @@ function renderPets() {
 
     if (petSlots[i]) {
       slot.innerHTML = `
-        <button class="remove-card">✕</button>
+        <button class="remove-pet">✕</button>
         <img src="${petSlots[i].image}">
         <strong>${petSlots[i].name}</strong>
       `;
 
-      slot.querySelector(".remove-card").onclick = (e) => {
+      slot.querySelector(".remove-pet").onclick = (e) => {
         e.stopPropagation();
         petSlots[i] = null;
         persistPets();
@@ -432,14 +432,14 @@ if (cardSlots[i]) {
   <img src="${cardSlots[i].image}">
   <strong>${cardSlots[i].name}</strong>
 `;
-  const removeBtn = cardSlot.querySelector(".remove-card");
+
+const removeBtn = cardSlot.querySelector(".remove-card");
 removeBtn.onclick = (e) => {
   e.stopPropagation();
   cardSlots[i] = null;
-
   persistCards();
   renderTeam();
-  renderCardList();   // 🔥 bikin kartu aktif lagi di popup
+  renderCardList();
 };
 } else {
   cardSlot.className = "card-slot empty";
