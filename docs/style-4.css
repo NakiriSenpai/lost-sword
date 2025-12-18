@@ -732,12 +732,13 @@ header button:hover {
 /* ========== EQUIP REMOVE X ======== */
 .equip-slot {
   position: relative;
+  overflow: visible;
 }
 
 .remove-equip {
   position: absolute;
 
-  right: -6px;                 /* sedikit keluar biar jelas */
+  right: 6px;                 /* DI DALAM SLOT */
   top: 50%;
   transform: translateY(-50%);
 
@@ -751,14 +752,10 @@ header button:hover {
 
   font-size: 13px;
   font-weight: bold;
-  line-height: 1;
 
   cursor: pointer;
-  z-index: 5;
-
-  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+  z-index: 10;
 }
-
 .remove-equip:hover {
   background: var(--danger);
   color: #fff;
