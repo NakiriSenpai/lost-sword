@@ -566,6 +566,43 @@ header button:hover {
   padding: 6px;
 }
 
+/* ================= REMOVE BUTTON (CARD & PET) ================= */
+.card-slot {
+  position: relative;
+  overflow: visible;
+}
+
+.remove-card,
+.remove-pet {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  border: 2px solid var(--border-danger);
+  background: var(--bg-card);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+}
+
+.remove-card:hover,
+.remove-pet:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: translate(50%, -50%) scale(1.1);
+}
+
 /* ================= EQUIP (FIX ALIGN) ================= */
 .equip-section {
   padding: 16px;
