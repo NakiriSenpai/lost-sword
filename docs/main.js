@@ -655,6 +655,44 @@ function saveCurrentTeam() {
   alert("Team berhasil disimpan!");
 }
 
+/* ======== RENDER TEAM SAVED ======*/
+function renderSavedTeams() {
+  const list = document.getElementById("saved-teams-list");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  savedTeams.forEach((data) => {
+    const box = document.createElement("div");
+    box.className = "saved-team-box";
+
+    box.innerHTML = `
+      <div class="saved-meta">
+        Saved: ${data.createdAt}
+        <button class="remove-saved">Remove</button>
+      </div>
+      <div class="saved-team-row">
+        ${data.team
+          .map(c => c ? `<img src="${c.image}">` : "")
+          .join("")}
+      </div>
+    `;
+
+    box.querySelector(".remove-saved").onclick = () => {
+      deleteSavedTeam(data.id);
+    };
+
+    list.appendChild(box);
+  });
+}
+
+/* ======== HAPUS SAVED TEAM ====== */
+function deleteSavedTeam(id) {
+  savedTeams = savedTeams.filter(t => t.id !== id);
+  localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
+  renderSavedTeams();
+}
+
 /* ======== HELPER FUNCTION ======= */
 function getCharacterClassByRow(row) {
   const char = team[row];
