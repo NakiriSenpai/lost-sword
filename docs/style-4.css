@@ -659,6 +659,41 @@ header button:hover {
   }
 }
 
+/* ========= LAST FIX REMOVE CARD & PETS ===== */
+.card-slot,
+.team-card {
+  position: relative;
+  overflow: visible;   /* 🔥 PENTING */
+}
+
+.slot-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.remove-card,
+.remove-pet,
+.remove-equip {
+  position: absolute;
+  right: -8px;         /* 🔥 lebih stabil dari translate */
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  background: var(--bg-card);
+  border: 2px solid var(--border-danger);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 20;
+}
+
 
 /* ================= EQUIP (FIX ALIGN) ================= */
 .equip-section {
