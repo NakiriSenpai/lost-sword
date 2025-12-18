@@ -298,13 +298,12 @@ function renderPets() {
       const pet = petSlots[i];
 
       slot.innerHTML = `
-        <div class="slot-inner">
-          <button class="remove-btn">✕</button>
-          <img src="${pet.image}">
-          <div class="slot-name">${pet.name}</div>
-        </div>
-      `;
-
+  <div class="slot-inner">
+    <button class="remove-pet remove-btn">✕</button>
+    <img src="${pet.image}">
+    <div class="slot-name">${pet.name}</div>
+  </div>
+`;
       const removeBtn = slot.querySelector(".remove-pet");
       if (removeBtn) {
         removeBtn.onclick = (e) => {
@@ -410,29 +409,24 @@ function renderTeam() {
     const pair = document.createElement("div");
     pair.className = "team-pair";
 
-    /* ===== CHARACTER SLOT ===== */
+    /* ===== CHARACTER SLOT (TANPA X) ===== */
     const slot = document.createElement("div");
     slot.dataset.index = i;
 
     if (team[i]) {
       slot.className = "team-card";
       slot.innerHTML = `
-  <div class="slot-inner">
-    <img src="${team[i].image}">
-    <div class="slot-name">${team[i].name}</div>
-  </div>
-`;
+        <div class="slot-inner">
+          <img src="${team[i].image}">
+          <div class="slot-name">${team[i].name}</div>
+        </div>
+      `;
 
-      slot.querySelector(".remove-card").onclick = (e) => {
-        e.stopPropagation();
-        team[i] = null;
-        clearWeaponByRow(i);
-        saveAndRender();
-      };
-
+      // klik slot = remove character
       slot.onclick = () => {
         team[i] = null;
         clearWeaponByRow(i);
+        clearSelectedSlot();
         saveAndRender();
       };
     } else {
@@ -447,7 +441,7 @@ function renderTeam() {
     if (cardSlots[i]) {
       cardSlot.className = "card-slot";
       cardSlot.innerHTML = `
-        <button class="remove-btn">✕</button>
+        <button class="remove-card remove-btn">✕</button>
         <img src="${cardSlots[i].image}">
         <strong>${cardSlots[i].name}</strong>
       `;
@@ -471,9 +465,9 @@ function renderTeam() {
   }
 
   /* ===== POST RENDER ===== */
-  renderSynergyWarning();   // 🔥 WAJIB
-  renderCharacters();       // 🔥 highlight char
-  renderPets();             // 🔥 pets update
+  renderSynergyWarning();
+  renderCharacters();
+  renderPets();
 }
 
 function selectSlot(index, el) {
