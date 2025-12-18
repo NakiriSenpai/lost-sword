@@ -929,6 +929,43 @@ header button:hover {
   transform: translate(50%, -50%) scale(1.1);
 }
 
+/* ========== REMOVE BUTTON UNIVERSAL ======= */
+.card-slot,
+.pet-slot {
+  position: relative;
+  overflow: visible; /* 🔥 WAJIB */
+}
+
+.remove-btn {
+  position: absolute;
+
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%); /* 🔥 setengah keluar */
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  background: var(--bg-card);
+  border: 2px solid var(--border-danger);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+}
+
+.remove-btn:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: translate(50%, -50%) scale(1.1);
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
