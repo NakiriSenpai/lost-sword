@@ -367,12 +367,8 @@ header button:hover {
   font-size: 13px;
 }
 
-/* slot card kosong */
-.card-slot.empty::after {
-  content: "+ Cards";
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--text-disabled);
+.team-pair .card-slot.empty::after {
+  content: "+ Card";
 }
 
 .card-slot.active {
@@ -544,6 +540,10 @@ header button:hover {
 #pets .card-slot:nth-child(3) {
   border-color: #ef4444;
   background: #ef444420;
+}
+
+#pets .card-slot.empty::after {
+  content: "+ Pets";
 }
 
 #petSearchInput {
