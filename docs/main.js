@@ -632,6 +632,29 @@ function saveAndRenderCards() {
   renderTeam();
 }
 
+/* ========= FUNGSI SAVE TEAM ======= */
+function saveCurrentTeam() {
+  const snapshot = {
+    id: "team_" + Date.now(),
+    createdAt: new Date().toLocaleString(),
+
+    team: JSON.parse(JSON.stringify(team)),
+    cards: JSON.parse(JSON.stringify(cardSlots)),
+    pets: JSON.parse(JSON.stringify(petSlots)),
+    equips: JSON.parse(JSON.stringify(equipSlots))
+  };
+
+  savedTeams.push(snapshot);
+
+  localStorage.setItem(
+    "savedTeams",
+    JSON.stringify(savedTeams)
+  );
+
+  renderSavedTeams();
+  alert("Team berhasil disimpan!");
+}
+
 /* ======== HELPER FUNCTION ======= */
 function getCharacterClassByRow(row) {
   const char = team[row];
@@ -869,3 +892,7 @@ function renderEquipPopupContent(col) {
 
   body.appendChild(grid);
 }
+
+/* ========= SAVED BUTTON ========= */
+document.getElementById("save-team-btn")
+  ?.addEventListener("click", saveCurrentTeam);
