@@ -298,22 +298,21 @@ function renderPets() {
       const pet = petSlots[i];
 
       slot.innerHTML = `
-  <div class="slot-inner">
-    <button class="remove-pet remove-btn">✕</button>
-    <img src="${pet.image}">
-    <div class="slot-name">${pet.name}</div>
-  </div>
-`;
+        <button class="remove-pet remove-btn">✕</button>
+        <div class="slot-inner">
+          <img src="${pet.image}">
+          <div class="slot-name">${pet.name}</div>
+        </div>
+      `;
+
       const removeBtn = slot.querySelector(".remove-pet");
-      if (removeBtn) {
-        removeBtn.onclick = (e) => {
-          e.stopPropagation();
-          petSlots[i] = null;
-          persistPets();
-          renderPets();
-          renderPetList();
-        };
-      }
+      removeBtn.onclick = (e) => {
+        e.stopPropagation();
+        petSlots[i] = null;
+        persistPets();
+        renderPets();
+        renderPetList();
+      };
     } else {
       slot.classList.add("empty");
       slot.innerHTML = `
