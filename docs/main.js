@@ -299,7 +299,7 @@ function renderPets() {
 
       slot.innerHTML = `
         <div class="slot-inner">
-          <button class="slot-remove remove-pet">✕</button>
+          <button class="remove-btn">✕</button>
           <img src="${pet.image}">
           <div class="slot-name">${pet.name}</div>
         </div>
@@ -447,7 +447,7 @@ function renderTeam() {
     if (cardSlots[i]) {
       cardSlot.className = "card-slot";
       cardSlot.innerHTML = `
-        <button class="remove-card">✕</button>
+        <button class="remove-btn">✕</button>
         <img src="${cardSlots[i].image}">
         <strong>${cardSlots[i].name}</strong>
       `;
