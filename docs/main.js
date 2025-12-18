@@ -262,7 +262,6 @@ function renderCardList() {
 
       el.innerHTML = `
         <img src="${card.image}">
-        <strong>${card.name}</strong>
       `;
 
       const used = isCardUsed(card.id);
