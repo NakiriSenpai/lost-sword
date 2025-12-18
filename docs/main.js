@@ -291,34 +291,38 @@ function renderPets() {
 
   for (let i = 0; i < MAX_PETS; i++) {
     const slot = document.createElement("div");
-    slot.className = "card-slot";
+    slot.className = "card-slot pet-slot";
     slot.dataset.index = i;
 
     if (petSlots[i]) {
       slot.innerHTML = `
-  <div class="slot-inner">
-    <button class="remove-pet">✕</button>
-    <img src="${...}">
-    <strong>${...}</strong>
-  </div>
-`;
+        <div class="slot-inner">
+          <button class="slot-remove remove-pet">✕</button>
+          <img src="${petSlots[i].image}">
+          <div class="slot-name">${petSlots[i].name}</div>
+        </div>
+      `;
 
       slot.querySelector(".remove-pet").onclick = (e) => {
         e.stopPropagation();
         petSlots[i] = null;
         persistPets();
         renderPets();
-        renderPetList(); // 🔥 penting
+        renderPetList();
       };
     } else {
       slot.classList.add("empty");
+      slot.innerHTML = `
+        <div class="slot-inner">
+          <span class="slot-empty-text">+ Pets</span>
+        </div>
+      `;
     }
 
     slot.onclick = () => openPetPopup(i);
     petsEl.appendChild(slot);
   }
 }
-
 /* =========== RENDER PETLIST POPUP ========= */
 function renderPetList() {
   const keyword = petSearchInput.value.toLowerCase();
@@ -401,25 +405,44 @@ function renderTeam() {
     const pair = document.createElement("div");
     pair.className = "team-pair";
 
-    /* ===== TEAM SLOT (EXISTING LOGIC) ===== */
     const slot = document.createElement("div");
     slot.dataset.index = i;
 
     if (team[i]) {
       slot.className = "team-card";
       slot.innerHTML = `
-  <div class="slot-inner">
-    <button class="remove-card">✕</button>
-    <img src="${...}">
-    <strong>${...}</strong>
-  </div>
-`;
+        <div class="slot-inner">
+          <button class="slot-remove remove-card">✕</button>
+          <img src="${team[i].image}">
+          <div class="slot-name">${team[i].name}</div>
+        </div>
+      `;
+
+      // ❌ tombol remove
+      slot.querySelector(".remove-card").onclick = (e) => {
+        e.stopPropagation();
+        team[i] = null;
+        clearWeaponByRow(i);
+        clearSelectedSlot();
+        saveAndRender();
+      };
+
+      // klik slot
       slot.onclick = () => {
-  team[i] = null;
-  clearWeaponByRow(i);   // 🔥 INI YANG KURANG
-  clearSelectedSlot();
-  saveAndRender();
-};
+        team[i] = null;
+        clearWeaponByRow(i);
+        clearSelectedSlot();
+        saveAndRender();
+      };
+    } else {
+      slot.className = "team-slot";
+      slot.onclick = () => selectSlot(i, slot);
+    }
+
+    pair.appendChild(slot);
+    teamEl.appendChild(pair);
+  }
+}
     } else {
       slot.className = "team-slot";
       slot.onclick = () => selectSlot(i, slot);
