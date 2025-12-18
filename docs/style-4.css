@@ -729,6 +729,30 @@ header button:hover {
   display: block;
 }
 
+/* ========== EQUIP REMOVE X ======== */
+.equip-slot {
+  position: relative;
+}
+
+.remove-equip {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  display: none;
+}
+
+.equip-slot.filled:hover .remove-equip {
+  display: block;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
