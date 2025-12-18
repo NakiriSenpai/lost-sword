@@ -671,9 +671,32 @@ function renderSavedTeams() {
         Saved: ${data.createdAt}
         <button class="remove-saved">Remove</button>
       </div>
-      <div class="saved-team-row">
+
+      <!-- CHARACTERS -->
+      <div class="saved-row">
         ${data.team
-          .map(c => c ? `<img src="${c.image}">` : "")
+          .map(c => c ? `<img src="${c.image}" title="${c.name}">` : "")
+          .join("")}
+      </div>
+
+      <!-- CARDS -->
+      <div class="saved-row">
+        ${data.cards
+          .map(c => c ? `<img src="${c.image}" title="${c.name}">` : "")
+          .join("")}
+      </div>
+
+      <!-- PETS -->
+      <div class="saved-row">
+        ${data.pets
+          .map(p => p ? `<img src="${p.image}" title="${p.name}">` : "")
+          .join("")}
+      </div>
+
+      <!-- EQUIPS -->
+      <div class="saved-row">
+        ${data.equips
+          .map(e => e ? `<img src="${e.image}" title="${e.name}">` : "")
           .join("")}
       </div>
     `;
@@ -685,7 +708,6 @@ function renderSavedTeams() {
     list.appendChild(box);
   });
 }
-
 /* ======== HAPUS SAVED TEAM ====== */
 function deleteSavedTeam(id) {
   savedTeams = savedTeams.filter(t => t.id !== id);
