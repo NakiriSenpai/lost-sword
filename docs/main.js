@@ -641,7 +641,13 @@ function saveCurrentTeam() {
     team: JSON.parse(JSON.stringify(team)),
     cards: JSON.parse(JSON.stringify(cardSlots)),
     pets: JSON.parse(JSON.stringify(petSlots)),
-    equips: JSON.parse(JSON.stringify(equipSlots))
+    equips: equipSlots.map(e => {
+  if (!e) return null;
+  return {
+    type: e.type, // "weapon" | "armor" | "acc" | "rune"
+    id: e.id
+  };
+})
   };
 
   savedTeams.push(snapshot);
@@ -653,6 +659,33 @@ function saveCurrentTeam() {
 
   renderSavedTeams();
   alert("Team berhasil disimpan!");
+}
+
+/* ======== EQUIP IMAGE SAVED ====== */
+function getEquipImage(equip) {
+  if (!equip) return null;
+
+  let source = null;
+
+  switch (equip.type) {
+    case "weapon":
+      source = weapons;
+      break;
+    case "armor":
+      source = armors;
+      break;
+    case "acc":
+      source = accs;
+      break;
+    case "rune":
+      source = runes;
+      break;
+  }
+
+  if (!source) return null;
+
+  const found = source.find(item => item.id === equip.id);
+  return found ? found.img : null;
 }
 
 /* ======== RENDER TEAM SAVED ======*/
@@ -695,12 +728,11 @@ function renderSavedTeams() {
 
       <!-- EQUIPS -->
 <div class="saved-row">
-  ${data.equips
-    .map(e => {
-  if (!e || !e.icon) return "";
-  return `<img src="${e.icon}" title="${e.id || 'Equip'}">`;
-})
-    .join("")}
+  ${data.equips.map(e => {
+  const img = getEquipImage(e);
+  if (!img) return "";
+  return `<img src="${img}" title="${e.type}">`;
+}).join("")}
 </div>
     `;
 
