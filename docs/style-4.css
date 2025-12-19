@@ -1087,11 +1087,11 @@ header button:hover {
   object-fit: contain;
 }
 
-/* equip grid 5x4 */
+/* ===== SAVED TEAM EQUIP GRID ===== */
 .saved-equip-grid {
   display: grid;
-  grid-template-columns: repeat(4, 52px);
-  grid-template-rows: repeat(5, 52px);
+  grid-template-columns: repeat(5, 52px); /* 5 ke samping */
+  grid-template-rows: repeat(4, 52px);    /* 4 ke bawah */
   gap: 8px;
 }
 
