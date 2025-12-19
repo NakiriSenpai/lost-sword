@@ -725,63 +725,83 @@ function getEquipImageById(id) {
 }
 
 /* ======== RENDER TEAM SAVED ======*/
-savedTeams.forEach(team => {
-  const card = document.createElement("div");
-  card.className = "saved-team-card";
+function renderSavedTeams() {
+  const list = document.getElementById("saved-teams-list");
+  if (!list) return;
 
-  card.innerHTML = `
-    <div class="saved-team-header">
-      <span class="saved-team-date">${team.createdAt}</span>
-      <button class="saved-team-remove" data-id="${team.id}">✕</button>
-    </div>
+  list.innerHTML = "";
 
-    <!-- PETS -->
-    <div class="saved-section">
-      <div class="saved-row center">
-        ${team.pets.map(p => `
-          <div class="saved-slot">
-            <img src="${p?.image || FALLBACK_IMG}">
-          </div>
-        `).join("")}
+  if (!savedTeams || !savedTeams.length) {
+    list.innerHTML = "<p>Belum ada team yang disimpan.</p>";
+    return;
+  }
+
+  savedTeams.forEach(team => {
+    const card = document.createElement("div");
+    card.className = "saved-team-card";
+
+    card.innerHTML = `
+      <div class="saved-team-header">
+        <span class="saved-team-date">${team.createdAt}</span>
+        <button class="saved-team-remove" data-id="${team.id}">✕</button>
       </div>
-    </div>
 
-    <!-- CHARACTERS -->
-    <div class="saved-section">
-      <div class="saved-row">
-        ${team.team.map(c => `
-          <div class="saved-slot">
-            <img src="${c?.image || FALLBACK_IMG}">
-          </div>
-        `).join("")}
-      </div>
-    </div>
-
-    <!-- CARDS -->
-    <div class="saved-section">
-      <div class="saved-row">
-        ${team.cards.map(c => `
-          <div class="saved-slot">
-            <img src="${c?.image || FALLBACK_IMG}">
-          </div>
-        `).join("")}
-      </div>
-    </div>
-
-    <!-- EQUIPS -->
-    <div class="saved-section">
-      <div class="saved-equip-grid">
-        ${team.equips.flat().map(id => {
-          const img = getEquipImageById(id);
-          return `
+      <!-- PETS -->
+      <div class="saved-section">
+        <div class="saved-row center">
+          ${team.pets.map(p => `
             <div class="saved-slot">
-              ${img ? `<img src="${img}">` : ""}
+              <img src="${p?.image || FALLBACK_IMG}">
             </div>
-          `;
-        }).join("")}
+          `).join("")}
+        </div>
       </div>
-    </div>
-  `;
+
+      <!-- CHARACTERS -->
+      <div class="saved-section">
+        <div class="saved-row">
+          ${team.team.map(c => `
+            <div class="saved-slot">
+              <img src="${c?.image || FALLBACK_IMG}">
+            </div>
+          `).join("")}
+        </div>
+      </div>
+
+      <!-- CARDS -->
+      <div class="saved-section">
+        <div class="saved-row">
+          ${team.cards.map(c => `
+            <div class="saved-slot">
+              <img src="${c?.image || FALLBACK_IMG}">
+            </div>
+          `).join("")}
+        </div>
+      </div>
+
+      <!-- EQUIPS -->
+      <div class="saved-section">
+        <div class="saved-equip-grid">
+          ${team.equips.flat().map(id => {
+            const img = getEquipImageById(id);
+            return `
+              <div class="saved-slot">
+                ${img ? `<img src="${img}">` : ""}
+              </div>
+            `;
+          }).join("")}
+        </div>
+      </div>
+    `;
+
+    // REMOVE
+    card
+      .querySelector(".saved-team-remove")
+      .onclick = () => deleteSavedTeam(team.id);
+
+    list.appendChild(card);
+  });
+}
 
   // REMOVE BUTTON CLICK
   card
