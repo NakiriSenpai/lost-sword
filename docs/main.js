@@ -741,12 +741,6 @@ function renderSavedTeams() {
     card.className = "saved-team-card";
 
     card.innerHTML = `
-      <div class="saved-team-header">
-        <span class="saved-team-date">${team.createdAt}</span>
-        <button class="saved-team-remove" data-id="${team.id}">✕</button>
-      </div>
-
-      <!-- PETS -->
       <div class="saved-section">
         <div class="saved-row center">
           ${team.pets.map(p => `
@@ -757,7 +751,6 @@ function renderSavedTeams() {
         </div>
       </div>
 
-      <!-- CHARACTERS -->
       <div class="saved-section">
         <div class="saved-row">
           ${team.team.map(c => `
@@ -768,7 +761,6 @@ function renderSavedTeams() {
         </div>
       </div>
 
-      <!-- CARDS -->
       <div class="saved-section">
         <div class="saved-row">
           ${team.cards.map(c => `
@@ -779,10 +771,9 @@ function renderSavedTeams() {
         </div>
       </div>
 
-      <!-- EQUIPS -->
       <div class="saved-section">
         <div class="saved-equip-grid">
-          ${team.equips.flat().map(id => {
+          ${team.equips.map(id => {
             const img = getEquipImageById(id);
             return `
               <div class="saved-slot">
@@ -793,6 +784,10 @@ function renderSavedTeams() {
         </div>
       </div>
     `;
+
+    list.appendChild(card);
+  });
+}
 
     // REMOVE
     card
