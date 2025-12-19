@@ -681,11 +681,7 @@ function saveCurrentTeam() {
     team: JSON.parse(JSON.stringify(team)),
     cards: JSON.parse(JSON.stringify(cardSlots)),
     pets: JSON.parse(JSON.stringify(petSlots)),
-    equips: equipSlots
-  .flat()
-  .filter(e => e && typeof e.id === "string")
-  .map(e => e.id)
-  };
+    equips: equipSlots.map(e => e ? e.id : null)
 
   savedTeams.push(snapshot);
 
@@ -776,24 +772,19 @@ function renderSavedTeams() {
         </div>
       </div>
 
-      <!-- EQUIPS (5x4 FIXED GRID) -->
-      <div class="saved-section">
-        <div class="saved-equip-grid">
-          ${(() => {
-            let html = "";
-            for (let i = 0; i < 20; i++) {
-              const id = team.equips[i];
-              const img = getEquipImageById(id);
-              html += `
-                <div class="saved-slot">
-                  ${img ? `<img src="${img}">` : ""}
-                </div>
-              `;
-            }
-            return html;
-          })()}
+<!-- EQUIP -->
+<div class="saved-section">
+  <div class="saved-equip-grid">
+    ${team.equips.map(id => {
+      const img = getEquipImageById(id);
+      return `
+        <div class="saved-slot">
+          ${img ? `<img src="${img}">` : ""}
         </div>
-      </div>
+      `;
+    }).join("")}
+  </div>
+</div>
     `;
 
     list.appendChild(card);
