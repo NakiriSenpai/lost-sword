@@ -1043,33 +1043,37 @@ header button:hover {
   cursor: pointer;
 }
 
-/* ================= SAVED TEAM LAYOUT FIX ================ */
+/* ============================================= */
+/* SAVED TEAM LAYOUT - FINAL VERSION             */
+/* ============================================= */
 
+/* kartu saved team keseluruhan */
 .saved-team-card {
+  width: 100%;
   background: #111;
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 10px;
   border: 2px solid #333;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;    /* MEPEK KIRI */
+  justify-content: flex-start;
 }
 
-.saved-section {
-  margin-bottom: 12px;
-}
-
-/* -- grid umum untuk pets / team / cards -- */
+/* untuk setiap baris pets / char / cards */
 .saved-row {
   display: flex;
-  justify-content: center;
-  gap: 8px;
+  justify-content: flex-start; /* MEPEK KIRI */
+  gap: 12px;
   margin: 6px 0;
 }
 
-/* -- slot ukuran seragam card/pet/char -- */
+/* ukuran slot lebih besar */
 .saved-slot {
-  width: 64px;
-  height: 64px;
-  background: #222;
+  width: 74px;
+  height: 74px;
+  background: linear-gradient(145deg, #1a1a1a, #151515);
   border: 2px solid #444;
   border-radius: 8px;
   display: flex;
@@ -1077,42 +1081,44 @@ header button:hover {
   justify-content: center;
 }
 
+/* gambar slot */
 .saved-slot img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 6px;
+  border: 2px solid #777;
 }
 
-/* -- grid untuk equip (20 grid) -- */
+/* slot kosong */
+.saved-slot:empty {
+  background: #222;
+  border: 2px dashed #555;
+}
+
+/* pets di bagian paling atas */
+.saved-section:first-child {
+  margin-bottom: 12px;
+}
+
+/* === EQUIP GRID === */
 .saved-equip-grid {
   display: grid;
-  grid-template-columns: repeat(4, 64px);
-  gap: 8px;
-  justify-content: center;
-  margin-top: 10px;
+  grid-template-columns: repeat(4, 74px); /* 4 kolom: weapon → armor → acc → rune */
+  gap: 10px;
+  justify-content: flex-start;  /* MEPEK KIRI */
+  margin-top: 14px;
 }
 
-/* -- pets diletakkan di bagian atas -- */
-.saved-section:first-child {
-  margin-bottom: 10px;
-}
-
-/* -- border highlight jika ada gambar -- */
-.saved-slot img {
-  border: 2px solid #555;
-  border-radius: 6px;
-}
-
-/* -- border slot equip yang kosong -- */
-.saved-slot:empty {
-  background: #181818;
-  border: 2px dashed #444;
+/* slot equip ukuran sama */
+.saved-equip-grid .saved-slot {
+  width: 74px;
+  height: 74px;
 }
 
 /* tombol remove */
 .saved-team-remove {
-  float: right;
+  align-self: flex-end;
   background: #700;
   border: none;
   color: white;
