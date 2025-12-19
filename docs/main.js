@@ -82,6 +82,7 @@ filtersBar.appendChild(resetFilterBtn);
 
 /* ================= INIT ================= */
 document.addEventListener("DOMContentLoaded", async () => {
+  try {
   /* ===== FETCH CHARACTERS (EXISTING) ===== */
   fetch("data/characters.json")
     .then(r => r.json())
@@ -191,6 +192,9 @@ if (equipPopupEl) {
       navSaved.classList.add("active");
       renderSavedTeams();
     }
+  }
+} catch (err) {
+    alert("JS ERROR: " + err.message);
   }
 });
 
