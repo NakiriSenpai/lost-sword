@@ -773,14 +773,14 @@ function renderSavedTeams() {
 
       <div class="saved-section">
         <div class="saved-equip-grid">
-          ${team.equips.map(id => {
-            const img = getEquipImageById(id);
-            return `
-              <div class="saved-slot">
-                ${img ? `<img src="${img}">` : ""}
-              </div>
-            `;
-          }).join("")}
+          ${team.equips.flat().map(id => {
+  const img = getEquipImageById(id);
+  return `
+    <div class="saved-slot">
+      ${img ? `<img src="${img}">` : ""}
+    </div>
+  `;
+}).join("")}
         </div>
       </div>
     `;
