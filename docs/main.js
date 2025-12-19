@@ -785,26 +785,16 @@ function renderSavedTeams() {
       </div>
     `;
 
-    list.appendChild(card);
-  });
-}
+    const removeBtn = document.createElement("button");
+removeBtn.className = "saved-team-remove";
+removeBtn.textContent = "✕";
+removeBtn.onclick = () => deleteSavedTeam(team.id);
 
-    // REMOVE
-    card
-      .querySelector(".saved-team-remove")
-      .onclick = () => deleteSavedTeam(team.id);
+card.prepend(removeBtn);
 
     list.appendChild(card);
   });
 }
-
-  // REMOVE BUTTON CLICK
-  card
-    .querySelector(".saved-team-remove")
-    .onclick = () => deleteSavedTeam(team.id);
-
-  list.appendChild(card);
-});
 
 /* ======== HAPUS SAVED TEAM ====== */
 function deleteSavedTeam(id) {
