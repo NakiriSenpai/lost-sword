@@ -681,7 +681,10 @@ function saveCurrentTeam() {
     team: JSON.parse(JSON.stringify(team)),
     cards: JSON.parse(JSON.stringify(cardSlots)),
     pets: JSON.parse(JSON.stringify(petSlots)),
-    equips: equipSlots.flat().map(e => e ? e.id : null)
+    equips: equipSlots
+  .flat()
+  .filter(e => e && typeof e.id === "string")
+  .map(e => e.id)
   };
 
   savedTeams.push(snapshot);
@@ -697,26 +700,27 @@ function saveCurrentTeam() {
 
 /* ======== EQUIP IMAGE SAVED ====== */
 function getEquipImageById(id) {
-  if (!id) return null;
+  // guard keras
+  if (typeof id !== "string") return null;
 
   if (id.startsWith("wep_")) {
     const w = equipData.weapon.find(x => x.id === id);
-    return w ? w.img : null;
+    return w?.img || null;
   }
 
   if (id.startsWith("armor_")) {
     const a = equipData.armor.find(x => x.id === id);
-    return a ? a.img : null;
+    return a?.img || null;
   }
 
   if (id.startsWith("acc_")) {
     const a = equipData.acc.find(x => x.id === id);
-    return a ? a.img : null;
+    return a?.img || null;
   }
 
   if (id.startsWith("rune_")) {
     const r = equipData.rune.find(x => x.id === id);
-    return r ? r.img : null;
+    return r?.img || null;
   }
 
   return null;
