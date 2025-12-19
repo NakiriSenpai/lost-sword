@@ -148,6 +148,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await fetchEquipData();
   loadEquipFromURL();
   renderEquipSlots();
+  renderSavedTeams();
   // EQUIP POPUP CLOSE
   equipPopupCloseEl.addEventListener("click", closeEquipPopup);
   // close popup when clicking overlay
@@ -641,7 +642,7 @@ function saveCurrentTeam() {
     team: JSON.parse(JSON.stringify(team)),
     cards: JSON.parse(JSON.stringify(cardSlots)),
     pets: JSON.parse(JSON.stringify(petSlots)),
-    equips: equipSlots.map(e => e ? e.id : null)
+    equips: equipSlots.flat().map(e => e ? e.id : null)
   };
 
   savedTeams.push(snapshot);
@@ -660,22 +661,22 @@ function getEquipImageById(id) {
   if (!id) return null;
 
   if (id.startsWith("wep_")) {
-    const w = weapons.find(x => x.id === id);
+    const w = equipData.weapon.find(x => x.id === id);
     return w ? w.img : null;
   }
 
   if (id.startsWith("armor_")) {
-    const a = armors.find(x => x.id === id);
+    const a = equipData.armor.find(x => x.id === id);
     return a ? a.img : null;
   }
 
   if (id.startsWith("acc_")) {
-    const a = accs.find(x => x.id === id);
+    const a = equipData.acc.find(x => x.id === id);
     return a ? a.img : null;
   }
 
   if (id.startsWith("rune_")) {
-    const r = runes.find(x => x.id === id);
+    const r = equipData.rune.find(x => x.id === id);
     return r ? r.img : null;
   }
 
