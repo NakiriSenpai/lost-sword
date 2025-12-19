@@ -1043,6 +1043,58 @@ header button:hover {
   cursor: pointer;
 }
 
+/* ================= SAVED TEAM LAYOUT ================= */
+
+.saved-team-card {
+  border: 1px solid #333;
+  border-radius: 14px;
+  padding: 12px;
+  background: #121212;
+  margin-bottom: 16px;
+}
+
+/* section spacing */
+.saved-section {
+  margin-bottom: 10px;
+}
+
+/* baris normal */
+.saved-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* pets center */
+.saved-row.center {
+  justify-content: center;
+}
+
+/* slot */
+.saved-slot {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: #1e1e1e;
+  border: 1px solid #2f2f2f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.saved-slot img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* equip grid 5x4 */
+.saved-equip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 52px);
+  grid-template-rows: repeat(5, 52px);
+  gap: 8px;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
