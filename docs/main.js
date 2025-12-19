@@ -641,13 +641,7 @@ function saveCurrentTeam() {
     team: JSON.parse(JSON.stringify(team)),
     cards: JSON.parse(JSON.stringify(cardSlots)),
     pets: JSON.parse(JSON.stringify(petSlots)),
-    equips: equipSlots.map(e => {
-  if (!e) return null;
-  return {
-    type: e.type, // "weapon" | "armor" | "acc" | "rune"
-    id: e.id
-  };
-})
+    equips: equipSlots.map(e => e ? e.id : null)
   };
 
   savedTeams.push(snapshot);
@@ -662,30 +656,30 @@ function saveCurrentTeam() {
 }
 
 /* ======== EQUIP IMAGE SAVED ====== */
-function getEquipImage(equip) {
-  if (!equip) return null;
+function getEquipImageById(id) {
+  if (!id) return null;
 
-  let source = null;
-
-  switch (equip.type) {
-    case "weapon":
-      source = weapons;
-      break;
-    case "armor":
-      source = armors;
-      break;
-    case "acc":
-      source = accs;
-      break;
-    case "rune":
-      source = runes;
-      break;
+  if (id.startsWith("wep_")) {
+    const w = weapons.find(x => x.id === id);
+    return w ? w.img : null;
   }
 
-  if (!source) return null;
+  if (id.startsWith("armor_")) {
+    const a = armors.find(x => x.id === id);
+    return a ? a.img : null;
+  }
 
-  const found = source.find(item => item.id === equip.id);
-  return found ? found.img : null;
+  if (id.startsWith("acc_")) {
+    const a = accs.find(x => x.id === id);
+    return a ? a.img : null;
+  }
+
+  if (id.startsWith("rune_")) {
+    const r = runes.find(x => x.id === id);
+    return r ? r.img : null;
+  }
+
+  return null;
 }
 
 /* ======== RENDER TEAM SAVED ======*/
@@ -728,11 +722,11 @@ function renderSavedTeams() {
 
       <!-- EQUIPS -->
 <div class="saved-row">
-  ${data.equips.map(e => {
-  const img = getEquipImage(e);
-  if (!img) return "";
-  return `<img src="${img}" title="${e.type}">`;
-}).join("")}
+  ${data.equips.map(id => {
+    const img = getEquipImageById(id);
+    if (!img) return "";
+    return `<img src="${img}">`;
+  }).join("")}
 </div>
     `;
 
