@@ -681,7 +681,10 @@ function saveCurrentTeam() {
     team: JSON.parse(JSON.stringify(team)),
     cards: JSON.parse(JSON.stringify(cardSlots)),
     pets: JSON.parse(JSON.stringify(petSlots)),
-    equips: equipSlots.map(e => e ? e.id : null)
+    equips: equipSlots.map(row =>
+      row.map(e => e ? e.id : null)
+    )
+  };
 
   savedTeams.push(snapshot);
 
@@ -693,7 +696,6 @@ function saveCurrentTeam() {
   renderSavedTeams();
   alert("Team berhasil disimpan!");
 }
-
 /* ======== EQUIP IMAGE SAVED ====== */
 function getEquipImageById(id) {
   // guard keras
