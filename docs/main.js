@@ -694,11 +694,14 @@ function renderSavedTeams() {
       </div>
 
       <!-- EQUIPS -->
-      <div class="saved-row">
-        ${data.equips
-          .map(e => e ? `<img src="${e.image}" title="${e.name}">` : "")
-          .join("")}
-      </div>
+<div class="saved-row">
+  ${data.equips
+    .map(e => {
+  if (!e || !e.icon) return "";
+  return `<img src="${e.icon}" title="${e.id || 'Equip'}">`;
+})
+    .join("")}
+</div>
     `;
 
     box.querySelector(".remove-saved").onclick = () => {
