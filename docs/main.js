@@ -821,10 +821,13 @@ function renderSavedTeams() {
     };
 
     card.querySelector(".save-note").onclick = () => {
-      team.note = card.querySelector("textarea").value;
-      localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
-      showSavedNoteToast();
-    };
+  const text = card.querySelector("textarea").value;
+  team.note = text;
+
+  localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
+
+  showNoteToast(); // ⬅️ INI YANG SEBELUMNYA TIDAK ADA
+};
 
     list.appendChild(card);
   });
@@ -908,11 +911,16 @@ function clearWeaponByRow(row) {
 }             
 
 /* ========= POPUP NOTIF SAVE NOTE ======= */
-function showSavedNoteToast() {
+function showNoteToast() {
   const toast = document.getElementById("note-toast");
   if (!toast) return;
+
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 2000);
+
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
 }
 
 /* ================= STORAGE ================= */
