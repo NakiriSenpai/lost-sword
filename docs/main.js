@@ -198,24 +198,6 @@ function switchPage(page) {
     renderSavedTeams();
   }
 }
-  pageCurrent.classList.remove("active");
-  pageSaved.classList.remove("active");
-  navCurrent.classList.remove("active");
-  navSaved.classList.remove("active");
-
-  const saveBtn = document.getElementById("save-team-btn");
-
-  if (page === "current") {
-    pageCurrent.classList.add("active");
-    navCurrent.classList.add("active");
-    if (saveBtn) saveBtn.style.display = "flex";
-  } else {
-    pageSaved.classList.add("active");
-    navSaved.classList.add("active");
-    if (saveBtn) saveBtn.style.display = "none";
-    renderSavedTeams();
-  }
-}
 
 /* ================= FILTER ================= */
 function setupFilters() {
