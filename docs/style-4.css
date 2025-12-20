@@ -1218,22 +1218,28 @@ header button:hover {
 }
 
 /* ======== POPUP NOTIF SAVE NOTE ======= */
-#note-toast {
+.note-toast {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #1e293b;
-  border: 2px solid #38bdf8;
+  z-index: 9999;
+
+  background: #0f172a;
   color: #e5e7eb;
-  padding: 10px 16px;
-  border-radius: 8px;
+
+  border: 2px solid #38bdf8;
+  border-radius: 10px;
+
+  padding: 12px 18px;
+  font-size: 14px;
+
   opacity: 0;
   pointer-events: none;
-  transition: opacity .3s, transform .3s;
   transform: translateY(10px);
+  transition: opacity .25s ease, transform .25s ease;
 }
 
-#note-toast.show {
+.note-toast.show {
   opacity: 1;
   transform: translateY(0);
 }
