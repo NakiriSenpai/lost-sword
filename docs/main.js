@@ -190,11 +190,11 @@ function switchPage(page) {
   if (page === "current") {
     pageCurrent.classList.add("active");
     navCurrent.classList.add("active");
-    if (saveBtn) saveBtn.style.display = "flex";
+    if (saveBtn) saveBtn.style.display = "visible";
   } else {
     pageSaved.classList.add("active");
     navSaved.classList.add("active");
-    if (saveBtn) saveBtn.style.display = "none";
+    if (saveBtn) saveBtn.style.display = "hidden";
     renderSavedTeams();
   }
 }
