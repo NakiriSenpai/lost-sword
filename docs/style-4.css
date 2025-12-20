@@ -1047,7 +1047,7 @@ header button:hover {
   display: grid;
   grid-template-columns: repeat(5, 52px);
   gap: 8px;
-  justify-content: center;
+  justify-content: start;
 }
 
 /* SLOT DASAR */
