@@ -1218,36 +1218,59 @@ header button:hover {
 }
 
 /* ======== POPUP NOTIF SAVE NOTE ======= */
-.note-toast {
+.toast {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-
-  background: #0f172a;
-  color: #e5e7eb;
-
-  padding: 14px 20px;
-  border-radius: 12px;
-
-  border: 2px solid #38bdf8;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.2px;
-
+  transform: translate(-50%, -50%) scale(1);
   z-index: 9999;
 
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: rgba(15, 15, 15, 0.95);
+  border: 2px solid #38bdf8;
+  border-radius: 14px;
+
+  padding: 22px 28px;
+  min-width: 260px;
+  max-width: 90vw;
+
+  text-align: center;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
+
+  animation: toastIn 0.25s ease-out;
 }
 
-/* TAMPIL */
-.note-toast.show {
-  opacity: 1;
-  pointer-events: auto;
+.toast-content {
+  font-size: 18px;              /* ⬅️ LEBIH BESAR */
+  font-weight: 600;
+  color: #e5f6ff;
+  letter-spacing: 0.3px;
+}
+
+/* hidden state */
+.toast.hidden {
+  display: none;
+}
+
+/* animation */
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* MOBILE ADJUST */
+@media (max-width: 480px) {
+  .toast {
+    padding: 18px 20px;
+  }
+  .toast-content {
+    font-size: 16px;
+  }
 }
 
 /* ================= MOBILE POLISH ================= */
