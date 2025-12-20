@@ -1226,3 +1226,14 @@ header button:hover {
     height: 36px;
   }
 }
+
+@media (max-width: 600px) {
+  .saved-team-date {
+    font-size: 12px;
+  }
+
+  .saved-team-remove {
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+}
