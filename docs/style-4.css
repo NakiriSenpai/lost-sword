@@ -1160,50 +1160,53 @@ header button:hover {
 
 /* ========= GRID NOTE SAVED TEAM ======== */
 /* ===== BODY GRID + NOTE ===== */
+/* BODY FLEX */
 .saved-team-body {
   display: flex;
-  gap: 14px;
-  align-items: stretch;
+  gap: 16px;              /* JARAK GRID & NOTE */
+  align-items: flex-start;
+}
+
+/* GRID KIRI */
+.saved-team-grid {
+  flex-shrink: 0;
 }
 
 /* NOTE CARD */
 .saved-team-note {
-  min-width: 220px;
-  background: #0d1325;
-  border: 2px solid #2b3566;
+  flex: 1;                /* MELEBAR KE KANAN */
+  min-height: 100%;
+  background: #111827;
+  border: 2px solid #334155;
   border-radius: 10px;
-  padding: 10px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-}
-
-.note-title {
-  color: #9ecbff;
-  font-size: 14px;
-  margin-bottom: 6px;
 }
 
 .saved-team-note textarea {
   flex: 1;
   resize: none;
-  background: #050816;
-  border: 1px solid #2b3566;
-  color: #fff;
-  padding: 6px;
-  border-radius: 6px;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 14px;
 }
 
 .saved-team-note button {
-  margin-top: 8px;
-  background: #1f3b70;
-  border: 1px solid #4da3ff;
-  color: #fff;
-  padding: 6px;
+  margin-top: 10px;
+  align-self: flex-end;
+  background: #2563eb;
+  border: none;
+  color: white;
+  padding: 6px 14px;
   border-radius: 6px;
   cursor: pointer;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE MOBILE */
 @media (max-width: 768px) {
   .saved-team-body {
     flex-direction: column;
@@ -1215,24 +1218,24 @@ header button:hover {
 }
 
 /* ======== POPUP NOTIF SAVE NOTE ======= */
-.toast {
+#note-toast {
   position: fixed;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: #0d1325;
-  border: 2px solid #4da3ff;
-  color: #fff;
-  padding: 8px 14px;
+  right: 20px;
+  background: #1e293b;
+  border: 2px solid #38bdf8;
+  color: #e5e7eb;
+  padding: 10px 16px;
   border-radius: 8px;
   opacity: 0;
-  transition: 0.3s;
-  z-index: 9999;
+  pointer-events: none;
+  transition: opacity .3s, transform .3s;
+  transform: translateY(10px);
 }
 
-.toast.show {
+#note-toast.show {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
 /* ================= MOBILE POLISH ================= */
