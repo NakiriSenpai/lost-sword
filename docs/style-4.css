@@ -1329,6 +1329,7 @@ header button:hover {
   align-items: center;
   gap: 14px;
   margin: 16px 0 8px;
+   min-height: 120px;
 }
 
 .top-nav.centered {
