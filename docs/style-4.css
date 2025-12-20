@@ -1390,6 +1390,58 @@ header button:hover {
   }
 }
 
+/* ================= NAV UNDERLINE ANIMATION ================= */
+.nav-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* garis underline */
+.nav-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+
+  width: 70%;
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    #38bdf8,
+    #4f6aff
+  );
+
+  border-radius: 999px;
+
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+
+  transition: transform 0.25s ease;
+}
+
+/* aktif = garis muncul */
+.nav-btn.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* hover feedback */
+.nav-btn:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* hover text glow */
+.nav-btn:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .nav-btn::after {
+    height: 2px;
+    bottom: 3px;
+  }
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
