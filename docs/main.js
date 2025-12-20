@@ -737,12 +737,25 @@ function renderSavedTeams() {
   }
 
   savedTeams.forEach(team => {
+
+    // ===== NORMALIZE DATA =====
+    team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
+    team.team   = Array.isArray(team.team)   ? team.team   : [];
+    team.cards  = Array.isArray(team.cards)  ? team.cards  : [];
+    team.equips = Array.isArray(team.equips) ? team.equips : [];
+
+    for (let r = 0; r < 5; r++) {
+      if (!Array.isArray(team.equips[r])) {
+        team.equips[r] = [];
+      }
+    }
+
     const card = document.createElement("div");
     card.className = "saved-team-card";
 
     let html = `<div class="saved-team-grid">`;
 
-    /* PETS (ROW 1, COL 2–4) */
+    /* PETS */
     team.pets.slice(0, 3).forEach((pet, i) => {
       html += `
         <div class="saved-slot saved-pet saved-row-pet saved-col-${i + 2}">
@@ -751,7 +764,7 @@ function renderSavedTeams() {
       `;
     });
 
-    /* CHAR (ROW 2) */
+    /* CHAR */
     for (let i = 0; i < 5; i++) {
       const c = team.team[i];
       html += `
@@ -761,7 +774,7 @@ function renderSavedTeams() {
       `;
     }
 
-    /* CARD (ROW 3) */
+    /* CARD */
     for (let i = 0; i < 5; i++) {
       const c = team.cards[i];
       html += `
@@ -771,10 +784,10 @@ function renderSavedTeams() {
       `;
     }
 
-    /* EQUIP (ROW 4–7) */
+    /* EQUIP */
     for (let col = 0; col < 4; col++) {
       for (let row = 0; row < 5; row++) {
-        const id = team.equips[row]?.[col] ?? null;
+        const id = team.equips[row][col] ?? null;
         const img = id ? getEquipImageById(id) : null;
 
         html += `
@@ -799,7 +812,6 @@ function renderSavedTeams() {
     list.appendChild(card);
   });
 }
-
 /* ======== HAPUS SAVED TEAM ====== */
 function deleteSavedTeam(id) {
   savedTeams = savedTeams.filter(t => t.id !== id);
