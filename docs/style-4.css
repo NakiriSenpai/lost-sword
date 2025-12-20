@@ -1322,6 +1322,74 @@ header button:hover {
   background: #24345a;
 }
 
+/* ================= TOP CONTROLS ================= */
+.top-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 8px;
+}
+
+.top-nav.centered {
+  justify-content: center;
+}
+
+/* ================= SAVE TEAM BUTTON ================= */
+.save-team-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.save-team-btn {
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  border: none;
+  color: #ffffff;
+
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+
+  border-radius: 999px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow:
+    0 4px 14px rgba(56, 189, 248, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.save-team-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 18px rgba(56, 189, 248, 0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.35);
+  filter: brightness(1.05);
+}
+
+.save-team-btn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 768px) {
+  .top-controls {
+    gap: 10px;
+  }
+
+  .save-team-btn {
+    font-size: 13px;
+    padding: 8px 18px;
+  }
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
