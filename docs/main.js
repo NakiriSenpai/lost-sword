@@ -533,42 +533,52 @@ function renderSynergyWarning() {
   const activeTeam = team.filter(Boolean);
   if (!activeTeam.length) return;
 
-  /* FULL EXCEPTION */
+  // Claire = full ignore
   if (activeTeam.some(c => c.name === "Claire")) return;
 
-  const classes = activeTeam.map(c => c.class);
-
-  /* SPECIAL CASE */
   const hasNeoBedivere = activeTeam.some(
     c => c.name === "NEO Bedivere"
   );
 
+  // CLASS VIRTUAL
+  const classes = activeTeam.map(c => {
+    if (c.name === "NEO Bedivere") return "Healer";
+    return c.class;
+  });
+
   const hasKnight = classes.includes("Knight");
-  const hasHealer =
-    classes.includes("Healer") || hasNeoBedivere;
+  const hasHealer = classes.includes("Healer");
 
   const warnings = [];
 
-  if (classes.every(c => c === "Wizard" || c === "Archer")) {
-    warnings.push("Tidak ada sustain");
-    warnings.push("Tidak ada frontline");
-  } else {
-    if (
-      classes.every(c =>
-        ["Knight", "Wizard", "Archer"].includes(c)
-      ) &&
-      !hasHealer
-    ) {
-      warnings.push("Tidak ada sustain");
+  /* ================== NEO BEDIVERE EXCEPTION ================== */
+  if (hasNeoBedivere) {
+    if (!hasKnight) {
+      warnings.push("Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim.);
     }
-
-    if (
-      classes.every(c =>
-        ["Wizard", "Archer", "Healer"].includes(c)
-      ) &&
-      !hasKnight
-    ) {
-      warnings.push("Tidak ada frontline");
+  } 
+  /* ================== NORMAL LOGIC ================== */
+  else {
+    if (classes.every(c => c === "Wizard" || c === "Archer")) {
+      warnings.push("Tim kamu belum punya sustain (shield, lifesteal, atau heal).);
+      warnings.push("Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim.);
+    } else {
+      if (
+        classes.every(c =>
+          ["Knight", "Wizard", "Archer"].includes(c)
+        ) &&
+        !hasHealer
+      ) {
+        warnings.push("Tim kamu belum punya sustain (shield, lifesteal, atau heal).);
+      }
+      if (
+        classes.every(c =>
+          ["Wizard", "Archer", "Healer"].includes(c)
+        ) &&
+        !hasKnight
+      ) {
+        warnings.push("Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim.);
+      }
     }
   }
 
