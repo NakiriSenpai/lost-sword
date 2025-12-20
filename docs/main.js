@@ -554,14 +554,20 @@ function renderSynergyWarning() {
   /* ================== NEO BEDIVERE EXCEPTION ================== */
   if (hasNeoBedivere) {
     if (!hasKnight) {
-      warnings.push("Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim.);
+      warnings.push(
+        "Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim."
+      );
     }
   } 
   /* ================== NORMAL LOGIC ================== */
   else {
     if (classes.every(c => c === "Wizard" || c === "Archer")) {
-      warnings.push("Tim kamu belum punya sustain (shield, lifesteal, atau heal).);
-      warnings.push("Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim.);
+      warnings.push(
+        "Tim kamu belum punya sustain (shield, lifesteal, atau heal)."
+      );
+      warnings.push(
+        "Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim."
+      );
     } else {
       if (
         classes.every(c =>
@@ -569,15 +575,20 @@ function renderSynergyWarning() {
         ) &&
         !hasHealer
       ) {
-        warnings.push("Tim kamu belum punya sustain (shield, lifesteal, atau heal).);
+        warnings.push(
+          "Tim kamu belum punya sustain (shield, lifesteal, atau heal)."
+        );
       }
+
       if (
         classes.every(c =>
           ["Wizard", "Archer", "Healer"].includes(c)
         ) &&
         !hasKnight
       ) {
-        warnings.push("Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim.);
+        warnings.push(
+          "Kamu belum punya unit frontline (Knight) untuk nahan serangan di tim."
+        );
       }
     }
   }
