@@ -732,7 +732,7 @@ function renderSavedTeams() {
   }
 
   savedTeams.forEach(team => {
-    // ===== NORMALIZE DATA (ANTI ERROR) =====
+    // ===== NORMALIZE DATA =====
     team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
     team.team   = Array.isArray(team.team)   ? team.team   : [];
     team.cards  = Array.isArray(team.cards)  ? team.cards  : [];
@@ -746,12 +746,12 @@ function renderSavedTeams() {
     const card = document.createElement("div");
     card.className = "saved-team-card";
 
-    /* ===== HEADER ===== */
-    const date = new Date(team.savedAt || Date.now());
+    // ===== DATE =====
+    const d = new Date(team.savedAt || Date.now());
     const pad = n => String(n).padStart(2, "0");
     const formatted =
-      `${pad(date.getDate())}/${pad(date.getMonth()+1)}/${date.getFullYear()} ` +
-      `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+      `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ` +
+      `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 
     let html = `
       <div class="saved-team-header">
@@ -759,8 +759,7 @@ function renderSavedTeams() {
         <button class="saved-team-remove">Remove</button>
       </div>
 
-      <div class="saved-team-body">
-        <div class="saved-team-grid">
+      <div class="saved-team-grid">
     `;
 
     /* PETS */
@@ -802,9 +801,11 @@ function renderSavedTeams() {
     }
 
     html += `
-        </div>
+      </div>
 
-        <div class="saved-team-note">
+      <div class="saved-team-note">
+        <button class="toggle-note">📝 Note</button>
+        <div class="note-body" style="display:none;">
           <textarea placeholder="Catatan team...">${team.note}</textarea>
           <button class="save-note">Save Note</button>
         </div>
@@ -818,16 +819,23 @@ function renderSavedTeams() {
       deleteSavedTeam(team.id);
     };
 
+    const toggleBtn = card.querySelector(".toggle-note");
+    const noteBody = card.querySelector(".note-body");
+
+    toggleBtn.onclick = () => {
+      noteBody.style.display =
+        noteBody.style.display === "none" ? "block" : "none";
+    };
+
     card.querySelector(".save-note").onclick = () => {
-      const text = card.querySelector("textarea").value;
-      team.note = text;
+      team.note = card.querySelector("textarea").value;
       localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
+      alert("Catatan disimpan");
     };
 
     list.appendChild(card);
   });
 }
-
 
 /* ======== HAPUS SAVED TEAM ====== */
 function deleteSavedTeam(id) {
