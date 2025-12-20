@@ -743,13 +743,21 @@ function renderSavedTeams() {
     card.innerHTML = `
   <div class="saved-team-grid">
 
-    <!-- PETS -->
-    ${team.pets.map(p => `
+    <!-- PETS (CENTER) -->
+${Array.from({ length: 5 }).map((_, i) => {
+  // index 1,2,3 untuk pet
+  if (i >= 1 && i <= 3) {
+    const pet = team.pets[i - 1];
+    return `
       <div class="saved-slot saved-pet">
-        ${p ? `<img src="${p.image}">` : ""}
+        ${pet ? `<img src="${pet.image}">` : ""}
       </div>
-    `).join("")}
-    ${"<div></div>".repeat(5 - team.pets.length)}
+    `;
+  }
+
+  // kolom kosong kiri & kanan
+  return `<div class="saved-slot saved-empty"></div>`;
+}).join("")}
 
     <!-- CHARACTERS -->
     ${team.team.map(c => `
@@ -765,15 +773,19 @@ function renderSavedTeams() {
       </div>
     `).join("")}
 
-    <!-- EQUIPS (5 x 4) -->
-    ${team.equips.flat().map(id => {
-      const img = getEquipImageById(id);
-      return `
-        <div class="saved-slot saved-equip">
-          ${img ? `<img src="${img}">` : ""}
-        </div>
-      `;
-    }).join("")}
+    <!-- EQUIPS (4 BARIS × 5 KOLOM, FIXED POSITION) -->
+${Array.from({ length: 4 }).map((_, col) => {
+  return Array.from({ length: 5 }).map((_, row) => {
+    const id = team.equips[row]?.[col] ?? null;
+    const img = id ? getEquipImageById(id) : null;
+
+    return `
+      <div class="saved-slot saved-equip">
+        ${img ? `<img src="${img}">` : ""}
+      </div>
+    `;
+  }).join("");
+}).join("")}
 
   </div>
 `;
