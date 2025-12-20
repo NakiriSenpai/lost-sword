@@ -76,18 +76,6 @@ body {
   color: var(--text-primary);
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden; /* 🔒 body tidak scroll */
-}
-
-.content-area {
-  height: calc(100vh - 220px); /* header + nav */
-  overflow-y: auto;
-
-  padding-bottom: 24px;
-}
-
 section,
 .filters-ui,
 .popup,
@@ -1454,9 +1442,6 @@ header button:hover {
   }
 }
 
-.top-controls {
-  flex-shrink: 0;
-}
 
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
