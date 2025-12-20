@@ -1014,34 +1014,6 @@ header button:hover {
   transform: translate(50%, -50%) scale(1.1);
 }
 
-/* ========= SAVED TEAM ========== */
-.saved-team-box {
-  background: #0d1325;
-  border: 1px solid #2b3566;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 12px;
-}
-
-.saved-team-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.saved-team-row img {
-  width: 48px;
-  border-radius: 6px;
-}
-
-.remove-saved {
-  background: #b33;
-  border: none;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-}
 
 /* ============================================= */
 /* SAVED TEAM FINAL LAYOUT (SESUAI PERMINTAAN)   */
@@ -1060,13 +1032,6 @@ header button:hover {
   align-items: flex-start; /* kiri */
 }
 
-/* setiap baris pets / char / cards */
-.saved-row {
-  display: flex;
-  justify-content: flex-start;
-  gap: 14px;
-  margin: 8px 0;
-}
 
 /* slot ukuran besar (90px) */
 .saved-slot {
@@ -1102,15 +1067,6 @@ header button:hover {
 /*        EQUIP 5 BARIS × 4 KOLOM (90px)             */
 /* ================================================= */
 
-.saved-equip-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 90px); /* 4 kolom ke kanan */
-  grid-template-rows: repeat(5, 90px);    /* 5 baris ke bawah */
-  gap: 12px;
-  justify-content: flex-start;             /* kiri */
-  margin-top: 12px;
-}
-
 /* equip slot harus sama ukuran dengan slot lain */
 .saved-equip-grid .saved-slot {
   width: 90px;
@@ -1129,6 +1085,61 @@ header button:hover {
   margin-bottom: 8px;
   cursor: pointer;
 }
+
+/* ================= SAVED TEAM GRID ================= */
+
+.saved-team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 52px);
+  gap: 8px;
+  justify-content: center;
+}
+
+/* SLOT DASAR */
+.saved-slot {
+  width: 52px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border: 2px solid #333;
+}
+
+.saved-slot img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+/* PET */
+.saved-pet {
+  height: 64px;
+  border-color: #38bdf8;
+  background: #38bdf820;
+}
+
+/* CHARACTER */
+.saved-char {
+  height: 72px;
+  border-color: #4df0ff;
+  background: #4df0ff20;
+}
+
+/* CARD */
+.saved-card {
+  height: 72px;
+  border-color: #c5b8ff;
+  background: #c5b8ff20;
+}
+
+/* EQUIP */
+.saved-equip {
+  height: 48px;
+  border-color: #666;
+  background: #2a2a2a;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
@@ -1153,4 +1164,47 @@ header button:hover {
   }
 
   
+}
+
+/* ================================= */
+/*        SAVED TEAM MOBILE          */
+/* ================================= */
+
+@media (max-width: 768px) {
+
+  .saved-team-grid {
+    grid-template-columns: repeat(5, 42px); /* lebih kecil */
+    gap: 6px;
+  }
+
+  .saved-slot {
+    width: 42px;
+    border-radius: 6px;
+    border-width: 1.5px;
+  }
+
+  .saved-slot img {
+    max-width: 88%;
+    max-height: 88%;
+  }
+
+  /* PET */
+  .saved-pet {
+    height: 52px;
+  }
+
+  /* CHARACTER */
+  .saved-char {
+    height: 58px;
+  }
+
+  /* CARD */
+  .saved-card {
+    height: 58px;
+  }
+
+  /* EQUIP */
+  .saved-equip {
+    height: 36px;
+  }
 }
