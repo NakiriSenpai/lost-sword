@@ -743,21 +743,13 @@ function renderSavedTeams() {
     card.innerHTML = `
   <div class="saved-team-grid">
 
-    <!-- PETS (CENTER) -->
-${Array.from({ length: 5 }).map((_, i) => {
-  // index 1,2,3 untuk pet
-  if (i >= 1 && i <= 3) {
-    const pet = team.pets[i - 1];
-    return `
-      <div class="saved-slot saved-pet">
-        ${pet ? `<img src="${pet.image}">` : ""}
-      </div>
-    `;
-  }
-
-  // kolom kosong kiri & kanan
-  return `<div class="saved-slot saved-empty"></div>`;
-}).join("")}
+ <!-- PETS (CENTER, TANPA SLOT KOSONG) -->
+${team.pets.map((pet, i) => `
+  <div class="saved-slot saved-pet"
+       style="grid-column: ${i + 2}">
+    ${pet ? `<img src="${pet.image}">` : ""}
+  </div>
+`).join("")}
 
     <!-- CHARACTERS -->
     ${team.team.map(c => `
