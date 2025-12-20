@@ -734,100 +734,102 @@ function renderSavedTeams() {
   }
 
   savedTeams.forEach(team => {
-    if (!team || typeof team !== "object") return;
+    // ===== NORMALIZE DATA (ANTI ERROR) =====
+    team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
+    team.team   = Array.isArray(team.team)   ? team.team   : [];
+    team.cards  = Array.isArray(team.cards)  ? team.cards  : [];
+    team.equips = Array.isArray(team.equips) ? team.equips : [];
+    team.note   = typeof team.note === "string" ? team.note : "";
 
-    team.note = typeof team.note === "string" ? team.note : "";
+    for (let r = 0; r < 5; r++) {
+      if (!Array.isArray(team.equips[r])) team.equips[r] = [];
+    }
 
     const card = document.createElement("div");
     card.className = "saved-team-card";
 
+    /* ===== HEADER ===== */
     const date = new Date(team.savedAt || Date.now());
+    const pad = n => String(n).padStart(2, "0");
     const formatted =
-      date.toLocaleDateString("id-ID") + " " +
-      date.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+      `${pad(date.getDate())}/${pad(date.getMonth()+1)}/${date.getFullYear()} ` +
+      `${pad(date.getHours())}:${pad(date.getMinutes())}`;
 
-    card.innerHTML = `
+    let html = `
       <div class="saved-team-header">
-        <span>Saved: ${formatted}</span>
+        <div class="saved-team-date">Saved: ${formatted}</div>
         <button class="saved-team-remove">Remove</button>
       </div>
 
       <div class="saved-team-body">
         <div class="saved-team-grid">
-          ${renderSavedTeamGrid(team)}
+    `;
+
+    /* PETS */
+    team.pets.slice(0, 3).forEach((pet, i) => {
+      html += `
+        <div class="saved-slot saved-pet saved-row-pet saved-col-${i + 2}">
+          ${pet ? `<img src="${pet.image}">` : ""}
+        </div>`;
+    });
+
+    /* CHAR */
+    for (let i = 0; i < 5; i++) {
+      const c = team.team[i];
+      html += `
+        <div class="saved-slot saved-char saved-row-char saved-col-${i + 1}">
+          ${c ? `<img src="${c.image}">` : ""}
+        </div>`;
+    }
+
+    /* CARD */
+    for (let i = 0; i < 5; i++) {
+      const c = team.cards[i];
+      html += `
+        <div class="saved-slot saved-card saved-row-card saved-col-${i + 1}">
+          ${c ? `<img src="${c.image}">` : ""}
+        </div>`;
+    }
+
+    /* EQUIP */
+    for (let col = 0; col < 4; col++) {
+      for (let row = 0; row < 5; row++) {
+        const id = team.equips[row][col];
+        const img = id ? getEquipImageById(id) : null;
+        html += `
+          <div class="saved-slot saved-equip saved-row-eq-${col+1} saved-col-${row+1}">
+            ${img ? `<img src="${img}">` : ""}
+          </div>`;
+      }
+    }
+
+    html += `
         </div>
 
         <div class="saved-team-note">
-          <textarea placeholder="Nama / catatan team...">${team.note}</textarea>
-          <div class="note-actions">
-            <button class="save-note">Save</button>
-            <button class="clear-note">Clear</button>
-          </div>
+          <textarea placeholder="Catatan team...">${team.note}</textarea>
+          <button class="save-note">Save Note</button>
         </div>
       </div>
     `;
 
-    // REMOVE TEAM
+    card.innerHTML = html;
+
+    /* EVENTS */
     card.querySelector(".saved-team-remove").onclick = () => {
       deleteSavedTeam(team.id);
     };
 
-    // SAVE NOTE
     card.querySelector(".save-note").onclick = () => {
-      const val = card.querySelector("textarea").value;
-      team.note = val;
+      const text = card.querySelector("textarea").value;
+      team.note = text;
       localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
-      alert("Catatan disimpan");
-    };
-
-    // CLEAR NOTE
-    card.querySelector(".clear-note").onclick = () => {
-      team.note = "";
-      localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
-      renderSavedTeams();
     };
 
     list.appendChild(card);
   });
 }
 
-/* ========= HELPER GRID RENDER SAVED TEAM ==== */
-function renderSavedTeamGrid(team) {
-  let html = "";
-
-  team.pets?.slice(0, 3).forEach((pet, i) => {
-    html += `<div class="saved-slot saved-pet saved-col-${i + 2}">
-      ${pet ? `<img src="${pet.image}">` : ""}
-    </div>`;
-  });
-
-  for (let i = 0; i < 5; i++) {
-    const c = team.team?.[i];
-    html += `<div class="saved-slot saved-char saved-col-${i + 1}">
-      ${c ? `<img src="${c.image}">` : ""}
-    </div>`;
-  }
-
-  for (let i = 0; i < 5; i++) {
-    const c = team.cards?.[i];
-    html += `<div class="saved-slot saved-card saved-col-${i + 1}">
-      ${c ? `<img src="${c.image}">` : ""}
-    </div>`;
-  }
-
-  for (let col = 0; col < 4; col++) {
-    for (let row = 0; row < 5; row++) {
-      const id = team.equips?.[row]?.[col];
-      const img = id ? getEquipImageById(id) : null;
-
-      html += `<div class="saved-slot saved-equip">
-        ${img ? `<img src="${img}">` : ""}
-      </div>`;
-    }
-  }
-
-  return html;
-}
 
 /* ======== HAPUS SAVED TEAM ====== */
 function deleteSavedTeam(id) {
