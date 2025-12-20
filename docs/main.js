@@ -177,7 +177,7 @@ if (equipPopupEl) {
   navSaved.onclick = () => switchPage("saved");
 }
 
-  function switchPage(page) {
+function switchPage(page) {
   pageCurrent.classList.remove("active");
   pageSaved.classList.remove("active");
   navCurrent.classList.remove("active");
@@ -195,10 +195,7 @@ if (equipPopupEl) {
     if (saveBtn) saveBtn.style.display = "none";
     renderSavedTeams();
   }
-} catch (err) {
-    alert("JS ERROR: " + err.message);
-  }
-});
+}
 
 /* ================= FILTER ================= */
 function setupFilters() {
