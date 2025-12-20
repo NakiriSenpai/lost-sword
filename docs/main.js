@@ -15,12 +15,16 @@ const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 /* =========== TEAM DATE SAVED ========== */
 const teamData = {
   id: Date.now(),
-  savedAt: Date.now(), // ⬅️ INI PENTING
-  pets: [...],
-  team: [...],
-  cards: [...],
-  equips: [...]
+  savedAt: Date.now(),
+  pets: currentPets.slice(),
+  team: currentTeam.slice(),
+  cards: currentCards.slice(),
+  equips: currentEquips.map(r => r.slice())
 };
+
+savedTeams.push(teamData);
+saveToStorage();
+renderSavedTeams();
 
 /* ================= EQUIP DATA ================= */
 const equipData = {
@@ -922,14 +926,6 @@ function clearWeaponByRow(row) {
 
   equipSlots[row][0] = null; // col 0 = weapon
 }             
-
-/* ======== format saved date ====== */
-function formatSavedTime(timestamp) {
-  const d = new Date(timestamp);
-  const pad = n => String(n).padStart(2, "0");
-
-  return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
 
 /* ================= STORAGE ================= */
 function saveAndRender() {
