@@ -744,14 +744,21 @@ function renderSavedTeams() {
 
   list.innerHTML = "";
 
-  if (!savedTeams || !savedTeams.length) {
+  if (!Array.isArray(savedTeams) || savedTeams.length === 0) {
     list.innerHTML = "<p>Belum ada team yang disimpan.</p>";
     return;
   }
 
   savedTeams.forEach(team => {
 
-    /* ================= NORMALIZE DATA ================= */
+    // ===== GUARD TOTAL =====
+    if (!team || typeof team !== "object") return;
+
+    team.id = team.id ?? Date.now();
+    team.savedAt = typeof team.savedAt === "number"
+      ? team.savedAt
+      : Date.now();
+
     team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
     team.team   = Array.isArray(team.team)   ? team.team   : [];
     team.cards  = Array.isArray(team.cards)  ? team.cards  : [];
@@ -763,37 +770,22 @@ function renderSavedTeams() {
       }
     }
 
-    /* ================= CARD ================= */
     const card = document.createElement("div");
     card.className = "saved-team-card";
 
-    /* ================= HEADER (DATE + REMOVE) ================= */
-    const savedDate = team.savedAt
-      ? new Date(team.savedAt)
-      : new Date();
-
-    const formattedDate = savedDate.toLocaleString("id-ID", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
-    });
+    const formattedDate = formatSaved(team.savedAt);
 
     let html = `
       <div class="saved-team-header">
         <div class="saved-team-date">
           Saved: ${formattedDate}
         </div>
-        <button class="saved-team-remove" data-id="${team.id}">
-          Remove
-        </button>
+        <button class="saved-team-remove">Remove</button>
       </div>
 
       <div class="saved-team-grid">
     `;
 
-    /* ================= PETS (ROW 1, COL 2–4) ================= */
     team.pets.slice(0, 3).forEach((pet, i) => {
       html += `
         <div class="saved-slot saved-pet saved-row-pet saved-col-${i + 2}">
@@ -802,7 +794,6 @@ function renderSavedTeams() {
       `;
     });
 
-    /* ================= CHARACTERS (ROW 2) ================= */
     for (let i = 0; i < 5; i++) {
       const c = team.team[i];
       html += `
@@ -812,7 +803,6 @@ function renderSavedTeams() {
       `;
     }
 
-    /* ================= CARDS (ROW 3) ================= */
     for (let i = 0; i < 5; i++) {
       const c = team.cards[i];
       html += `
@@ -822,7 +812,6 @@ function renderSavedTeams() {
       `;
     }
 
-    /* ================= EQUIPS (ROW 4–7) ================= */
     for (let col = 0; col < 4; col++) {
       for (let row = 0; row < 5; row++) {
         const id = team.equips[row][col] ?? null;
@@ -841,7 +830,6 @@ function renderSavedTeams() {
     html += `</div>`;
     card.innerHTML = html;
 
-    /* ================= REMOVE EVENT ================= */
     card.querySelector(".saved-team-remove").onclick = () => {
       deleteSavedTeam(team.id);
     };
@@ -849,7 +837,6 @@ function renderSavedTeams() {
     list.appendChild(card);
   });
 }
-
 /* ======== HAPUS SAVED TEAM ====== */
 function deleteSavedTeam(id) {
   savedTeams = savedTeams.filter(t => t.id !== id);
