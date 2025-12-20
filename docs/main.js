@@ -532,11 +532,20 @@ function renderSynergyWarning() {
 
   const activeTeam = team.filter(Boolean);
   if (!activeTeam.length) return;
+
+  /* FULL EXCEPTION */
   if (activeTeam.some(c => c.name === "Claire")) return;
 
   const classes = activeTeam.map(c => c.class);
+
+  /* SPECIAL CASE */
+  const hasNeoBedivere = activeTeam.some(
+    c => c.name === "NEO Bedivere"
+  );
+
   const hasKnight = classes.includes("Knight");
-  const hasHealer = classes.includes("Healer");
+  const hasHealer =
+    classes.includes("Healer") || hasNeoBedivere;
 
   const warnings = [];
 
@@ -552,6 +561,7 @@ function renderSynergyWarning() {
     ) {
       warnings.push("Tidak ada sustain");
     }
+
     if (
       classes.every(c =>
         ["Wizard", "Archer", "Healer"].includes(c)
