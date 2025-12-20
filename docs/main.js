@@ -178,6 +178,27 @@ if (equipPopupEl) {
 }
 
 function switchPage(page) {
+  // 🔒 GUARD: cegah error kalau elemen belum ada
+  if (!pageCurrent || !pageSaved || !navCurrent || !navSaved) return;
+
+  pageCurrent.classList.remove("active");
+  pageSaved.classList.remove("active");
+  navCurrent.classList.remove("active");
+  navSaved.classList.remove("active");
+
+  const saveBtn = document.getElementById("save-team-btn");
+
+  if (page === "current") {
+    pageCurrent.classList.add("active");
+    navCurrent.classList.add("active");
+    if (saveBtn) saveBtn.style.display = "flex";
+  } else {
+    pageSaved.classList.add("active");
+    navSaved.classList.add("active");
+    if (saveBtn) saveBtn.style.display = "none";
+    renderSavedTeams();
+  }
+}
   pageCurrent.classList.remove("active");
   pageSaved.classList.remove("active");
   navCurrent.classList.remove("active");
@@ -1120,4 +1141,9 @@ function renderEquipPopupContent(col) {
 
   body.appendChild(grid);
 }
+} catch (err) {
+    console.error("JS ERROR:", err);
+    alert("JS ERROR: " + err.message);
+  }
+});
 
