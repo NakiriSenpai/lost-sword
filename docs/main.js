@@ -726,6 +726,7 @@ function getEquipImageById(id) {
 
 /* ======== RENDER TEAM SAVED ======*/
 function renderSavedTeams() {
+function renderSavedTeams() {
   const list = document.getElementById("saved-teams-list");
   if (!list) return;
 
@@ -740,55 +741,62 @@ function renderSavedTeams() {
     const card = document.createElement("div");
     card.className = "saved-team-card";
 
-    card.innerHTML = `
-  <div class="saved-team-grid">
+    let html = `<div class="saved-team-grid">`;
 
- <!-- PETS (CENTER, TANPA SLOT KOSONG) -->
-${team.pets.map((pet, i) => `
-  <div class="saved-slot saved-pet"
-       style="grid-column: ${i + 2}">
-    ${pet ? `<img src="${pet.image}">` : ""}
-  </div>
-`).join("")}
+    /* PETS (ROW 1, COL 2–4) */
+    team.pets.slice(0, 3).forEach((pet, i) => {
+      html += `
+        <div class="saved-slot saved-pet saved-row-pet saved-col-${i + 2}">
+          ${pet ? `<img src="${pet.image}">` : ""}
+        </div>
+      `;
+    });
 
-    <!-- CHARACTERS -->
-    ${team.team.map(c => `
-      <div class="saved-slot saved-char">
-        ${c ? `<img src="${c.image}">` : ""}
-      </div>
-    `).join("")}
+    /* CHAR (ROW 2) */
+    for (let i = 0; i < 5; i++) {
+      const c = team.team[i];
+      html += `
+        <div class="saved-slot saved-char saved-row-char saved-col-${i + 1}">
+          ${c ? `<img src="${c.image}">` : ""}
+        </div>
+      `;
+    }
 
-    <!-- CARDS -->
-    ${team.cards.map(c => `
-      <div class="saved-slot saved-card">
-        ${c ? `<img src="${c.image}">` : ""}
-      </div>
-    `).join("")}
+    /* CARD (ROW 3) */
+    for (let i = 0; i < 5; i++) {
+      const c = team.cards[i];
+      html += `
+        <div class="saved-slot saved-card saved-row-card saved-col-${i + 1}">
+          ${c ? `<img src="${c.image}">` : ""}
+        </div>
+      `;
+    }
 
-    <!-- EQUIPS (4 BARIS × 5 KOLOM, FIXED POSITION) -->
-${Array.from({ length: 4 }).map((_, col) => {
-  return Array.from({ length: 5 }).map((_, row) => {
-    const id = team.equips[row]?.[col] ?? null;
-    const img = id ? getEquipImageById(id) : null;
+    /* EQUIP (ROW 4–7) */
+    for (let col = 0; col < 4; col++) {
+      for (let row = 0; row < 5; row++) {
+        const id = team.equips[row]?.[col] ?? null;
+        const img = id ? getEquipImageById(id) : null;
 
-    return `
-      <div class="saved-slot saved-equip">
-        ${img ? `<img src="${img}">` : ""}
-      </div>
-    `;
-  }).join("");
-}).join("")}
+        html += `
+          <div class="saved-slot saved-equip
+                      saved-row-eq-${col + 1}
+                      saved-col-${row + 1}">
+            ${img ? `<img src="${img}">` : ""}
+          </div>
+        `;
+      }
+    }
 
-  </div>
-`;
+    html += `</div>`;
+    card.innerHTML = html;
 
     const removeBtn = document.createElement("button");
-removeBtn.className = "saved-team-remove";
-removeBtn.textContent = "✕";
-removeBtn.onclick = () => deleteSavedTeam(team.id);
+    removeBtn.className = "saved-team-remove";
+    removeBtn.textContent = "✕";
+    removeBtn.onclick = () => deleteSavedTeam(team.id);
 
-card.prepend(removeBtn);
-
+    card.prepend(removeBtn);
     list.appendChild(card);
   });
 }
