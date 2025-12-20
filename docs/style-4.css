@@ -1107,7 +1107,7 @@ header button:hover {
     auto   /* row 3 : cards */
     repeat(4, auto); /* row 4–7 : equips */
   gap: 8px;
-  justify-content: center;
+  justify-content: start;
 }
 
 /* ================= POSISI ROW ================= */
