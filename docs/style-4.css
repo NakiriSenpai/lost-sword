@@ -1128,6 +1128,36 @@ header button:hover {
 .saved-col-4 { grid-column: 4; }
 .saved-col-5 { grid-column: 5; }
 
+/* ================= SAVED TEAM HEADER ================= */
+
+.saved-team-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.saved-team-date {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* tombol remove (teks) */
+.saved-team-remove {
+  background: #7a1f1f;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.saved-team-remove:hover {
+  background: #a52a2a;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
