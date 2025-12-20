@@ -1159,56 +1159,56 @@ header button:hover {
 }
 
 /* ========= GRID NOTE SAVED TEAM ======== */
+/* ===== BODY GRID + NOTE ===== */
 .saved-team-body {
   display: flex;
   gap: 12px;
   align-items: flex-start;
 }
 
+/* ===== NOTE CARD ===== */
 .saved-team-note {
-  width: 180px;
-  background: #1e1e1e;
+  min-width: 180px;
+  max-width: 240px;
+  background: #111827;
+  border: 2px solid #334155;
   border-radius: 10px;
-  padding: 10px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
+  gap: 6px;
 }
 
 .saved-team-note textarea {
-  width: 100%;
+  resize: none;
   min-height: 120px;
-  resize: vertical;
-  background: #111;
-  color: #fff;
-  border: 1px solid #333;
+  background: #020617;
+  border: 1px solid #475569;
+  color: #e5e7eb;
   border-radius: 6px;
   padding: 6px;
-  font-size: 13px;
-}
-
-.note-actions {
-  display: flex;
-  gap: 6px;
-  margin-top: 6px;
-}
-
-.note-actions button {
-  flex: 1;
   font-size: 12px;
-  padding: 5px;
-  border-radius: 6px;
+}
+
+.saved-team-note button {
+  background: #2563eb;
   border: none;
+  color: white;
+  padding: 6px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.save-note {
-  background: #4caf50;
-  color: #fff;
-}
+/* ===== MOBILE ===== */
+@media (max-width: 640px) {
+  .saved-team-body {
+    flex-direction: column;
+  }
 
-.clear-note {
-  background: #444;
-  color: #fff;
+  .saved-team-note {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 /* MOBILE */
