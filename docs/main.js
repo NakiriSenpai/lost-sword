@@ -676,8 +676,7 @@ function saveCurrentTeam() {
   const snapshot = {
     id: "team_" + Date.now(),
     savedAt: Date.now(),
-
-    note: "", // ⬅️ CATATAN TEAM (BARU)
+    note: "",
 
     team: JSON.parse(JSON.stringify(team)),
     cards: JSON.parse(JSON.stringify(cardSlots)),
@@ -688,11 +687,10 @@ function saveCurrentTeam() {
   };
 
   savedTeams.push(snapshot);
-  localStorage.setItem("savedTeams", JSON.stringify(savedTeams"));
+  localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
   renderSavedTeams();
   alert("Team berhasil disimpan!");
 }
-
 /* ======== EQUIP IMAGE SAVED ====== */
 function getEquipImageById(id) {
   // guard keras
