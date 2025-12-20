@@ -741,49 +741,42 @@ function renderSavedTeams() {
     card.className = "saved-team-card";
 
     card.innerHTML = `
-      <div class="saved-section">
-        <div class="saved-row center">
-          ${team.pets.map(p => `
-            <div class="saved-slot">
-              <img src="${p?.image || FALLBACK_IMG}">
-            </div>
-          `).join("")}
-        </div>
-      </div>
+  <div class="saved-team-grid">
 
-      <div class="saved-section">
-        <div class="saved-row">
-          ${team.team.map(c => `
-            <div class="saved-slot">
-              <img src="${c?.image || FALLBACK_IMG}">
-            </div>
-          `).join("")}
-        </div>
+    <!-- PETS -->
+    ${team.pets.map(p => `
+      <div class="saved-slot saved-pet">
+        ${p ? `<img src="${p.image}">` : ""}
       </div>
+    `).join("")}
+    ${"<div></div>".repeat(5 - team.pets.length)}
 
-      <div class="saved-section">
-        <div class="saved-row">
-          ${team.cards.map(c => `
-            <div class="saved-slot">
-              <img src="${c?.image || FALLBACK_IMG}">
-            </div>
-          `).join("")}
-        </div>
+    <!-- CHARACTERS -->
+    ${team.team.map(c => `
+      <div class="saved-slot saved-char">
+        ${c ? `<img src="${c.image}">` : ""}
       </div>
+    `).join("")}
 
-      <div class="saved-section">
-        <div class="saved-equip-grid">
-          ${team.equips.flat().map(id => {
-  const img = getEquipImageById(id);
-  return `
-    <div class="saved-slot">
-      ${img ? `<img src="${img}">` : ""}
-    </div>
-  `;
-}).join("")}
-        </div>
+    <!-- CARDS -->
+    ${team.cards.map(c => `
+      <div class="saved-slot saved-card">
+        ${c ? `<img src="${c.image}">` : ""}
       </div>
-    `;
+    `).join("")}
+
+    <!-- EQUIPS (5 x 4) -->
+    ${team.equips.flat().map(id => {
+      const img = getEquipImageById(id);
+      return `
+        <div class="saved-slot saved-equip">
+          ${img ? `<img src="${img}">` : ""}
+        </div>
+      `;
+    }).join("")}
+
+  </div>
+`;
 
     const removeBtn = document.createElement("button");
 removeBtn.className = "saved-team-remove";
