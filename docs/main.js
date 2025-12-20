@@ -81,7 +81,6 @@ filtersBar.appendChild(resetFilterBtn);
 
 /* ================= INIT ================= */
 document.addEventListener("DOMContentLoaded", async () => {
-  try {
   /* ===== FETCH CHARACTERS (EXISTING) ===== */
   fetch("data/characters.json")
     .then(r => r.json())
@@ -1141,9 +1140,5 @@ function renderEquipPopupContent(col) {
 
   body.appendChild(grid);
 }
-} catch (err) {
-    console.error("JS ERROR:", err);
-    alert("JS ERROR: " + err.message);
-  }
 });
 
