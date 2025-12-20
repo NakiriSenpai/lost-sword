@@ -823,10 +823,9 @@ function renderSavedTeams() {
     card.querySelector(".save-note").onclick = () => {
   const text = card.querySelector("textarea").value;
   team.note = text;
-
   localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
 
-  showNoteToast(); // ⬅️ INI YANG SEBELUMNYA TIDAK ADA
+  showToast("Catatan sudah disimpan");
 };
 
     list.appendChild(card);
@@ -911,16 +910,16 @@ function clearWeaponByRow(row) {
 }             
 
 /* ========= POPUP NOTIF SAVE NOTE ======= */
-function showNoteToast() {
-  const toast = document.getElementById("note-toast");
+function showToast(message) {
+  const toast = document.getElementById("global-toast");
   if (!toast) return;
 
-  toast.classList.add("show");
+  toast.querySelector(".toast-content").textContent = message;
+  toast.classList.remove("hidden");
 
-  clearTimeout(toast._timer);
-  toast._timer = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2000);
+  setTimeout(() => {
+    toast.classList.add("hidden");
+  }, 2000); // 2 detik
 }
 
 /* ================= STORAGE ================= */
