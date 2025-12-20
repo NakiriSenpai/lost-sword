@@ -732,7 +732,7 @@ function renderSavedTeams() {
   }
 
   savedTeams.forEach(team => {
-    // ===== NORMALIZE DATA =====
+    /* ===== NORMALIZE DATA ===== */
     team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
     team.team   = Array.isArray(team.team)   ? team.team   : [];
     team.cards  = Array.isArray(team.cards)  ? team.cards  : [];
@@ -746,20 +746,21 @@ function renderSavedTeams() {
     const card = document.createElement("div");
     card.className = "saved-team-card";
 
-    // ===== DATE =====
+    /* ===== HEADER ===== */
     const d = new Date(team.savedAt || Date.now());
     const pad = n => String(n).padStart(2, "0");
-    const formatted =
+    const dateText =
       `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ` +
       `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 
     let html = `
       <div class="saved-team-header">
-        <div class="saved-team-date">Saved: ${formatted}</div>
+        <div class="saved-team-date">Saved: ${dateText}</div>
         <button class="saved-team-remove">Remove</button>
       </div>
 
-      <div class="saved-team-grid">
+      <div class="saved-team-body">
+        <div class="saved-team-grid">
     `;
 
     /* PETS */
@@ -793,6 +794,7 @@ function renderSavedTeams() {
       for (let row = 0; row < 5; row++) {
         const id = team.equips[row][col];
         const img = id ? getEquipImageById(id) : null;
+
         html += `
           <div class="saved-slot saved-equip saved-row-eq-${col+1} saved-col-${row+1}">
             ${img ? `<img src="${img}">` : ""}
@@ -801,12 +803,11 @@ function renderSavedTeams() {
     }
 
     html += `
-      </div>
+        </div>
 
-      <div class="saved-team-note">
-        <button class="toggle-note">📝 Note</button>
-        <div class="note-body" style="display:none;">
-          <textarea placeholder="Catatan team...">${team.note}</textarea>
+        <div class="saved-team-note">
+          <div class="note-title">Catatan Team</div>
+          <textarea placeholder="Tulis catatan...">${team.note}</textarea>
           <button class="save-note">Save Note</button>
         </div>
       </div>
@@ -819,18 +820,10 @@ function renderSavedTeams() {
       deleteSavedTeam(team.id);
     };
 
-    const toggleBtn = card.querySelector(".toggle-note");
-    const noteBody = card.querySelector(".note-body");
-
-    toggleBtn.onclick = () => {
-      noteBody.style.display =
-        noteBody.style.display === "none" ? "block" : "none";
-    };
-
     card.querySelector(".save-note").onclick = () => {
       team.note = card.querySelector("textarea").value;
       localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
-      alert("Catatan disimpan");
+      showToast("Catatan sudah disimpan");
     };
 
     list.appendChild(card);
@@ -913,6 +906,20 @@ function clearWeaponByRow(row) {
 
   equipSlots[row][0] = null; // col 0 = weapon
 }             
+
+/* ========= POPUP NOTIF SAVE NOTE ======= */
+function showToast(text) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = text;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.classList.add("show"), 10);
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 1800);
+}
 
 /* ================= STORAGE ================= */
 function saveAndRender() {
