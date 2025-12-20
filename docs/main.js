@@ -726,7 +726,6 @@ function getEquipImageById(id) {
 
 /* ======== RENDER TEAM SAVED ======*/
 function renderSavedTeams() {
-function renderSavedTeams() {
   const list = document.getElementById("saved-teams-list");
   if (!list) return;
 
