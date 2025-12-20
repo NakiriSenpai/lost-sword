@@ -12,20 +12,6 @@ let activeEquipSlot = null;
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 
-/* =========== TEAM DATE SAVED ========== */
-const teamData = {
-  id: Date.now(),
-  savedAt: Date.now(),
-  pets: currentPets.slice(),
-  team: currentTeam.slice(),
-  cards: currentCards.slice(),
-  equips: currentEquips.map(r => r.slice())
-};
-
-savedTeams.push(teamData);
-saveToStorage();
-renderSavedTeams();
-
 /* ================= EQUIP DATA ================= */
 const equipData = {
   weapon: [],
@@ -750,8 +736,6 @@ function renderSavedTeams() {
   }
 
   savedTeams.forEach(team => {
-
-    // ===== GUARD TOTAL =====
     if (!team || typeof team !== "object") return;
 
     team.id = team.id ?? Date.now();
@@ -765,15 +749,19 @@ function renderSavedTeams() {
     team.equips = Array.isArray(team.equips) ? team.equips : [];
 
     for (let r = 0; r < 5; r++) {
-      if (!Array.isArray(team.equips[r])) {
-        team.equips[r] = [];
-      }
+      if (!Array.isArray(team.equips[r])) team.equips[r] = [];
     }
 
     const card = document.createElement("div");
     card.className = "saved-team-card";
 
-    const formattedDate = formatSaved(team.savedAt);
+    const formattedDate = new Date(team.savedAt).toLocaleString("id-ID", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
 
     let html = `
       <div class="saved-team-header">
