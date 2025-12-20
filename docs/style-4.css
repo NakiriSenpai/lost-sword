@@ -1273,6 +1273,55 @@ header button:hover {
   }
 }
 
+/* ========= HEADER BRAND ========= */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #0d1118;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.site-name {
+  font-size: 20px;
+  margin: 0;
+  color: #d6e4ff;
+}
+
+
+/* Share button sedikit dibagusin */
+.share-btn {
+  background: #1e2a44;
+  border: 1px solid rgba(255,255,255,.2);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background: #24345a;
+}
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
