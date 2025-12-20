@@ -1158,6 +1158,71 @@ header button:hover {
   background: #a52a2a;
 }
 
+/* ========= GRID NOTE SAVED TEAM ======== */
+.saved-team-body {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.saved-team-note {
+  width: 180px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.saved-team-note textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px;
+  font-size: 13px;
+}
+
+.note-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.note-actions button {
+  flex: 1;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.save-note {
+  background: #4caf50;
+  color: #fff;
+}
+
+.clear-note {
+  background: #444;
+  color: #fff;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .saved-team-body {
+    flex-direction: column;
+  }
+
+  .saved-team-note {
+    width: 100%;
+  }
+}
+
+
 /* ================= MOBILE POLISH ================= */
 @media (max-width: 768px) {
   header h1 {
