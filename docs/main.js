@@ -769,7 +769,7 @@ function saveCurrentTeam() {
   savedTeams.push(snapshot);
   localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
   renderSavedTeams();
-  alert("Team berhasil disimpan!");
+  showToast("Team berhasil disimpan");
 }
 /* ======== EQUIP IMAGE SAVED ====== */
 function getEquipImageById(id) {
@@ -1025,10 +1025,12 @@ confirmResetBtn?.addEventListener("click", () => {
 });
 
 /* ======== HAPUS SAVED TEAM ====== */
-function deleteSavedTeam(id) {
-  savedTeams = savedTeams.filter(t => t.id !== id);
+function deleteSavedTeam(teamId) {
+  savedTeams = savedTeams.filter(t => t.id !== teamId);
   localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
   renderSavedTeams();
+
+  showToast("Team berhasil dihapus");
 }
 
 /* ========= RESET SLOT TEAM ALL ===== */
