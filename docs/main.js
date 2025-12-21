@@ -166,8 +166,8 @@ if (equipPopupEl) {
 
   /* ========= RESET TEAM BUTTON ========= */
 document.getElementById("reset-team-btn")
-  ?.addEventListener("click", resetTeam);
-
+  ?.addEventListener("click", openResetConfirm);
+  
   /* ========== LOGIC PINDAH HALAMAN ======= */
   const navCurrent = document.getElementById("nav-current");
   const navSaved = document.getElementById("nav-saved");
@@ -869,6 +869,37 @@ function renderSavedTeams() {
   });
 }
 
+  /* ======= RESET POPUP ====== */
+  const resetPopup = document.getElementById("resetConfirmPopup");
+const cancelResetBtn = document.getElementById("cancelResetBtn");
+const confirmResetBtn = document.getElementById("confirmResetBtn");
+
+function openResetConfirm() {
+  if (!resetPopup) return;
+  resetPopup.classList.remove("hidden");
+}
+
+function closeResetConfirm() {
+  if (!resetPopup) return;
+  resetPopup.classList.add("hidden");
+}
+
+/* cancel */
+cancelResetBtn?.addEventListener("click", closeResetConfirm);
+
+/* click outside */
+resetPopup?.addEventListener("click", (e) => {
+  if (e.target === resetPopup) {
+    closeResetConfirm();
+  }
+});
+
+/* confirm */
+confirmResetBtn?.addEventListener("click", () => {
+  closeResetConfirm();
+  resetTeam();   // 🔥 pakai logic reset yang sudah ada
+});
+
 /* ======== HAPUS SAVED TEAM ====== */
 function deleteSavedTeam(id) {
   savedTeams = savedTeams.filter(t => t.id !== id);
@@ -878,11 +909,6 @@ function deleteSavedTeam(id) {
 
 /* ========= RESET SLOT TEAM ALL ===== */
   function resetTeam() {
-  if (!confirm("Reset seluruh team? Semua slot akan dikosongkan.")) {
-    return;
-  }
-
-  /* ===== RESET STATE ===== */
   team = Array(MAX_TEAM).fill(null);
   cardSlots = Array(MAX_TEAM).fill(null);
   petSlots = Array(MAX_PETS).fill(null);
@@ -896,20 +922,17 @@ function deleteSavedTeam(id) {
   activePetSlotIndex = null;
   activeEquipSlot = null;
 
-  /* ===== CLEAR STORAGE ===== */
   localStorage.removeItem("team");
   localStorage.removeItem("cardSlots");
   localStorage.removeItem("petSlots");
 
-  /* ===== CLEAR URL ===== */
   history.replaceState(null, "", location.pathname);
 
-  /* ===== RENDER UI ===== */
   renderTeam();
   renderCharacters();
   renderPets();
   renderEquipSlots();
-  }
+}
 
 /* ======== HELPER FUNCTION ======= */
 function getCharacterClassByRow(row) {
