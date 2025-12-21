@@ -351,8 +351,10 @@ function renderCardList() {
       el.className = "card-item";
 
       el.innerHTML = `
-        <img src="${card.image}">
-      `;
+  <img src="${card.image}" alt="${card.name}">
+  <div class="card-name">${card.name}</div>
+  <div class="card-name" title="${card.name}">${card.name}</div>
+`;
 
       const used = isCardUsed(card.id);
 
@@ -431,9 +433,10 @@ function renderPetList() {
       el.classList.toggle("used", used);
 
       el.innerHTML = `
-        <img src="${pet.image}">
-        <strong>${pet.name}</strong>
-      `;
+  <img src="${pet.image}" alt="${pet.name}">
+  <div class="pet-name">${pet.name}</div>
+  <div class="pet-name" title="${pet.name}">${pet.name}</div>
+`;
 
       el.onclick = () => {
         if (used) return;
