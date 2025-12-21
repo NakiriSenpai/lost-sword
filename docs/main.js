@@ -224,7 +224,6 @@ document.getElementById("reset-team-btn")
 }
 
 function switchPage(page) {
-  // 🔒 GUARD: cegah error kalau elemen belum ada
   if (!pageCurrent || !pageSaved || !navCurrent || !navSaved) return;
 
   pageCurrent.classList.remove("active");
@@ -233,15 +232,21 @@ function switchPage(page) {
   navSaved.classList.remove("active");
 
   const saveBtn = document.getElementById("save-team-btn");
+  const resetBtn = document.getElementById("reset-team-btn");
 
   if (page === "current") {
     pageCurrent.classList.add("active");
     navCurrent.classList.add("active");
-    if (saveBtn) saveBtn.style.display = "visible";
+
+    if (saveBtn) saveBtn.style.display = "block";
+    if (resetBtn) resetBtn.style.display = "block";
   } else {
     pageSaved.classList.add("active");
     navSaved.classList.add("active");
-    if (saveBtn) saveBtn.style.display = "hidden";
+
+    if (saveBtn) saveBtn.style.display = "none";
+    if (resetBtn) resetBtn.style.display = "none";
+
     renderSavedTeams();
   }
 }
