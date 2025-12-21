@@ -352,8 +352,9 @@ function renderCardList() {
 
       el.innerHTML = `
   <img src="${card.image}" alt="${card.name}">
-  <div class="card-name">${card.name}</div>
-  <div class="card-name" title="${card.name}">${card.name}</div>
+  <div class="card-name" title="${card.name}">
+    ${card.name}
+  </div>
 `;
 
       const used = isCardUsed(card.id);
@@ -434,8 +435,9 @@ function renderPetList() {
 
       el.innerHTML = `
   <img src="${pet.image}" alt="${pet.name}">
-  <div class="pet-name">${pet.name}</div>
-  <div class="pet-name" title="${pet.name}">${pet.name}</div>
+  <div class="pet-name" title="${pet.name}">
+    ${pet.name}
+  </div>
 `;
 
       el.onclick = () => {
