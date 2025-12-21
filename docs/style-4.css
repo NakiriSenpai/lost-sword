@@ -328,6 +328,7 @@ header button:hover {
   outline: 3px solid var(--border-active);
 }
 
+/* shared animation class – used by card & team slot */
 .fade-out {
   opacity: 0;
   transform: scale(0.9);
@@ -345,6 +346,8 @@ header button:hover {
 
 
 /* ================= SYNERGY WARNING (PER BOX) ================= */
+
+/* synergy warning text must override global text color */
 .synergy-warning {
   width: calc(100% - 32px);
   margin: 12px 16px;
@@ -398,8 +401,13 @@ header button:hover {
   font-size: 13px;
 }
 
+/* ======= TEXT SLOT CARD ======= */
 .team-pair .card-slot.empty::after {
   content: "+ Card";
+  display: block;
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
 }
 
 .card-slot.active {
@@ -422,7 +430,7 @@ header button:hover {
   gap: 12px;              /* 🔥 JARAK ANTAR SLOT */
 }
 
-/* mobile */
+/* mobile sizing – DO NOT MERGE SLOT HEIGHTS */
 @media (max-width: 768px) {
   .team-card,
   .team-slot,
@@ -444,6 +452,7 @@ header button:hover {
   }
 }
 /* ================= CARD POPUP ================= */
+/* popup hidden state – controlled by .show class */
 .card-popup {
   position: fixed;
   inset: 0;
@@ -469,7 +478,7 @@ header button:hover {
   width: min(900px, 92%);
   max-height: 85vh;
   background: var(--bg-popup);
-  border: var(--border-default);
+  border: 2px solid var(--border-default);
   border-radius: 20px;
   padding: 20px;
   position: relative;
@@ -558,6 +567,7 @@ header button:hover {
   gap: 12px;
 }
 
+/* pet slot colors based on fixed position (do not reorder slots) */
 #pets .card-slot:nth-child(1) {
   border-color: #38bdf8;
   background: #38bdf820;
@@ -573,15 +583,17 @@ header button:hover {
   background: #ef444420;
 }
 
+/*
 #pets .card-slot.empty::after {
   content: "+ Pets";
 }
+*/
 
 #petSearchInput {
   width: 100%;
   padding: 8px 10px;
   background: var(--bg-input);
-  border: 2px solid var(--border-default);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   color: var(--text-secondary);
 }
