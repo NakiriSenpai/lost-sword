@@ -164,6 +164,10 @@ if (equipPopupEl) {
   document.getElementById("save-team-btn")
     ?.addEventListener("click", saveCurrentTeam);
 
+  /* ========= RESET TEAM BUTTON ========= */
+document.getElementById("reset-team-btn")
+  ?.addEventListener("click", resetTeam);
+
   /* ========== LOGIC PINDAH HALAMAN ======= */
   const navCurrent = document.getElementById("nav-current");
   const navSaved = document.getElementById("nav-saved");
@@ -871,6 +875,41 @@ function deleteSavedTeam(id) {
   localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
   renderSavedTeams();
 }
+
+/* ========= RESET SLOT TEAM ALL ===== */
+  function resetTeam() {
+  if (!confirm("Reset seluruh team? Semua slot akan dikosongkan.")) {
+    return;
+  }
+
+  /* ===== RESET STATE ===== */
+  team = Array(MAX_TEAM).fill(null);
+  cardSlots = Array(MAX_TEAM).fill(null);
+  petSlots = Array(MAX_PETS).fill(null);
+
+  equipSlots = Array.from({ length: EQUIP_ROWS }, () =>
+    Array(EQUIP_COLS).fill(null)
+  );
+
+  selectedSlotIndex = null;
+  activeCardSlotIndex = null;
+  activePetSlotIndex = null;
+  activeEquipSlot = null;
+
+  /* ===== CLEAR STORAGE ===== */
+  localStorage.removeItem("team");
+  localStorage.removeItem("cardSlots");
+  localStorage.removeItem("petSlots");
+
+  /* ===== CLEAR URL ===== */
+  history.replaceState(null, "", location.pathname);
+
+  /* ===== RENDER UI ===== */
+  renderTeam();
+  renderCharacters();
+  renderPets();
+  renderEquipSlots();
+  }
 
 /* ======== HELPER FUNCTION ======= */
 function getCharacterClassByRow(row) {
