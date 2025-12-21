@@ -1522,6 +1522,18 @@ header button:hover {
   transform: scale(0.96);
 }
 
+/* ================= RESET TEAM DISABLED ================= */
+.reset-team-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+  box-shadow: none;
+}
+
+.reset-team-btn:disabled:hover {
+  transform: none;
+}
+
 /* ================= NAV UNDERLINE ANIMATION ================= */
 .nav-btn {
   position: relative;
