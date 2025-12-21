@@ -259,19 +259,22 @@ function setupFilters() {
           .forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
       } else {
-        document
-          .querySelector(`.filter-btn[data-type="${type}"][data-value=""]`)
-          ?.classList.remove("active");
+  document
+    .querySelector(`.filter-btn[data-type="${type}"][data-value=""]`)
+    ?.classList.remove("active");
 
-        btn.classList.toggle("active");
+  btn.classList.toggle("active");
 
-        if (btn.classList.contains("active")) {
-          activeFilters[type].push(value);
-        } else {
-          activeFilters[type] =
-            activeFilters[type].filter(v => v !== value);
-        }
-      }
+  if (btn.classList.contains("active")) {
+    activeFilters[type].push(value);
+  } else {
+    activeFilters[type] =
+      activeFilters[type].filter(v => v !== value);
+  }
+
+  // 🔥 TAMBAHKAN BARIS INI
+  ensureAllActiveIfEmpty(type);
+}
 
       toggleResetButton();
       renderCharacters();
@@ -306,6 +309,20 @@ resetFilterBtn.onclick = () => {
   resetFilterBtn.style.display = "none";
   renderCharacters();
 };
+
+  function ensureAllActiveIfEmpty(type) {
+  if (activeFilters[type].length === 0) {
+    const allBtn = document.querySelector(
+      `.filter-btn[data-type="${type}"][data-value=""]`
+    );
+
+    document
+      .querySelectorAll(`.filter-btn[data-type="${type}"]`)
+      .forEach(b => b.classList.remove("active"));
+
+    allBtn?.classList.add("active");
+  }
+  }
 
 /* ================= CHARACTER LIST ================= */
 function renderCharacters() {
