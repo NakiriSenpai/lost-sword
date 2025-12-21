@@ -89,7 +89,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
 }
 
 header h1 {
@@ -731,6 +731,7 @@ header button:hover {
   text-overflow: ellipsis;
 }
 
+/*
 .slot-remove {
   position: absolute;
   right: -8px;
@@ -745,7 +746,7 @@ header button:hover {
   cursor: pointer;
   z-index: 10;
 }
-
+*/
 
 .remove-card,
 .remove-pet,
@@ -899,7 +900,7 @@ header button:hover {
 .equip-popup-card:hover {
   transform: scale(1.08);
   background: var(--bg-popup);
-  border-color: 2px solid var(--border-hover);
+  border-color: var(--border-hover);
 }
 
 
@@ -972,15 +973,18 @@ header button:hover {
   transform: translate(50%, -50%) scale(1.1);
 }
 
-/* ========= FIX POSISI NAIK TURUN CARD ==== */
+/*
+ FIX POSISI NAIK TURUN CARD 
 .team-card,
 .team-slot,
 .card-slot {
-  height: 150px;          /* FIXED */
+  height: 150px;           
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
+*/
+
 
 .card-slot.empty::after {
   content: "+ Card";
@@ -996,12 +1000,13 @@ header button:hover {
   overflow: visible; /* 🔥 WAJIB */
 }
 
+/*
 .remove-btn {
   position: absolute;
 
   right: 0;
   top: 50%;
-  transform: translate(50%, -50%); /* 🔥 setengah keluar */
+  transform: translate(50%, -50%); 
 
   width: 22px;
   height: 22px;
@@ -1025,7 +1030,7 @@ header button:hover {
   color: #fff;
   transform: translate(50%, -50%) scale(1.1);
 }
-
+*/
 
 /* ================= SAVED TEAM CARD ================= */
 
