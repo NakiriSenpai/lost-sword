@@ -184,7 +184,17 @@ document
   
   /* ========= SAVE BUTTON ========= */
   document.getElementById("save-team-btn")
-    ?.addEventListener("click", saveCurrentTeam);
+  ?.addEventListener("click", () => {
+    openConfirmModal({
+      title: "Save Team?",
+      message: `
+        Team saat ini akan <strong>disimpan</strong>.<br>
+        Kamu masih bisa mengeditnya nanti.
+      `,
+      confirmText: "💾 Save Team",
+      onConfirm: saveCurrentTeam
+    });
+  });
   
 /* ========= RESET TEAM BUTTON ========= */
 document.getElementById("reset-team-btn")
@@ -899,11 +909,35 @@ function renderSavedTeams() {
 };
 
     card.querySelector(".save-note").onclick = () => {
-  const text = card.querySelector("textarea").value;
-  team.note = text;
-  localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
+  const textarea = card.querySelector("textarea");
+  const text = textarea.value;
 
-  showToast("Catatan sudah disimpan");
+  /* ========= VALIDATION (SEBELUM POPUP) ========= */
+  const oldText = team.note || "";
+
+  if (text === oldText) {
+    showToast("Catatan tidak berubah");
+    return;
+  }
+
+  if (!text.trim()) {
+    showToast("Catatan masih kosong");
+    return;
+  }
+
+  openConfirmModal({
+    title: "Save Note?",
+    message: `
+      Catatan untuk team ini akan <strong>disimpan</strong>.
+    `,
+    confirmText: "📝 Save Note",
+    confirmType: "primary",
+    onConfirm: () => {
+      team.note = text;
+      localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
+      showToast("Catatan sudah disimpan");
+    }
+  });
 };
 
     list.appendChild(card);
