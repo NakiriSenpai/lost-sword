@@ -663,6 +663,11 @@ function openCardPopup(index) {
   });
 
   cardPopup.classList.add("show");
+
+  // 🔥 RESET SEARCH & FORCE RENDER
+  cardSearchInput.value = "";
+  renderCardList();
+  setTimeout(() => cardSearchInput.focus(), 0);
 }
 
 function closeCardPopup() {
