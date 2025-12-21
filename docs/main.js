@@ -9,6 +9,7 @@ const FALLBACK_IMG =
 let savedTeams = JSON.parse(localStorage.getItem("savedTeams")) || [];
 
 let activeEquipSlot = null;
+let confirmAction = null;
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 
@@ -148,6 +149,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadEquipFromURL();
   renderEquipSlots();
   renderSavedTeams();
+  updateResetButtonState();
   // EQUIP POPUP CLOSE
   if (equipPopupCloseEl) {
   equipPopupCloseEl.addEventListener("click", closeEquipPopup);
@@ -160,13 +162,44 @@ if (equipPopupEl) {
     }
   });
 }
+  /* ================= CONFIRM MODAL EVENTS ================= */
+document.getElementById("cancelResetBtn")
+  ?.addEventListener("click", closeConfirmModal);
+
+document.getElementById("confirmResetBtn")
+  ?.addEventListener("click", () => {
+    if (typeof confirmAction === "function") {
+      confirmAction();
+    }
+    closeConfirmModal();
+  });
+
+document
+  .getElementById("resetConfirmPopup")
+  ?.addEventListener("click", (e) => {
+    if (e.target.id === "resetConfirmPopup") {
+      closeConfirmModal();
+    }
+  });
+  
   /* ========= SAVE BUTTON ========= */
   document.getElementById("save-team-btn")
     ?.addEventListener("click", saveCurrentTeam);
-
-  /* ========= RESET TEAM BUTTON ========= */
+  
+/* ========= RESET TEAM BUTTON ========= */
 document.getElementById("reset-team-btn")
-  ?.addEventListener("click", openResetConfirm);
+  ?.addEventListener("click", () => {
+    openConfirmModal({
+      title: "Reset Team?",
+      message: `
+        Semua <strong>Character, Card, Pet, dan Equip</strong>
+        akan dikosongkan.<br>
+        Aksi ini <strong>tidak bisa dibatalkan</strong>.
+      `,
+      confirmText: "🔄 Reset Team",
+      onConfirm: resetTeam
+    });
+  });
   
   /* ========== LOGIC PINDAH HALAMAN ======= */
   const navCurrent = document.getElementById("nav-current");
@@ -854,8 +887,16 @@ function renderSavedTeams() {
 
     /* EVENTS */
     card.querySelector(".saved-team-remove").onclick = () => {
-      deleteSavedTeam(team.id);
-    };
+  openConfirmModal({
+    title: "Delete Saved Team?",
+    message: `
+      Team yang sudah disimpan akan <strong>dihapus permanen</strong>.<br>
+      Catatan juga ikut terhapus.
+    `,
+    confirmText: "🗑 Delete",
+    onConfirm: () => deleteSavedTeam(team.id)
+  });
+};
 
     card.querySelector(".save-note").onclick = () => {
   const text = card.querySelector("textarea").value;
@@ -869,6 +910,55 @@ function renderSavedTeams() {
   });
 }
 
+/* ======= GENERIC CONFIRM MODAL ====== */
+  function openConfirmModal({
+  title,
+  message,
+  confirmText = "Confirm",
+  onConfirm
+}) {
+  const popup = document.getElementById("resetConfirmPopup");
+  if (!popup) return;
+
+  document.getElementById("confirmTitle").textContent = title;
+  document.getElementById("confirmMessage").innerHTML = message;
+
+  const confirmBtn = document.getElementById("confirmResetBtn");
+  confirmBtn.textContent = confirmText;
+
+  confirmAction = onConfirm;
+  popup.classList.remove("hidden");
+  }
+
+  /* ======= OPEN MODAL GWNERIC ======== */
+  function openConfirmModal({
+  title,
+  message,
+  confirmText = "Confirm",
+  onConfirm
+}) {
+  const popup = document.getElementById("resetConfirmPopup");
+  if (!popup) return;
+
+  document.getElementById("confirmTitle").textContent = title;
+  document.getElementById("confirmMessage").innerHTML = message;
+
+  const confirmBtn = document.getElementById("confirmResetBtn");
+  confirmBtn.textContent = confirmText;
+
+  confirmAction = onConfirm;
+  popup.classList.remove("hidden");
+  }
+
+  /* ========= CLOSE MODAL ======== */
+  function closeConfirmModal() {
+  document
+    .getElementById("resetConfirmPopup")
+    ?.classList.add("hidden");
+
+  confirmAction = null;
+  }
+  
   /* ======= RESET POPUP ====== */
   const resetPopup = document.getElementById("resetConfirmPopup");
 const cancelResetBtn = document.getElementById("cancelResetBtn");
@@ -932,8 +1022,29 @@ function deleteSavedTeam(id) {
   renderCharacters();
   renderPets();
   renderEquipSlots();
+  updateResetButtonState();
 }
 
+  /* ====== DISABLE RESET TEAM BUTTON IF NULL ===== */
+  
+function isTeamEmpty() {
+  const hasChar = team.some(Boolean);
+  const hasCard = cardSlots.some(Boolean);
+  const hasPet  = petSlots.some(Boolean);
+  const hasEquip = equipSlots.some(row =>
+    row.some(e => e !== null)
+  );
+
+  return !(hasChar || hasCard || hasPet || hasEquip);
+}
+
+  function updateResetButtonState() {
+  const btn = document.getElementById("reset-team-btn");
+  if (!btn) return;
+
+  btn.disabled = isTeamEmpty();
+  }
+  
 /* ======== HELPER FUNCTION ======= */
 function getCharacterClassByRow(row) {
   const char = team[row];
@@ -1022,7 +1133,8 @@ function saveAndRender() {
   persist();
   updateURL();
   renderTeam();
-  renderEquipSlots(); // 🔥 INI YANG HILANG
+  renderEquipSlots(); 
+  updateResetButtonState();
 }
 
 function persist() {
