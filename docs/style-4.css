@@ -1391,6 +1391,45 @@ header button:hover {
   }
 }
 
+/* ================= RESET TEAM BUTTON ================= */
+.reset-team-btn {
+  background: linear-gradient(135deg, #7c2d12, #ef4444);
+  border: none;
+  color: #ffffff;
+
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+
+  border-radius: 999px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow:
+    0 4px 14px rgba(239, 68, 68, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.reset-team-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 18px rgba(239, 68, 68, 0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.35);
+  filter: brightness(1.05);
+}
+
+.reset-team-btn:active {
+  transform: scale(0.96);
+}
+
 /* ================= NAV UNDERLINE ANIMATION ================= */
 .nav-btn {
   position: relative;
