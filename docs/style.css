@@ -1,432 +1,107 @@
-/* =========================================================
-   LOST SWORD TEAM BUILDER
-   CLEAN + SAFE REFACTOR CSS
-   (NO CLASS / ID CHANGED)
-   ========================================================= */
+/* ========================================================= v2.css – CLEAN REBUILD (SAFE CONTRACT)
 
-/* ================= ROOT ================= */
-:root {
-  --bg-main: #0B1020;
-  --bg-section: #10162A;
-  --bg-card: #141C33;
-  --bg-card-hover: #192248;
-  --bg-popup: #0F152B;
-  --bg-input: #0E1428;
+Goal:
 
-  --border-default: #27335E;
-  --border-soft: #1E294B;
-  --border-hover: #3B4D8F;
-  --border-active: #4DF0FF;
-  --border-warning: #E6B65C;
-  --border-danger: #E5484D;
+Cleaner structure
 
-  --text-primary: #E6E9F0;
-  --text-secondary: #AAB1C6;
-  --text-muted: #6B738E;
+Predictable layout
 
-  --warning: #F4C56C;
-  --danger: #E5484D;
+SAME selectors as v1 (JS-safe)
 
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
-}
+No experimental overrides ========================================================= */
 
-/* ================= RESET ================= */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
 
-body {
-  background: var(--bg-main);
-  color: var(--text-primary);
-}
+/* ================= ROOT ================= */ :root { --bg-main: #0b0f14; --bg-section: #111827; --bg-card: #0f172a; --bg-card-hover: #172554; --bg-input: #020617; --bg-popup: rgba(2, 6, 23, 0.85);
 
-/* ================= HEADER ================= */
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 18px;
-  background: #0d1118;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
+--text-primary: #e5e7eb; --text-secondary: #cbd5f5; --text-muted: #94a3b8;
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+--border-default: #334155; --border-active: #38bdf8; --border-warning: #fbbf24; --border-danger: #ef4444;
 
-.site-logo {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-}
+--danger: #ef4444; --warning: #fbbf24; }
 
-.site-name {
-  font-size: 20px;
-  color: #d6e4ff;
-}
+/* ================= BASE ================= */
 
-.share-btn {
-  background: #1e2a44;
-  border: 1px solid rgba(255,255,255,.2);
-  color: white;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-}
+{ box-sizing: border-box; }
 
-.share-btn:hover {
-  background: #24345a;
-}
 
-/* ================= PAGE ================= */
-.page { display: none; }
-.page.active { display: block; }
+body { margin: 0; background: var(--bg-main); color: var(--text-primary); font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
 
-/* ================= TOP CONTROLS ================= */
-.top-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  margin: 16px 0 8px;
-  min-height: 120px;
-}
+img { display: block; max-width: 100%; }
 
-.top-nav {
-  display: flex;
-  gap: 12px;
-}
+button { font-family: inherit; }
 
-.nav-btn {
-  background: #0d1325;
-  border: 1px solid #2b3566;
-  color: #aaa;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
+/* ================= HEADER ================= */ header { padding: 12px 16px; border-bottom: 1px solid var(--border-default); }
 
-.nav-btn.active {
-  background: #1b2347;
-  color: #fff;
-  border-color: #4f6aff;
-}
+/* ================= SECTION ================= */ section { margin-bottom: 12px; }
 
-/* ================= SAVE / RESET ================= */
-.save-team-wrapper {
-  display: flex;
-  gap: 12px;
-}
+/* ================= TEAM ================= */ .team-section { padding: 16px; background: var(--bg-section); }
 
-.save-team-btn,
-.reset-team-btn {
-  padding: 10px 22px;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 999px;
-  cursor: pointer;
-  border: none;
-}
+.team { display: grid; grid-template-columns: repeat(5, 96px); gap: 16px; justify-content: center; }
 
-.save-team-btn {
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
-  color: #fff;
-}
+.team-card, .team-slot { width: 96px; padding: 10px; border-radius: 18px; text-align: center; background: var(--bg-card); border: 2px solid var(--border-default); }
 
-.reset-team-btn {
-  background: #1e293b;
-  color: #fff;
-}
+.team-card { cursor: grab; }
 
-/* ================= TEAM ================= */
-.team-section {
-  padding: 16px;
-  background: var(--bg-section);
-}
+.team-card:active { cursor: grabbing; transform: scale(0.95); }
 
-.team {
-  display: grid;
-  grid-template-columns: repeat(5, 96px);
-  gap: 16px;
-  justify-content: center;
-}
+.team-card img { height: 130px; object-fit: cover; border-radius: 14px; margin-bottom: 6px; }
 
-.team-pair {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
+.team-card strong { font-size: 13px; }
 
-/* ================= SLOT BASE ================= */
-.team-card,
-.team-slot,
-.card-slot {
-  width: 96px;
-  height: 150px;
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-  border-radius: 18px;
-  padding: 10px;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
-  transition: transform .2s, background .2s;
-}
+.team-slot { height: 190px; }
 
-.team-slot:hover,
-.card-slot:hover {
-  background: var(--bg-card-hover);
-  transform: scale(1.05);
-}
+.team-slot.drag-over, .team-card.drag-over { outline: 3px solid var(--border-default); }
 
-.team-card img,
-.card-slot img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 12px;
-}
+/* ================= CARD SLOT ================= */ .card-slot { width: 96px; height: 190px; padding: 10px; border-radius: 18px; background: var(--bg-card); border: 2px solid var(--border-default); text-align: center; cursor: pointer; position: relative; }
 
-.slot-name,
-.team-card strong,
-.card-slot strong {
-  font-size: 12px;
-  margin-top: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.card-slot:hover { background: var(--bg-card-hover); }
 
-.selected-slot {
-  outline: 3px solid var(--border-active);
-}
+.card-slot img { height: 130px; object-fit: cover; border-radius: 14px; margin-bottom: 6px; }
 
-.card-slot.empty::after {
-  content: "+ Card";
-  display: block;
-  margin-top: 8px;
-  color: var(--text-muted);
-}
+.card-slot strong { font-size: 13px; }
 
-/* ================= REMOVE BUTTON (UNIFIED) ================= */
-.remove-btn,
-.remove-card,
-.remove-pet,
-.remove-equip {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translate(50%, -50%);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  border: 2px solid var(--border-danger);
-  color: var(--danger);
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 20;
-}
+.card-slot.empty::after { content: '+ Card'; display: block; margin-top: auto; font-size: 12px; color: var(--text-muted); }
 
-.remove-btn:hover,
-.remove-card:hover,
-.remove-pet:hover,
-.remove-equip:hover {
-  background: var(--danger);
-  color: #fff;
-}
+.card-slot.active { outline: 3px solid var(--border-active); }
 
-/* ================= FILTER ================= */
-.filters-ui {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
+/* ================= FILTER ================= */ .filters-ui { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
 
-.filter-header input {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: var(--bg-input);
-  border: 1px solid var(--border-default);
-  color: var(--text-secondary);
-}
+.filter-header input, #cardSearchInput, #petSearchInput { width: 100%; padding: 10px 14px; border-radius: 10px; background: var(--bg-input); border: 1px solid var(--border-default); color: var(--text-secondary); }
 
-.filters-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  align-items: center;
-}
+.filters-bar { display: flex; gap: 12px; flex-wrap: wrap; }
 
-.filter-group {
-  display: flex;
-  gap: 8px;
-}
+.filter-btn { width: 40px; height: 40px; border-radius: 10px; background: var(--bg-card); border: 2px solid var(--border-default); display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-.filter-btn {
-  width: 40px;
-  height: 40px;
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-  border-radius: 10px;
-  cursor: pointer;
-}
+.filter-btn.active { border-color: var(--border-active); }
 
-.filter-btn.active {
-  border-color: var(--border-active);
-}
+#resetFilterBtn { margin-left: auto; padding: 8px 16px; border-radius: 10px; background: var(--bg-card); border: 2px solid var(--border-danger); color: var(--danger); font-weight: 700; }
 
-#resetFilterBtn {
-  margin-left: auto;
-  padding: 8px 16px;
-  background: var(--bg-card);
-  color: var(--danger);
-  border: 2px solid var(--border-danger);
-  border-radius: 10px;
-  cursor: pointer;
-}
+/* ================= GRID ================= */ .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 14px; padding: 16px; }
 
-/* ================= SYNERGY WARNING ================= */
-.synergy-warning {
-  margin: 12px 16px;
-  padding: 12px 16px;
-  border: 2px solid var(--border-warning);
-  border-radius: 12px;
-  background: var(--bg-card);
-  color: var(--warning);
-  font-weight: 700;
-}
+.card { background: var(--bg-card); border: 2px solid var(--border-default); border-radius: 18px; padding: 10px; text-align: center; cursor: pointer; }
 
-/* ================= CHARACTERS ================= */
-.characters-section h2 {
-  padding: 0 16px;
-}
+.card:hover { transform: translateY(-4px); }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 14px;
-  padding: 16px;
-}
+.card.in-team { outline: 3px solid var(--border-active); }
 
-.card {
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-  border-radius: 18px;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-}
+/* ================= POPUP ================= */ .card-popup { position: fixed; inset: 0; background: var(--bg-popup); display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
 
-.card.in-team {
-  outline: 3px solid var(--border-active);
-}
-
-/* ================= PETS ================= */
-.pets-section {
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-}
-
-.pets {
-  display: flex;
-  gap: 12px;
-}
-
-/* ================= EQUIP ================= */
-.equip-section {
-  padding: 16px;
-}
-
-.equip-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.equip-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 96px);
-  gap: 16px;
-}
-
-.equip-row { display: contents; }
-
-.equip-slot {
-  width: 96px;
-  height: 72px;
-  border-radius: 10px;
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ================= POPUP ================= */
-.card-popup,
-.equip-popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(2,6,23,.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.card-popup { opacity: 0; pointer-events: none; }
 .card-popup.show { opacity: 1; pointer-events: auto; }
 
-.card-popup-content,
-.equip-popup-content {
-  width: min(900px, 92%);
-  max-height: 85vh;
-  background: var(--bg-popup);
-  border-radius: 20px;
-  padding: 20px;
-  overflow-y: auto;
-}
+.card-popup-content { width: min(900px, 92%); max-height: 85vh; background: var(--bg-card); border: 2px solid var(--border-default); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 
-.popup-close,
-.equip-popup-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: none;
-  border: none;
-  color: var(--danger);
-  font-size: 20px;
-  cursor: pointer;
-}
+.popup-close { position: absolute; top: 12px; right: 12px; background: transparent; border: none; color: var(--danger); font-size: 20px; cursor: pointer; }
 
-/* ================= TOAST ================= */
-.toast {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
+/* ================= REMOVE BUTTON ================= */ .remove-card, .remove-pet, .remove-equip { position: absolute; right: 0; top: 50%; transform: translate(50%, -50%); width: 22px; height: 22px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--border-danger); color: var(--danger); font-size: 13px; font-weight: bold; cursor: pointer; }
 
-.toast.hidden { display: none; }
+.remove-card:hover, .remove-pet:hover, .remove-equip:hover { background: var(--danger); color: #fff; }
 
-.toast-content {
-  background: rgba(15,15,15,.95);
-  border: 2px solid #38bdf8;
-  border-radius: 14px;
-  padding: 22px 28px;
-  font-size: 18px;
-  color: #e5f6ff;
-}
+/* ================= MOBILE ================= */ @media (max-width: 768px) { .team { grid-template-columns: repeat(5, 72px); }
+
+.team-card, .team-slot, .card-slot { width: 72px; }
+
+.team-slot { height: 130px; }
+
+.card-slot { height: 90px; }
+
+.team-card img, .card-slot img { height: 80px; } }
