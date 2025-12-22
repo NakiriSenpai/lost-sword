@@ -1,63 +1,99 @@
 /* =========================================================
    LOST SWORD TEAM BUILDER
-   style-4.css
-   ========================================================= */
+   FILE: style-4.css
+
+   Fungsi:
+   - File CSS utama (1 file besar)
+   - Dipakai oleh seluruh UI Team Builder
+   - Terhubung langsung dengan main.js
+
+   CATATAN:
+   - Semua variabel :root dipakai lintas komponen
+   - Jangan ubah nama variable tanpa audit JS
+========================================================= */
 
 
-/* =========================================================
-   1. ROOT VARIABLES
-   Semua variable global: warna, border, text, efek, animasi
-   ========================================================= */
+/* ================= ROOT =================
+   SISTEM WARNA & TEMA GLOBAL
+   Dipakai oleh:
+   - Card
+   - Slot
+   - Popup
+   - Equip
+   - Notifikasi
+========================================== */
 :root {
-  /* CORE BACKGROUND */
-  --bg-main: #0B1020;
-  --bg-section: #10162A;
-  --bg-card: #141C33;
-  --bg-card-hover: #192248;
-  --bg-popup: #0F152B;
-  --bg-input: #0E1428;
+  /* =====================================================
+     CORE BACKGROUND
+     ===================================================== */
+  --bg-main: #0B1020;          /* background utama (sangat gelap) */
+  --bg-section: #10162A;       /* section wrapper */
+  --bg-card: #141C33;          /* card / slot */
+  --bg-card-hover: #192248;    /* hover */
+  --bg-popup: #0F152B;         /* popup modal */
+  --bg-input: #0E1428;         /* search & input */
 
-  /* BORDER SYSTEM */
-  --border-default: #27335E;
-  --border-soft: #1E294B;
-  --border-hover: #3B4D8F;
-  --border-active: #4DF0FF;
-  --border-warning: #E6B65C;
-  --border-danger: #E5484D;
+  /* =====================================================
+     BORDER SYSTEM (ARCANE)
+     ===================================================== */
+  --border-default: #27335E;   /* slot normal */
+  --border-soft: #1E294B;      /* subtle divider */
+  --border-hover: #3B4D8F;     /* hover */
+  --border-active: #4DF0FF;    /* active / selected */
+  --border-warning: #E6B65C;   /* warning / legendary */
+  --border-danger: #E5484D;    /* error / delete */
 
-  /* TEXT SYSTEM */
-  --text-primary: #E6E9F0;
-  --text-secondary: #AAB1C6;
-  --text-muted: #6B738E;
-  --text-disabled: #4E556F;
+  /* =====================================================
+     TEXT SYSTEM
+     ===================================================== */
+  --text-primary: #E6E9F0;     /* judul */
+  --text-secondary: #AAB1C6;   /* info */
+  --text-muted: #6B738E;       /* placeholder */
+  --text-disabled: #4E556F;    /* disabled */
 
-  /* NAME HIGHLIGHT */
+  /* =====================================================
+     NAME HIGHLIGHT (ENTITAS)
+     ===================================================== */
   --name-character: #8FB9FF;
   --name-card: #C5B8FF;
   --name-pet: #6FE3B4;
   --name-legendary: #F5C77A;
 
-  /* EFFECT / GLOW */
+  /* =====================================================
+     EFFECT / GLOW
+     ===================================================== */
   --glow-hover: 0 0 12px rgba(77, 240, 255, 0.35);
   --glow-active: 0 0 16px rgba(77, 240, 255, 0.55);
   --glow-legendary: 0 0 18px rgba(245, 199, 122, 0.55);
 
-  /* STATUS */
+  /* =====================================================
+     STATUS / NOTIFICATION
+     ===================================================== */
   --success: #2ECC71;
   --warning: #F4C56C;
   --danger: #E5484D;
   --info: #4DF0FF;
 
-  /* TRANSITION */
+  /* =====================================================
+     TRANSITION
+     ===================================================== */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
 }
 
-
 /* =========================================================
-   2. RESET / BASE STYLE
-   Reset margin, padding, box model, font global
-   ========================================================= */
+   2. CSS RESET & GLOBAL BASE
+   ---------------------------------------------------------
+   Fungsi:
+   - Menyamakan perilaku elemen browser
+   - Menentukan font default
+   - Warna dasar body
+
+   Catatan:
+   - Hampir semua elemen UI mewarisi rule di sini
+========================================================= */
+
+/* ================= RESET ================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -65,11 +101,23 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* ================= BODY =================
+   Dipakai oleh:
+   - Semua halaman
+   - Popup & overlay tetap inherit warna
+========================================== */
 body {
   background: var(--bg-main);
   color: var(--text-primary);
 }
 
+/* ================= GLOBAL SECTION BACKGROUND =================
+   Section-wrapper umum:
+   - container utama
+   - filter UI
+   - popup
+   - popup-content
+=============================================================== */
 section,
 .filters-ui,
 .popup,
@@ -77,13 +125,24 @@ section,
   background: var(--bg-section);
 }
 
-
 /* =========================================================
-   3. LAYOUT GLOBAL
-   Header, page container, navigation
-   ========================================================= */
+   3. HEADER / BRANDING / TOP NAVIGATION
+   ---------------------------------------------------------
+   Fungsi:
+   - Header utama website
+   - Branding (nama site)
+   - Tombol share
+   - Navigasi bagian atas
 
-/* ---------- HEADER ---------- */
+   Catatan:
+   - Beberapa rule muncul TERPISAH di file lama
+   - Disatukan di sini agar mudah dibaca manusia
+========================================================= */
+
+
+/* ================= HEADER DASAR =================
+   Header paling atas (struktur umum)
+================================================= */
 header {
   padding: 16px;
   display: flex;
@@ -96,90 +155,46 @@ header h1 {
   font-size: 22px;
 }
 
-header button {
-  padding: 8px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--border-default);
-  background: var(--bg-input);
-  color: var(--text-secondary);
-  cursor: pointer;
-}
 
-header button:hover {
-  background: #1e293b;
-}
-
-/* ---------- PAGE SWITCHING ---------- */
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-/* ---------- TOP NAV ---------- */
-.top-nav {
+/* ================= SITE HEADER (VERSI BARU) =================
+   Header dengan branding lengkap
+   Dipakai di layout utama
+============================================================== */
+.site-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #0d1118;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+
+/* ================= BRAND =================
+   Logo + nama website
+=========================================== */
+.brand {
+  display: flex;
+  align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
 }
 
-.top-nav.centered {
-  justify-content: center;
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.site-name {
+  font-size: 20px;
+  margin: 0;
+  color: #d6e4ff;
 }
 
 
-/* =========================================================
-   4. BUTTONS GLOBAL
-   Semua tombol yang reusable lintas section
-   ========================================================= */
-
-/* NAV BUTTON */
-.nav-btn {
-  position: relative;
-  overflow: hidden;
-
-  background: #0d1325;
-  border: 1px solid #2b3566;
-  color: #aaa;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.nav-btn.active {
-  background: #1b2347;
-  color: #fff;
-  border-color: #4f6aff;
-}
-
-/* underline animation */
-.nav-btn::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 4px;
-
-  width: 70%;
-  height: 3px;
-  background: linear-gradient(90deg, #38bdf8, #4f6aff);
-  border-radius: 999px;
-
-  transform: translateX(-50%) scaleX(0);
-  transition: transform 0.25s ease;
-}
-
-.nav-btn.active::after,
-.nav-btn:hover::after {
-  transform: translateX(-50%) scaleX(1);
-}
-
-.nav-btn:hover {
-  color: #ffffff;
-}
-
-/* SHARE BUTTON */
+/* ================= SHARE BUTTON =================
+   Tombol share (UI kosmetik)
+================================================= */
 .share-btn {
   background: #1e2a44;
   border: 1px solid rgba(255,255,255,.2);
@@ -193,628 +208,799 @@ header button:hover {
   background: #24345a;
 }
 
-/* =========================================================
-   5. TEAM SECTION
-   Fungsi:
-   - Container utama area team builder
-   - Membungkus grid team & slot
-========================================================= */
-.team-section {
-  padding: 16px;
-  background: var(--bg-section);
+
+/* ================= TOP CONTROLS =================
+   Area kontrol bagian atas:
+   - filter
+   - tombol save
+   - navigasi
+================================================= */
+.top-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 8px;
+  min-height: 120px;
 }
 
-.team {
-  display: grid;
-  grid-template-columns: repeat(5, 96px);
-  gap: 16px;
+.top-nav.centered {
   justify-content: center;
 }
 
 
-/* =========================================================
-   6. TEAM CARD / TEAM SLOT
-   Fungsi:
-   - team-card  : kartu karakter (draggable)
-   - team-slot  : slot drop target
-   Catatan:
-   - Digunakan langsung oleh logic drag & drop JS
-   - Jangan disatukan dengan .card-slot
-========================================================= */
-.team-card,
-.team-slot {
-  width: 96px;
-  border-radius: 18px;
-  padding: 10px;
-  text-align: center;
-  transition: background 0.2s, transform 0.2s;
-}
+/* ================= RESPONSIVE HEADER ================= */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 18px;
+  }
 
-/* ---------- TEAM CARD (DRAG SOURCE) ---------- */
-.team-card {
-  background: var(--bg-card);
-  cursor: grab;
-}
-
-.team-card:active {
-  cursor: grabbing;
-  transform: scale(0.95);
-}
-
-.team-card img {
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 14px;
-  margin-bottom: 6px;
-}
-
-.team-card strong {
-  display: block;
-  font-size: 13px;
-}
-
-/* animasi saat card di-remove */
-.team-card.fade-out {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.25s ease;
-}
-
-/* ---------- TEAM SLOT (DROP TARGET) ---------- */
-.team-slot {
-  height: 190px;
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-}
-
-.team-slot:hover {
-  background: var(--bg-card-hover);
-  transform: scale(1.05);
-}
-
-/* visual saat drag-over */
-.team-slot.drag-over,
-.team-card.drag-over {
-  outline: 3px solid var(--border-default);
-  background: var(--bg-card);
-}
-
-
-/* =========================================================
-   7. CARD SLOT
-   Fungsi:
-   - Slot equip / pet / card popup
-   Catatan:
-   - Punya remove button (absolute)
-   - Overflow visible sengaja
-========================================================= */
-.card-slot {
-  width: 96px;
-  height: 190px;
-  border-radius: 18px;
-  padding: 10px;
-  text-align: center;
-
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-
-  position: relative;
-  overflow: visible;
-}
-
-.card-slot:hover {
-  background: var(--bg-card-hover);
-  transform: scale(1.05);
-}
-
-.card-slot img {
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 14px;
-  margin-bottom: 6px;
-}
-
-.card-slot strong {
-  display: block;
-  font-size: 13px;
-}
-
-/* state aktif (dipilih) */
-.card-slot.active {
-  outline: 3px solid var(--border-active);
-}
-
-/* state kosong */
-.card-slot.empty::after {
-  content: "+ Card";
-  margin-top: auto;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-/* state terisi */
-.card-slot:not(.empty),
-.team-card {
-  background: var(--bg-card-hover);
-  color: var(--name-character);
-  border: 3px solid var(--border-default);
+  .top-controls {
+    gap: 10px;
+  }
 }
 
 /* =========================================================
-   8. FILTERS
+   4. TOP ACTION BUTTONS
+   ---------------------------------------------------------
    Fungsi:
-   - Search + filter karakter
-   - Mengontrol grid character
+   - Tombol Save Team
+   - Tombol Reset Team
+   - Tombol aksi lain di bagian atas
+
+   TERKAIT LANGSUNG DENGAN JS:
+   - saveCurrentTeam()
+   - resetTeam()
 ========================================================= */
-.filters-ui {
-  padding: 16px;
+
+
+/* ================= ACTION BUTTON WRAPPER =================
+   Container tombol utama
+====================================================== */
+.action-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* search input */
-.filter-header input {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: var(--bg-input);
-  border: 1px solid var(--border-default);
-  color: var(--text-secondary);
-}
-
-/* filter bar container */
-.filters-bar {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+  gap: 12px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
-/* group icon filter */
-.filter-group {
-  display: flex;
-  gap: 8px;
+
+/* ================= SAVE TEAM BUTTON =================
+   Tombol utama simpan team
+===================================================== */
+.save-team-btn {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
 }
 
-/* filter button */
-.filter-btn {
-  width: 40px;
-  height: 40px;
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-  color: var(--text-secondary);
+.save-team-btn:hover {
+  filter: brightness(1.1);
+}
+
+
+/* ================= RESET TEAM BUTTON =================
+   Tombol reset (DESTRUCTIVE)
+====================================================== */
+.reset-team-btn {
+  background: transparent;
+  border: 1px solid var(--border-danger);
+  padding: 10px 18px;
   border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+  color: var(--danger);
   cursor: pointer;
 }
 
-.filter-btn img {
-  width: 20px;
-  height: 20px;
+.reset-team-btn:hover {
+  background: rgba(229, 72, 77, 0.15);
 }
 
-/* active filter */
-.filter-btn.active {
+
+/* ================= DISABLED STATE =================
+   DIPAKAI JS:
+   button.disabled = true
+==================================================== */
+.save-team-btn:disabled,
+.reset-team-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   5. FILTER & SEARCH SYSTEM
+   ---------------------------------------------------------
+   Fungsi:
+   - Filter karakter (role, element, rarity, dll)
+   - Search nama karakter
+   - Reset filter
+
+   TERKAIT LANGSUNG DENGAN JS:
+   - setupFilters()
+   - activeFilters
+   - toggleResetButton()
+========================================================= */
+
+
+/* ================= FILTER UI WRAPPER =================
+   Container utama filter
+==================================================== */
+.filters-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-soft);
+}
+
+
+/* ================= FILTER BAR =================
+   Bar tombol filter
+================================================ */
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+
+/* ================= FILTER BUTTON =================
+   Tombol filter individu
+================================================== */
+.filter-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
   background: var(--bg-card);
-  border-color: var(--border-active);
   color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+  cursor: pointer;
+  transition: var(--transition-fast);
 }
 
-/* reset filter button */
+.filter-btn:hover {
+  border-color: var(--border-hover);
+}
+
+
+/* ================= FILTER ACTIVE STATE =================
+   DIPAKAI JS:
+   filterBtn.classList.toggle("active")
+========================================================= */
+.filter-btn.active {
+  border-color: var(--border-active);
+  box-shadow: var(--glow-hover);
+  color: var(--text-primary);
+}
+
+
+/* ================= RESET FILTER BUTTON =================
+   Tombol reset (muncul jika ada filter aktif)
+========================================================= */
 #resetFilterBtn {
   margin-left: auto;
-  padding: 8px 16px;
-
-  background: var(--bg-card);
-  color: var(--danger);
-  border: 2px solid var(--border-danger);
-  border-radius: 10px;
-
-  font-weight: 700;
+  color: var(--warning);
   cursor: pointer;
+  opacity: 0.7;
 }
 
 #resetFilterBtn:hover {
-  background: var(--bg-card-hover);
+  opacity: 1;
 }
 
 
-/* =========================================================
-   9. CHARACTER GRID
-   Fungsi:
-   - Menampilkan list karakter
-   - Interaksi klik / hover
-========================================================= */
-.characters-section h2 {
-  padding: 0 16px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 14px;
-  padding: 16px;
-}
-
-.card {
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-  border-radius: 18px;
-  padding: 10px;
-  text-align: center;
-
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-}
-
-.card img {
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 14px;
-}
-
-.card strong,
-.card span {
-  display: block;
-  margin-top: 6px;
-  color: var(--text-primary);
-  font-weight: 700;
-  font-size: 13px;
-}
-
-/* karakter sudah masuk team */
-.card.in-team {
-  outline: 3px solid var(--border-active);
-}
-
-
-/* =========================================================
-   10. PETS SECTION
-   Fungsi:
-   - Slot pet di team
-   - Warna slot berdasarkan posisi
-========================================================= */
-.pets-section {
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-}
-
-.pets {
-  display: flex;
-  gap: 12px;
-}
-
-/* pet slot color by index */
-#pets .card-slot:nth-child(1) {
-  border-color: #38bdf8;
-  background: #38bdf820;
-}
-
-#pets .card-slot:nth-child(2) {
-  border-color: #fbbf24;
-  background: #fbbf2420;
-}
-
-#pets .card-slot:nth-child(3) {
-  border-color: #ef4444;
-  background: #ef444420;
-}
-
-/* empty pet slot */
-#pets .card-slot.empty::after {
-  content: "+ Pets";
-}
-
-/* pet popup search */
-#petSearchInput {
-  width: 100%;
-  padding: 8px 10px;
+/* ================= SEARCH INPUT =================
+   Input pencarian karakter
+================================================ */
+.search-input {
   background: var(--bg-input);
-  border: 2px solid var(--border-default);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--text-primary);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   6. CHARACTER GRID & CHARACTER CARD
+   ---------------------------------------------------------
+   Fungsi:
+   - Menampilkan daftar karakter
+   - Menandai karakter yang sudah masuk team
+   - State disabled / selected
+
+   TERKAIT LANGSUNG DENGAN JS:
+   - renderCharacters()
+   - handleCharacterClick()
+   - updateCharacterState()
+========================================================= */
+
+
+/* ================= CHARACTER SECTION =================
+   Wrapper section karakter
+================================================== */
+.characters-section {
+  margin-top: 16px;
+}
+
+
+/* ================= CHARACTER GRID =================
+   Grid daftar karakter
+================================================ */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+
+/* ================= CHARACTER CARD =================
+   Card karakter individu
+================================================== */
+.character-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  padding: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.character-card:hover {
+  border-color: var(--border-hover);
+}
+
+
+/* ================= CHARACTER IMAGE ================= */
+.character-card img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+
+/* ================= CHARACTER NAME ================= */
+.character-card .name {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 4px;
   color: var(--text-secondary);
 }
 
-/* pet list item */
-#petList .card-item {
-  overflow: hidden;
+
+/* ================= STATE: IN TEAM =================
+   DIPAKAI JS:
+   card.classList.add("in-team")
+==================================================== */
+.character-card.in-team {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-#petList .card-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 6px;
+
+/* ================= STATE: DISABLED =================
+   Dipakai jika tidak bisa dipilih
+==================================================== */
+.character-card.disabled {
+  opacity: 0.3;
+  pointer-events: none;
 }
 
+
+/* ================= RARITY / SPECIAL BORDER =================
+   Visual kosmetik (rarity, element, dll)
+============================================================== */
+.character-card.legendary {
+  border-color: var(--border-warning);
+  box-shadow: var(--glow-legendary);
+}
 
 /* =========================================================
-   11. EQUIP SECTION
+   7. TEAM BUILDER & TEAM SLOT SYSTEM
+   ---------------------------------------------------------
    Fungsi:
-   - Slot equip
-   - Tombol remove setengah keluar
-   Catatan:
-   - overflow visible WAJIB
+   - Area team (slot karakter)
+   - Menampilkan karakter terpilih
+   - Menangani state aktif / kosong / selected
+
+   TERKAIT LANGSUNG DENGAN JS:
+   - renderTeam()
+   - selectTeamSlot()
+   - addCharacterToTeam()
+   - removeCharacterFromTeam()
 ========================================================= */
-.equip-slot {
-  position: relative;
-  overflow: visible;
+
+
+/* ================= TEAM SECTION =================
+   Wrapper utama team builder
+================================================= */
+.team-section {
+  margin-top: 18px;
 }
 
-/* remove equip button */
-.remove-equip {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translate(50%, -50%);
 
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+/* ================= TEAM SLOTS CONTAINER =================
+   Container slot-slot team
+======================================================= */
+.team-slots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
-  border: 2px solid var(--border-danger);
+
+/* ================= TEAM SLOT =================
+   Slot karakter (inti)
+================================================ */
+.team-slot {
+  width: 110px;
+  height: 150px;
   background: var(--bg-card);
-  color: var(--danger);
-
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 1;
-
+  border: 2px dashed var(--border-default);
+  border-radius: 12px;
+  position: relative;
   cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+  transition: var(--transition-fast);
 }
 
-.remove-equip:hover {
-  background: var(--danger);
-  color: #fff;
-  transform: translate(50%, -50%) scale(1.1);
-  }
+.team-slot:hover {
+  border-color: var(--border-hover);
+}
 
-/* =========================================================
-   12. POPUP (CARD / EQUIP / CONFIRM)
-   Fungsi:
-   - Popup pemilihan card / pet / equip
-   - Overlay + animasi scale
-========================================================= */
-.card-popup {
-  position: fixed;
-  inset: 0;
-  background: var(--bg-popup);
 
+/* ================= EMPTY SLOT =================
+   Slot kosong (sebelum karakter dipilih)
+================================================ */
+.team-slot.empty {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  z-index: 999;
-
-  opacity: 0;
-  transform: scale(0.95);
-  pointer-events: none;
-
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  color: var(--text-muted);
 }
 
-.card-popup.show {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
+
+/* ================= SELECTED SLOT =================
+   DIPAKAI JS:
+   slot.classList.add("selected-slot")
+=================================================== */
+.team-slot.selected-slot {
+  border-color: var(--border-active);
+  box-shadow: var(--glow-active);
 }
 
-.card-popup-content {
-  width: min(900px, 92%);
-  max-height: 85vh;
 
-  background: var(--bg-popup);
-  border: var(--border-default);
-  border-radius: 20px;
-  padding: 20px;
-
-  position: relative;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* close popup */
-.popup-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  background: transparent;
-  border: none;
-  color: var(--danger);
-
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* popup search input */
-#cardSearchInput {
-  padding: 10px 14px;
-  border-radius: 10px;
-
-  background: var(--bg-input);
-  border: 1px solid var(--border-default);
-  color: var(--text-secondary);
-}
-
-/* grid isi popup */
-.card-grid {
-  flex: 1;
-  overflow-y: auto;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 14px;
-}
-
-/* item card di popup */
-.card-item {
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-  border-radius: 16px;
-  padding: 8px;
-
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s;
-
-  color: var(--name-card);
-}
-
-.card-item.used {
-  opacity: 0.4;
-  filter: grayscale(1);
-  pointer-events: none;
-}
-
-.card-item:hover {
-  transform: scale(1.05);
-}
-
-.card-item img {
+/* ================= SLOT IMAGE ================= */
+.team-slot img {
   width: 100%;
-  height: 120px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
-}
-
-.card-item strong {
-  display: block;
-  margin-top: 6px;
-  font-size: 13px;
+  border-radius: 10px;
 }
 
 
-/* =========================================================
-   13. SAVED TEAM
-   Fungsi:
-   - Menampilkan team yang disimpan
-========================================================= */
-.saved-team-section {
-  padding: 16px;
-}
-
-.saved-team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 12px;
-}
-
-
-/* =========================================================
-   14. TOAST / WARNING
-   Fungsi:
-   - Peringatan synergy / info penting
-========================================================= */
-.synergy-warning {
-  width: calc(100% - 32px);
-  margin: 12px 16px;
-  padding: 12px 16px;
-
-  border: 2px solid var(--border-warning);
-  border-radius: 12px;
-
-  color: var(--warning) !important;
-  background: var(--bg-card);
-
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.synergy-warning div + div {
-  margin-top: 6px;
-}
-
-
-/* =========================================================
-   15. UTILITY / STATE
-   Fungsi:
-   - State visual sementara
-   - Dipakai lintas section
-========================================================= */
-.fade-out {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.2s ease;
-}
-
-.swap {
-  transform: scale(1.08);
-  transition: transform 0.25s ease;
-}
-
-.selected-slot {
-  outline: 3px solid var(--border-active);
-}
-
-/* universal remove button (card / pet / equip) */
-.remove-card,
-.remove-pet,
-.remove-equip {
+/* ================= REMOVE BUTTON =================
+   Tombol X untuk remove karakter
+================================================== */
+.team-slot .remove-btn {
   position: absolute;
-  right: -8px;
-  top: 50%;
-  transform: translateY(-50%);
-
+  top: 6px;
+  right: 6px;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
   width: 22px;
   height: 22px;
   border-radius: 50%;
-
-  background: var(--bg-card);
-  border: 2px solid var(--border-danger);
-  color: var(--danger);
-
-  font-size: 13px;
-  font-weight: bold;
   cursor: pointer;
-  z-index: 20;
+}
+
+.team-slot .remove-btn:hover {
+  background: rgba(229, 72, 77, 0.8);
+}
+
+/* =========================================================
+   8. CARD SLOT & PET SLOT SYSTEM
+   ---------------------------------------------------------
+   Fungsi:
+   - Slot kartu di bawah setiap team-slot
+   - Slot pet
+   - Trigger popup pemilihan card / pet
+
+   TERKAIT LANGSUNG DENGAN JS:
+   - renderPets()
+   - openCardPopup()
+   - selectCard()
+========================================================= */
+
+
+/* ================= SLOT CONTAINER =================
+   Wrapper slot card / pet
+================================================ */
+.slot-container {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  justify-content: center;
+}
+
+
+/* ================= GENERIC SLOT =================
+   Slot dasar (card & pet)
+================================================== */
+.card-slot,
+.pet-slot {
+  width: 48px;
+  height: 48px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.card-slot:hover,
+.pet-slot:hover {
+  border-color: var(--border-hover);
+}
+
+
+/* ================= SLOT INNER =================
+   Inner wrapper (gambar / icon)
+================================================ */
+.slot-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ================= SLOT IMAGE ================= */
+.card-slot img,
+.pet-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+
+/* ================= EMPTY SLOT =================
+   Slot kosong (belum ada card / pet)
+================================================ */
+.card-slot.empty,
+.pet-slot.empty {
+  opacity: 0.4;
+}
+
+
+/* ================= REMOVE BUTTON (CARD / PET) =================
+   Tombol hapus kecil
+============================================================== */
+.card-slot .remove-pet,
+.pet-slot .remove-pet {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  background: var(--danger);
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+/* =========================================================
+   9. POPUP / MODAL SYSTEM
+   ---------------------------------------------------------
+   Fungsi:
+   - Popup pemilihan card
+   - Popup pemilihan pet
+   - Overlay gelap
+   - Scroll konten popup
+
+   TERKAIT LANGSUNG DENGAN JS:
+   - openPopup()
+   - closePopup()
+   - popup.classList.add("active")
+========================================================= */
+
+
+/* ================= POPUP OVERLAY =================
+   Latar gelap full screen
+================================================ */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+/* ================= POPUP ACTIVE =================
+   DIPAKAI JS:
+   popup.classList.add("active")
+================================================== */
+.popup.active {
+  display: flex;
+}
+
+
+/* ================= POPUP CONTENT =================
+   Kotak utama popup
+================================================= */
+.popup-content {
+  background: var(--bg-popup);
+  border-radius: 14px;
+  width: 90%;
+  max-width: 720px;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+}
+
+
+/* ================= POPUP HEADER =================
+   Judul + tombol close
+================================================ */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+
+/* ================= POPUP BODY =================
+   Area scroll konten
+================================================ */
+.popup-body {
+  padding: 12px;
+  overflow-y: auto;
+}
+
+
+/* ================= CLOSE BUTTON =================
+   Tombol X popup
+================================================ */
+.popup-close {
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+.popup-close:hover {
+  opacity: 1;
+}
+
+/* =========================================================
+   10. POPUP CONTENT GRID (CARD / PET)
+   ---------------------------------------------------------
+   Fungsi:
+   - Menampilkan daftar card / pet di popup
+   - Memberi state hover & selected
+   - Visual feedback saat memilih
+
+   TERKAIT LANGSUNG DENGAN JS:
+   - renderPopupCards()
+   - renderPopupPets()
+   - selectCard()
+   - selectPet()
+========================================================= */
+
+
+/* ================= POPUP GRID =================
+   Grid item di dalam popup
+================================================ */
+.popup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+
+/* ================= POPUP ITEM =================
+   Card / Pet item
+================================================ */
+.popup-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  padding: 6px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.popup-item:hover {
+  border-color: var(--border-hover);
+}
+
+
+/* ================= POPUP ITEM IMAGE ================= */
+.popup-item img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+
+/* ================= POPUP ITEM NAME ================= */
+.popup-item .name {
+  font-size: 11px;
+  text-align: center;
+  margin-top: 4px;
+  color: var(--text-secondary);
+}
+
+
+/* ================= SELECTED ITEM =================
+   DIPAKAI JS:
+   item.classList.add("selected")
+================================================== */
+.popup-item.selected {
+  border-color: var(--border-active);
+  box-shadow: var(--glow-active);
+}
+
+
+/* ================= DISABLED ITEM =================
+   Item tidak bisa dipilih
+================================================== */
+.popup-item.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* =========================================================
+   11. NOTIFICATION / TOAST SYSTEM
+   ---------------------------------------------------------
+   Fungsi:
+   - Menampilkan pesan sukses / error / info
+   - Feedback setelah aksi user (save, reset, dll)
+
+   TERKAIT LANGSUNG DENGAN JS:
+   - showToast()
+   - showNotification()
+========================================================= */
+
+
+/* ================= TOAST CONTAINER =================
+   Wrapper notifikasi
+================================================ */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+}
+
+
+/* ================= TOAST =================
+   Elemen notifikasi
+================================================ */
+.toast {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  min-width: 200px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  animation: toastIn 0.3s ease;
+}
+
+
+/* ================= TOAST VARIANT ================= */
+.toast.success {
+  border-color: var(--success);
+}
+
+.toast.error {
+  border-color: var(--danger);
+}
+
+.toast.info {
+  border-color: var(--info);
+}
+
+
+/* ================= TOAST ANIMATION ================= */
+@keyframes toastIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 
 /* =========================================================
-   16. MEDIA QUERIES (MOBILE)
-   Catatan:
-   - SELALU di paling bawah
-   - Override ukuran, bukan logic
+   12. UTILITY & HELPER CLASS
+   ---------------------------------------------------------
+   Fungsi:
+   - Class kecil reusable
+   - State global (hidden, active, center)
+   - Dipakai langsung oleh JS & HTML
+
+   CATATAN:
+   - Jangan hapus walaupun terlihat "sepele"
 ========================================================= */
-@media (max-width: 768px) {
-  .team-card,
-  .team-slot,
-  .card-slot {
-    width: 72px;
-  }
 
-  .team-slot {
-    height: 130px;
-  }
 
-  .card-slot {
-    height: 90px;
-  }
+/* ================= VISIBILITY =================
+   DIPAKAI JS:
+   el.classList.add("hidden")
+================================================ */
+.hidden {
+  display: none !important;
+}
 
-  .team-card img,
-  .card-slot img {
-    height: 80px;
-  }
+
+/* ================= ACTIVE STATE =================
+   State umum (fallback jika tidak spesifik)
+================================================ */
+.active {
+  opacity: 1;
+}
+
+
+/* ================= CENTERING =================
+   Helper alignment
+================================================ */
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ================= TEXT HELPERS ================= */
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+/* ================= SCROLLBAR (OPTIONAL COSMETIC) ================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-soft);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
 }
