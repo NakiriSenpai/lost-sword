@@ -973,7 +973,7 @@ header button:hover {
   transform: translate(50%, -50%) scale(1.1);
 }
 
-/*
+
  FIX POSISI NAIK TURUN CARD 
 .team-card,
 .team-slot,
@@ -983,7 +983,7 @@ header button:hover {
   flex-direction: column;
   justify-content: flex-start;
 }
-*/
+
 
 
 .card-slot.empty::after {
