@@ -1,107 +1,820 @@
-/* ========================================================= v2.css – CLEAN REBUILD (SAFE CONTRACT)
-
-Goal:
-
-Cleaner structure
-
-Predictable layout
-
-SAME selectors as v1 (JS-safe)
-
-No experimental overrides ========================================================= */
+/* =========================================================
+   LOST SWORD TEAM BUILDER
+   style-4.css
+   ========================================================= */
 
 
-/* ================= ROOT ================= */ :root { --bg-main: #0b0f14; --bg-section: #111827; --bg-card: #0f172a; --bg-card-hover: #172554; --bg-input: #020617; --bg-popup: rgba(2, 6, 23, 0.85);
+/* =========================================================
+   1. ROOT VARIABLES
+   Semua variable global: warna, border, text, efek, animasi
+   ========================================================= */
+:root {
+  /* CORE BACKGROUND */
+  --bg-main: #0B1020;
+  --bg-section: #10162A;
+  --bg-card: #141C33;
+  --bg-card-hover: #192248;
+  --bg-popup: #0F152B;
+  --bg-input: #0E1428;
 
---text-primary: #e5e7eb; --text-secondary: #cbd5f5; --text-muted: #94a3b8;
+  /* BORDER SYSTEM */
+  --border-default: #27335E;
+  --border-soft: #1E294B;
+  --border-hover: #3B4D8F;
+  --border-active: #4DF0FF;
+  --border-warning: #E6B65C;
+  --border-danger: #E5484D;
 
---border-default: #334155; --border-active: #38bdf8; --border-warning: #fbbf24; --border-danger: #ef4444;
+  /* TEXT SYSTEM */
+  --text-primary: #E6E9F0;
+  --text-secondary: #AAB1C6;
+  --text-muted: #6B738E;
+  --text-disabled: #4E556F;
 
---danger: #ef4444; --warning: #fbbf24; }
+  /* NAME HIGHLIGHT */
+  --name-character: #8FB9FF;
+  --name-card: #C5B8FF;
+  --name-pet: #6FE3B4;
+  --name-legendary: #F5C77A;
 
-/* ================= BASE ================= */
+  /* EFFECT / GLOW */
+  --glow-hover: 0 0 12px rgba(77, 240, 255, 0.35);
+  --glow-active: 0 0 16px rgba(77, 240, 255, 0.55);
+  --glow-legendary: 0 0 18px rgba(245, 199, 122, 0.55);
 
-{ box-sizing: border-box; }
+  /* STATUS */
+  --success: #2ECC71;
+  --warning: #F4C56C;
+  --danger: #E5484D;
+  --info: #4DF0FF;
+
+  /* TRANSITION */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
 
 
-body { margin: 0; background: var(--bg-main); color: var(--text-primary); font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+/* =========================================================
+   2. RESET / BASE STYLE
+   Reset margin, padding, box model, font global
+   ========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
-img { display: block; max-width: 100%; }
+body {
+  background: var(--bg-main);
+  color: var(--text-primary);
+}
 
-button { font-family: inherit; }
+section,
+.filters-ui,
+.popup,
+.popup-content {
+  background: var(--bg-section);
+}
 
-/* ================= HEADER ================= */ header { padding: 12px 16px; border-bottom: 1px solid var(--border-default); }
 
-/* ================= SECTION ================= */ section { margin-bottom: 12px; }
+/* =========================================================
+   3. LAYOUT GLOBAL
+   Header, page container, navigation
+   ========================================================= */
 
-/* ================= TEAM ================= */ .team-section { padding: 16px; background: var(--bg-section); }
+/* ---------- HEADER ---------- */
+header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-default);
+}
 
-.team { display: grid; grid-template-columns: repeat(5, 96px); gap: 16px; justify-content: center; }
+header h1 {
+  font-size: 22px;
+}
 
-.team-card, .team-slot { width: 96px; padding: 10px; border-radius: 18px; text-align: center; background: var(--bg-card); border: 2px solid var(--border-default); }
+header button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
 
-.team-card { cursor: grab; }
+header button:hover {
+  background: #1e293b;
+}
 
-.team-card:active { cursor: grabbing; transform: scale(0.95); }
+/* ---------- PAGE SWITCHING ---------- */
+.page {
+  display: none;
+}
 
-.team-card img { height: 130px; object-fit: cover; border-radius: 14px; margin-bottom: 6px; }
+.page.active {
+  display: block;
+}
 
-.team-card strong { font-size: 13px; }
+/* ---------- TOP NAV ---------- */
+.top-nav {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
 
-.team-slot { height: 190px; }
+.top-nav.centered {
+  justify-content: center;
+}
 
-.team-slot.drag-over, .team-card.drag-over { outline: 3px solid var(--border-default); }
 
-/* ================= CARD SLOT ================= */ .card-slot { width: 96px; height: 190px; padding: 10px; border-radius: 18px; background: var(--bg-card); border: 2px solid var(--border-default); text-align: center; cursor: pointer; position: relative; }
+/* =========================================================
+   4. BUTTONS GLOBAL
+   Semua tombol yang reusable lintas section
+   ========================================================= */
 
-.card-slot:hover { background: var(--bg-card-hover); }
+/* NAV BUTTON */
+.nav-btn {
+  position: relative;
+  overflow: hidden;
 
-.card-slot img { height: 130px; object-fit: cover; border-radius: 14px; margin-bottom: 6px; }
+  background: #0d1325;
+  border: 1px solid #2b3566;
+  color: #aaa;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-.card-slot strong { font-size: 13px; }
+.nav-btn.active {
+  background: #1b2347;
+  color: #fff;
+  border-color: #4f6aff;
+}
 
-.card-slot.empty::after { content: '+ Card'; display: block; margin-top: auto; font-size: 12px; color: var(--text-muted); }
+/* underline animation */
+.nav-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
 
-.card-slot.active { outline: 3px solid var(--border-active); }
+  width: 70%;
+  height: 3px;
+  background: linear-gradient(90deg, #38bdf8, #4f6aff);
+  border-radius: 999px;
 
-/* ================= FILTER ================= */ .filters-ui { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+  transform: translateX(-50%) scaleX(0);
+  transition: transform 0.25s ease;
+}
 
-.filter-header input, #cardSearchInput, #petSearchInput { width: 100%; padding: 10px 14px; border-radius: 10px; background: var(--bg-input); border: 1px solid var(--border-default); color: var(--text-secondary); }
+.nav-btn.active::after,
+.nav-btn:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
 
-.filters-bar { display: flex; gap: 12px; flex-wrap: wrap; }
+.nav-btn:hover {
+  color: #ffffff;
+}
 
-.filter-btn { width: 40px; height: 40px; border-radius: 10px; background: var(--bg-card); border: 2px solid var(--border-default); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+/* SHARE BUTTON */
+.share-btn {
+  background: #1e2a44;
+  border: 1px solid rgba(255,255,255,.2);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-.filter-btn.active { border-color: var(--border-active); }
+.share-btn:hover {
+  background: #24345a;
+}
 
-#resetFilterBtn { margin-left: auto; padding: 8px 16px; border-radius: 10px; background: var(--bg-card); border: 2px solid var(--border-danger); color: var(--danger); font-weight: 700; }
+/* =========================================================
+   5. TEAM SECTION
+   Fungsi:
+   - Container utama area team builder
+   - Membungkus grid team & slot
+========================================================= */
+.team-section {
+  padding: 16px;
+  background: var(--bg-section);
+}
 
-/* ================= GRID ================= */ .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 14px; padding: 16px; }
+.team {
+  display: grid;
+  grid-template-columns: repeat(5, 96px);
+  gap: 16px;
+  justify-content: center;
+}
 
-.card { background: var(--bg-card); border: 2px solid var(--border-default); border-radius: 18px; padding: 10px; text-align: center; cursor: pointer; }
 
-.card:hover { transform: translateY(-4px); }
+/* =========================================================
+   6. TEAM CARD / TEAM SLOT
+   Fungsi:
+   - team-card  : kartu karakter (draggable)
+   - team-slot  : slot drop target
+   Catatan:
+   - Digunakan langsung oleh logic drag & drop JS
+   - Jangan disatukan dengan .card-slot
+========================================================= */
+.team-card,
+.team-slot {
+  width: 96px;
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
 
-.card.in-team { outline: 3px solid var(--border-active); }
+/* ---------- TEAM CARD (DRAG SOURCE) ---------- */
+.team-card {
+  background: var(--bg-card);
+  cursor: grab;
+}
 
-/* ================= POPUP ================= */ .card-popup { position: fixed; inset: 0; background: var(--bg-popup); display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+.team-card:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
 
-.card-popup.show { opacity: 1; pointer-events: auto; }
+.team-card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 6px;
+}
 
-.card-popup-content { width: min(900px, 92%); max-height: 85vh; background: var(--bg-card); border: 2px solid var(--border-default); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.team-card strong {
+  display: block;
+  font-size: 13px;
+}
 
-.popup-close { position: absolute; top: 12px; right: 12px; background: transparent; border: none; color: var(--danger); font-size: 20px; cursor: pointer; }
+/* animasi saat card di-remove */
+.team-card.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.25s ease;
+}
 
-/* ================= REMOVE BUTTON ================= */ .remove-card, .remove-pet, .remove-equip { position: absolute; right: 0; top: 50%; transform: translate(50%, -50%); width: 22px; height: 22px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--border-danger); color: var(--danger); font-size: 13px; font-weight: bold; cursor: pointer; }
+/* ---------- TEAM SLOT (DROP TARGET) ---------- */
+.team-slot {
+  height: 190px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+}
 
-.remove-card:hover, .remove-pet:hover, .remove-equip:hover { background: var(--danger); color: #fff; }
+.team-slot:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.05);
+}
 
-/* ================= MOBILE ================= */ @media (max-width: 768px) { .team { grid-template-columns: repeat(5, 72px); }
+/* visual saat drag-over */
+.team-slot.drag-over,
+.team-card.drag-over {
+  outline: 3px solid var(--border-default);
+  background: var(--bg-card);
+}
 
-.team-card, .team-slot, .card-slot { width: 72px; }
 
-.team-slot { height: 130px; }
+/* =========================================================
+   7. CARD SLOT
+   Fungsi:
+   - Slot equip / pet / card popup
+   Catatan:
+   - Punya remove button (absolute)
+   - Overflow visible sengaja
+========================================================= */
+.card-slot {
+  width: 96px;
+  height: 190px;
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
 
-.card-slot { height: 90px; }
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
 
-.team-card img, .card-slot img { height: 80px; } }
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+
+  position: relative;
+  overflow: visible;
+}
+
+.card-slot:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.05);
+}
+
+.card-slot img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 6px;
+}
+
+.card-slot strong {
+  display: block;
+  font-size: 13px;
+}
+
+/* state aktif (dipilih) */
+.card-slot.active {
+  outline: 3px solid var(--border-active);
+}
+
+/* state kosong */
+.card-slot.empty::after {
+  content: "+ Card";
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* state terisi */
+.card-slot:not(.empty),
+.team-card {
+  background: var(--bg-card-hover);
+  color: var(--name-character);
+  border: 3px solid var(--border-default);
+}
+
+/* =========================================================
+   8. FILTERS
+   Fungsi:
+   - Search + filter karakter
+   - Mengontrol grid character
+========================================================= */
+.filters-ui {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* search input */
+.filter-header input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+/* filter bar container */
+.filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* group icon filter */
+.filter-group {
+  display: flex;
+  gap: 8px;
+}
+
+/* filter button */
+.filter-btn {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  color: var(--text-secondary);
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.filter-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+/* active filter */
+.filter-btn.active {
+  background: var(--bg-card);
+  border-color: var(--border-active);
+  color: var(--text-secondary);
+}
+
+/* reset filter button */
+#resetFilterBtn {
+  margin-left: auto;
+  padding: 8px 16px;
+
+  background: var(--bg-card);
+  color: var(--danger);
+  border: 2px solid var(--border-danger);
+  border-radius: 10px;
+
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#resetFilterBtn:hover {
+  background: var(--bg-card-hover);
+}
+
+
+/* =========================================================
+   9. CHARACTER GRID
+   Fungsi:
+   - Menampilkan list karakter
+   - Interaksi klik / hover
+========================================================= */
+.characters-section h2 {
+  padding: 0 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+  padding: 16px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.card strong,
+.card span {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* karakter sudah masuk team */
+.card.in-team {
+  outline: 3px solid var(--border-active);
+}
+
+
+/* =========================================================
+   10. PETS SECTION
+   Fungsi:
+   - Slot pet di team
+   - Warna slot berdasarkan posisi
+========================================================= */
+.pets-section {
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.pets {
+  display: flex;
+  gap: 12px;
+}
+
+/* pet slot color by index */
+#pets .card-slot:nth-child(1) {
+  border-color: #38bdf8;
+  background: #38bdf820;
+}
+
+#pets .card-slot:nth-child(2) {
+  border-color: #fbbf24;
+  background: #fbbf2420;
+}
+
+#pets .card-slot:nth-child(3) {
+  border-color: #ef4444;
+  background: #ef444420;
+}
+
+/* empty pet slot */
+#pets .card-slot.empty::after {
+  content: "+ Pets";
+}
+
+/* pet popup search */
+#petSearchInput {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--bg-input);
+  border: 2px solid var(--border-default);
+  border-radius: 8px;
+  color: var(--text-secondary);
+}
+
+/* pet list item */
+#petList .card-item {
+  overflow: hidden;
+}
+
+#petList .card-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
+
+/* =========================================================
+   11. EQUIP SECTION
+   Fungsi:
+   - Slot equip
+   - Tombol remove setengah keluar
+   Catatan:
+   - overflow visible WAJIB
+========================================================= */
+.equip-slot {
+  position: relative;
+  overflow: visible;
+}
+
+/* remove equip button */
+.remove-equip {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  border: 2px solid var(--border-danger);
+  background: var(--bg-card);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+}
+
+.remove-equip:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: translate(50%, -50%) scale(1.1);
+  }
+
+/* =========================================================
+   12. POPUP (CARD / EQUIP / CONFIRM)
+   Fungsi:
+   - Popup pemilihan card / pet / equip
+   - Overlay + animasi scale
+========================================================= */
+.card-popup {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-popup);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.card-popup.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.card-popup-content {
+  width: min(900px, 92%);
+  max-height: 85vh;
+
+  background: var(--bg-popup);
+  border: var(--border-default);
+  border-radius: 20px;
+  padding: 20px;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* close popup */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  background: transparent;
+  border: none;
+  color: var(--danger);
+
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* popup search input */
+#cardSearchInput {
+  padding: 10px 14px;
+  border-radius: 10px;
+
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+/* grid isi popup */
+.card-grid {
+  flex: 1;
+  overflow-y: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+}
+
+/* item card di popup */
+.card-item {
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  border-radius: 16px;
+  padding: 8px;
+
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  color: var(--name-card);
+}
+
+.card-item.used {
+  opacity: 0.4;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.card-item:hover {
+  transform: scale(1.05);
+}
+
+.card-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.card-item strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   13. SAVED TEAM
+   Fungsi:
+   - Menampilkan team yang disimpan
+========================================================= */
+.saved-team-section {
+  padding: 16px;
+}
+
+.saved-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+
+/* =========================================================
+   14. TOAST / WARNING
+   Fungsi:
+   - Peringatan synergy / info penting
+========================================================= */
+.synergy-warning {
+  width: calc(100% - 32px);
+  margin: 12px 16px;
+  padding: 12px 16px;
+
+  border: 2px solid var(--border-warning);
+  border-radius: 12px;
+
+  color: var(--warning) !important;
+  background: var(--bg-card);
+
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.synergy-warning div + div {
+  margin-top: 6px;
+}
+
+
+/* =========================================================
+   15. UTILITY / STATE
+   Fungsi:
+   - State visual sementara
+   - Dipakai lintas section
+========================================================= */
+.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.2s ease;
+}
+
+.swap {
+  transform: scale(1.08);
+  transition: transform 0.25s ease;
+}
+
+.selected-slot {
+  outline: 3px solid var(--border-active);
+}
+
+/* universal remove button (card / pet / equip) */
+.remove-card,
+.remove-pet,
+.remove-equip {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  background: var(--bg-card);
+  border: 2px solid var(--border-danger);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 20;
+}
+
+
+/* =========================================================
+   16. MEDIA QUERIES (MOBILE)
+   Catatan:
+   - SELALU di paling bawah
+   - Override ukuran, bukan logic
+========================================================= */
+@media (max-width: 768px) {
+  .team-card,
+  .team-slot,
+  .card-slot {
+    width: 72px;
+  }
+
+  .team-slot {
+    height: 130px;
+  }
+
+  .card-slot {
+    height: 90px;
+  }
+
+  .team-card img,
+  .card-slot img {
+    height: 80px;
+  }
+}
