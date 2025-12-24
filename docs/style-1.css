@@ -69,11 +69,15 @@
   margin: 0;
   padding: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   background: var(--bg-main);
   color: var(--text-primary);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 section,
@@ -259,6 +263,7 @@ header button:hover {
 .save-team-wrapper {
   display: flex;
   justify-content: center;
+  gap: 10px;
 }
 
 .save-team-btn {
@@ -1582,7 +1587,34 @@ header h1 {
 header button {
   flex-shrink: 0;
 }
-header .share-team,
-header button:last-child {
-  margin-left: auto;
+
+
+/* MOBILE — 3 atas, 2 bawah TEPAT di tengah */
+@media (max-width: 480px) {
+  .team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .team > * {
+    width: 96px;
+  }
+
+  /* Dorong baris kedua ke tengah */
+  .team > :nth-child(4) {
+    margin-left: 10px; /* SETENGAH SLOT + GAP */
+  }
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+  .saved-team-body {
+    flex-direction: column;
+  }
+
+  .saved-team-note {
+    width: 100%;
+  }
 }
