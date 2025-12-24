@@ -251,6 +251,31 @@ function switchPage(page) {
   }
 }
 
+// DEVICE POPUP (MOBILE & TABLET TEXT)
+const devicePopup = document.getElementById("device-popup");
+const closeDevicePopupBtn = document.getElementById("close-device-popup");
+const devicePopupText = document.getElementById("device-popup-text");
+
+const width = window.innerWidth;
+
+if (width < 1024) {
+  if (width < 768) {
+    // MOBILE
+    devicePopupText.textContent =
+      "Untuk pengalaman terbaik, situs ini direkomendasikan dibuka melalui desktop. Versi mobile masih dalam tahap pengembangan.";
+  } else {
+    // TABLET
+    devicePopupText.textContent =
+      "Pengalaman terbaik tersedia pada tampilan desktop. Dukungan tablet sedang disesuaikan.";
+  }
+
+  devicePopup.classList.add("show");
+}
+
+closeDevicePopupBtn.addEventListener("click", () => {
+  devicePopup.classList.remove("show");
+});
+
 /* ================= FILTER ================= */
 function setupFilters() {
   document.querySelectorAll(".filter-btn").forEach(btn => {
