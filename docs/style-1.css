@@ -1556,3 +1556,29 @@ saved-row-pet   { grid-row: 1; }
     font-size: 14px;
   }
 }
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  flex-wrap: nowrap;
+}
+
+header img {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+header h1 {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+header button {
+  flex-shrink: 0;
+}
