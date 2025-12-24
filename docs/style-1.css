@@ -1600,17 +1600,14 @@ saved-row-pet   { grid-row: 1; }
   .toast-content {
     font-size: 16px;
   }
-.team {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+  .team {
+    gap: 10px;
   }
-
   .team-card,
   .team-slot {
-    max-width: 150px;
-    height: 150px;
+    width: 82px;
+    height: 145px;
   }
-
 }
 
 /* ================= SMALL ADJUST (≤ 600px) ================= */
@@ -1624,31 +1621,33 @@ saved-row-pet   { grid-row: 1; }
   }
 }
 
-/* ================= CURRENT TEAM RESPONSIVE ================= */
-
-/* MOBILE & TABLET */
+/* ================= CURRENT TEAM – MOBILE FIX ================= */
 @media (max-width: 768px) {
 
-   .team {
+  .team {
     grid-template-columns: repeat(3, 1fr);
-    justify-content: center;
+    justify-items: center;
     gap: 12px;
+    width: 100%;
+  }
+
+  .team-pair {
+    gap: 8px;
   }
 
   .team-card,
   .team-slot {
-    width: 100%;
-    max-width: 120px;
+    width: 88px;
     height: 150px;
-    padding: 8px;
+    padding: 6px;
   }
 
   .team-card img {
-    height: 95px;
+    height: 90px;
   }
 
   .team-card strong {
-    font-size: 12px;
+    font-size: 11px;
   }
 
 }
