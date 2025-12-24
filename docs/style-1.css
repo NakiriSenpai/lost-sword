@@ -1543,33 +1543,106 @@ saved-row-pet   { grid-row: 1; }
    - Tidak ada manipulasi JS
    - LETAKKAN PALING BAWAH FILE
    ====================================================================== */
-/* mobile sizing – DO NOT MERGE SLOT HEIGHTS */
-@media (max-width: 768px) {
+/* ================= MOBILE SMALL (≤ 480px) ================= */
+@media (max-width: 480px) {
+
+  /* HEADER */
+  header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* FILTER BAR – WRAP */
+  .filters-bar,
+  .filter-group {
+    flex-wrap: wrap;
+  }
+
+  /* CHARACTER GRID – 3 COLUMNS */
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* TEAM AREA – TETAP 2 KOLOM, DIPERKECIL */
+  .team,
+  .team-pair {
+    gap: 8px;
+  }
+
   .team-card,
   .team-slot,
   .card-slot {
-    width: 72px;
+    height: 150px; /* sudah kamu pakai, konsisten */
   }
 
-  .team-slot {
-    height: 130px;
-  }
-
-  .card-slot {
-    height: 90px;
-  }
-
-  .team-card img,
+  /* CARD SLOT CONTENT */
   .card-slot img {
-    height: 80px;
+    max-width: 80%;
+    max-height: 80%;
   }
+
+  /* POPUP */
+  .card-popup-content,
+  .equip-popup-content,
+  #petPopup {
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
 }
 
-@media (max-width: 768px) {
+/* ================= MOBILE LARGE (481px – 767px) ================= */
+@media (min-width: 481px) and (max-width: 767px) {
+
+  /* CHARACTER GRID */
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* TEAM SLOT */
   .team-card,
   .team-slot,
   .card-slot {
+    height: 160px;
+  }
+
+  /* FILTER BAR */
+  .filters-bar {
+    flex-wrap: wrap;
+  }
+
+}
+
+/* ================= TABLET (768px – 1023px) ================= */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  /* CHARACTER GRID */
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* TEAM SLOT – SEDIKIT LEBIH BESAR */
+  .team-card,
+  .team-slot,
+  .card-slot {
+    height: 170px;
+  }
+
+}
+/* ================= MOBILE & TABLET (≤ 768px) ================= */
+@media (max-width: 768px) {
+
+  /* TEAM SLOT – MOBILE SIZE */
+  .team-card,
+  .team-slot {
+    width: 90px;
     height: 140px;
+  }
+
+  .card-slot {
+    width: 72px;
+    height: 90px;
   }
 
   .team-card img,
@@ -1581,29 +1654,19 @@ saved-row-pet   { grid-row: 1; }
   .card-slot strong {
     font-size: 11px;
   }
-}
 
-@media (max-width: 768px) {
-  .saved-team-body {
-    flex-direction: column;
+  /* TEAM GAP */
+  .team {
+    gap: 8px;
   }
 
-  .saved-team-note {
-    width: 100%;
+  /* NAV UNDERLINE */
+  .nav-btn::after {
+    height: 2px;
+    bottom: 3px;
   }
-}
 
-@media (max-width: 480px) {
-  .toast {
-    padding: 18px 20px;
-  }
-  .toast-content {
-    font-size: 16px;
-  }
-}
-
-/* Save team */
-@media (max-width: 768px) {
+  /* SAVE TEAM */
   .top-controls {
     gap: 10px;
   }
@@ -1612,42 +1675,18 @@ saved-row-pet   { grid-row: 1; }
     font-size: 13px;
     padding: 8px 18px;
   }
-}
 
-@media (max-width: 768px) {
-  .nav-btn::after {
-    height: 2px;
-    bottom: 3px;
-  }
-}
-
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 18px;
+  /* SAVED TEAM */
+  .saved-team-body {
+    flex-direction: column;
   }
 
-  .team {
-    gap: 8px;
+  .saved-team-note {
+    width: 100%;
   }
-
-  .team-card,
-  .team-slot {
-    width: 90px;
-  }
-
-  .team-card img {
-    height: 100px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
 
   .saved-team-grid {
-    grid-template-columns: repeat(5, 42px); /* lebih kecil */
+    grid-template-columns: repeat(5, 42px);
     gap: 6px;
   }
 
@@ -1662,32 +1701,37 @@ saved-row-pet   { grid-row: 1; }
     max-height: 88%;
   }
 
-  /* PET */
-  .saved-pet {
-    height: 52px;
+  .saved-pet { height: 52px; }
+  .saved-char { height: 58px; }
+  .saved-card { height: 58px; }
+  .saved-equip { height: 36px; }
+
+  /* GRID CHARACTER */
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
 
-  /* CHARACTER */
-  .saved-char {
-    height: 58px;
-  }
-
-  /* CARD */
-  .saved-card {
-    height: 58px;
-  }
-
-  /* EQUIP */
-  .saved-equip {
-    height: 36px;
+  /* HEADER */
+  header h1 {
+    font-size: 18px;
   }
 }
 
+/* ================= MOBILE SMALL (≤ 480px) ================= */
+@media (max-width: 480px) {
+  .toast {
+    padding: 18px 20px;
+  }
+  .toast-content {
+    font-size: 16px;
+  }
+}
+
+/* ================= SMALL ADJUST (≤ 600px) ================= */
 @media (max-width: 600px) {
   .saved-team-date {
     font-size: 12px;
   }
-
   .saved-team-remove {
     font-size: 12px;
     padding: 3px 8px;
