@@ -259,6 +259,55 @@ header button:hover {
   transform: scale(0.96);
 }
 
+.reset-team-btn {
+  background: linear-gradient(135deg, #7c2d12, #ef4444);
+  border: none;
+  color: #ffffff;
+
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+
+  border-radius: 999px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow:
+    0 4px 14px rgba(239, 68, 68, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.reset-team-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 18px rgba(239, 68, 68, 0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.35);
+  filter: brightness(1.05);
+}
+
+.reset-team-btn:active {
+  transform: scale(0.96);
+}
+
+.reset-team-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+  box-shadow: none;
+}
+
+.reset-team-btn:disabled:hover {
+  transform: none;
+}
+
 /* ======================================================================
    FILTER BAR & SEARCH
    - Filter karakter & search input
@@ -390,7 +439,13 @@ header button:hover {
   outline: 3px solid var(--border-active);
 }
 
-/* Area team utama */
+/* ======================================================================
+   TEAM AREA – CORE BUILD
+   - Area utama perakitan team
+   - JS:
+     renderTeam()
+     selectSlot()
+   ====================================================================== */
 .team-section {
   padding: 16px;
   background: var(--bg-section);
@@ -411,9 +466,8 @@ header button:hover {
 }
 
 /* ======================================================================
-   TEAM AREA (CHARACTER + CARD SLOT)
-   - Area inti perakitan team
-   - JS: renderTeam(), selectSlot()
+   TEAM CHARACTER SLOT
+   - Slot karakter di dalam team
    - JS toggle class: .selected-slot
    ====================================================================== */
 .team-card,
@@ -470,6 +524,147 @@ header button:hover {
 }
 
 /* ======================================================================
+   TEAM CARD SLOT
+   - Slot card yang menempel ke karakter
+   - JS:
+     openCardPopup()
+   - JS toggle class:
+     .active
+     .empty
+   ====================================================================== */
+.card-slot {
+  width: 96px;
+  height: 190px;
+
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.card-slot:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.05);
+}
+
+.card-slot img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 6px;
+}
+
+.card-slot strong {
+  display: block;
+  font-size: 13px;
+}
+
+/* ======= TEXT SLOT CARD ======= */
+.team-pair .card-slot.empty::after {
+  content: "+ Card";
+  display: block;
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.card-slot.active {
+  outline: 3px solid var(--border-active);
+}
+
+.card-slot:not(.empty),
+.team-card {
+  background: var(--bg-card-hover);
+  color: var(--name-character);
+  border: 3px solid var(--border-default);
+}
+
+
+
+.card-slot {
+  position: relative;
+  overflow: visible;
+}
+
+/* =========== FIX SLOT CHARA & SLOT CARD ======== */
+.team-card,
+.team-slot,
+.card-slot {
+  height: 190px;           /* desktop */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.team-card img,
+.card-slot img {
+  height: 120px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.team-card strong,
+.card-slot strong {
+  margin-top: auto;           /* dorong ke bawah */
+  padding: 4px 2px 0;
+
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  max-width: 100%;
+}
+
+.team-card,
+.card-slot {
+  overflow: hidden;
+}
+
+/* ========= LAST FIX REMOVE CARD & PETS ===== */
+.card-slot,
+.team-card {
+  position: relative;
+  height: 150px;
+}
+
+
+ FIX POSISI NAIK TURUN CARD 
+.team-card,
+.team-slot,
+.card-slot {
+  height: 150px;           
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+
+
+.card-slot.empty::after {
+  content: "+ Card";
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ========== REMOVE BUTTON UNIVERSAL ======= */
+.card-slot {
+  position: relative;
+  overflow: visible; /* 🔥 WAJIB */
+   }
+
+
+/* ======================================================================
    TEAM SLOT STATE & ANIMATION
    - Efek visual transisi (swap, fade)
    - JS: swapCharacter(), renderTeam()
@@ -497,37 +692,6 @@ header button:hover {
    - Tombol hapus untuk card, pet, equip
    - JS: remove handler per item
    ====================================================================== */
-/*
-.remove-btn {
-  position: absolute;
-
-  right: 0;
-  top: 50%;
-  transform: translate(50%, -50%); 
-
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-
-  background: var(--bg-card);
-  border: 2px solid var(--border-danger);
-  color: var(--danger);
-
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 1;
-
-  cursor: pointer;
-  z-index: 20;
-  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
-}
-
-.remove-btn:hover {
-  background: var(--danger);
-  color: #fff;
-  transform: translate(50%, -50%) scale(1.1);
-}
-*/
 .remove-card,
 .remove-pet {
   position: absolute;
@@ -637,7 +801,6 @@ header button:hover {
   transform: scale(1);
   pointer-events: auto;
 }
-
 
 .card-popup-content {
   width: min(900px, 92%);
@@ -828,8 +991,8 @@ header button:hover {
 }
 
 /* ======================================================================
-   EQUIP POPUP
-   - Popup pemilihan equip
+   EQUIP AREA (GRID & SLOT)
+   - Slot equip per karakter
    - JS: openEquipPopup(), closeEquipPopup()
    - JS toggle class: .hidden, .disabled
    ====================================================================== */
@@ -889,7 +1052,16 @@ header button:hover {
   overflow: visible; /* 🔥 KUNCI */
 }
 
-/* Popup pemilihan equip */
+/* ======================================================================
+   EQUIP POPUP
+   - Popup pemilihan equip
+   - JS:
+     openEquipPopup()
+     closeEquipPopup()
+   - JS toggle class:
+     .hidden
+     .disabled
+   ====================================================================== */
 .equip-popup {
   position: fixed;
   inset: 0;
@@ -962,17 +1134,6 @@ header button:hover {
   border-color: var(--border-hover);
 }
 
-.equip-popup-warning {
-  padding: 10px;
-  margin-bottom: 12px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-warning);
-  color: var(--warning);
-  font-size: 14px;
-  border-radius: 6px;
-  text-align: center;
-}
-
 .equip-popup-card.disabled {
   opacity: 0.4;
   filter: grayscale(100%);
@@ -991,6 +1152,17 @@ header button:hover {
   padding: 6px;          /* 🔥 BIAR GA MELEKET */
 
   display: block;
+}
+
+.equip-popup-warning {
+  padding: 10px;
+  margin-bottom: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warning);
+  color: var(--warning);
+  font-size: 14px;
+  border-radius: 6px;
+  text-align: center;
 }
 
 /* ======================================================================
@@ -1035,6 +1207,25 @@ header button:hover {
   flex-direction: column;
 }
 
+.saved-team-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.saved-team-body {
+  display: flex;
+  gap: 16px;              /* JARAK GRID & NOTE */
+  align-items: flex-start;
+}
+
+.saved-team-date {
+  font-size: 12px;
+  color: #aaa;
+}
+
 /* tombol hapus */
 .saved-team-remove {
   background: #800;
@@ -1060,25 +1251,6 @@ header button:hover {
 
 .saved-team-remove:hover {
   background: #a52a2a;
-}
-
-.saved-team-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.saved-team-date {
-  font-size: 12px;
-  color: #aaa;
-}
-
-.saved-team-body {
-  display: flex;
-  gap: 16px;              /* JARAK GRID & NOTE */
-  align-items: flex-start;
 }
 
 /* Grid isi saved team */
@@ -1510,265 +1682,6 @@ saved-row-pet   { grid-row: 1; }
   }
 }
 
-
-/* ================= CARD SLOT ================= */
-.card-slot {
-  width: 96px;
-  height: 190px;
-
-  border-radius: 18px;
-  padding: 10px;
-  text-align: center;
-
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.card-slot:hover {
-  background: var(--bg-card-hover);
-  transform: scale(1.05);
-}
-
-.card-slot img {
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 14px;
-  margin-bottom: 6px;
-}
-
-.card-slot strong {
-  display: block;
-  font-size: 13px;
-}
-
-/* ======= TEXT SLOT CARD ======= */
-.team-pair .card-slot.empty::after {
-  content: "+ Card";
-  display: block;
-  margin-top: 8px;
-  color: var(--text-muted);
-  font-size: 12px;
-}
-
-.card-slot.active {
-  outline: 3px solid var(--border-active);
-}
-
-.card-slot:not(.empty),
-.team-card {
-  background: var(--bg-card-hover);
-  color: var(--name-character);
-  border: 3px solid var(--border-default);
-}
-
-
-
-.card-slot {
-  position: relative;
-  overflow: visible;
-}
-
-
-
-/* =========== FIX SLOT CHARA & SLOT CARD ======== */
-.team-card,
-.team-slot,
-.card-slot {
-  height: 190px;           /* desktop */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.team-card img,
-.card-slot img {
-  height: 120px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.team-card strong,
-.card-slot strong {
-  margin-top: auto;           /* dorong ke bawah */
-  padding: 4px 2px 0;
-
-  font-size: 12px;
-  line-height: 1.2;
-  text-align: center;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  max-width: 100%;
-}
-
-.team-card,
-.card-slot {
-  overflow: hidden;
-}
-
-
-
-/* ========= LAST FIX REMOVE CARD & PETS ===== */
-.card-slot,
-.team-card {
-  position: relative;
-  height: 150px;
-}
-
-
-
-/*
-.slot-remove {
-  position: absolute;
-  right: -8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #ff4d4d;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  z-index: 10;
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-/* ================= EQUIP POPUP ITEMS ================= */
-
-
-
-
-
-
-
-
- FIX POSISI NAIK TURUN CARD 
-.team-card,
-.team-slot,
-.card-slot {
-  height: 150px;           
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-
-
-.card-slot.empty::after {
-  content: "+ Card";
-  margin-top: auto;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-/* ========== REMOVE BUTTON UNIVERSAL ======= */
-.card-slot {
-  position: relative;
-  overflow: visible; /* 🔥 WAJIB */
-}
-
-
-
-/* ================= SAVED TEAM CARD ================= */
-
-
-
-/* ================= SAVED TEAM GRID ================= */
-
-
-
-
-/* ================= SAVED TEAM GRID ================= */
-
-
-
-/* NOTE CARD */
-
-
-/* RESPONSIVE MOBILE */
-
-
-/* ======== POPUP NOTIF SAVE NOTE ======= */
-
-
-/* MOBILE ADJUST */
-
-
-
-/* ================= SAVE TEAM BUTTON ================= */
-
-
-
-/* ================= CONFIRM POPUP (RESET TEAM) ================= */
-
-
-/* ================= RESET TEAM BUTTON ================= */
-.reset-team-btn {
-  background: linear-gradient(135deg, #7c2d12, #ef4444);
-  border: none;
-  color: #ffffff;
-
-  padding: 10px 22px;
-  font-size: 14px;
-  font-weight: 700;
-
-  border-radius: 999px;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  box-shadow:
-    0 4px 14px rgba(239, 68, 68, 0.45),
-    inset 0 0 0 1px rgba(255,255,255,0.25);
-
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    filter 0.15s ease;
-}
-
-.reset-team-btn:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 6px 18px rgba(239, 68, 68, 0.65),
-    inset 0 0 0 1px rgba(255,255,255,0.35);
-  filter: brightness(1.05);
-}
-
-.reset-team-btn:active {
-  transform: scale(0.96);
-}
-
-/* ================= RESET TEAM DISABLED ================= */
-.reset-team-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  filter: grayscale(0.6);
-  box-shadow: none;
-}
-
-.reset-team-btn:disabled:hover {
-  transform: none;
-}
 
 /* ================= NAV UNDERLINE ANIMATION ================= */
 .nav-btn {
