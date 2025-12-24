@@ -93,8 +93,7 @@ section,
 
 
 /* =====================================================
-     HEADER + BRAND + SHARE
-     (ATAS HALAMAN SATU VISUAL AREA)
+     AREA HEADER UTAMA & IDENTITAS 
      ===================================================== */
 header {
   padding: 16px;
@@ -142,16 +141,16 @@ header button:hover {
   line-height: 1.1;
 }
 
-.site-logo {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-}
-
 .site-name {
   font-size: 20px;
   margin: 0;
   color: #d6e4ff;
+}
+
+.site-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 .share-btn {
