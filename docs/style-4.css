@@ -213,90 +213,56 @@ header button:hover {
   display: block;
 }
 
-/* ================= TEAM ================= */
-.team-section {
-  padding: 16px;
-  background: var(--bg-section);
-}
-
-.team {
-  display: grid;
-  grid-template-columns: repeat(5, 96px);
-  gap: 16px;
+/* Tombol simpan & reset team */
+.save-team-wrapper {
+  display: flex;
   justify-content: center;
 }
 
-.team-card,
-.team-slot {
-  width: 96px;
-  border-radius: 18px;
-  padding: 10px;
-  text-align: center;
-  transition: background 0.2s, transform 0.2s;
+.save-team-btn {
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  border: none;
+  color: #ffffff;
+
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+
+  border-radius: 999px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow:
+    0 4px 14px rgba(56, 189, 248, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
 }
 
-.team-card {
-  background: var(--bg-card);
-  cursor: grab;
+.save-team-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 18px rgba(56, 189, 248, 0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.35);
+  filter: brightness(1.05);
 }
 
-.team-card:active {
-  cursor: grabbing;
-  transform: scale(0.95);
+.save-team-btn:active {
+  transform: scale(0.96);
 }
 
-.team-card img {
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 14px;
-  margin-bottom: 6px;
-}
-
-.team-card strong {
-  display: block;
-  font-size: 13px;
-}
-
-.team-card.fade-out {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.25s ease;
-}
-
-.team-slot {
-  height: 190px;
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
-}
-
-.team-slot:hover {
-  background: var(--bg-card-hover);
-  transform: scale(1.05);
-}
-
-.team-slot.drag-over,
-.team-card.drag-over {
-  outline: 3px solid var(--border-default);
-  background: var(--bg-card);
-}
-
-/* ================= FILTER UI ================= */
+/* Filter karakter & kontrol pencarian */
 .filters-ui {
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-}
-
-/* SEARCH */
-.filter-header input {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: var(--bg-input);
-  border: 1px solid var(--border-default);
-  color: var(--text-secondary);
 }
 
 /* FILTER BAR */
@@ -311,6 +277,16 @@ header button:hover {
 .filter-group {
   display: flex;
   gap: 8px;
+}
+
+/* SEARCH */
+.filter-header input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
 }
 
 /* FILTER BUTTON */
@@ -355,7 +331,7 @@ header button:hover {
   background: var(--bg-card-hover);
 }
 
-/* ================= CHARACTERS ================= */
+/* Daftar karakter yang bisa dipilih */
 .characters-section h2 {
   padding: 0 16px;
 }
@@ -401,11 +377,91 @@ header button:hover {
   outline: 3px solid var(--border-active);
 }
 
-/* shared animation class – used by card & team slot */
+/* Area team utama */
+.team-section {
+  padding: 16px;
+  background: var(--bg-section);
+}
+
+.team {
+  display: grid;
+  grid-template-columns: repeat(5, 96px);
+  gap: 16px;
+  justify-content: center;
+}
+
+.team-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;              /* 🔥 JARAK ANTAR SLOT */
+}
+
+/* Slot karakter di team */
+.team-card,
+.team-slot {
+  width: 96px;
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.team-card {
+  background: var(--bg-card);
+  cursor: grab;
+}
+
+.team-card:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+
+.team-card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 6px;
+}
+
+.team-card strong {
+  display: block;
+  font-size: 13px;
+}
+
+.team-slot {
+  height: 190px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+}
+
+.team-slot:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.05);
+}
+
+.team-slot.drag-over,
+.team-card.drag-over {
+  outline: 3px solid var(--border-default);
+  background: var(--bg-card);
+}
+
+.selected-slot {
+  outline: 3px solid var(--border-active);
+}
+
+/* Efek visual & state transisi */
 .fade-out {
   opacity: 0;
   transform: scale(0.9);
   transition: all 0.2s ease;
+}
+
+.team-card.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.25s ease;
 }
 
 .swap {
@@ -413,9 +469,7 @@ header button:hover {
   transition: transform 0.25s ease;
 }
 
-.selected-slot {
-  outline: 3px solid var(--border-active);
-}
+/* Tombol hapus item (card, pet, equip) */
 
 
 /* ================= SYNERGY WARNING (PER BOX) ================= */
@@ -495,13 +549,7 @@ header button:hover {
 }
 
 /* ================= TEAM PAIR ================= */
-.team-pair {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
-  gap: 12px;              /* 🔥 JARAK ANTAR SLOT */
-}
 
 /* mobile sizing – DO NOT MERGE SLOT HEIGHTS */
 @media (max-width: 768px) {
@@ -1365,49 +1413,8 @@ header button:hover {
 
 
 /* ================= SAVE TEAM BUTTON ================= */
-.save-team-wrapper {
-  display: flex;
-  justify-content: center;
-}
 
-.save-team-btn {
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
-  border: none;
-  color: #ffffff;
-
-  padding: 10px 22px;
-  font-size: 14px;
-  font-weight: 700;
-
-  border-radius: 999px;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  box-shadow:
-    0 4px 14px rgba(56, 189, 248, 0.45),
-    inset 0 0 0 1px rgba(255,255,255,0.25);
-
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    filter 0.15s ease;
-}
-
-.save-team-btn:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 6px 18px rgba(56, 189, 248, 0.65),
-    inset 0 0 0 1px rgba(255,255,255,0.35);
-  filter: brightness(1.05);
-}
-
-.save-team-btn:active {
-  transform: scale(0.96);
-}
-
+/* Save team */
 @media (max-width: 768px) {
   .top-controls {
     gap: 10px;
