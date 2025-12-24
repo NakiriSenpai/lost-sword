@@ -575,14 +575,13 @@ header button:hover {
 .card-slot {
   width: 96px;
   height: 190px;
-
   border-radius: 18px;
   padding: 10px;
   text-align: center;
-
   background: var(--bg-card);
   border: 2px solid var(--border-default);
-
+  position: relative;
+  overflow: visible;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
 }
@@ -625,17 +624,13 @@ header button:hover {
   border: 3px solid var(--border-default);
 }
 
-.card-slot {
-  position: relative;
-  overflow: visible;
-}
-
 /* =========== FIX SLOT CHARA & SLOT CARD ======== */
 .team-card,
 .team-slot,
 .card-slot {
-  height: 190px;           /* desktop */
+  height: 150px;           /* desktop */
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: flex-start;
 }
@@ -668,36 +663,12 @@ header button:hover {
   overflow: hidden;
 }
 
-/* ========= LAST FIX REMOVE CARD & PETS ===== */
-.card-slot,
-.team-card {
-  position: relative;
-  height: 150px;
-}
-
-/* FIX POSISI NAIK TURUN CARD */
-.team-card,
-.team-slot,
-.card-slot {
-  height: 150px;           
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
 .card-slot.empty::after {
   content: "+ Card";
   margin-top: auto;
   font-size: 12px;
   color: var(--text-muted);
 }
-
-/* ========== REMOVE BUTTON UNIVERSAL ======= */
-.card-slot {
-  position: relative;
-  overflow: visible; /* 🔥 WAJIB */
-   }
-
 
 /* ======================================================================
    TEAM SLOT STATE & ANIMATION
@@ -1300,14 +1271,6 @@ header button:hover {
 
 .saved-team-remove:hover {
   background: #a52a2a;
-}
-
-/* Grid isi saved team */
-.saved-team-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 52px);
-  gap: 8px;
-  justify-content: start;
 }
 
 .saved-team-grid {
