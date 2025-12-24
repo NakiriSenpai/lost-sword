@@ -83,18 +83,12 @@ section,
   background: var(--bg-section);
 }
 
-  /* =====================================================
-     LAYOUT UMUM & CONTAINER (STRUKTUR HALAMAN)
-
-     ===================================================== */
-
-
-
-
-
-/* =====================================================
-     AREA HEADER UTAMA & IDENTITAS 
-     ===================================================== */
+/* ======================================================================
+   HEADER, BRAND & TOP AREA
+   - Header utama website
+   - Logo, judul, tombol share
+   - Tidak ada manipulasi class dari JS
+   ====================================================================== */
 header {
   padding: 16px;
   display: flex;
@@ -166,10 +160,12 @@ header button:hover {
   background: #24345a;
 }
 
-/* =====================================================
-     NAVIGATION + PAGE SWITCH 
-     (TAB CURRENT / SAVED, SATU LOGIC JS)
-     ===================================================== */
+/* ======================================================================
+   NAVIGATION & PAGE SWITCH
+   - Navigasi tab (Current / Saved)
+   - JS: switchPage()
+   - JS toggle class: .active pada .nav-btn & .page
+   ====================================================================== */
 
 .top-controls {
   display: flex;
@@ -213,7 +209,13 @@ header button:hover {
   display: block;
 }
 
-/* Tombol simpan & reset team */
+/* ======================================================================
+   SAVE & RESET TEAM ACTION
+   - Tombol simpan & reset team
+   - JS:
+     - save-team-btn → openConfirmModal → saveCurrentTeam()
+     - reset-team-btn → openConfirmModal → resetTeam()
+   ====================================================================== */
 .save-team-wrapper {
   display: flex;
   justify-content: center;
@@ -257,7 +259,13 @@ header button:hover {
   transform: scale(0.96);
 }
 
-/* Filter karakter & kontrol pencarian */
+/* ======================================================================
+   FILTER BAR & SEARCH
+   - Filter karakter & search input
+   - JS: setupFilters()
+   - JS toggle class: .filter-btn.active
+   - JS event: input & resetFilterBtn
+   ====================================================================== */
 .filters-ui {
   padding: 16px;
   display: flex;
@@ -331,7 +339,12 @@ header button:hover {
   background: var(--bg-card-hover);
 }
 
-/* Daftar karakter yang bisa dipilih */
+/* ======================================================================
+   CHARACTER LIST / GRID
+   - Daftar karakter yang bisa dipilih
+   - JS: renderCharacters(), onCharacterClick()
+   - JS toggle class: .card.in-team
+   ====================================================================== */
 .characters-section h2 {
   padding: 0 16px;
 }
@@ -397,7 +410,12 @@ header button:hover {
   gap: 12px;              /* 🔥 JARAK ANTAR SLOT */
 }
 
-/* Slot karakter di team */
+/* ======================================================================
+   TEAM AREA (CHARACTER + CARD SLOT)
+   - Area inti perakitan team
+   - JS: renderTeam(), selectSlot()
+   - JS toggle class: .selected-slot
+   ====================================================================== */
 .team-card,
 .team-slot {
   width: 96px;
@@ -451,7 +469,12 @@ header button:hover {
   outline: 3px solid var(--border-active);
 }
 
-/* Efek visual & state transisi */
+/* ======================================================================
+   TEAM SLOT STATE & ANIMATION
+   - Efek visual transisi (swap, fade)
+   - JS: swapCharacter(), renderTeam()
+   - Class dinamis: .fade-out, .swap
+   ====================================================================== */
 .fade-out {
   opacity: 0;
   transform: scale(0.9);
@@ -469,7 +492,11 @@ header button:hover {
   transition: transform 0.25s ease;
 }
 
-/* Tombol hapus item (card, pet, equip) */
+/* ======================================================================
+   REMOVE BUTTON (UNIVERSAL)
+   - Tombol hapus untuk card, pet, equip
+   - JS: remove handler per item
+   ====================================================================== */
 /*
 .remove-btn {
   position: absolute;
@@ -585,7 +612,12 @@ header button:hover {
   transform: translate(50%, -50%) scale(1.1);
 }
 
-/* Popup pemilihan card */
+/* ======================================================================
+   CARD POPUP (PILIH CARD)
+   - Popup pemilihan card
+   - JS: openCardPopup(), closeCardPopup()
+   - JS toggle class: .show, .active, .used
+   ====================================================================== */
 .card-popup {
   position: fixed;
   inset: 0;
@@ -701,7 +733,12 @@ header button:hover {
   text-overflow: ellipsis;
 }
 
-/* Slot pet di team */
+/* ======================================================================
+   PET AREA & PET POPUP
+   - Slot pet di team & popup pemilihan pet
+   - JS: renderPets(), openPetPopup()
+   - JS: remove pet handler
+   ====================================================================== */
 .pets-section {
   padding: 12px;
   display: flex;
@@ -790,7 +827,12 @@ header button:hover {
   text-overflow: ellipsis;
 }
 
-/* Area equip di team */
+/* ======================================================================
+   EQUIP POPUP
+   - Popup pemilihan equip
+   - JS: openEquipPopup(), closeEquipPopup()
+   - JS toggle class: .hidden, .disabled
+   ====================================================================== */
 .equip-section {
   padding: 16px;
 }
@@ -920,8 +962,6 @@ header button:hover {
   border-color: var(--border-hover);
 }
 
-
-
 .equip-popup-warning {
   padding: 10px;
   margin-bottom: 12px;
@@ -953,7 +993,12 @@ header button:hover {
   display: block;
 }
 
-/* Peringatan kombinasi team */
+/* ======================================================================
+   SYNERGY WARNING
+   - Peringatan kombinasi team
+   - JS: renderSynergyWarning()
+   - Element dibuat dinamis via JS
+   ====================================================================== */
 .synergy-warning {
   width: calc(100% - 32px);
   margin: 12px 16px;
@@ -973,7 +1018,12 @@ header button:hover {
   margin-top: 6px;
 }
 
-/* Kartu saved team */
+/* ======================================================================
+   SAVED TEAM LIST (CARD & GRID)
+   - Daftar team yang disimpan
+   - JS: renderSavedTeams()
+   - JS: deleteSavedTeam()
+   ====================================================================== */
 .saved-team-card {
   width: 100%;
   background: #0f0f0f;
@@ -1117,7 +1167,11 @@ saved-row-pet   { grid-row: 1; }
 .saved-col-4 { grid-column: 4; }
 .saved-col-5 { grid-column: 5; }
 
-/* Catatan untuk saved team */
+/* ======================================================================
+   SAVED TEAM NOTE
+   - Catatan tambahan untuk saved team
+   - JS: save note handler
+   ====================================================================== */
 .saved-team-note {
   flex: 1;                /* MELEBAR KE KANAN */
   min-height: 100%;
@@ -1151,7 +1205,12 @@ saved-row-pet   { grid-row: 1; }
   cursor: pointer;
 }
 
-/* Popup konfirmasi */
+/* ======================================================================
+   CONFIRM POPUP (RESET / DELETE / SAVE)
+   - Modal konfirmasi umum
+   - JS: openConfirmModal(), closeConfirmModal()
+   - JS toggle class: .hidden
+   ====================================================================== */
 .confirm-popup {
   position: fixed;
   inset: 0;
@@ -1243,7 +1302,12 @@ saved-row-pet   { grid-row: 1; }
   }
 }
 
-/* Notifikasi global */
+/* ======================================================================
+   TOAST / NOTIFICATION
+   - Notifikasi global
+   - JS: showToast()
+   - JS toggle class: .hidden
+   ====================================================================== */
 .toast {
   position: fixed;
   top: 50%;
@@ -1289,7 +1353,12 @@ saved-row-pet   { grid-row: 1; }
   }
 }
 
-/* Override responsive */
+/* ======================================================================
+   RESPONSIVE / MEDIA QUERY
+   - Override tampilan mobile
+   - Tidak ada manipulasi JS
+   - LETAKKAN PALING BAWAH FILE
+   ====================================================================== */
 /* mobile sizing – DO NOT MERGE SLOT HEIGHTS */
 @media (max-width: 768px) {
   .team-card,
@@ -1768,12 +1837,3 @@ saved-row-pet   { grid-row: 1; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-
-/* ================= MOBILE POLISH ================= */
-
-
-/* ================================= */
-/*        SAVED TEAM MOBILE          */
-/* ================================= */
-
