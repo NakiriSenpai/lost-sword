@@ -1578,8 +1578,11 @@ header h1 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+/* ======== Button Share Team ======= */
 header button {
   flex-shrink: 0;
-   margin-left: auto;
+}
+header .share-team,
+header button:last-child {
+  margin-left: auto;
 }
