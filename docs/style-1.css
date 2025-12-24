@@ -1543,70 +1543,156 @@ saved-row-pet   { grid-row: 1; }
    filter, character, dan semua popup
    ========================================================= */
 
-/* ================= MOBILE & TABLET (≤ 768px) ================= */
+/* ===============================
+   RESPONSIVE SYSTEM — LOST SWORD
+   Focus: Equal All Areas
+   =============================== */
+
+/* ===============================
+   TABLET (≤ 1024px)
+   =============================== */
+@media (max-width: 1024px) {
+
+  /* Main container spacing */
+  main {
+    padding: 12px;
+    gap: 16px;
+  }
+
+  /* Character Grid */
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+  }
+
+  /* Team Area */
+  .team {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .card-slot {
+    min-height: 110px;
+  }
+
+  /* Filters */
+  .filters-bar {
+    gap: 8px;
+  }
+
+  /* Popup */
+  .card-popup-content {
+    width: min(96%, 760px);
+    padding: 14px;
+  }
+}
+
+
+/* ===============================
+   MOBILE (≤ 768px)
+   =============================== */
 @media (max-width: 768px) {
 
-  /* ===== HEADER ===== */
+  /* Header */
   header {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   header h1 {
     font-size: 18px;
-    text-align: center;
   }
 
-  /* ===== NAVIGATION ===== */
-  .nav {
-    width: 100%;
-    overflow-x: auto;
+  /* Main layout */
+  main {
+    padding: 10px;
+    gap: 14px;
   }
 
-  .nav-list {
-    display: flex;
-    gap: 10px;
+  /* Filters bar */
+  .filters-bar {
+    flex-wrap: wrap;
     justify-content: center;
-    min-width: max-content;
   }
 
-  .nav-btn::after {
-    height: 2px;
-    bottom: 3px;
+  .filters-bar button,
+  .filters-bar select,
+  .filters-bar input {
+    flex: 1 1 auto;
+    min-width: 120px;
   }
 
-  /* ===== PET SECTION ===== */
-  .pet-section {
-    margin-top: 12px;
-  }
-
-  .pet-list {
-    display: grid;
+  /* Character Grid */
+  .grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .card {
+    aspect-ratio: 1 / 1.2;
+  }
+
+  /* Team Area */
+  .team {
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  .pet-item {
-    height: 90px;
+  .card-slot {
+    min-height: 100px;
   }
 
-  /* ===== TEAM SECTION (INTI) ===== */
-  .team-section {
-    padding: 12px;
+  /* Popup */
+  .card-popup {
+    padding: 8px;
   }
 
-  .team {
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    gap: 12px;
+  .card-popup-content {
     width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 12px;
+    border-radius: 12px;
+  }
+}
+
+
+/* ===============================
+   SMALL MOBILE (≤ 480px)
+   =============================== */
+@media (max-width: 480px) {
+
+  /* Header text */
+  header h1 {
+    font-size: 16px;
   }
 
-/* ================= MOBILE SMALL (≤ 480px) ================= */
-@media (max-width: 480px) {
-  /* TOAST */
+  /* Character Grid */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* Team */
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* Buttons & inputs */
+  button,
+  select,
+  input {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+
+  /* Popup title & content */
+  .card-popup-content h2 {
+    font-size: 16px;
+  }
+
+     /* TOAST */
   .toast {
     padding: 16px 18px;
   }
@@ -1614,5 +1700,4 @@ saved-row-pet   { grid-row: 1; }
   .toast-content {
     font-size: 14px;
   }
-
 }
