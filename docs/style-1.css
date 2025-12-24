@@ -1581,4 +1581,5 @@ header h1 {
 
 header button {
   flex-shrink: 0;
+   margin-left: auto;
 }
