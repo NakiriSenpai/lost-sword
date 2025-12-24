@@ -1,0 +1,1779 @@
+/* =========================================================
+   LOST SWORD TEAM BUILDER
+   style-4.css
+   ========================================================= */
+
+/* ================= ROOT ================= */
+:root {
+  /* =====================================================
+     CORE BACKGROUND
+     ===================================================== */
+  --bg-main: #0B1020;          /* background utama (sangat gelap) */
+  --bg-section: #10162A;       /* section wrapper */
+  --bg-card: #141C33;          /* card / slot */
+  --bg-card-hover: #192248;    /* hover */
+  --bg-popup: #0F152B;         /* popup modal */
+  --bg-input: #0E1428;         /* search & input */
+
+  /* =====================================================
+     BORDER SYSTEM (ARCANE)
+     ===================================================== */
+  --border-default: #27335E;   /* slot normal */
+  --border-soft: #1E294B;      /* subtle divider */
+  --border-hover: #3B4D8F;     /* hover */
+  --border-active: #4DF0FF;    /* active / selected (cyan arcane) */
+  --border-warning: #E6B65C;   /* warning / legendary */
+  --border-danger: #E5484D;    /* error */
+
+  /* =====================================================
+     TEXT SYSTEM
+     ===================================================== */
+  --text-primary: #E6E9F0;     /* judul */
+  --text-secondary: #AAB1C6;   /* info */
+  --text-muted: #6B738E;       /* placeholder */
+  --text-disabled: #4E556F;    /* disabled */
+
+  /* =====================================================
+     NAME HIGHLIGHT
+     ===================================================== */
+  --name-character: #8FB9FF;
+  --name-card: #C5B8FF;
+  --name-pet: #6FE3B4;
+  --name-legendary: #F5C77A;
+
+  /* =====================================================
+     EFFECT / GLOW
+     ===================================================== */
+  --glow-hover: 0 0 12px rgba(77, 240, 255, 0.35);
+  --glow-active: 0 0 16px rgba(77, 240, 255, 0.55);
+  --glow-legendary: 0 0 18px rgba(245, 199, 122, 0.55);
+
+  /* =====================================================
+     STATUS / NOTIFICATION
+     ===================================================== */
+  --success: #2ECC71;
+  --warning: #F4C56C;
+  --danger: #E5484D;
+  --info: #4DF0FF;
+
+  /* =====================================================
+     TRANSITION
+     ===================================================== */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--text-primary);
+}
+
+section,
+.filters-ui,
+.popup,
+.popup-content {
+  background: var(--bg-section);
+}
+
+  /* =====================================================
+     LAYOUT UMUM & CONTAINER (STRUKTUR HALAMAN)
+
+     ===================================================== */
+
+
+
+
+
+/* =====================================================
+     AREA HEADER UTAMA & IDENTITAS 
+     ===================================================== */
+header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-default);
+}
+
+header h1 {
+  font-size: 22px;
+}
+
+header button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+header button:hover {
+  background: #1e293b;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #0d1118;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.site-name {
+  font-size: 20px;
+  margin: 0;
+  color: #d6e4ff;
+}
+
+.site-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.share-btn {
+  background: #1e2a44;
+  border: 1px solid rgba(255,255,255,.2);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background: #24345a;
+}
+
+/* =====================================================
+     NAVIGATION + PAGE SWITCH 
+     (TAB CURRENT / SAVED, SATU LOGIC JS)
+     ===================================================== */
+
+.top-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 8px;
+   min-height: 120px;
+}
+
+.top-nav {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.top-nav.centered {
+  justify-content: center;
+}
+
+.nav-btn {
+  background: #0d1325;
+  border: 1px solid #2b3566;
+  color: #aaa;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-btn.active {
+  background: #1b2347;
+  color: #fff;
+  border-color: #4f6aff;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Tombol simpan & reset team */
+.save-team-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.save-team-btn {
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  border: none;
+  color: #ffffff;
+
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+
+  border-radius: 999px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow:
+    0 4px 14px rgba(56, 189, 248, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.save-team-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 18px rgba(56, 189, 248, 0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.35);
+  filter: brightness(1.05);
+}
+
+.save-team-btn:active {
+  transform: scale(0.96);
+}
+
+/* Filter karakter & kontrol pencarian */
+.filters-ui {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* FILTER BAR */
+.filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* FILTER GROUP */
+.filter-group {
+  display: flex;
+  gap: 8px;
+}
+
+/* SEARCH */
+.filter-header input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+/* FILTER BUTTON */
+.filter-btn {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  color: var(--text-secondary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.filter-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+/* ACTIVE FILTER */
+.filter-btn.active {
+  background: var(--bg-card);
+  border-color: var(--border-active);
+  color: var(--text-secondary);
+}
+
+/* RESET FILTER */
+#resetFilterBtn {
+  margin-left: auto;
+  padding: 8px 16px;
+  background: var(--bg-card);
+  color: var(--danger);
+  border: 2px solid var(--border-danger);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#resetFilterBtn:hover {
+  background: var(--bg-card-hover);
+}
+
+/* Daftar karakter yang bisa dipilih */
+.characters-section h2 {
+  padding: 0 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+  padding: 16px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.card strong,
+.card span {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.card.in-team {
+  outline: 3px solid var(--border-active);
+}
+
+/* Area team utama */
+.team-section {
+  padding: 16px;
+  background: var(--bg-section);
+}
+
+.team {
+  display: grid;
+  grid-template-columns: repeat(5, 96px);
+  gap: 16px;
+  justify-content: center;
+}
+
+.team-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;              /* 🔥 JARAK ANTAR SLOT */
+}
+
+/* Slot karakter di team */
+.team-card,
+.team-slot {
+  width: 96px;
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.team-card {
+  background: var(--bg-card);
+  cursor: grab;
+}
+
+.team-card:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+
+.team-card img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 6px;
+}
+
+.team-card strong {
+  display: block;
+  font-size: 13px;
+}
+
+.team-slot {
+  height: 190px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+}
+
+.team-slot:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.05);
+}
+
+.team-slot.drag-over,
+.team-card.drag-over {
+  outline: 3px solid var(--border-default);
+  background: var(--bg-card);
+}
+
+.selected-slot {
+  outline: 3px solid var(--border-active);
+}
+
+/* Efek visual & state transisi */
+.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.2s ease;
+}
+
+.team-card.fade-out {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.25s ease;
+}
+
+.swap {
+  transform: scale(1.08);
+  transition: transform 0.25s ease;
+}
+
+/* Tombol hapus item (card, pet, equip) */
+/*
+.remove-btn {
+  position: absolute;
+
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%); 
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  background: var(--bg-card);
+  border: 2px solid var(--border-danger);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+}
+
+.remove-btn:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: translate(50%, -50%) scale(1.1);
+}
+*/
+.remove-card,
+.remove-pet {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  border: 2px solid var(--border-danger);
+  background: var(--bg-card);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+}
+
+.remove-card:hover,
+.remove-pet:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: translate(50%, -50%) scale(1.1);
+}
+
+.remove-card,
+.remove-pet,
+.remove-equip {
+  position: absolute;
+  right: -8px;         /* 🔥 lebih stabil dari translate */
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  background: var(--bg-card);
+  border: 2px solid var(--border-danger);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.remove-equip {
+  position: absolute;
+
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%); /* 🔥 SETENGAH KELUAR */
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+
+  border: 2px solid var(--border-danger);
+  background: var(--bg-card);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 10;
+
+  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+}
+
+.remove-equip:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: translate(50%, -50%) scale(1.1);
+}
+
+/* Popup pemilihan card */
+.card-popup {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-popup);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+   opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.card-popup.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+
+.card-popup-content {
+  width: min(900px, 92%);
+  max-height: 85vh;
+  background: var(--bg-popup);
+  border: 2px solid var(--border-default);
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* close button */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--danger);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* search */
+#cardSearchInput {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+}
+
+/* card grid */
+.card-grid {
+  flex: 1;
+  overflow-y: auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+}
+
+/* single card item */
+.card-item {
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  border-radius: 16px;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: var(--name-card);
+}
+
+.card-item:hover {
+  transform: scale(1.05);
+}
+
+.card-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.card-item strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.card-item.used {
+  opacity: 0.4;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.card-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.3;
+
+  max-width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Slot pet di team */
+.pets-section {
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.pets {
+  display: flex;
+  gap: 12px;
+}
+
+.pet-slot {
+  position: relative;
+  overflow: visible; /* 🔥 WAJIB */
+}
+
+.slot-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slot-inner img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.slot-name {
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* pet slot colors based on fixed position (do not reorder slots) */
+#pets .card-slot:nth-child(1) {
+  border-color: #38bdf8;
+  background: #38bdf820;
+}
+
+#pets .card-slot:nth-child(2) {
+  border-color: #fbbf24;
+  background: #fbbf2420;
+}
+
+#pets .card-slot:nth-child(3) {
+  border-color: #ef4444;
+  background: #ef444420;
+}
+
+/* Popup pemilihan pet */
+#petSearchInput {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  color: var(--text-secondary);
+}
+
+#petList .card-item {
+  overflow: hidden;
+}
+
+#petList .card-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
+.pet-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.3;
+
+  max-width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Area equip di team */
+.equip-section {
+  padding: 16px;
+}
+
+.equip-section h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* wrapper ikut team */
+.equip-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* grid ikut lebar team */
+.equip-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 96px);
+  gap: 16px;
+  justify-content: center;
+  margin-top: -6px;
+}
+
+/* 1 baris equip = 5 slot */
+.equip-row {
+  display: contents;
+}
+
+/* slot equip */
+.equip-slot {
+  width: 96px;
+  height: 72px;           /* sedikit lebih pendek dari card */
+  border: 2px solid var(--border-default);
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--bg-card);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.equip-slot img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.equip-slot {
+  position: relative;
+  overflow: visible; /* 🔥 KUNCI */
+}
+
+/* Popup pemilihan equip */
+.equip-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.equip-popup.hidden {
+  display: none;
+}
+
+.equip-popup-content {
+  position: relative;
+  width: 520px;
+  max-height: 80vh;
+  background: var(--bg-popup);
+  border-radius: 18px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.equip-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.equip-popup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 12px;
+}
+
+.equip-popup-item:hover {
+  background: var(--bg-card-hover);
+  outline: 2px solid var(--border-hover);
+}
+
+.equip-popup-card {
+  width: 76px;
+  height: 76px;
+
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden; /* 🔥 INI KUNCI UTAMA */
+
+  cursor: pointer;
+  transition: transform 0.15s ease,
+              border-color 0.15s ease,
+              box-shadow 0.15s ease;
+}
+
+.equip-popup-card:hover {
+  transform: scale(1.08);
+  background: var(--bg-popup);
+  border-color: var(--border-hover);
+}
+
+
+
+.equip-popup-warning {
+  padding: 10px;
+  margin-bottom: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warning);
+  color: var(--warning);
+  font-size: 14px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.equip-popup-card.disabled {
+  opacity: 0.4;
+  filter: grayscale(100%);
+  cursor: not-allowed;
+}
+
+.equip-popup-card.disabled img {
+  pointer-events: none;
+}
+
+.equip-popup-card img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;   /* 🔥 PENTING */
+  padding: 6px;          /* 🔥 BIAR GA MELEKET */
+
+  display: block;
+}
+
+/* Peringatan kombinasi team */
+.synergy-warning {
+  width: calc(100% - 32px);
+  margin: 12px 16px;
+  padding: 12px 16px;
+
+  border: 2px solid var(--border-warning);
+  border-radius: 12px;
+
+  color: var(--warning) !important;
+  background: var(--bg-card);
+
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.synergy-warning div + div {
+  margin-top: 6px;
+}
+
+/* Kartu saved team */
+.saved-team-card {
+  width: 100%;
+  background: #0f0f0f;
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #333;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* tombol hapus */
+.saved-team-remove {
+  background: #800;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  align-self: flex-end;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.saved-team-remove {
+  background: #7a1f1f;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.saved-team-remove:hover {
+  background: #a52a2a;
+}
+
+.saved-team-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.saved-team-date {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.saved-team-body {
+  display: flex;
+  gap: 16px;              /* JARAK GRID & NOTE */
+  align-items: flex-start;
+}
+
+/* Grid isi saved team */
+.saved-team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 52px);
+  gap: 8px;
+  justify-content: start;
+}
+
+.saved-team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 52px);
+  grid-template-rows:
+    auto   /* row 1 : pets */
+    auto   /* row 2 : characters */
+    auto   /* row 3 : cards */
+    repeat(4, auto); /* row 4–7 : equips */
+  gap: 8px;
+  justify-content: start;
+}
+
+/* GRID KIRI */
+.saved-team-grid {
+  flex-shrink: 0;
+}
+
+/* SLOT DASAR */
+.saved-slot {
+  width: 52px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border: 2px solid #333;
+}
+
+.saved-slot img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+/* PET */
+.saved-pet {
+  height: 64px;
+  border-color: #38bdf8;
+  background: #38bdf820;
+}
+
+/* CHARACTER */
+.saved-char {
+  height: 72px;
+  border-color: #4df0ff;
+  background: #4df0ff20;
+}
+
+/* CARD */
+.saved-card {
+  height: 72px;
+  border-color: #c5b8ff;
+  background: #c5b8ff20;
+}
+
+/* EQUIP */
+.saved-equip {
+  height: 48px;
+  border-color: #666;
+  background: #2a2a2a;
+}
+
+/* Baris layout saved team */
+saved-row-pet   { grid-row: 1; }
+.saved-row-char  { grid-row: 2; }
+.saved-row-card  { grid-row: 3; }
+.saved-row-eq-1  { grid-row: 4; } /* weapon */
+.saved-row-eq-2  { grid-row: 5; } /* armor */
+.saved-row-eq-3  { grid-row: 6; } /* acc */
+.saved-row-eq-4  { grid-row: 7; } /* rune */
+
+/* Kolom layout saved team */
+.saved-col-1 { grid-column: 1; }
+.saved-col-2 { grid-column: 2; }
+.saved-col-3 { grid-column: 3; }
+.saved-col-4 { grid-column: 4; }
+.saved-col-5 { grid-column: 5; }
+
+/* Catatan untuk saved team */
+.saved-team-note {
+  flex: 1;                /* MELEBAR KE KANAN */
+  min-height: 100%;
+  background: #111827;
+  border: 2px solid #334155;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.saved-team-note textarea {
+  flex: 1;
+  resize: none;
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.saved-team-note button {
+  margin-top: 10px;
+  align-self: flex-end;
+  background: #2563eb;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Popup konfirmasi */
+.confirm-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.confirm-popup.hidden {
+  display: none;
+}
+
+.confirm-popup-content {
+  width: min(420px, 90%);
+  background: var(--bg-popup);
+  border: 2px solid var(--border-danger);
+  border-radius: 18px;
+  padding: 20px;
+
+  text-align: center;
+  box-shadow: 0 0 30px rgba(229, 72, 77, 0.45);
+
+  animation: confirmIn 0.25s ease;
+}
+
+.confirm-popup-content h3 {
+  color: var(--danger);
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.confirm-popup-content p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ACTION BUTTONS */
+.confirm-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.confirm-actions button {
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+/* cancel */
+.btn-cancel {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.btn-cancel:hover {
+  filter: brightness(1.1);
+}
+
+/* danger */
+.btn-danger {
+  background: linear-gradient(135deg, #7c2d12, #ef4444);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.5);
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+/* animation */
+@keyframes confirmIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Notifikasi global */
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 9999;
+
+  background: rgba(15, 15, 15, 0.95);
+  border: 2px solid #38bdf8;
+  border-radius: 14px;
+
+  padding: 22px 28px;
+  min-width: 260px;
+  max-width: 90vw;
+
+  text-align: center;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
+
+  animation: toastIn 0.25s ease-out;
+}
+
+.toast-content {
+  font-size: 18px;              /* ⬅️ LEBIH BESAR */
+  font-weight: 600;
+  color: #e5f6ff;
+  letter-spacing: 0.3px;
+}
+
+/* hidden state */
+.toast.hidden {
+  display: none;
+}
+
+/* animation */
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Override responsive */
+/* mobile sizing – DO NOT MERGE SLOT HEIGHTS */
+@media (max-width: 768px) {
+  .team-card,
+  .team-slot,
+  .card-slot {
+    width: 72px;
+  }
+
+  .team-slot {
+    height: 130px;
+  }
+
+  .card-slot {
+    height: 90px;
+  }
+
+  .team-card img,
+  .card-slot img {
+    height: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .team-card,
+  .team-slot,
+  .card-slot {
+    height: 140px;
+  }
+
+  .team-card img,
+  .card-slot img {
+    height: 80px;
+  }
+
+  .team-card strong,
+  .card-slot strong {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .saved-team-body {
+    flex-direction: column;
+  }
+
+  .saved-team-note {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .toast {
+    padding: 18px 20px;
+  }
+  .toast-content {
+    font-size: 16px;
+  }
+}
+
+/* Save team */
+@media (max-width: 768px) {
+  .top-controls {
+    gap: 10px;
+  }
+
+  .save-team-btn {
+    font-size: 13px;
+    padding: 8px 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-btn::after {
+    height: 2px;
+    bottom: 3px;
+  }
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 18px;
+  }
+
+  .team {
+    gap: 8px;
+  }
+
+  .team-card,
+  .team-slot {
+    width: 90px;
+  }
+
+  .team-card img {
+    height: 100px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+
+  .saved-team-grid {
+    grid-template-columns: repeat(5, 42px); /* lebih kecil */
+    gap: 6px;
+  }
+
+  .saved-slot {
+    width: 42px;
+    border-radius: 6px;
+    border-width: 1.5px;
+  }
+
+  .saved-slot img {
+    max-width: 88%;
+    max-height: 88%;
+  }
+
+  /* PET */
+  .saved-pet {
+    height: 52px;
+  }
+
+  /* CHARACTER */
+  .saved-char {
+    height: 58px;
+  }
+
+  /* CARD */
+  .saved-card {
+    height: 58px;
+  }
+
+  /* EQUIP */
+  .saved-equip {
+    height: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .saved-team-date {
+    font-size: 12px;
+  }
+
+  .saved-team-remove {
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+}
+
+
+/* ================= CARD SLOT ================= */
+.card-slot {
+  width: 96px;
+  height: 190px;
+
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.card-slot:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.05);
+}
+
+.card-slot img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 6px;
+}
+
+.card-slot strong {
+  display: block;
+  font-size: 13px;
+}
+
+/* ======= TEXT SLOT CARD ======= */
+.team-pair .card-slot.empty::after {
+  content: "+ Card";
+  display: block;
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.card-slot.active {
+  outline: 3px solid var(--border-active);
+}
+
+.card-slot:not(.empty),
+.team-card {
+  background: var(--bg-card-hover);
+  color: var(--name-character);
+  border: 3px solid var(--border-default);
+}
+
+
+
+.card-slot {
+  position: relative;
+  overflow: visible;
+}
+
+
+
+/* =========== FIX SLOT CHARA & SLOT CARD ======== */
+.team-card,
+.team-slot,
+.card-slot {
+  height: 190px;           /* desktop */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.team-card img,
+.card-slot img {
+  height: 120px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.team-card strong,
+.card-slot strong {
+  margin-top: auto;           /* dorong ke bawah */
+  padding: 4px 2px 0;
+
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  max-width: 100%;
+}
+
+.team-card,
+.card-slot {
+  overflow: hidden;
+}
+
+
+
+/* ========= LAST FIX REMOVE CARD & PETS ===== */
+.card-slot,
+.team-card {
+  position: relative;
+  height: 150px;
+}
+
+
+
+/*
+.slot-remove {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+/* ================= EQUIP POPUP ITEMS ================= */
+
+
+
+
+
+
+
+
+ FIX POSISI NAIK TURUN CARD 
+.team-card,
+.team-slot,
+.card-slot {
+  height: 150px;           
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+
+
+.card-slot.empty::after {
+  content: "+ Card";
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ========== REMOVE BUTTON UNIVERSAL ======= */
+.card-slot {
+  position: relative;
+  overflow: visible; /* 🔥 WAJIB */
+}
+
+
+
+/* ================= SAVED TEAM CARD ================= */
+
+
+
+/* ================= SAVED TEAM GRID ================= */
+
+
+
+
+/* ================= SAVED TEAM GRID ================= */
+
+
+
+/* NOTE CARD */
+
+
+/* RESPONSIVE MOBILE */
+
+
+/* ======== POPUP NOTIF SAVE NOTE ======= */
+
+
+/* MOBILE ADJUST */
+
+
+
+/* ================= SAVE TEAM BUTTON ================= */
+
+
+
+/* ================= CONFIRM POPUP (RESET TEAM) ================= */
+
+
+/* ================= RESET TEAM BUTTON ================= */
+.reset-team-btn {
+  background: linear-gradient(135deg, #7c2d12, #ef4444);
+  border: none;
+  color: #ffffff;
+
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+
+  border-radius: 999px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow:
+    0 4px 14px rgba(239, 68, 68, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+
+.reset-team-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 18px rgba(239, 68, 68, 0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.35);
+  filter: brightness(1.05);
+}
+
+.reset-team-btn:active {
+  transform: scale(0.96);
+}
+
+/* ================= RESET TEAM DISABLED ================= */
+.reset-team-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+  box-shadow: none;
+}
+
+.reset-team-btn:disabled:hover {
+  transform: none;
+}
+
+/* ================= NAV UNDERLINE ANIMATION ================= */
+.nav-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* garis underline */
+.nav-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+
+  width: 70%;
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    #38bdf8,
+    #4f6aff
+  );
+
+  border-radius: 999px;
+
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+
+  transition: transform 0.25s ease;
+}
+
+/* aktif = garis muncul */
+.nav-btn.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* hover feedback */
+.nav-btn:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* hover text glow */
+.nav-btn:hover {
+  color: #ffffff;
+}
+
+
+/* ================= CARD / PET NAME (POPUP) ================= */
+.card-item,
+.pet-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.3;
+
+  max-width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ================= MOBILE POLISH ================= */
+
+
+/* ================================= */
+/*        SAVED TEAM MOBILE          */
+/* ================================= */
+
