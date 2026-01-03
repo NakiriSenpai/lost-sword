@@ -962,8 +962,9 @@ if (!Array.isArray(savedTeams) || savedTeams.length === 0) {
   });
   /* ======== COUNTER ======= */
   if (counter) {
-  counter.textContent = `Showing ${filteredTeams.length} / ${savedTeams.length} teams`;
-  }
+  counter.innerHTML =
+    `Showing <strong>${filteredTeams.length}</strong> / ${savedTeams.length} teams`;
+}
 
 if (filteredTeams.length === 0) {
   if (counter) {
@@ -971,10 +972,10 @@ if (filteredTeams.length === 0) {
   }
 
   list.innerHTML = `
-    <div class="empty-state">
-      No teams found.
-    </div>
-  `;
+  <div class="empty-state">
+    🔍 No teams match your filter
+  </div>
+`;
   return;
 }
 
