@@ -21,7 +21,7 @@ const TEAM_CATEGORIES = [
   "Star Reincarnation"
 ];
 
-let selectedCategory = "Story";
+let selectedCategory = "";
 let savedTeamFilterCategory = "";
 let savedTeamSearchKeyword = "";
 /* ================= EQUIP STATE ================= */
