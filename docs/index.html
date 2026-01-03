@@ -64,6 +64,32 @@
 <!-- ========== SAVE TEAM SECTION ============ -->
 <div id="page-saved-team" class="page">
   <h2>Saved Teams</h2>
+
+  <!-- FILTER & SEARCH -->
+  <div class="saved-team-controls">
+
+    <input
+      type="text"
+      id="savedTeamSearch"
+      placeholder="Search team title..."
+    />
+
+    <div class="saved-team-filters">
+      <button class="saved-filter-btn active" data-category="">
+        All
+      </button>
+      <button class="saved-filter-btn" data-category="Story">Story</button>
+      <button class="saved-filter-btn" data-category="PvP">PvP</button>
+      <button class="saved-filter-btn" data-category="Raid">Raid</button>
+      <button class="saved-filter-btn" data-category="Avalon">Avalon</button>
+      <button class="saved-filter-btn" data-category="Abyss">Abyss</button>
+      <button class="saved-filter-btn" data-category="Star Reincarnation">
+        Star Reincarnation
+      </button>
+    </div>
+
+  </div>
+
   <div id="saved-teams-list"></div>
 </div>
 
