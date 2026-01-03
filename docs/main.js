@@ -1002,28 +1002,41 @@ function renderSavedTeams() {
         <div class="saved-team-grid">
     `;
 
-    /* PETS */
-    team.pets.slice(0, 3).forEach((pet) => {
-      html += `<div class="saved-pet-slot">${pet ? pet.name : ""}</div>`;
+        /* PETS */
+    team.pets.slice(0, 3).forEach((pet, i) => {
+      html += `
+        <div class="saved-slot saved-pet saved-row-pet saved-col-${i + 2}">
+          ${pet ? `<img src="${pet.image}">` : ""}
+        </div>`;
     });
 
-    /* CHARACTERS */
+    /* CHAR */
     for (let i = 0; i < 5; i++) {
       const c = team.team[i];
-      html += `<div class="saved-char-slot">${c ? c.name : ""}</div>`;
+      html += `
+        <div class="saved-slot saved-char saved-row-char saved-col-${i + 1}">
+          ${c ? `<img src="${c.image}">` : ""}
+        </div>`;
     }
 
-    /* CARDS */
+    /* CARD */
     for (let i = 0; i < 5; i++) {
       const c = team.cards[i];
-      html += `<div class="saved-card-slot">${c ? c.name : ""}</div>`;
+      html += `
+        <div class="saved-slot saved-card saved-row-card saved-col-${i + 1}">
+          ${c ? `<img src="${c.image}">` : ""}
+        </div>`;
     }
 
     /* EQUIP */
     for (let col = 0; col < 4; col++) {
       for (let row = 0; row < 5; row++) {
         const id = team.equips[row][col];
-        html += `<div class="saved-equip-slot">${id || ""}</div>`;
+        const img = id ? getEquipImageById(id) : null;
+        html += `
+          <div class="saved-slot saved-equip saved-row-eq-${col+1} saved-col-${row+1}">
+            ${img ? `<img src="${img}">` : ""}
+          </div>`;
       }
     }
 
