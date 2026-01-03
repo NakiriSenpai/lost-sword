@@ -441,31 +441,29 @@ header button:hover {
    ====================================================================== */
 .saved-team-category {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 4px 8px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
-.saved-team-counter {
-  margin: 8px 0 16px;
-  font-size: 13px;
-  opacity: 0.75;
+/* CATEGORY COLORS */
+.category-story { background:#3a6ea5; color:#fff; }
+.category-pvp { background:#a53a3a; color:#fff; }
+.category-raid { background:#6a3aa5; color:#fff; }
+.category-avalon { background:#3aa57a; color:#fff; }
+.category-abyss { background:#222; color:#e57373; }
+.category-star-reincarnation {
+  background: linear-gradient(135deg,#ffd36a,#ff8a00);
+  color:#000;
 }
-
-/* Category colors */
-.category-story { background: #3b82f6; color: #fff; }
-.category-pvp { background: #ef4444; color: #fff; }
-.category-raid { background: #f59e0b; color: #000; }
-.category-avalon { background: #8b5cf6; color: #fff; }
-.category-abyss { background: #111827; color: #fff; }
-.category-star-reincarnation { background: #22c55e; color: #000; }
 
 .empty-state {
+  padding: 32px 16px;
   text-align: center;
-  opacity: 0.6;
-  padding: 40px;
+  opacity: 0.7;
   font-size: 14px;
 }
 
@@ -474,6 +472,17 @@ mark {
   color: #000;
   padding: 0 2px;
   border-radius: 2px;
+}
+
+.saved-team-counter {
+  margin: 8px 0 16px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.saved-team-counter strong {
+  color: #ffd36a; /* gold fantasy */
+  font-weight: 600;
 }
 
 /* ======================================================================
@@ -1282,6 +1291,12 @@ mark {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.saved-team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
 .saved-team-header {
