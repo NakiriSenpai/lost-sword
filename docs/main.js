@@ -10,6 +10,18 @@ let savedTeams = JSON.parse(localStorage.getItem("savedTeams")) || [];
 
 let activeEquipSlot = null;
 let confirmAction = null;
+
+/* ================= TEAM CATEGORIES ================= */
+const TEAM_CATEGORIES = [
+  "Story",
+  "PvP",
+  "Raid",
+  "Avalon",
+  "Abyss",
+  "Star Reincarnation"
+];
+
+let selectedCategory = "Story";
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 
@@ -150,6 +162,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderEquipSlots();
   renderSavedTeams();
   updateResetButtonState();
+  renderCategoryButtons();
   // EQUIP POPUP CLOSE
   if (equipPopupCloseEl) {
   equipPopupCloseEl.addEventListener("click", closeEquipPopup);
@@ -806,20 +819,52 @@ function saveAndRenderCards() {
   persistCards();
   renderTeam();
 }
+  
+/* ========= FUNGSI RNDER CATEGORY ======= */
+  function renderCategoryButtons() {
+  const wrap = document.getElementById("teamCategorySelect");
+  if (!wrap) return;
+
+  wrap.innerHTML = "";
+
+  TEAM_CATEGORIES.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.textContent = cat;
+
+    if (cat === selectedCategory) {
+      btn.style.border = "2px solid gold";
+    }
+
+    btn.onclick = () => {
+      selectedCategory = cat;
+      renderCategoryButtons();
+    };
+
+    wrap.appendChild(btn);
+  });
+  }
 
 /* ========= FUNGSI SAVE TEAM ======= */
 function saveCurrentTeam() {
+  const titleInput = document.getElementById("teamTitleInput");
+  const title = titleInput ? titleInput.value.trim() : "";
+
+  if (!title) {
+    alert("Judul team wajib diisi");
+    return;
+  }
+
   const snapshot = {
     id: "team_" + Date.now(),
     savedAt: Date.now(),
-    note: "",
+
+    title: title,
+    category: selectedCategory,
 
     team: JSON.parse(JSON.stringify(team)),
     cards: JSON.parse(JSON.stringify(cardSlots)),
     pets: JSON.parse(JSON.stringify(petSlots)),
-    equips: equipSlots.map(row =>
-      row.map(e => e ? e.id : null)
-    )
+    equips: equipSlots.map(row => row.map(e => e ? e.id : null))
   };
 
   savedTeams.push(snapshot);
