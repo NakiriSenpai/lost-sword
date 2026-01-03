@@ -231,7 +231,8 @@ document.getElementById("reset-team-btn")
   document.getElementById("savedTeamSearch");
 
 savedTeamSearchInput.addEventListener("input", (e) => {
-  savedTeamSearchKeyword = e.target.value.toLowerCase();
+  const value = e.target.value.trim().toLowerCase();
+  savedTeamSearchKeyword = value; // "" jika kosong
   renderSavedTeams();
 });
 
@@ -948,8 +949,8 @@ function renderSavedTeams() {
   .filter((team) => {
 
     const matchCategory =
-      !savedTeamFilterCategory ||
-      team.category === savedTeamFilterCategory;
+      !selectedCategory ||
+      team.category === selectedCategory;
 
     const matchSearch =
       !savedTeamSearchKeyword ||
