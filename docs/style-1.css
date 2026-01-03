@@ -448,6 +448,12 @@ header button:hover {
   margin-bottom: 4px;
 }
 
+.saved-team-counter {
+  margin: 8px 0 16px;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
 /* Category colors */
 .category-story { background: #3b82f6; color: #fff; }
 .category-pvp { background: #ef4444; color: #fff; }
