@@ -945,37 +945,33 @@ function renderSavedTeams() {
     return;
   }
 
-const titleText = team.title || "Untitled Team";
-const displayTitle = highlightText(
-  titleText,
-  savedTeamSearchKeyword
-);
-
+  // ================= FILTER =================
   const filteredTeams = savedTeams.filter((team) => {
-  const matchCategory =
-    !selectedCategory || team.category === selectedCategory;
+    const matchCategory =
+      !selectedCategory || team.category === selectedCategory;
 
-  const matchSearch =
-    !savedTeamSearchKeyword ||
-    (team.title || "")
-      .toLowerCase()
-      .includes(savedTeamSearchKeyword);
+    const matchSearch =
+      !savedTeamSearchKeyword ||
+      (team.title || "")
+        .toLowerCase()
+        .includes(savedTeamSearchKeyword);
 
-  return matchCategory && matchSearch;
-});
+    return matchCategory && matchSearch;
+  });
 
-list.innerHTML = "";
+  // ================= EMPTY STATE =================
+  if (filteredTeams.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        No teams found.
+      </div>
+    `;
+    return;
+  }
 
-if (filteredTeams.length === 0) {
-  list.innerHTML = `
-    <div class="empty-state">
-      No teams found.
-    </div>
-  `;
-  return;
-}
+  // ================= RENDER =================
+  filteredTeams.forEach((team) => {
 
-filteredTeams.forEach((team) => {
     /* ===== NORMALIZE DATA ===== */
     team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
     team.team   = Array.isArray(team.team)   ? team.team   : [];
@@ -987,8 +983,12 @@ filteredTeams.forEach((team) => {
       if (!Array.isArray(team.equips[r])) team.equips[r] = [];
     }
 
-    const card = document.createElement("div");
-    card.className = "saved-team-card";
+    /* ===== TITLE + HIGHLIGHT ===== */
+    const titleText = team.title || "Untitled Team";
+    const displayTitle = highlightText(
+      titleText,
+      savedTeamSearchKeyword
+    );
 
     /* ===== DATE FORMAT ===== */
     const d = new Date(team.savedAt || Date.now());
@@ -997,26 +997,38 @@ filteredTeams.forEach((team) => {
       `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ` +
       `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 
-    let html = `
-      <div class="saved-team-header">
-      <span
-  class="saved-team-category category-${(team.category || "")
-    .toLowerCase()
-    .replace(/\s+/g, "-")}"
->
-  ${team.category || "Uncategorized"}
-</span>
+    const card = document.createElement("div");
+    card.className = "saved-team-card";
 
-    <h3 class="saved-team-title">
-  ${displayTitle}
-</h3>
-        <div class="saved-team-date">Saved: ${dateText}</div>
-        <button class="saved-team-remove">Remove</button>
+    card.innerHTML = `
+      <div class="saved-team-header">
+
+        <span
+          class="saved-team-category category-${(team.category || "")
+            .toLowerCase()
+            .replace(/\s+/g, "-")}"
+        >
+          ${team.category || "Uncategorized"}
+        </span>
+
+        <h3 class="saved-team-title">
+          ${displayTitle}
+        </h3>
+
+        <div class="saved-team-date">
+          Saved: ${dateText}
+        </div>
+
+        <button class="saved-team-remove">
+          Remove
+        </button>
       </div>
 
       <div class="saved-team-body">
-        <!-- LEFT GRID -->
         <div class="saved-team-grid">
+          <!-- grid karakter kamu tetap di sini -->
+        </div>
+      </div>
     `;
 
     /* PETS */
