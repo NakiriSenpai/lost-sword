@@ -939,12 +939,16 @@ function renderSavedTeams() {
   if (!list) return;
 
   list.innerHTML = "";
+const counter = document.getElementById("saved-team-counter");
 
-  if (!Array.isArray(savedTeams) || savedTeams.length === 0) {
-    list.innerHTML = "<p>Belum ada team yang disimpan.</p>";
-    return;
+if (!Array.isArray(savedTeams) || savedTeams.length === 0) {
+  if (counter) {
+    counter.textContent = "No teams saved (0 / 0)";
   }
-
+  list.innerHTML = "<p>Belum ada team yang disimpan.</p>";
+  return;
+}
+/* ====== FILTERED ======== */
   const filteredTeams = savedTeams.filter((team) => {
     const matchCategory =
       !savedTeamFilterCategory ||
@@ -956,11 +960,23 @@ function renderSavedTeams() {
 
     return matchCategory && matchSearch;
   });
-
-  if (filteredTeams.length === 0) {
-    list.innerHTML = `<div class="empty-state">No teams found.</div>`;
-    return;
+  /* ======== COUNTER ======= */
+  if (counter) {
+  counter.textContent = `Showing ${filteredTeams.length} / ${savedTeams.length} teams`;
   }
+
+if (filteredTeams.length === 0) {
+  if (counter) {
+    counter.textContent = `No teams found (0 / ${savedTeams.length})`;
+  }
+
+  list.innerHTML = `
+    <div class="empty-state">
+      No teams found.
+    </div>
+  `;
+  return;
+}
 
   filteredTeams.forEach((team) => {
 
