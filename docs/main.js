@@ -22,6 +22,8 @@ const TEAM_CATEGORIES = [
 ];
 
 let selectedCategory = "Story";
+let savedTeamFilterCategory = "";
+let savedTeamSearchKeyword = "";
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 
@@ -223,6 +225,36 @@ document.getElementById("reset-team-btn")
       onConfirm: resetTeam
     });
   });
+  
+  /* ========= SEARCH TEAM SAVED ========= */
+  const savedTeamSearchInput =
+  document.getElementById("savedTeamSearch");
+
+savedTeamSearchInput.addEventListener("input", (e) => {
+  savedTeamSearchKeyword = e.target.value.toLowerCase();
+  renderSavedTeams();
+});
+
+  document
+  .querySelectorAll(".saved-filter-btn")
+  .forEach((btn) => {
+    btn.addEventListener("click", () => {
+
+      // active state
+      document
+        .querySelectorAll(".saved-filter-btn")
+        .forEach(b => b.classList.remove("active"));
+
+      btn.classList.add("active");
+
+      // set filter
+      savedTeamFilterCategory =
+        btn.dataset.category;
+
+      renderSavedTeams();
+    });
+  });
+  
   
   /* ========== LOGIC PINDAH HALAMAN ======= */
   const navCurrent = document.getElementById("nav-current");
@@ -912,7 +944,29 @@ function renderSavedTeams() {
     return;
   }
 
-  savedTeams.forEach(team => {
+  savedTeams
+  .filter((team) => {
+    // filter category
+    if (
+      savedTeamFilterCategory &&
+      team.category !== savedTeamFilterCategory
+    ) {
+      return false;
+    }
+
+    // filter title search
+    if (
+      savedTeamSearchKeyword &&
+      !team.title
+        .toLowerCase()
+        .includes(savedTeamSearchKeyword)
+    ) {
+      return false;
+    }
+
+    return true;
+  })
+  .forEach((team) => {
     /* ===== NORMALIZE DATA ===== */
     team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
     team.team   = Array.isArray(team.team)   ? team.team   : [];
