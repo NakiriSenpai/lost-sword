@@ -947,17 +947,18 @@ function renderSavedTeams() {
 
   // ================= FILTER =================
   const filteredTeams = savedTeams.filter((team) => {
-    const matchCategory =
-      !selectedCategory || team.category === selectedCategory;
+  const matchCategory =
+    !savedTeamFilterCategory ||
+    team.category === savedTeamFilterCategory;
 
-    const matchSearch =
-      !savedTeamSearchKeyword ||
-      (team.title || "")
-        .toLowerCase()
-        .includes(savedTeamSearchKeyword);
+  const matchSearch =
+    !savedTeamSearchKeyword ||
+    (team.title || "")
+      .toLowerCase()
+      .includes(savedTeamSearchKeyword);
 
-    return matchCategory && matchSearch;
-  });
+  return matchCategory && matchSearch;
+});
 
   // ================= EMPTY STATE =================
   if (filteredTeams.length === 0) {
