@@ -434,6 +434,43 @@ header button:hover {
 }
 
 /* ======================================================================
+   FILTER CATEGORY & FILTER SEARCH 
+   - Filter Category Saved Team
+   - JS: saveCurrentTeam
+   - JS toggle class: .
+   ====================================================================== */
+.saved-team-category {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Category colors */
+.category-story { background: #3b82f6; color: #fff; }
+.category-pvp { background: #ef4444; color: #fff; }
+.category-raid { background: #f59e0b; color: #000; }
+.category-avalon { background: #8b5cf6; color: #fff; }
+.category-abyss { background: #111827; color: #fff; }
+.category-star-reincarnation { background: #22c55e; color: #000; }
+
+.empty-state {
+  text-align: center;
+  opacity: 0.6;
+  padding: 40px;
+  font-size: 14px;
+}
+
+mark {
+  background: #fde047;
+  color: #000;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* ======================================================================
    CHARACTER LIST / GRID
    - Daftar karakter yang bisa dipilih
    - JS: renderCharacters(), onCharacterClick()
