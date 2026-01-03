@@ -22,8 +22,8 @@ const TEAM_CATEGORIES = [
 ];
 
 let selectedCategory = "";
+let savedTeamFilterCategory = "";
 let savedTeamSearchKeyword = "";
-let savedTeamFilterCategories = new Set();
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 
@@ -93,50 +93,6 @@ resetFilterBtn.id = "resetFilterBtn";
 resetFilterBtn.textContent = "RESET FILTER";
 resetFilterBtn.style.display = "none";
 filtersBar.appendChild(resetFilterBtn);
-
-/* ================= FILTER SAVED TEAM ================= */
-const savedTeamCategoryWrapper =
-  document.getElementById("saved-team-category-filters");
-
-if (savedTeamCategoryWrapper) {
-  savedTeamCategoryWrapper.addEventListener("click", (e) => {
-    const btn = e.target.closest(".filter-btn");
-    if (!btn) return;
-
-    const category = btn.dataset.category;
-
-    if (savedTeamFilterCategories.has(category)) {
-      savedTeamFilterCategories.delete(category);
-      btn.classList.remove("active");
-    } else {
-      savedTeamFilterCategories.add(category);
-      btn.classList.add("active");
-    }
-
-    renderSavedTeams();
-  });
-}
-
-const savedTeamResetBtn =
-  document.getElementById("saved-team-reset-filter");
-
-if (savedTeamResetBtn) {
-  savedTeamResetBtn.addEventListener("click", () => {
-
-    savedTeamSearchKeyword = "";
-    savedTeamFilterCategories.clear();
-
-    document
-      .querySelectorAll("#saved-team-filter-bar .filter-btn.active")
-      .forEach(btn => btn.classList.remove("active"));
-
-    const input =
-      document.getElementById("saved-team-search");
-    if (input) input.value = "";
-
-    renderSavedTeams();
-  });
-}
 
 /* ================= INIT ================= */
 document.addEventListener("DOMContentLoaded", async () => {
@@ -272,51 +228,34 @@ document.getElementById("reset-team-btn")
   
   /* ========= SEARCH TEAM SAVED ========= */
   const savedTeamSearchInput =
-  document.getElementById("saved-team-search");
+  document.getElementById("savedTeamSearch");
 
-if (savedTeamSearchInput) {
-  savedTeamSearchInput.addEventListener("input", (e) => {
-    savedTeamSearchKeyword = e.target.value.toLowerCase();
-    renderSavedTeams();
-  });
-}
+savedTeamSearchInput.addEventListener("input", (e) => {
+  const value = e.target.value.trim().toLowerCase();
+  savedTeamSearchKeyword = value; // "" jika kosong
+  renderSavedTeams();
+});
 
   document
-  .getElementById("saved-team-category-filters")
-  ?.addEventListener("click", (e) => {
-    const btn = e.target.closest(".filter-btn");
-    if (!btn) return;
+  .querySelectorAll(".saved-filter-btn")
+  .forEach((btn) => {
+    btn.addEventListener("click", () => {
 
-    const category = btn.dataset.category;
+      // active state
+      document
+        .querySelectorAll(".saved-filter-btn")
+        .forEach(b => b.classList.remove("active"));
 
-    if (savedTeamFilterCategories.has(category)) {
-      savedTeamFilterCategories.delete(category);
-      btn.classList.remove("active");
-    } else {
-      savedTeamFilterCategories.add(category);
       btn.classList.add("active");
-    }
 
-    renderSavedTeams();
+      // set filter
+      savedTeamFilterCategory =
+        btn.dataset.category;
+
+      renderSavedTeams();
+    });
   });
-
-  document
-  .getElementById("saved-team-reset-filter")
-  ?.addEventListener("click", () => {
-
-    savedTeamSearchKeyword = "";
-    savedTeamFilterCategories.clear();
-
-    document
-      .querySelectorAll("#saved-team-filter-bar .filter-btn.active")
-      .forEach(btn => btn.classList.remove("active"));
-
-    const input =
-      document.getElementById("saved-team-search");
-    if (input) input.value = "";
-
-    renderSavedTeams();
-  });
+  
   
   /* ========== LOGIC PINDAH HALAMAN ======= */
   const navCurrent = document.getElementById("nav-current");
@@ -1011,18 +950,16 @@ if (!Array.isArray(savedTeams) || savedTeams.length === 0) {
 }
 /* ====== FILTERED ======== */
   const filteredTeams = savedTeams.filter((team) => {
-  const matchCategory =
-    savedTeamFilterCategories.size === 0 ||
-    savedTeamFilterCategories.has(team.category);
+    const matchCategory =
+      !savedTeamFilterCategory ||
+      team.category === savedTeamFilterCategory;
 
-  const matchSearch =
-    !savedTeamSearchKeyword ||
-    (team.title || "")
-      .toLowerCase()
-      .includes(savedTeamSearchKeyword);
+    const matchSearch =
+      !savedTeamSearchKeyword ||
+      (team.title || "").toLowerCase().includes(savedTeamSearchKeyword);
 
-  return matchCategory && matchSearch;
-});
+    return matchCategory && matchSearch;
+  });
   /* ======== COUNTER ======= */
   if (counter) {
   counter.innerHTML =

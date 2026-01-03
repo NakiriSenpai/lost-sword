@@ -69,33 +69,29 @@
   <div id="saved-team-counter" class="saved-team-counter"></div>
 
   <!-- FILTER & SEARCH -->
-  <div class="filter-bar" id="saved-team-filter-bar">
+  <div class="saved-team-controls">
 
-  <input
-    type="text"
-    id="saved-team-search"
-    placeholder="Search saved team..."
-  />
+    <input
+      type="text"
+      id="savedTeamSearch"
+      placeholder="Search team title..."
+    />
 
-  <div class="filter-buttons" id="saved-team-category-filters">
-    <button class="filter-btn" data-category="Story">Story</button>
-    <button class="filter-btn" data-category="PVP">PVP</button>
-    <button class="filter-btn" data-category="Raid">Raid</button>
-    <button class="filter-btn" data-category="Abyss">Abyss</button>
-    <button class="filter-btn" data-category="Avalon">Avalon</button>
-    <button class="filter-btn" data-category="Star Reincarnation">
-      Star
-    </button>
+    <div class="saved-team-filters">
+      <button class="saved-filter-btn active" data-category="">
+        All
+      </button>
+      <button class="saved-filter-btn" data-category="Story">Story</button>
+      <button class="saved-filter-btn" data-category="PvP">PvP</button>
+      <button class="saved-filter-btn" data-category="Raid">Raid</button>
+      <button class="saved-filter-btn" data-category="Avalon">Avalon</button>
+      <button class="saved-filter-btn" data-category="Abyss">Abyss</button>
+      <button class="saved-filter-btn" data-category="Star Reincarnation">
+        Star Reincarnation
+      </button>
+    </div>
+
   </div>
-
-  <button
-    class="filter-btn"
-    id="saved-team-reset-filter"
-  >
-    Reset
-  </button>
-
-</div>
 
   <div id="saved-teams-list"></div>
 </div>
