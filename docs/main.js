@@ -1041,9 +1041,13 @@ function renderSavedTeams() {
     }
 
     html += `
+         </div>
+
+        <!-- RIGHT NOTE -->
+        <div class="saved-team-note">
+          <textarea placeholder="Catatan team...">${team.note}</textarea>
+          <button class="save-note">Save Note</button>
         </div>
-        <div class="saved-note">${team.note || ""}</div>
-        <button class="save-note">Save Note</button>
       </div>
     `;
 
