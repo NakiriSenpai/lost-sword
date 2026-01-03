@@ -495,6 +495,8 @@ header button:hover {
   padding: 16px;
   background: var(--bg-section);
   z-index: 1;
+  min-height: fit-content;
+  overflow: visible;
 }
 
 .team {
@@ -1024,8 +1026,12 @@ header button:hover {
    ====================================================================== */
 .equip-section {
   padding: 16px;
-  outline: 3px solid red;
   z-index: 2;
+  margin-top: -25px;
+  .tab-content {
+  height: auto;
+  overflow-y: visible;
+}
 }
 
 .equip-section h2 {
@@ -1044,8 +1050,8 @@ header button:hover {
   display: grid;
   grid-template-columns: repeat(5, 96px);
   gap: 16px;
+  margin-top: 3px;
   justify-content: center;
-  margin-top: -6px;
 }
 
 /* 1 baris equip = 5 slot */
@@ -1067,7 +1073,6 @@ header button:hover {
   background: var(--bg-card);
   cursor: pointer;
   overflow: hidden;
-  outline: 3px solid red;
 }
 
 .equip-slot img {
@@ -1671,6 +1676,10 @@ header button {
 
   .saved-team-note {
     width: 100%;
+  }
+  
+  .equip-grid { 
+    margin-top: 3px; 
   }
 }
 
