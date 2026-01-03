@@ -945,139 +945,92 @@ function renderSavedTeams() {
     return;
   }
 
-  // ================= FILTER =================
   const filteredTeams = savedTeams.filter((team) => {
-  const matchCategory =
-    !savedTeamFilterCategory ||
-    team.category === savedTeamFilterCategory;
+    const matchCategory =
+      !savedTeamFilterCategory ||
+      team.category === savedTeamFilterCategory;
 
-  const matchSearch =
-    !savedTeamSearchKeyword ||
-    (team.title || "")
-      .toLowerCase()
-      .includes(savedTeamSearchKeyword);
+    const matchSearch =
+      !savedTeamSearchKeyword ||
+      (team.title || "").toLowerCase().includes(savedTeamSearchKeyword);
 
-  return matchCategory && matchSearch;
-});
+    return matchCategory && matchSearch;
+  });
 
-  // ================= EMPTY STATE =================
   if (filteredTeams.length === 0) {
-    list.innerHTML = `
-      <div class="empty-state">
-        No teams found.
-      </div>
-    `;
+    list.innerHTML = `<div class="empty-state">No teams found.</div>`;
     return;
   }
 
-  // ================= RENDER =================
   filteredTeams.forEach((team) => {
 
-    /* ===== NORMALIZE DATA ===== */
-    team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
-    team.team   = Array.isArray(team.team)   ? team.team   : [];
-    team.cards  = Array.isArray(team.cards)  ? team.cards  : [];
+    team.pets = Array.isArray(team.pets) ? team.pets : [];
+    team.team = Array.isArray(team.team) ? team.team : [];
+    team.cards = Array.isArray(team.cards) ? team.cards : [];
     team.equips = Array.isArray(team.equips) ? team.equips : [];
-    team.note   = typeof team.note === "string" ? team.note : "";
+    team.note = typeof team.note === "string" ? team.note : "";
 
     for (let r = 0; r < 5; r++) {
       if (!Array.isArray(team.equips[r])) team.equips[r] = [];
     }
 
-    /* ===== TITLE + HIGHLIGHT ===== */
     const titleText = team.title || "Untitled Team";
-    const displayTitle = highlightText(
-      titleText,
-      savedTeamSearchKeyword
-    );
+    const displayTitle = highlightText
+      ? highlightText(titleText, savedTeamSearchKeyword)
+      : titleText;
 
-    /* ===== DATE FORMAT ===== */
     const d = new Date(team.savedAt || Date.now());
-    const pad = n => String(n).padStart(2, "0");
+    const pad = (n) => String(n).padStart(2, "0");
     const dateText =
       `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ` +
       `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 
-    const card = document.createElement("div");
-    card.className = "saved-team-card";
-
-    card.innerHTML = `
+    let html = `
       <div class="saved-team-header">
-
-        <span
-          class="saved-team-category category-${(team.category || "")
-            .toLowerCase()
-            .replace(/\s+/g, "-")}"
-        >
+        <span class="saved-team-category category-${(team.category || "")
+          .toLowerCase()
+          .replace(/\s+/g, "-")}">
           ${team.category || "Uncategorized"}
         </span>
 
-        <h3 class="saved-team-title">
-          ${displayTitle}
-        </h3>
-
-        <div class="saved-team-date">
-          Saved: ${dateText}
-        </div>
-
-        <button class="saved-team-remove">
-          Remove
-        </button>
+        <h3 class="saved-team-title">${displayTitle}</h3>
+        <div class="saved-team-date">Saved: ${dateText}</div>
+        <button class="saved-team-remove">Remove</button>
       </div>
 
       <div class="saved-team-body">
         <div class="saved-team-grid">
-          <!-- grid karakter kamu tetap di sini -->
-        </div>
-      </div>
     `;
 
     /* PETS */
-    team.pets.slice(0, 3).forEach((pet, i) => {
-      html += `
-        <div class="saved-slot saved-pet saved-row-pet saved-col-${i + 2}">
-          ${pet ? `<img src="${pet.image}">` : ""}
-        </div>`;
+    team.pets.slice(0, 3).forEach((pet) => {
+      html += `<div class="saved-pet-slot">${pet ? pet.name : ""}</div>`;
     });
 
-    /* CHAR */
+    /* CHARACTERS */
     for (let i = 0; i < 5; i++) {
       const c = team.team[i];
-      html += `
-        <div class="saved-slot saved-char saved-row-char saved-col-${i + 1}">
-          ${c ? `<img src="${c.image}">` : ""}
-        </div>`;
+      html += `<div class="saved-char-slot">${c ? c.name : ""}</div>`;
     }
 
-    /* CARD */
+    /* CARDS */
     for (let i = 0; i < 5; i++) {
       const c = team.cards[i];
-      html += `
-        <div class="saved-slot saved-card saved-row-card saved-col-${i + 1}">
-          ${c ? `<img src="${c.image}">` : ""}
-        </div>`;
+      html += `<div class="saved-card-slot">${c ? c.name : ""}</div>`;
     }
 
     /* EQUIP */
     for (let col = 0; col < 4; col++) {
       for (let row = 0; row < 5; row++) {
         const id = team.equips[row][col];
-        const img = id ? getEquipImageById(id) : null;
-        html += `
-          <div class="saved-slot saved-equip saved-row-eq-${col+1} saved-col-${row+1}">
-            ${img ? `<img src="${img}">` : ""}
-          </div>`;
+        html += `<div class="saved-equip-slot">${id || ""}</div>`;
       }
     }
 
     html += `
         </div>
-
-        <!-- RIGHT NOTE -->
-        <div class="saved-team-note">
-          <textarea placeholder="Catatan team...">${team.note}</textarea>
-          <button class="save-note">Save Note</button>
-        </div>
+        <div class="saved-note">${team.note || ""}</div>
+        <button class="save-note">Save Note</button>
       </div>
     `;
 
