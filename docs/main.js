@@ -946,25 +946,18 @@ function renderSavedTeams() {
 
   savedTeams
   .filter((team) => {
-    // filter category
-    if (
-      savedTeamFilterCategory &&
-      team.category !== savedTeamFilterCategory
-    ) {
-      return false;
-    }
 
-    // filter title search
-    if (
-      savedTeamSearchKeyword &&
-      !team.title
+    const matchCategory =
+      !savedTeamFilterCategory ||
+      team.category === savedTeamFilterCategory;
+
+    const matchSearch =
+      !savedTeamSearchKeyword ||
+      (team.title || "")
         .toLowerCase()
-        .includes(savedTeamSearchKeyword)
-    ) {
-      return false;
-    }
+        .includes(savedTeamSearchKeyword);
 
-    return true;
+    return matchCategory && matchSearch;
   })
   .forEach((team) => {
     /* ===== NORMALIZE DATA ===== */
