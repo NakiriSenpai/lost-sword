@@ -945,22 +945,37 @@ function renderSavedTeams() {
     return;
   }
 
-  savedTeams
-  .filter((team) => {
+const titleText = team.title || "Untitled Team";
+const displayTitle = highlightText(
+  titleText,
+  savedTeamSearchKeyword
+);
 
-    const matchCategory =
-      !selectedCategory ||
-      team.category === selectedCategory;
+  const filteredTeams = savedTeams.filter((team) => {
+  const matchCategory =
+    !selectedCategory || team.category === selectedCategory;
 
-    const matchSearch =
-      !savedTeamSearchKeyword ||
-      (team.title || "")
-        .toLowerCase()
-        .includes(savedTeamSearchKeyword);
+  const matchSearch =
+    !savedTeamSearchKeyword ||
+    (team.title || "")
+      .toLowerCase()
+      .includes(savedTeamSearchKeyword);
 
-    return matchCategory && matchSearch;
-  })
-  .forEach((team) => {
+  return matchCategory && matchSearch;
+});
+
+list.innerHTML = "";
+
+if (filteredTeams.length === 0) {
+  list.innerHTML = `
+    <div class="empty-state">
+      No teams found.
+    </div>
+  `;
+  return;
+}
+
+filteredTeams.forEach((team) => {
     /* ===== NORMALIZE DATA ===== */
     team.pets   = Array.isArray(team.pets)   ? team.pets   : [];
     team.team   = Array.isArray(team.team)   ? team.team   : [];
@@ -984,13 +999,17 @@ function renderSavedTeams() {
 
     let html = `
       <div class="saved-team-header">
-      <span class="saved-team-category">
-      ${team.category || "Uncategorized"}
-    </span>
+      <span
+  class="saved-team-category category-${(team.category || "")
+    .toLowerCase()
+    .replace(/\s+/g, "-")}"
+>
+  ${team.category || "Uncategorized"}
+</span>
 
     <h3 class="saved-team-title">
-      ${team.title || "Untitled Team"}
-    </h3>
+  ${displayTitle}
+</h3>
         <div class="saved-team-date">Saved: ${dateText}</div>
         <button class="saved-team-remove">Remove</button>
       </div>
@@ -1238,6 +1257,13 @@ function isTeamEmpty() {
   }
   
 /* ======== HELPER FUNCTION ======= */
+  function highlightText(text, keyword) {
+  if (!keyword) return text;
+
+  const regex = new RegExp(`(${keyword})`, "ig");
+  return text.replace(regex, "<mark>$1</mark>");
+  }
+  
 function getCharacterClassByRow(row) {
   const char = team[row];
   return char ? char.class.toLowerCase() : null;
