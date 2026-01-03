@@ -22,8 +22,9 @@ const TEAM_CATEGORIES = [
 ];
 
 let selectedCategory = "";
-let savedTeamFilterCategory = "";
-let savedTeamSearchKeyword = "";
+// ===== Saved Team Filter State =====
+let savedTeamSearchText = "";
+let savedTeamActiveCategories = new Set();
 /* ================= EQUIP STATE ================= */
 const EQUIP_TYPES = ["weapon", "armor", "acc", "rune"];
 
@@ -227,33 +228,48 @@ document.getElementById("reset-team-btn")
   });
   
   /* ========= SEARCH TEAM SAVED ========= */
-  const savedTeamSearchInput =
-  document.getElementById("savedTeamSearch");
+  const savedSearchInput = document.getElementById("savedTeamSearch");
+if (savedSearchInput) {
+  savedSearchInput.addEventListener("input", (e) => {
+    savedTeamSearchText = e.target.value.trim().toLowerCase();
+    renderSavedTeams();
+  });
+}
+  
 
-savedTeamSearchInput.addEventListener("input", (e) => {
-  const value = e.target.value.trim().toLowerCase();
-  savedTeamSearchKeyword = value; // "" jika kosong
-  renderSavedTeams();
-});
+  document.getElementById("savedTeamSearch")
+  .addEventListener("input", (e) => {
+    savedTeamSearchText = e.target.value.toLowerCase();
+    renderSavedTeams();
+  });
 
-  document
-  .querySelectorAll(".saved-filter-btn")
-  .forEach((btn) => {
+document.querySelectorAll(".saved-filter-btn")
+  .forEach(btn => {
     btn.addEventListener("click", () => {
+      const category = btn.dataset.category.toLowerCase();
 
-      // active state
-      document
-        .querySelectorAll(".saved-filter-btn")
-        .forEach(b => b.classList.remove("active"));
-
-      btn.classList.add("active");
-
-      // set filter
-      savedTeamFilterCategory =
-        btn.dataset.category;
+      if (savedTeamActiveCategories.has(category)) {
+        savedTeamActiveCategories.delete(category);
+        btn.classList.remove("active");
+      } else {
+        savedTeamActiveCategories.add(category);
+        btn.classList.add("active");
+      }
 
       renderSavedTeams();
     });
+  });
+
+document.getElementById("savedFilterReset")
+  .addEventListener("click", () => {
+    savedTeamSearchText = "";
+    savedTeamActiveCategories.clear();
+
+    document.getElementById("savedTeamSearch").value = "";
+    document.querySelectorAll(".saved-filter-btn")
+      .forEach(btn => btn.classList.remove("active"));
+
+    renderSavedTeams();
   });
   
   
@@ -280,21 +296,30 @@ function switchPage(page) {
   const saveBtn = document.getElementById("save-team-btn");
   const resetBtn = document.getElementById("reset-team-btn");
 
+const titleInputWrap = document.getElementById("teamTitleInput");
+const categoryWrap = document.getElementById("teamCategorySelect");
+
   if (page === "current") {
-    pageCurrent.classList.add("active");
-    navCurrent.classList.add("active");
+  pageCurrent.classList.add("active");
+  navCurrent.classList.add("active");
 
-    if (saveBtn) saveBtn.style.display = "block";
-    if (resetBtn) resetBtn.style.display = "block";
-  } else {
-    pageSaved.classList.add("active");
-    navSaved.classList.add("active");
+  if (saveBtn) saveBtn.style.display = "block";
+  if (resetBtn) resetBtn.style.display = "block";
 
-    if (saveBtn) saveBtn.style.display = "none";
-    if (resetBtn) resetBtn.style.display = "none";
+  if (titleInputWrap) titleInputWrap.style.display = "block";
+  if (categoryWrap) categoryWrap.style.display = "flex";
+} else {
+  pageSaved.classList.add("active");
+  navSaved.classList.add("active");
 
-    renderSavedTeams();
-  }
+  if (saveBtn) saveBtn.style.display = "none";
+  if (resetBtn) resetBtn.style.display = "none";
+
+  if (titleInputWrap) titleInputWrap.style.display = "none";
+  if (categoryWrap) categoryWrap.style.display = "none";
+
+  renderSavedTeams();
+}
 }
 
 // DEVICE POPUP (MOBILE & TABLET TEXT)
@@ -948,18 +973,29 @@ if (!Array.isArray(savedTeams) || savedTeams.length === 0) {
   list.innerHTML = "<p>Belum ada team yang disimpan.</p>";
   return;
 }
-/* ====== FILTERED ======== */
-  const filteredTeams = savedTeams.filter((team) => {
-    const matchCategory =
-      !savedTeamFilterCategory ||
-      team.category === savedTeamFilterCategory;
+/* ====== FILTERED (MULTI + SEARCH) ======== */
+const filteredTeams = savedTeams.filter((team) => {
+  const title = (team.title || "").toLowerCase();
+  const category = (team.category || "").toLowerCase();
 
-    const matchSearch =
-      !savedTeamSearchKeyword ||
-      (team.title || "").toLowerCase().includes(savedTeamSearchKeyword);
+  // search
+  if (
+    savedTeamSearchText &&
+    !title.includes(savedTeamSearchText)
+  ) {
+    return false;
+  }
 
-    return matchCategory && matchSearch;
-  });
+  // multi category
+  if (
+    savedTeamActiveCategories.size > 0 &&
+    !savedTeamActiveCategories.has(category)
+  ) {
+    return false;
+  }
+
+  return true;
+});
   /* ======== COUNTER ======= */
   if (counter) {
   counter.innerHTML =
@@ -993,7 +1029,7 @@ if (filteredTeams.length === 0) {
 
     const titleText = team.title || "Untitled Team";
     const displayTitle = highlightText
-      ? highlightText(titleText, savedTeamSearchKeyword)
+      ? highlightText(titleText, savedTeamSearchText)
       : titleText;
 
     const d = new Date(team.savedAt || Date.now());
@@ -1109,25 +1145,6 @@ if (filteredTeams.length === 0) {
     list.appendChild(card);
   });
 }
-/* ======= GENERIC CONFIRM MODAL ====== */
-  function openConfirmModal({
-  title,
-  message,
-  confirmText = "Confirm",
-  onConfirm
-}) {
-  const popup = document.getElementById("resetConfirmPopup");
-  if (!popup) return;
-
-  document.getElementById("confirmTitle").textContent = title;
-  document.getElementById("confirmMessage").innerHTML = message;
-
-  const confirmBtn = document.getElementById("confirmResetBtn");
-  confirmBtn.textContent = confirmText;
-
-  confirmAction = onConfirm;
-  popup.classList.remove("hidden");
-  }
 
   /* ======= OPEN MODAL GWNERIC ======== */
   function openConfirmModal({

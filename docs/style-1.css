@@ -254,6 +254,106 @@ header button:hover {
 }
 
 /* ======================================================================
+   TITLE AND CATEGORIES INPUT
+   - Kolom judul dan button kategori
+   - JS:
+     - 
+   ====================================================================== */
+   
+   .current-team-info {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.team-info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.team-info-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #bbb;
+  letter-spacing: 0.4px;
+}
+
+#teamTitleInput {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+
+  padding: 8px 10px;
+  color: #fff;
+  font-size: 14px;
+
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+#teamTitleInput::placeholder {
+  color: #777;
+}
+
+#teamTitleInput:focus {
+  border-color: #4da6ff;
+  box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
+}
+
+.team-category-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ===== Current Team Category Buttons ===== */
+
+#teamCategorySelect {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+#teamCategorySelect .category-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+
+  background: rgba(255, 255, 255, 0.06);
+  color: #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border 0.2s ease,
+    transform 0.15s ease;
+}
+
+#teamCategorySelect .category-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+#teamCategorySelect .category-btn.active {
+  background: #4da6ff;
+  border-color: #4da6ff;
+  color: #000;
+}
+
+/* ======================================================================
    SAVE & RESET TEAM ACTION
    - Tombol simpan & reset team
    - JS:
@@ -483,6 +583,65 @@ mark {
 .saved-team-counter strong {
   color: #ffd36a; /* gold fantasy */
   font-weight: 600;
+}
+
+/* =========================
+   Saved Team Search & Filter
+========================= */
+
+.saved-team-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.saved-search-input {
+  flex: 1;
+  padding: 8px 10px;
+  background: #111;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.saved-search-input::placeholder {
+  color: #777;
+}
+
+.saved-team-filters {
+  display: flex;
+  gap: 6px;
+}
+
+.saved-filter-btn {
+  padding: 6px 10px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #ccc;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.saved-filter-btn.active {
+  background: #2e6bff;
+  border-color: #2e6bff;
+  color: #fff;
+}
+
+.saved-filter-btn:hover {
+  color: #fff;
+}
+
+.saved-filter-reset {
+  padding: 6px 12px;
+  background: #3a1f1f;
+  border: 1px solid #662222;
+  color: #ffbaba;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 /* ======================================================================
@@ -1723,6 +1882,12 @@ header button {
   /* Dorong baris kedua ke tengah */
   .team > :nth-child(4) {
     margin-left: 10px; /* SETENGAH SLOT + GAP */
+  }
+}
+
+@media (max-width: 600px) {
+  .current-team-info {
+    flex-direction: column;
   }
 }
 

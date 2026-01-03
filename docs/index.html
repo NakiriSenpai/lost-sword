@@ -34,19 +34,25 @@
   </div>
 
   <!-- TEAM META (BARU, KITA TAMBAHKAN) -->
-  <div class="team-meta">
+<div class="current-team-info">
 
-    <!-- TEAM TITLE INPUT -->
+  <div class="team-info-group">
+    <label class="team-info-label">Team Title</label>
     <input
-      type="text"
       id="teamTitleInput"
-      placeholder="Masukkan judul team..."
+      type="text"
+      placeholder="Enter team title..."
     />
-
-    <!-- TEAM CATEGORY -->
-    <div id="teamCategorySelect"></div>
-
   </div>
+
+  <div class="team-info-group">
+    <label class="team-info-label">Category</label>
+    <div id="teamCategorySelect" class="team-category-group">
+      <!-- tombol kategori kamu tetap di sini -->
+    </div>
+  </div>
+
+</div>
 
   <!-- SAVE TEAM BUTTON (SUDAH ADA) -->
   <div class="save-team-wrapper">
@@ -91,6 +97,9 @@
       </button>
     </div>
 
+      <button id="savedFilterReset" class="saved-filter-reset">
+    Reset
+      </button>
   </div>
 
   <div id="saved-teams-list"></div>
