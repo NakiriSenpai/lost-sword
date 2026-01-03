@@ -936,6 +936,13 @@ function renderSavedTeams() {
 
     let html = `
       <div class="saved-team-header">
+      <span class="saved-team-category">
+      ${team.category || "Uncategorized"}
+    </span>
+
+    <h3 class="saved-team-title">
+      ${team.title || "Untitled Team"}
+    </h3>
         <div class="saved-team-date">Saved: ${dateText}</div>
         <button class="saved-team-remove">Remove</button>
       </div>
