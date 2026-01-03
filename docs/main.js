@@ -1034,57 +1034,47 @@ function renderSavedTeams() {
       </div>
     `;
 
+    const card = document.createElement("div");
+    card.className = "saved-team-card";
     card.innerHTML = html;
 
-    /* EVENTS */
     card.querySelector(".saved-team-remove").onclick = () => {
-  openConfirmModal({
-    title: "Delete Saved Team?",
-    message: `
-      Team yang sudah disimpan akan <strong>dihapus permanen</strong>.<br>
-      Catatan juga ikut terhapus.
-    `,
-    confirmText: "🗑 Delete",
-    onConfirm: () => deleteSavedTeam(team.id)
-  });
-};
+      openConfirmModal({
+        title: "Delete Saved Team?",
+        message: `Team yang sudah disimpan akan dihapus permanen.`,
+        confirmText: "Delete",
+        onConfirm: () => deleteSavedTeam(team.id)
+      });
+    };
 
     card.querySelector(".save-note").onclick = () => {
-  const textarea = card.querySelector("textarea");
-  const text = textarea.value;
-
-  /* ========= VALIDATION (SEBELUM POPUP) ========= */
-  const oldText = team.note || "";
-
-  if (text === oldText) {
-    showToast("Catatan tidak berubah");
-    return;
-  }
-
-  if (!text.trim()) {
-    showToast("Catatan masih kosong");
-    return;
-  }
-
-  openConfirmModal({
-    title: "Save Note?",
-    message: `
-      Catatan untuk team ini akan <strong>disimpan</strong>.
-    `,
-    confirmText: "📝 Save Note",
-    confirmType: "primary",
-    onConfirm: () => {
-      team.note = text;
-      localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
-      showToast("Catatan sudah disimpan");
-    }
-  });
-};
+      const textarea = card.querySelector("textarea");
+      const text = textarea ? textarea.value : "";
+      const oldText = team.note || "";
+      if (text === oldText) {
+        showToast("Catatan tidak berubah");
+        return;
+      }
+      if (!text.trim()) {
+        showToast("Catatan masih kosong");
+        return;
+      }
+      openConfirmModal({
+        title: "Save Note?",
+        message: `Catatan untuk team ini akan disimpan.`,
+        confirmText: "Save Note",
+        confirmType: "primary",
+        onConfirm: () => {
+          team.note = text;
+          localStorage.setItem("savedTeams", JSON.stringify(savedTeams));
+          showToast("Catatan sudah disimpan");
+        }
+      });
+    };
 
     list.appendChild(card);
   });
 }
-
 /* ======= GENERIC CONFIRM MODAL ====== */
   function openConfirmModal({
   title,
