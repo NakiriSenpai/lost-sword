@@ -288,8 +288,8 @@ header button:hover {
 }
 
 #teamTitleInput {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
 
   padding: 8px 10px;
@@ -316,41 +316,37 @@ header button:hover {
 }
 
 /* ===== Current Team Category Buttons ===== */
-
 #teamCategorySelect {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
+  margin-top: 8px;
 }
 
-#teamCategorySelect .category-btn {
+#teamCategorySelect .team-cat-btn {
   padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-
-  background: rgba(255, 255, 255, 0.06);
-  color: #ccc;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  color: var(--text-secondary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border 0.2s ease,
-    transform 0.15s ease;
 }
 
-#teamCategorySelect .category-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  transform: translateY(-1px);
+#teamCategorySelect .team-cat-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-active);
+  color: var(--text-primary);
 }
 
-#teamCategorySelect .category-btn.active {
-  background: #4da6ff;
-  border-color: #4da6ff;
-  color: #000;
+#teamCategorySelect .team-cat-btn.active {
+  background: var(--bg-card);
+  border-color: var(--border-active);
+  color: var(--text-secondary);
 }
 
 /* ======================================================================
@@ -489,6 +485,12 @@ header button:hover {
   background: var(--bg-input);
   border: 1px solid var(--border-default);
   color: var(--text-secondary);
+  outline: none;
+}
+
+#searchInput:focus{
+  border-color: #4da6ff;
+box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 }
 
 /* FILTER BUTTON */
@@ -591,23 +593,31 @@ mark {
 
 .saved-team-controls {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  align-items: center;
+  align-items: left;
   margin-bottom: 15px;
   flex-wrap: wrap;
 }
 
-.saved-search-input {
+#savedTeamSearch {
+  width: 50%;
   flex: 1;
-  padding: 8px 10px;
-  background: #111;
-  border: 1px solid #333;
-  color: #fff;
-  border-radius: 6px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  outline: none;
 }
 
-.saved-search-input::placeholder {
+#savedTeamSearch:placeholder {
   color: #777;
+}
+
+#savedTeamSearch:focus {
+border-color: #4da6ff;
+box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 }
 
 .saved-team-filters {
@@ -616,23 +626,23 @@ mark {
 }
 
 .saved-filter-btn {
-  padding: 6px 10px;
-  background: #1a1a1a;
-  border: 1px solid #333;
-  color: #ccc;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--bg-card);
+  border: 2px solid var(--border-default);
+  color: var(--text-secondary);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  border-radius: 6px;
-  transition: all 0.2s;
 }
 
 .saved-filter-btn.active {
-  background: #2e6bff;
-  border-color: #2e6bff;
-  color: #fff;
-}
-
-.saved-filter-btn:hover {
-  color: #fff;
+  background: var(--bg-card);
+  border-color: var(--border-active);
+  color: var(--text-secondary);
 }
 
 .saved-filter-reset {
@@ -1061,6 +1071,12 @@ mark {
   background: var(--bg-input);
   border: 1px solid var(--border-default);
   color: var(--text-secondary);
+  outline: none;
+}
+
+#cardSearchInput:focus {
+  border-color: #4da6ff;
+box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 }
 
 /* card grid */
@@ -1196,6 +1212,12 @@ mark {
   border: 1px solid var(--border-default);
   border-radius: 8px;
   color: var(--text-secondary);
+  outline: none;
+}
+
+#petSearchInput:focus{
+  border-color: #4da6ff;
+box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 }
 
 #petList .card-item {

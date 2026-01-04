@@ -887,16 +887,18 @@ function saveAndRenderCards() {
 
   TEAM_CATEGORIES.forEach(cat => {
     const btn = document.createElement("button");
-    btn.textContent = cat;
+    btn.className = "team-cat-btn"; // tambahan class
+btn.textContent = cat;
 
-    if (cat === selectedCategory) {
-      btn.style.border = "2px solid gold";
-    }
+// beri class active kalau terpilih
+if (cat === selectedCategory) {
+  btn.classList.add("active");
+}
 
-    btn.onclick = () => {
-      selectedCategory = cat;
-      renderCategoryButtons();
-    };
+btn.onclick = () => {
+  selectedCategory = cat;
+  renderCategoryButtons();
+};
 
     wrap.appendChild(btn);
   });
