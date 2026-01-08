@@ -1,82 +1,79 @@
 /* =========================================================
    LOST SWORD TEAM BUILDER
-   style-4.css
+   BASE UI / THEME FOUNDATION (ANIME GACHA STYLE)
    ========================================================= */
 
-/* ================= ROOT ================= */
+/* ===================================================== CORE VARIABLE ===================================================== */
 :root {
-  /* =====================================================
-     CORE BACKGROUND
-     ===================================================== */
-  --bg-main: #0B1020;          /* background utama (sangat gelap) */
-  --bg-section: #10162A;       /* section wrapper */
-  --bg-card: #141C33;          /* card / slot */
-  --bg-card-hover: #192248;    /* hover */
-  --bg-popup: #0F152B;         /* popup modal */
-  --bg-input: #0E1428;         /* search & input */
+  /* ================= CORE BACKGROUND ================= */
+  --bg-main: #0B1324;
+  --bg-section: #11182F;
+  --bg-card: #162241;
+  --bg-card-hover: #1F2A58;
+  --bg-popup: #0E1333;
+  --bg-input: #0E152B;
 
-  /* =====================================================
-     BORDER SYSTEM (ARCANE)
-     ===================================================== */
-  --border-default: #27335E;   /* slot normal */
-  --border-soft: #1E294B;      /* subtle divider */
-  --border-hover: #3B4D8F;     /* hover */
-  --border-active: #4DF0FF;    /* active / selected (cyan arcane) */
-  --border-warning: #E6B65C;   /* warning / legendary */
-  --border-danger: #E5484D;    /* error */
+  /* ================= BORDER SYSTEM ================= */
+  --border-default: rgba(255, 255, 255, 0.06);
+  --border-soft: rgba(255, 255, 255, 0.10);
+  --border-hover: #3C50A1;
+  --border-active: #4DF0FF;
+  --border-warning: #F5C77A;
+  --border-danger: #E6484D;
 
-  /* =====================================================
-     TEXT SYSTEM
-     ===================================================== */
-  --text-primary: #E6E9F0;     /* judul */
-  --text-secondary: #AAB1C6;   /* info */
-  --text-muted: #6B738E;       /* placeholder */
-  --text-disabled: #4E556F;    /* disabled */
+  /* ================= TEXT SYSTEM ================= */
+  --text-primary: #E6E9F0;
+  --text-secondary: #ABB5D0;
+  --text-muted: #7A839E;
+  --text-disabled: #4B536A;
 
-  /* =====================================================
-     NAME HIGHLIGHT
-     ===================================================== */
-  --name-character: #8FB9FF;
-  --name-card: #C5B8FF;
-  --name-pet: #6FE3B4;
+  /* ================= NAME HIGHLIGHT ================= */
+  --name-character: #8FC3FF;
+  --name-card: #C7BFFF;
+  --name-pet: #6FECC2;
   --name-legendary: #F5C77A;
 
-  /* =====================================================
-     EFFECT / GLOW
-     ===================================================== */
-  --glow-hover: 0 0 12px rgba(77, 240, 255, 0.35);
-  --glow-active: 0 0 16px rgba(77, 240, 255, 0.55);
-  --glow-legendary: 0 0 18px rgba(245, 199, 122, 0.55);
+  /* ================= EFFECT / GLOW ================= */
+  --glow-hover: 0 0 10px rgba(77, 240, 255, 0.40);
+  --glow-active: 0 0 14px rgba(77, 240, 255, 0.60);
+  --glow-legendary: 0 0 20px rgba(245, 199, 122, 0.55);
 
-  /* =====================================================
-     STATUS / NOTIFICATION
-     ===================================================== */
+  /* ================= STATUS ================= */
   --success: #2ECC71;
   --warning: #F4C56C;
   --danger: #E5484D;
   --info: #4DF0FF;
 
-  /* =====================================================
-     TRANSITION
-     ===================================================== */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
+  /* ================= TRANSITION ================= */
+  --transition-fast: 0.18s ease;
+  --transition-normal: 0.28s ease;
 }
 
-/* ================= RESET ================= */
+/* ===================================================== RESET ===================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  max-width: 100%;
-  overflow-x: hidden;
+
+  /* interaksi mobile lebih halus */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===================================================== HTML / BODY ===================================================== */
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--bg-main);
   color: var(--text-primary);
-  max-width: 100%;
+
+  font-family: "Segoe UI", Arial, system-ui, sans-serif;
+  line-height: 1.45;
+  letter-spacing: 0.15px;
+
   overflow-x: hidden;
 }
 
@@ -85,7 +82,7 @@ section,
 .popup,
 .popup-content {
   background: var(--bg-section);
-}
+  }
 
 /* ======================================================================
    HEADER, BRAND & TOP AREA
@@ -202,6 +199,200 @@ header button:hover {
 /* hover text glow */
 .nav-btn:hover {
   color: #ffffff;
+}/* =====================================================
+   HEADER (ANIME GACHA POLISH)
+   ===================================================== */
+
+header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: linear-gradient(
+    180deg,
+    rgba(18, 24, 48, 0.95),
+    rgba(12, 16, 32, 0.95)
+  );
+
+  border-bottom: 1px solid var(--border-default);
+
+  box-shadow:
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+header h1 {
+  font-size: 22px;
+  color: var(--text-primary);
+  letter-spacing: 0.4px;
+  text-shadow: 0 0 10px rgba(124, 140, 255, 0.25);
+}
+
+/* ================= HEADER BUTTON ================= */
+
+header button {
+  padding: 8px 14px;
+  border-radius: 10px;
+
+  border: 1px solid var(--border-default);
+  background: linear-gradient(
+    180deg,
+    var(--bg-input),
+    rgba(14, 20, 45, 0.95)
+  );
+
+  color: var(--text-secondary);
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    border var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+header button:hover {
+  background: linear-gradient(
+    180deg,
+    #1e293b,
+    #16203a
+  );
+
+  border-color: var(--border-hover);
+  box-shadow: var(--glow-hover);
+  transform: translateY(-1px);
+}
+
+/* =====================================================
+   SITE HEADER (TOP BAR)
+   ===================================================== */
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 18px;
+
+  background: linear-gradient(
+    180deg,
+    #0f1524,
+    #0b1020
+  );
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    0 4px 14px rgba(0, 0, 0, 0.55);
+}
+
+/* =====================================================
+   BRAND
+   ===================================================== */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.site-name {
+  font-size: 20px;
+  margin: 0;
+  color: #d6e4ff;
+  letter-spacing: 0.4px;
+  text-shadow: 0 0 8px rgba(120, 160, 255, 0.35);
+}
+
+.site-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+
+  filter: drop-shadow(0 0 6px rgba(120, 160, 255, 0.35));
+}
+
+/* =====================================================
+   SHARE BUTTON
+   ===================================================== */
+
+.share-btn {
+  background: linear-gradient(
+    180deg,
+    #1e2a44,
+    #182238
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.share-btn:hover {
+  background: linear-gradient(
+    180deg,
+    #24345a,
+    #1d2b4a
+  );
+
+  box-shadow: var(--glow-hover);
+  transform: translateY(-1px);
+}
+
+/* =====================================================
+   NAV UNDERLINE ANIMATION (REFINE)
+   ===================================================== */
+
+.nav-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+
+  width: 70%;
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    #38bdf8,
+    #4f6aff
+  );
+
+  border-radius: 999px;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-normal);
+}
+
+.nav-btn.active::after,
+.nav-btn:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav-btn:hover {
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(124, 140, 255, 0.35);
 }
 
 /* ======================================================================
@@ -216,8 +407,12 @@ header button:hover {
   flex-direction: column;
   align-items: center;
   gap: 14px;
+
   margin: 16px 0 8px;
-   min-height: 120px;
+  min-height: 120px;
+
+  /* visual spacing rapi */
+  padding: 6px 0;
 }
 
 .top-nav {
@@ -230,20 +425,59 @@ header button:hover {
   justify-content: center;
 }
 
+/* ================= NAV BUTTON ================= */
+
 .nav-btn {
-  background: #0d1325;
+  background: linear-gradient(
+    180deg,
+    #0d1325,
+    #0a0f1f
+  );
+
   border: 1px solid #2b3566;
-  color: #aaa;
+  color: var(--text-muted);
+
   padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
+
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    background var(--transition-fast),
+    border var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
-.nav-btn.active {
-  background: #1b2347;
-  color: #fff;
-  border-color: #4f6aff;
+/* hover feedback */
+.nav-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  box-shadow: var(--glow-hover);
+  transform: translateY(-1px);
 }
+
+/* ================= ACTIVE TAB ================= */
+
+.nav-btn.active {
+  background: linear-gradient(
+    180deg,
+    #1b2347,
+    #141c3d
+  );
+
+  color: #ffffff;
+  border-color: #4f6aff;
+
+  box-shadow:
+    0 0 0 1px rgba(79, 106, 255, 0.35),
+    0 0 12px rgba(79, 106, 255, 0.45);
+}
+
+/* ================= PAGE SWITCH ================= */
 
 .page {
   display: none;
@@ -256,21 +490,32 @@ header button:hover {
 /* ======================================================================
    TITLE AND CATEGORIES INPUT
    - Kolom judul dan button kategori
-   - JS:
-     - 
+   - JS: hanya toggle .active (AMAN)
    ====================================================================== */
-   
-   .current-team-info {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+
+.current-team-info {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+
   padding: 14px 16px;
   margin-bottom: 14px;
 
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.02),
+    0 4px 14px rgba(0,0,0,0.35);
 }
+
+/* ================= INFO GROUP ================= */
 
 .team-info-group {
   display: flex;
@@ -281,33 +526,53 @@ header button:hover {
 }
 
 .team-info-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #bbb;
-  letter-spacing: 0.4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
 }
 
-#teamTitleInput {
-  background: var(--bg-input);
-  border: 1px solid var(--border-default);
-  border-radius: 8px;
+/* ================= TITLE INPUT ================= */
 
-  padding: 8px 10px;
-  color: #fff;
+#teamTitleInput {
+  background: linear-gradient(
+    180deg,
+    #0f172a,
+    #0b1222
+  );
+
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+
+  padding: 9px 12px;
+  color: var(--text-primary);
   font-size: 14px;
 
   outline: none;
-  transition: border 0.2s, box-shadow 0.2s;
+
+  transition:
+    border var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
 }
 
 #teamTitleInput::placeholder {
-  color: #777;
+  color: var(--text-muted);
+}
+
+#teamTitleInput:hover {
+  border-color: var(--border-hover);
 }
 
 #teamTitleInput:focus {
-  border-color: #4da6ff;
-  box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
+  border-color: #4f6aff;
+  box-shadow:
+    0 0 0 2px rgba(79, 106, 255, 0.25),
+    0 0 12px rgba(79, 106, 255, 0.25);
 }
+
+/* ================= CATEGORY GROUP ================= */
 
 .team-category-group {
   display: flex;
@@ -316,6 +581,7 @@ header button:hover {
 }
 
 /* ===== Current Team Category Buttons ===== */
+
 #teamCategorySelect {
   display: flex;
   gap: 8px;
@@ -324,29 +590,72 @@ header button:hover {
 }
 
 #teamCategorySelect .team-cat-btn {
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 600;
-  background: var(--bg-card);
+  padding: 6px 14px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  background: linear-gradient(
+    180deg,
+    #121a2f,
+    #0c1224
+  );
+
   border: 2px solid var(--border-default);
   color: var(--text-secondary);
-  border-radius: 10px;
+
+  border-radius: 999px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    border var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
+/* hover */
 #teamCategorySelect .team-cat-btn:hover {
-  background: var(--bg-card-hover);
+  background: linear-gradient(
+    180deg,
+    #182354,
+    #121c42
+  );
+
   border-color: var(--border-active);
   color: var(--text-primary);
+
+  box-shadow: var(--glow-hover);
+  transform: translateY(-1px);
 }
 
+/* active (JS toggle) */
 #teamCategorySelect .team-cat-btn.active {
-  background: var(--bg-card);
-  border-color: var(--border-active);
-  color: var(--text-secondary);
+  background: linear-gradient(
+    180deg,
+    #24306b,
+    #1b2557
+  );
+
+  border-color: #4f6aff;
+  color: #ffffff;
+
+  box-shadow:
+    0 0 0 1px rgba(79,106,255,0.35),
+    0 0 10px rgba(79,106,255,0.45);
+}
+
+/* ==============================
+   HIDE TITLE & CATEGORY ON SAVED TEAMS PAGE
+   ============================== */
+.page.saved-team-page .current-team-info {
+  display: none;
 }
 
 /* ======================================================================
@@ -356,20 +665,30 @@ header button:hover {
      - save-team-btn → openConfirmModal → saveCurrentTeam()
      - reset-team-btn → openConfirmModal → resetTeam()
    ====================================================================== */
+
 .save-team-wrapper {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
+  margin-top: 6px;
 }
 
+/* ================= SAVE BUTTON ================= */
+
 .save-team-btn {
-  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  background: linear-gradient(
+    135deg,
+    #2563eb,
+    #38bdf8
+  );
+
   border: none;
   color: #ffffff;
 
-  padding: 10px 22px;
+  padding: 10px 24px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.3px;
 
   border-radius: 999px;
   cursor: pointer;
@@ -377,37 +696,67 @@ header button:hover {
   display: flex;
   align-items: center;
   gap: 8px;
+
+  position: relative;
+  overflow: hidden;
 
   box-shadow:
     0 4px 14px rgba(56, 189, 248, 0.45),
     inset 0 0 0 1px rgba(255,255,255,0.25);
 
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    filter 0.15s ease;
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast);
+}
+
+/* glow sweep effect */
+.save-team-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,0.35),
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.save-team-btn:hover::before {
+  transform: translateX(120%);
 }
 
 .save-team-btn:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 6px 18px rgba(56, 189, 248, 0.65),
+    0 6px 20px rgba(56, 189, 248, 0.7),
     inset 0 0 0 1px rgba(255,255,255,0.35);
-  filter: brightness(1.05);
+  filter: brightness(1.08);
 }
 
 .save-team-btn:active {
   transform: scale(0.96);
 }
 
+/* ================= RESET BUTTON ================= */
+
 .reset-team-btn {
-  background: linear-gradient(135deg, #7c2d12, #ef4444);
+  background: linear-gradient(
+    135deg,
+    #7c2d12,
+    #ef4444
+  );
+
   border: none;
   color: #ffffff;
 
-  padding: 10px 22px;
+  padding: 10px 24px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.3px;
 
   border-radius: 999px;
   cursor: pointer;
@@ -416,32 +765,37 @@ header button:hover {
   align-items: center;
   gap: 8px;
 
+  position: relative;
+  overflow: hidden;
+
   box-shadow:
     0 4px 14px rgba(239, 68, 68, 0.45),
     inset 0 0 0 1px rgba(255,255,255,0.25);
 
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    filter 0.15s ease;
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast);
 }
 
 .reset-team-btn:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 6px 18px rgba(239, 68, 68, 0.65),
+    0 6px 20px rgba(239, 68, 68, 0.7),
     inset 0 0 0 1px rgba(255,255,255,0.35);
-  filter: brightness(1.05);
+  filter: brightness(1.08);
 }
 
 .reset-team-btn:active {
   transform: scale(0.96);
 }
 
+/* ================= DISABLED STATE ================= */
+
 .reset-team-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  filter: grayscale(0.6);
+  filter: grayscale(0.7);
   box-shadow: none;
 }
 
@@ -456,14 +810,30 @@ header button:hover {
    - JS toggle class: .filter-btn.active
    - JS event: input & resetFilterBtn
    ====================================================================== */
+
 .filters-ui {
   padding: 16px;
+
   display: flex;
   flex-direction: column;
   gap: 14px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.02)
+  );
+
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.02),
+    0 4px 14px rgba(0,0,0,0.35);
 }
 
-/* FILTER BAR */
+/* ================= FILTER BAR ================= */
+
 .filters-bar {
   display: flex;
   align-items: center;
@@ -471,120 +841,249 @@ header button:hover {
   flex-wrap: wrap;
 }
 
-/* FILTER GROUP */
+/* ================= FILTER GROUP ================= */
+
 .filter-group {
   display: flex;
   gap: 8px;
 }
 
-/* SEARCH */
+/* ================= SEARCH INPUT ================= */
+
 .filter-header input {
   width: 100%;
+
   padding: 10px 14px;
   border-radius: 10px;
-  background: var(--bg-input);
+
+  background: linear-gradient(
+    180deg,
+    #0f172a,
+    #0b1222
+  );
+
   border: 1px solid var(--border-default);
-  color: var(--text-secondary);
+  color: var(--text-primary);
+
   outline: none;
+
+  transition:
+    border var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
 }
 
-#searchInput:focus{
-  border-color: #4da6ff;
-box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
+.filter-header input::placeholder {
+  color: var(--text-muted);
 }
 
-/* FILTER BUTTON */
+.filter-header input:hover {
+  border-color: var(--border-hover);
+}
+
+#searchInput:focus {
+  border-color: #4f6aff;
+  box-shadow:
+    0 0 0 2px rgba(79, 106, 255, 0.25),
+    0 0 12px rgba(79, 106, 255, 0.25);
+}
+
+/* ================= FILTER BUTTON ================= */
+
 .filter-btn {
   width: 40px;
   height: 40px;
-  background: var(--bg-card);
+
+  background: linear-gradient(
+    180deg,
+    #121a2f,
+    #0c1224
+  );
+
   border: 2px solid var(--border-default);
   color: var(--text-secondary);
+
   border-radius: 10px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    border var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .filter-btn img {
   width: 20px;
   height: 20px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
 }
 
-/* ACTIVE FILTER */
+/* hover */
+.filter-btn:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--glow-hover);
+  transform: translateY(-1px);
+}
+
+/* ================= ACTIVE FILTER ================= */
+
 .filter-btn.active {
-  background: var(--bg-card);
-  border-color: var(--border-active);
-  color: var(--text-secondary);
+  background: linear-gradient(
+    180deg,
+    #24306b,
+    #1b2557
+  );
+
+  border-color: #4f6aff;
+  color: #ffffff;
+
+  box-shadow:
+    0 0 0 1px rgba(79,106,255,0.35),
+    0 0 10px rgba(79,106,255,0.45);
 }
 
-/* RESET FILTER */
+/* ================= RESET FILTER ================= */
+
 #resetFilterBtn {
   margin-left: auto;
-  padding: 8px 16px;
-  background: var(--bg-card);
+
+  padding: 8px 18px;
+
+  background: linear-gradient(
+    180deg,
+    #2a1212,
+    #1c0b0b
+  );
+
   color: var(--danger);
   border: 2px solid var(--border-danger);
-  border-radius: 10px;
-  font-weight: 700;
+  border-radius: 999px;
+
+  font-weight: 800;
+  letter-spacing: 0.3px;
+
   cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 #resetFilterBtn:hover {
-  background: var(--bg-card-hover);
+  background: linear-gradient(
+    180deg,
+    #3a1616,
+    #260d0d
+  );
+
+  box-shadow:
+    0 0 0 1px rgba(239,68,68,0.35),
+    0 0 12px rgba(239,68,68,0.35);
+
+  transform: translateY(-1px);
 }
 
 /* ======================================================================
    FILTER CATEGORY & FILTER SEARCH 
    - Filter Category Saved Team
    - JS: saveCurrentTeam
-   - JS toggle class: .
+   - JS toggle class: .active
    ====================================================================== */
+
+/* ================= CATEGORY BADGE ================= */
+
 .saved-team-category {
   display: inline-block;
-  padding: 4px 8px;
+
+  padding: 4px 10px;
   border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
+
+  font-size: 10.5px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.6px;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.15),
+    0 2px 6px rgba(0,0,0,0.35);
 }
 
-/* CATEGORY COLORS */
-.category-story { background:#3a6ea5; color:#fff; }
-.category-pvp { background:#a53a3a; color:#fff; }
-.category-raid { background:#6a3aa5; color:#fff; }
-.category-avalon { background:#3aa57a; color:#fff; }
-.category-abyss { background:#222; color:#e57373; }
+/* ================= CATEGORY COLORS ================= */
+
+.category-story {
+  background: linear-gradient(135deg,#3a6ea5,#274f7a);
+  color:#fff;
+}
+
+.category-pvp {
+  background: linear-gradient(135deg,#a53a3a,#742626);
+  color:#fff;
+}
+
+.category-raid {
+  background: linear-gradient(135deg,#6a3aa5,#4a2877);
+  color:#fff;
+}
+
+.category-avalon {
+  background: linear-gradient(135deg,#3aa57a,#28785a);
+  color:#fff;
+}
+
+.category-abyss {
+  background: linear-gradient(135deg,#1a1a1a,#000000);
+  color:#ff9a9a;
+}
+
 .category-star-reincarnation {
   background: linear-gradient(135deg,#ffd36a,#ff8a00);
   color:#000;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.35),
+    0 0 10px rgba(255,211,106,0.45);
 }
 
+/* ================= EMPTY STATE ================= */
+
 .empty-state {
-  padding: 32px 16px;
+  padding: 36px 16px;
+
   text-align: center;
-  opacity: 0.7;
   font-size: 14px;
+  color: var(--text-muted);
+
+  opacity: 0.85;
 }
+
+/* ================= SEARCH HIGHLIGHT ================= */
 
 mark {
   background: #fde047;
   color: #000;
-  padding: 0 2px;
-  border-radius: 2px;
+  padding: 0 4px;
+  border-radius: 4px;
+  font-weight: 700;
 }
+
+/* ================= COUNTER ================= */
 
 .saved-team-counter {
   margin: 8px 0 16px;
   font-size: 13px;
-  opacity: 0.8;
+  color: var(--text-muted);
 }
 
 .saved-team-counter strong {
-  color: #ffd36a; /* gold fantasy */
-  font-weight: 600;
+  color: #ffd36a;
+  font-weight: 700;
 }
 
 /* =========================
@@ -594,64 +1093,153 @@ mark {
 .saved-team-controls {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  align-items: left;
+  gap: 12px;
+
+  align-items: flex-start;
   margin-bottom: 15px;
+
   flex-wrap: wrap;
 }
+
+/* ================= SEARCH INPUT ================= */
 
 #savedTeamSearch {
   width: 50%;
   flex: 1;
+
   padding: 10px 14px;
   border-radius: 10px;
-  background: var(--bg-input);
+
+  background: linear-gradient(
+    180deg,
+    #0f172a,
+    #0b1222
+  );
+
   border: 1px solid var(--border-default);
-  color: var(--text-secondary);
+  color: var(--text-primary);
+
   outline: none;
+
+  transition:
+    border var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
 }
 
-#savedTeamSearch:placeholder {
-  color: #777;
+#savedTeamSearch::placeholder {
+  color: var(--text-muted);
+}
+
+#savedTeamSearch:hover {
+  border-color: var(--border-hover);
 }
 
 #savedTeamSearch:focus {
-border-color: #4da6ff;
-box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
+  border-color: #4f6aff;
+  box-shadow:
+    0 0 0 2px rgba(79, 106, 255, 0.25),
+    0 0 12px rgba(79, 106, 255, 0.25);
 }
+
+/* ================= FILTER BUTTONS ================= */
 
 .saved-team-filters {
   display: flex;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 .saved-filter-btn {
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 600;
-  background: var(--bg-card);
+  padding: 6px 14px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  background: linear-gradient(
+    180deg,
+    #121a2f,
+    #0c1224
+  );
+
   border: 2px solid var(--border-default);
   color: var(--text-secondary);
-  border-radius: 10px;
+
+  border-radius: 999px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    border var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
-.saved-filter-btn.active {
-  background: var(--bg-card);
-  border-color: var(--border-active);
-  color: var(--text-secondary);
+.saved-filter-btn:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--glow-hover);
+  transform: translateY(-1px);
 }
+
+/* active (JS toggle) */
+.saved-filter-btn.active {
+  background: linear-gradient(
+    180deg,
+    #24306b,
+    #1b2557
+  );
+
+  border-color: #4f6aff;
+  color: #ffffff;
+
+  box-shadow:
+    0 0 0 1px rgba(79,106,255,0.35),
+    0 0 10px rgba(79,106,255,0.45);
+}
+
+/* ================= RESET FILTER ================= */
 
 .saved-filter-reset {
-  padding: 6px 12px;
-  background: #3a1f1f;
+  padding: 6px 14px;
+
+  background: linear-gradient(
+    180deg,
+    #2a1212,
+    #1c0b0b
+  );
+
   border: 1px solid #662222;
   color: #ffbaba;
-  border-radius: 6px;
+
+  border-radius: 999px;
+  font-weight: 700;
+
   cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.saved-filter-reset:hover {
+  background: linear-gradient(
+    180deg,
+    #3a1616,
+    #260d0d
+  );
+
+  box-shadow:
+    0 0 0 1px rgba(239,68,68,0.35),
+    0 0 10px rgba(239,68,68,0.35);
+
+  transform: translateY(-1px);
 }
 
 /* ======================================================================
@@ -660,9 +1248,16 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
    - JS: renderCharacters(), onCharacterClick()
    - JS toggle class: .card.in-team
    ====================================================================== */
+
 .characters-section h2 {
   padding: 0 16px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: var(--text-primary);
 }
+
+/* ================= GRID ================= */
 
 .grid {
   display: grid;
@@ -671,38 +1266,119 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   padding: 16px;
 }
 
+/* ================= CARD BASE ================= */
+
 .card {
-  background: var(--bg-card);
+  background: linear-gradient(
+    180deg,
+    #121a2f,
+    #0c1224
+  );
+
   border: 2px solid var(--border-default);
   border-radius: 18px;
+
   padding: 10px;
   text-align: center;
+
   cursor: pointer;
-  transition: transform 0.2s;
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border var(--transition-fast);
 }
+
+/* subtle shine layer */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top,
+    rgba(255,255,255,0.08),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* ================= HOVER ================= */
 
 .card:hover {
   transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.05);
 }
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* ================= IMAGE ================= */
 
 .card img {
   width: 100%;
   height: 130px;
   object-fit: cover;
+
   border-radius: 14px;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 4px 10px rgba(0,0,0,0.45);
 }
+
+/* ================= TEXT ================= */
 
 .card strong,
 .card span {
   display: block;
   margin-top: 6px;
+
   color: var(--text-primary);
   font-weight: 700;
   font-size: 13px;
+
+  line-height: 1.2;
 }
 
+/* ================= IN TEAM STATE ================= */
+
 .card.in-team {
-  outline: 3px solid var(--border-active);
+  border-color: #4f6aff;
+
+  box-shadow:
+    0 0 0 2px rgba(79,106,255,0.45),
+    0 0 14px rgba(79,106,255,0.45);
+}
+
+.card.in-team::after {
+  content: "IN TEAM";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+
+  padding: 4px 6px;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    135deg,
+    #4f6aff,
+    #38bdf8
+  );
+
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.45);
 }
 
 /* ======================================================================
@@ -712,26 +1388,35 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
      renderTeam()
      selectSlot()
    ====================================================================== */
+
 .team-section {
   padding: 16px;
   background: var(--bg-section);
   z-index: 1;
+
   min-height: fit-content;
   overflow: visible;
 }
 
+/* ================= TEAM GRID (JANGAN DIUBAH) ================= */
+
 .team {
   display: grid;
-  grid-template-columns: repeat(5, 96px);
-  gap: 16px;
+  grid-template-columns: repeat(5, 96px); /* ❌ TETAP */
+  gap: 16px;                              /* ❌ TETAP */
   justify-content: center;
+  overflow: visible;
 }
+
+/* ================= COLUMN PAIR ================= */
 
 .team-pair {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;              /* 🔥 JARAK ANTAR SLOT */
+
+  gap: 12px; /* 🔥 JARAK ANTAR SLOT (TETAP) */
+  overflow: visible;
 }
 
 /* ======================================================================
@@ -739,18 +1424,47 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
    - Slot karakter di dalam team
    - JS toggle class: .selected-slot
    ====================================================================== */
+
 .team-card,
 .team-slot {
-  width: 96px;
+  width: 96px;          /* ❌ TETAP */
   border-radius: 18px;
   padding: 10px;
+
   text-align: center;
-  transition: background 0.2s, transform 0.2s;
+
+  position: relative;
+
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border var(--transition-fast);
+}
+
+/* ================= FILLED CARD ================= */
+
+.team-card {
+  background: linear-gradient(
+    180deg,
+    #121a2f,
+    #0c1224
+  );
+
+  cursor: grab;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    0 4px 10px rgba(0,0,0,0.45);
 }
 
 .team-card {
-  background: var(--bg-card);
-  cursor: grab;
+  overflow: visible; /* karakter boleh kepotong */
+}
+
+.card-slot {
+  overflow: visible; /* 🔥 FIX: tombol remove card keluar */
+  position: relative;
 }
 
 .team-card:active {
@@ -758,38 +1472,103 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   transform: scale(0.95);
 }
 
+/* subtle shine */
+.team-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top,
+    rgba(255,255,255,0.08),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.team-card:hover::before {
+  opacity: 1;
+}
+
+/* ================= IMAGE ================= */
+
 .team-card img {
   width: 100%;
-  height: 130px;
+  height: 130px;       /* ❌ TETAP */
   object-fit: cover;
+
   border-radius: 14px;
   margin-bottom: 6px;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 4px 10px rgba(0,0,0,0.45);
 }
+
+/* ================= TEXT ================= */
 
 .team-card strong {
   display: block;
   font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
+
+/* ================= EMPTY SLOT ================= */
 
 .team-slot {
-  height: 190px;
-  background: var(--bg-card);
-  border: 2px solid var(--border-default);
+  height: 190px;       /* ❌ TETAP */
+
+  background: linear-gradient(
+    180deg,
+    #0f172a,
+    #0b1222
+  );
+
+  border: 2px dashed var(--border-default);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.03);
 }
 
+/* hover hint */
 .team-slot:hover {
-  background: var(--bg-card-hover);
+  background: linear-gradient(
+    180deg,
+    #172044,
+    #111936
+  );
+
   transform: scale(1.05);
+  border-color: var(--border-hover);
 }
+
+/* ================= DRAG OVER ================= */
 
 .team-slot.drag-over,
 .team-card.drag-over {
-  outline: 3px solid var(--border-default);
-  background: var(--bg-card);
+  background: linear-gradient(
+    180deg,
+    #1b2557,
+    #141c3d
+  );
+
+  outline: 3px solid var(--border-hover);
+
+  box-shadow:
+    0 0 0 2px rgba(79,106,255,0.25),
+    0 0 12px rgba(79,106,255,0.35);
 }
+
+/* ================= SELECTED SLOT ================= */
 
 .selected-slot {
   outline: 3px solid var(--border-active);
+
+  box-shadow:
+    0 0 0 2px rgba(79,106,255,0.45),
+    0 0 14px rgba(79,106,255,0.45);
 }
 
 /* ======================================================================
@@ -801,67 +1580,123 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
      .active
      .empty
    ====================================================================== */
+
 .card-slot {
   width: 96px;
   height: 190px;
+
   border-radius: 18px;
   padding: 10px;
   text-align: center;
-  background: var(--bg-card);
+
+  background: linear-gradient(
+    180deg,
+    #121a2f,
+    #0c1224
+  );
+
   border: 2px solid var(--border-default);
+
   position: relative;
   overflow: visible;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border var(--transition-fast);
 }
 
+/* hover */
 .card-slot:hover {
-  background: var(--bg-card-hover);
+  background: linear-gradient(
+    180deg,
+    #182354,
+    #121c42
+  );
+
   transform: scale(1.05);
+  border-color: var(--border-hover);
+
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
 }
+
+/* ================= IMAGE ================= */
 
 .card-slot img {
   width: 100%;
   height: 130px;
   object-fit: cover;
+
   border-radius: 14px;
   margin-bottom: 6px;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 4px 10px rgba(0,0,0,0.45);
 }
+
+/* ================= TEXT ================= */
 
 .card-slot strong {
   display: block;
   font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
-/* ======= TEXT SLOT CARD ======= */
+/* ======= EMPTY SLOT LABEL ======= */
+
 .team-pair .card-slot.empty::after {
   content: "+ Card";
   display: block;
   margin-top: 8px;
-  color: var(--text-muted);
+
   font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+
+  opacity: 0.85;
 }
+
+/* ================= ACTIVE ================= */
 
 .card-slot.active {
   outline: 3px solid var(--border-active);
+
+  box-shadow:
+    0 0 0 2px rgba(79,106,255,0.45),
+    0 0 14px rgba(79,106,255,0.45);
 }
+
+/* ================= FILLED STATE ================= */
 
 .card-slot:not(.empty),
 .team-card {
-  background: var(--bg-card-hover);
+  background: linear-gradient(
+    180deg,
+    #1b2347,
+    #141c3d
+  );
+
   color: var(--name-character);
   border: 3px solid var(--border-default);
 }
 
-/* =========== FIX SLOT CHARA & SLOT CARD ======== */
+/* =========== FIX SLOT CHARA & SLOT CARD (IKUT PUNYAMU) ========== */
+
 .team-card,
 .team-slot,
 .card-slot {
-  height: 150px;           /* desktop */
+  height: 150px;
   display: flex;
   position: relative;
   flex-direction: column;
   justify-content: flex-start;
+  overflow: visible; /* 🔥 FIX TOMBOL X KEKETUTUP */
 }
 
 .team-card img,
@@ -873,11 +1708,12 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 
 .team-card strong,
 .card-slot strong {
-  margin-top: auto;           /* dorong ke bawah */
-  padding: 4px 2px 0;
+  margin-top: auto;
 
+  padding: 4px 2px 0;
   font-size: 12px;
   line-height: 1.2;
+
   text-align: center;
 
   white-space: nowrap;
@@ -892,6 +1728,7 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   overflow: hidden;
 }
 
+/* fallback empty label (safety) */
 .card-slot.empty::after {
   content: "+ Card";
   margin-top: auto;
@@ -905,16 +1742,18 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
    - JS: swapCharacter(), renderTeam()
    - Class dinamis: .fade-out, .swap
    ====================================================================== */
+
 .fade-out {
   opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.2s ease;
+  transform: scale(0.92);
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s ease;
 }
 
 .team-card.fade-out {
   opacity: 0;
   transform: scale(0.9);
-  transition: all 0.25s ease;
 }
 
 .swap {
@@ -923,48 +1762,16 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 }
 
 /* ======================================================================
-   REMOVE BUTTON (UNIVERSAL)
-   - Tombol hapus untuk card, pet, equip
-   - JS: remove handler per item
+   REMOVE BUTTON (UNIVERSAL – STABIL & KONSISTEN)
+   - card / pet / equip
+   - posisi aman, tidak lompat layout
    ====================================================================== */
-.remove-card,
-.remove-pet {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translate(50%, -50%);
 
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-
-  border: 2px solid var(--border-danger);
-  background: var(--bg-card);
-  color: var(--danger);
-
-  font-size: 13px;
-  font-weight: bold;
-  line-height: 1;
-
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
-}
-
-.remove-card:hover,
-.remove-pet:hover {
-  background: var(--danger);
-  color: #fff;
-  transform: translate(50%, -50%) scale(1.1);
-}
-
-.remove-card,
 .remove-pet,
 .remove-equip {
   position: absolute;
-  right: -8px;         /* 🔥 lebih stabil dari translate */
-  top: 50%;
-  transform: translateY(-50%);
+  top: -6px;
+  right: -6px;
 
   width: 22px;
   height: 22px;
@@ -972,27 +1779,6 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 
   background: var(--bg-card);
   border: 2px solid var(--border-danger);
-  color: var(--danger);
-
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 20;
-}
-
-.remove-equip {
-  position: absolute;
-
-  right: 0;
-  top: 50%;
-  transform: translate(50%, -50%); /* 🔥 SETENGAH KELUAR */
-
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-
-  border: 2px solid var(--border-danger);
-  background: var(--bg-card);
   color: var(--danger);
 
   font-size: 13px;
@@ -1000,15 +1786,59 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   line-height: 1;
 
   cursor: pointer;
-  z-index: 10;
+  z-index: 30;
 
   box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
 }
 
+.remove-pet:hover,
 .remove-equip:hover {
   background: var(--danger);
   color: #fff;
-  transform: translate(50%, -50%) scale(1.1);
+  transform: scale(1.1);
+}
+
+/* ==============================
+   REMOVE BUTTON – SLOT CARD FIX
+   ============================== */
+.team-section,
+.team,
+.team-pair,
+.card-slot {
+  overflow: visible !important; /* pastikan seluruh rantai parent tidak memotong */
+  position: relative;           /* agar child absolute bisa keluar */
+}
+
+.card-slot .remove-card {
+  position: absolute;
+  top: -8px;          /* naik sedikit di atas border slot */
+  right: -8px;        /* geser keluar border slot */
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  
+  background: var(--bg-card);
+  border: 2px solid var(--border-danger);
+  color: var(--danger);
+
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 0 6px rgba(229, 72, 77, 0.6);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.card-slot .remove-card:hover {
+  background: var(--danger);
+  color: #fff;
+  transform: scale(1.1);
 }
 
 /* ======================================================================
@@ -1017,18 +1847,25 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
    - JS: openCardPopup(), closeCardPopup()
    - JS toggle class: .show, .active, .used
    ====================================================================== */
+
+/* ===== POPUP WRAPPER ===== */
 .card-popup {
   position: fixed;
   inset: 0;
   background: var(--bg-popup);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   z-index: 999;
-   opacity: 0;
+  opacity: 0;
   transform: scale(0.95);
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
 .card-popup.show {
@@ -1037,13 +1874,16 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   pointer-events: auto;
 }
 
+/* ===== POPUP CONTENT ===== */
 .card-popup-content {
   width: min(900px, 92%);
   max-height: 85vh;
+
   background: var(--bg-popup);
   border: 2px solid var(--border-default);
   border-radius: 20px;
   padding: 20px;
+
   position: relative;
   overflow: hidden;
 
@@ -1052,34 +1892,38 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   gap: 14px;
 }
 
-/* close button */
+/* ===== CLOSE BUTTON ===== */
 .popup-close {
   position: absolute;
   top: 12px;
   right: 12px;
+
   background: transparent;
   border: none;
   color: var(--danger);
+
   font-size: 20px;
   cursor: pointer;
 }
 
-/* search */
+/* ===== SEARCH INPUT ===== */
 #cardSearchInput {
   padding: 10px 14px;
   border-radius: 10px;
+
   background: var(--bg-input);
   border: 1px solid var(--border-default);
   color: var(--text-secondary);
+
   outline: none;
 }
 
 #cardSearchInput:focus {
   border-color: #4da6ff;
-box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
+  box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 }
 
-/* card grid */
+/* ===== CARD GRID ===== */
 .card-grid {
   flex: 1;
   overflow-y: auto;
@@ -1089,23 +1933,23 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   gap: 14px;
 }
 
-/* single card item */
+/* ===== CARD ITEM ===== */
 .card-item {
   background: var(--bg-card);
   border: 2px solid var(--border-default);
   border-radius: 16px;
   padding: 8px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s;
-  color: var(--name-card);
-}
 
-.card-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
+
+  text-align: center;
+  cursor: pointer;
+  color: var(--name-card);
+
+  transition: transform 0.2s ease;
 }
 
 .card-item:hover {
@@ -1120,17 +1964,10 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 }
 
 .card-item strong {
-  display: block;
-  margin-top: 6px;
   font-size: 13px;
 }
 
-.card-item.used {
-  opacity: 0.4;
-  filter: grayscale(1);
-  pointer-events: none;
-}
-
+/* ===== CARD NAME (ELLIPSIS) ===== */
 .card-name {
   font-size: 12px;
   font-weight: 600;
@@ -1144,12 +1981,23 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   text-overflow: ellipsis;
 }
 
+/* ===== USED CARD ===== */
+.card-item.used {
+  opacity: 0.4;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
 /* ======================================================================
    PET AREA & PET POPUP
    - Slot pet di team & popup pemilihan pet
    - JS: renderPets(), openPetPopup()
    - JS: remove pet handler
    ====================================================================== */
+
+/* ======================
+   PET AREA (IN TEAM)
+====================== */
 .pets-section {
   padding: 12px;
   display: flex;
@@ -1161,15 +2009,21 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   gap: 12px;
 }
 
+/* reuse card-slot */
 .pet-slot {
   position: relative;
-  overflow: visible; /* 🔥 WAJIB */
+  overflow: visible; /* 🔥 tombol remove aman */
 }
 
+/* inner wrapper */
 .slot-inner {
   position: relative;
   width: 100%;
   height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .slot-inner img {
@@ -1183,12 +2037,13 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   font-size: 12px;
   margin-top: 4px;
   text-align: center;
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* pet slot colors based on fixed position (do not reorder slots) */
+/* fixed color by slot index (JANGAN DI-REORDER) */
 #pets .card-slot:nth-child(1) {
   border-color: #38bdf8;
   background: #38bdf820;
@@ -1204,33 +2059,57 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   background: #ef444420;
 }
 
-/* Popup pemilihan pet */
+/* ======================
+   PET POPUP
+====================== */
+
+/* search */
 #petSearchInput {
   width: 100%;
   padding: 8px 10px;
+
   background: var(--bg-input);
   border: 1px solid var(--border-default);
   border-radius: 8px;
+
   color: var(--text-secondary);
   outline: none;
 }
 
-#petSearchInput:focus{
+#petSearchInput:focus {
   border-color: #4da6ff;
-box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
+  box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 }
 
+/* pet list grid (reuse card popup grid) */
+#petList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+}
+
+/* wrapper item */
+.pet-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* reuse card-item style */
 #petList .card-item {
   overflow: hidden;
 }
 
+/* pet image */
 #petList .card-item img {
   width: 100%;
-  height: 100%;
+  height: 120px;
   object-fit: contain;
   padding: 6px;
 }
 
+/* pet name */
 .pet-name {
   font-size: 12px;
   font-weight: 600;
@@ -1244,11 +2123,11 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   text-overflow: ellipsis;
 }
 
-.pet-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
+/* used pet (optional JS toggle, konsisten dengan card) */
+.pet-item.used {
+  opacity: 0.4;
+  filter: grayscale(1);
+  pointer-events: none;
 }
 
 /* ======================================================================
@@ -1257,14 +2136,20 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
    - JS: openEquipPopup(), closeEquipPopup()
    - JS toggle class: .hidden, .disabled
    ====================================================================== */
-.equip-section {
-  padding: 16px;
-  z-index: 2;
-  margin-top: -25px;
-  .tab-content {
+
+/* pastikan tab tidak nge-cut equip */
+.tab-content {
   height: auto;
   overflow-y: visible;
 }
+
+/* ======================
+   EQUIP SECTION
+====================== */
+.equip-section {
+  padding: 16px;
+  z-index: 30;
+  margin-top: -25px; /* nyambung ke card di atas */
 }
 
 .equip-section h2 {
@@ -1272,13 +2157,13 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   text-align: center;
 }
 
-/* wrapper ikut team */
+/* wrapper ikut lebar team */
 .equip-wrapper {
   display: flex;
   justify-content: center;
 }
 
-/* grid ikut lebar team */
+/* GRID SAMA DENGAN TEAM (5 kolom, 96px) */
 .equip-grid {
   display: grid;
   grid-template-columns: repeat(5, 96px);
@@ -1287,36 +2172,54 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   justify-content: center;
 }
 
-/* 1 baris equip = 5 slot */
+/* satu baris = 5 equip (pakai contents biar sejajar) */
 .equip-row {
   display: contents;
 }
 
-/* slot equip */
+/* ======================
+   EQUIP SLOT
+====================== */
 .equip-slot {
   width: 96px;
-  height: 72px;           /* sedikit lebih pendek dari card */
+  height: 72px; /* lebih pendek dari card */
+
   border: 2px solid var(--border-default);
   border-radius: 10px;
+
+  background: var(--bg-card);
+  cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: var(--bg-card);
-  cursor: pointer;
-  overflow: hidden;
+  position: relative;
+  overflow: visible; /* 🔥 tombol remove aman */
+  z-index: 35;   
 }
 
+/* hover */
+.equip-slot:hover {
+  background: var(--bg-card-hover);
+  transform: scale(1.05);
+}
+
+/* icon equip */
 .equip-slot img {
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
 }
 
-.equip-slot {
-  position: relative;
-  overflow: visible; /* 🔥 KUNCI */
+/* disabled / hidden state (JS ready) */
+.equip-slot.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.equip-slot.hidden {
+  display: none;
 }
 
 /* ======================================================================
@@ -1329,10 +2232,12 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
      .hidden
      .disabled
    ====================================================================== */
+
 .equip-popup {
   position: fixed;
   inset: 0;
   background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(4px); /* ✨ anime modal feel */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1343,38 +2248,65 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   display: none;
 }
 
+/* ======================
+   POPUP CONTAINER
+====================== */
 .equip-popup-content {
   position: relative;
   width: 520px;
   max-height: 80vh;
-  background: var(--bg-popup);
+
+  background: linear-gradient(
+    180deg,
+    rgba(20, 28, 58, 0.95),
+    rgba(10, 15, 32, 0.95)
+  );
+
+  border: 2px solid rgba(255,255,255,0.12);
   border-radius: 18px;
   padding: 16px;
+
   overflow-y: auto;
+
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
 }
 
+/* ======================
+   CLOSE BUTTON
+====================== */
 .equip-popup-close {
   position: absolute;
   top: 10px;
   right: 12px;
-  background: none;
+
+  background: transparent;
   border: none;
   color: var(--danger);
+
   font-size: 20px;
   cursor: pointer;
+  transition: transform 0.15s ease, color 0.15s ease;
 }
 
+.equip-popup-close:hover {
+  transform: scale(1.15);
+  color: #ff6b6b;
+}
+
+/* ======================
+   GRID
+====================== */
 .equip-popup-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
   gap: 12px;
 }
 
-.equip-popup-item:hover {
-  background: var(--bg-card-hover);
-  outline: 2px solid var(--border-hover);
-}
-
+/* ======================
+   EQUIP CARD
+====================== */
 .equip-popup-card {
   width: 76px;
   height: 76px;
@@ -1387,57 +2319,72 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   align-items: center;
   justify-content: center;
 
-  overflow: hidden; /* 🔥 INI KUNCI UTAMA */
-
+  overflow: hidden; /* 🔥 WAJIB */
   cursor: pointer;
-  transition: transform 0.15s ease,
-              border-color 0.15s ease,
-              box-shadow 0.15s ease;
+
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
+/* hover */
 .equip-popup-card:hover {
-  transform: scale(1.08);
-  background: var(--bg-popup);
-  border-color: var(--border-hover);
+  transform: scale(1.1);
+  background: var(--bg-card-hover);
+  border-color: var(--border-active);
+  box-shadow: 0 0 12px rgba(79,106,255,0.45);
 }
 
-.equip-popup-card.disabled {
-  opacity: 0.4;
-  filter: grayscale(100%);
-  cursor: not-allowed;
-}
-
-.equip-popup-card.disabled img {
-  pointer-events: none;
-}
-
+/* image */
 .equip-popup-card img {
   width: 100%;
   height: 100%;
-
   object-fit: contain;   /* 🔥 PENTING */
-  padding: 6px;          /* 🔥 BIAR GA MELEKET */
-
+  padding: 6px;          /* 🔥 BIAR GA NEMPEL */
   display: block;
 }
 
+/* ======================
+   DISABLED STATE
+====================== */
+.equip-popup-card.disabled {
+  opacity: 0.35;
+  filter: grayscale(100%);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.equip-popup-card.disabled:hover {
+  transform: none;
+  border-color: var(--border-default);
+}
+
+/* ======================
+   WARNING TEXT
+====================== */
 .equip-popup-warning {
   padding: 10px;
   margin-bottom: 12px;
-  background: var(--bg-card);
+
+  background: rgba(127, 29, 29, 0.35);
   border: 1px solid var(--border-warning);
   color: var(--warning);
+
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: 8px;
   text-align: center;
+
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 /* ======================================================================
    SYNERGY WARNING
    - Peringatan kombinasi team
    - JS: renderSynergyWarning()
-   - Element dibuat dinamis via JS
    ====================================================================== */
+
 .synergy-warning {
   width: calc(100% - 32px);
   margin: 12px 16px;
@@ -1446,11 +2393,19 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   border: 2px solid var(--border-warning);
   border-radius: 12px;
 
-  color: var(--warning) !important;
-  background: var(--bg-card);
+  background: linear-gradient(
+    135deg,
+    rgba(127, 29, 29, 0.35),
+    rgba(55, 15, 15, 0.35)
+  );
 
+  color: var(--warning) !important;
   font-weight: 700;
   line-height: 1.4;
+
+  box-shadow:
+    0 0 14px rgba(251, 191, 36, 0.25),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 .synergy-warning div + div {
@@ -1459,100 +2414,107 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
 
 /* ======================================================================
    SAVED TEAM LIST (CARD & GRID)
-   - Daftar team yang disimpan
-   - JS: renderSavedTeams()
-   - JS: deleteSavedTeam()
+   - JS: renderSavedTeams(), deleteSavedTeam()
    ====================================================================== */
+
 .saved-team-card {
   width: 100%;
-  background: #0f0f0f;
+  background: linear-gradient(
+    180deg,
+    #0f1222,
+    #0a0d18
+  );
+
   padding: 12px;
-  border-radius: 10px;
-  border: 2px solid #333;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.1);
   margin-bottom: 20px;
+
   display: flex;
   flex-direction: column;
+
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .saved-team-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
 }
 
+/* ======================
+   HEADER
+====================== */
 .saved-team-header {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.saved-team-body {
-  display: grid;
-  grid-template-columns: auto 1fr; /*
-  column-gap: 16px; /* JARAK LOGIS */
-  align-items: stretch;
-}
-
 .saved-team-date {
   font-size: 12px;
-  color: #aaa;
+  color: #9ca3af;
 }
 
 /* tombol hapus */
 .saved-team-remove {
-  background: #800;
-  border: none;
-  color: white;
-  font-size: 18px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  align-self: flex-end;
-  margin-bottom: 8px;
-  cursor: pointer;
-}
-
-.saved-team-remove {
-  background: #7a1f1f;
+  background: linear-gradient(135deg, #7a1f1f, #dc2626);
   border: none;
   color: #fff;
+
   font-size: 12px;
   padding: 4px 10px;
-  border-radius: 6px;
+  border-radius: 999px;
+
   cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
 .saved-team-remove:hover {
-  background: #a52a2a;
+  transform: scale(1.1);
+  filter: brightness(1.1);
 }
 
+/* ======================
+   BODY
+====================== */
+.saved-team-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 16px;
+  align-items: stretch;
+}
+
+/* ======================
+   GRID PREVIEW
+====================== */
 .saved-team-grid {
   display: grid;
   grid-template-columns: repeat(5, 52px);
   grid-template-rows:
-    auto   /* row 1 : pets */
-    auto   /* row 2 : characters */
-    auto   /* row 3 : cards */
-    repeat(4, auto); /* row 4–7 : equips */
+    auto
+    auto
+    auto
+    repeat(4, auto);
   gap: 8px;
-  justify-content: start;
-}
 
-/* GRID KIRI */
-.saved-team-grid {
+  justify-content: start;
   flex-shrink: 0;
 }
 
-/* SLOT DASAR */
+/* ======================
+   SLOT DASAR
+====================== */
 .saved-slot {
   width: 52px;
   border-radius: 8px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1a1a1a;
-  border: 2px solid #333;
+
+  background: #14182c;
+  border: 2px solid rgba(255,255,255,0.12);
 }
 
 .saved-slot img {
@@ -1561,44 +2523,47 @@ box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
   object-fit: contain;
 }
 
-/* PET */
+/* ======================
+   SLOT TYPE
+====================== */
 .saved-pet {
   height: 64px;
   border-color: #38bdf8;
   background: #38bdf820;
 }
 
-/* CHARACTER */
 .saved-char {
   height: 72px;
   border-color: #4df0ff;
   background: #4df0ff20;
 }
 
-/* CARD */
 .saved-card {
   height: 72px;
   border-color: #c5b8ff;
   background: #c5b8ff20;
 }
 
-/* EQUIP */
 .saved-equip {
   height: 48px;
-  border-color: #666;
-  background: #2a2a2a;
+  border-color: #6b7280;
+  background: #1f243a;
 }
 
-/* Baris layout saved team */
-saved-row-pet   { grid-row: 1; }
+/* ======================
+   GRID ROW POSITION
+====================== */
+.saved-row-pet   { grid-row: 1; }
 .saved-row-char  { grid-row: 2; }
 .saved-row-card  { grid-row: 3; }
-.saved-row-eq-1  { grid-row: 4; } /* weapon */
-.saved-row-eq-2  { grid-row: 5; } /* armor */
-.saved-row-eq-3  { grid-row: 6; } /* acc */
-.saved-row-eq-4  { grid-row: 7; } /* rune */
+.saved-row-eq-1  { grid-row: 4; }
+.saved-row-eq-2  { grid-row: 5; }
+.saved-row-eq-3  { grid-row: 6; }
+.saved-row-eq-4  { grid-row: 7; }
 
-/* Kolom layout saved team */
+/* ======================
+   GRID COLUMN POSITION
+====================== */
 .saved-col-1 { grid-column: 1; }
 .saved-col-2 { grid-column: 2; }
 .saved-col-3 { grid-column: 3; }
@@ -1610,53 +2575,107 @@ saved-row-pet   { grid-row: 1; }
    - Catatan tambahan untuk saved team
    - JS: save note handler
    ====================================================================== */
+
 .saved-team-note {
-  flex: 1;                /* MELEBAR KE KANAN */
+  flex: 1;
   height: 100%;
-  background: #111827;
+
+  background: linear-gradient(
+    180deg,
+    #111827,
+    #020617
+  );
+
   border: 2px solid #334155;
-  border-radius: 10px;
+  border-radius: 14px;
   padding: 12px;
+
   display: flex;
   flex-direction: column;
   margin-left: 16px;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    0 8px 18px rgba(0,0,0,0.35);
 }
 
+/* textarea */
 .saved-team-note textarea {
   flex: 1;
   resize: none;
+
   background: #020617;
   color: #e5e7eb;
+
   border: 1px solid #475569;
-  border-radius: 8px;
-  padding: 8px;
+  border-radius: 10px;
+  padding: 10px;
+
   font-size: 14px;
+  line-height: 1.4;
+
+  outline: none;
+  transition: border 0.15s ease, box-shadow 0.15s ease;
 }
 
+.saved-team-note textarea::placeholder {
+  color: #64748b;
+}
+
+.saved-team-note textarea:focus {
+  border-color: #4da6ff;
+  box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.25);
+}
+
+/* save note button */
 .saved-team-note button {
   margin-top: 10px;
   align-self: flex-end;
-  background: #2563eb;
+
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
   border: none;
-  color: white;
-  padding: 6px 14px;
-  border-radius: 6px;
+  color: #fff;
+
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+
   cursor: pointer;
+
+  box-shadow:
+    0 4px 14px rgba(56, 189, 248, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.saved-team-note button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.saved-team-note button:active {
+  transform: scale(0.96);
 }
 
 /* ======================================================================
    CONFIRM POPUP (RESET / DELETE / SAVE)
    - Modal konfirmasi umum
    - JS: openConfirmModal(), closeConfirmModal()
-   - JS toggle class: .hidden
    ====================================================================== */
+
 .confirm-popup {
   position: fixed;
   inset: 0;
+
   background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(4px);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   z-index: 2000;
 }
 
@@ -1664,15 +2683,26 @@ saved-row-pet   { grid-row: 1; }
   display: none;
 }
 
+/* popup container */
 .confirm-popup-content {
   width: min(420px, 90%);
-  background: var(--bg-popup);
+
+  background: linear-gradient(
+    180deg,
+    rgba(20, 28, 58, 0.95),
+    rgba(10, 15, 32, 0.95)
+  );
+
   border: 2px solid var(--border-danger);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 20px;
 
   text-align: center;
-  box-shadow: 0 0 30px rgba(229, 72, 77, 0.45);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.6),
+    0 0 30px rgba(229, 72, 77, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
 
   animation: confirmIn 0.25s ease;
 }
@@ -1689,7 +2719,9 @@ saved-row-pet   { grid-row: 1; }
   line-height: 1.5;
 }
 
-/* ACTION BUTTONS */
+/* ======================
+   ACTION BUTTONS
+====================== */
 .confirm-actions {
   margin-top: 18px;
   display: flex;
@@ -1698,11 +2730,12 @@ saved-row-pet   { grid-row: 1; }
 }
 
 .confirm-actions button {
-  padding: 8px 18px;
+  padding: 8px 20px;
   border-radius: 999px;
   font-weight: 700;
   cursor: pointer;
   border: none;
+
   transition: transform 0.15s ease, filter 0.15s ease;
 }
 
@@ -1721,7 +2754,10 @@ saved-row-pet   { grid-row: 1; }
 .btn-danger {
   background: linear-gradient(135deg, #7c2d12, #ef4444);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.5);
+
+  box-shadow:
+    0 4px 14px rgba(239, 68, 68, 0.5),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
 }
 
 .btn-danger:hover {
@@ -1743,17 +2779,21 @@ saved-row-pet   { grid-row: 1; }
 
 /* ======================================================================
    DEVICE NOTICE POPUP
-   - Modal konfirmasi umum
-   - JS: openConfirmModal(), closeConfirmModal()
-   - JS toggle class: .hidden
+   - Popup peringatan device
+   - JS toggle class: .show
    ====================================================================== */
+
 .device-popup {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.65);
+
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(4px);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   z-index: 9999;
 
   /* animasi */
@@ -1767,17 +2807,33 @@ saved-row-pet   { grid-row: 1; }
   visibility: visible;
 }
 
+/* popup box */
 .device-popup-content {
-  background: var(--bg-popup);
-  border-radius: 14px;
-  padding: 24px 30px;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 28, 58, 0.95),
+    rgba(10, 15, 32, 0.95)
+  );
+
+  border-radius: 18px;
+  padding: 22px 28px;
+
   text-align: center;
   color: var(--text-primary);
+
   max-width: 90%;
   font-size: 16px;
+  line-height: 1.5;
+
+  border: 2px solid var(--border-active);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.6),
+    0 0 30px rgba(77, 166, 255, 0.35),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
 
   /* animasi konten */
-  transform: scale(0.96) translateY(10px);
+  transform: scale(0.94) translateY(14px);
   transition: transform 0.25s ease;
 }
 
@@ -1785,47 +2841,76 @@ saved-row-pet   { grid-row: 1; }
   transform: scale(1) translateY(0);
 }
 
+/* close button */
 #close-device-popup {
   margin-top: 18px;
-  padding: 8px 18px;
-  background: var(--border-active);
+  padding: 8px 20px;
+
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
   color: #fff;
+
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
+
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 14px;
+
+  box-shadow:
+    0 4px 14px rgba(56, 189, 248, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+#close-device-popup:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+#close-device-popup:active {
+  transform: scale(0.96);
 }
 
 /* ======================================================================
    TOAST / NOTIFICATION
    - Notifikasi global
    - JS: showToast()
-   - JS toggle class: .hidden
    ====================================================================== */
+
 .toast {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
+
   z-index: 9999;
 
-  background: rgba(15, 15, 15, 0.95);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.98),
+    rgba(2, 6, 23, 0.98)
+  );
+
   border: 2px solid #38bdf8;
-  border-radius: 14px;
+  border-radius: 16px;
 
   padding: 22px 28px;
   min-width: 260px;
   max-width: 90vw;
 
   text-align: center;
-  box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
+
+  box-shadow:
+    0 0 30px rgba(56, 189, 248, 0.35),
+    inset 0 0 0 1px rgba(255,255,255,0.06);
 
   animation: toastIn 0.25s ease-out;
 }
 
 .toast-content {
-  font-size: 18px;              /* ⬅️ LEBIH BESAR */
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: #e5f6ff;
   letter-spacing: 0.3px;
 }
@@ -1839,7 +2924,7 @@ saved-row-pet   { grid-row: 1; }
 @keyframes toastIn {
   from {
     opacity: 0;
-    transform: translate(-50%, -60%) scale(0.95);
+    transform: translate(-50%, -60%) scale(0.94);
   }
   to {
     opacity: 1;
@@ -1847,11 +2932,12 @@ saved-row-pet   { grid-row: 1; }
   }
 }
 
-/* ===============================
+/* =========================================================
    SMALL MOBILE (≤ 480px)
-   =============================== */
+   ========================================================= */
 @media (max-width: 480px) {
-     /* TOAST */
+
+  /* ===== TOAST ===== */
   .toast {
     padding: 16px 18px;
   }
@@ -1859,37 +2945,35 @@ saved-row-pet   { grid-row: 1; }
   .toast-content {
     font-size: 14px;
   }
-}
 
-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  flex-wrap: nowrap;
-}
+  /* ===== HEADER ===== */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    flex-wrap: nowrap;
+  }
 
-header img {
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-}
+  header img {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
 
-header h1 {
-  flex: 1;
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-/* ======== Button Share Team ======= */
-header button {
-  flex-shrink: 0;
-}
+  header h1 {
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
+  header button {
+    flex-shrink: 0;
+  }
 
-/* MOBILE — 3 atas, 2 bawah TEPAT di tengah */
-@media (max-width: 480px) {
+  /* ===== TEAM GRID (3 ATAS, 2 BAWAH TEPAT TENGAH) ===== */
   .team {
     display: flex;
     flex-wrap: wrap;
@@ -1901,54 +2985,55 @@ header button {
     width: 96px;
   }
 
-  /* Dorong baris kedua ke tengah */
+  /* geser baris ke-2 ke tengah */
   .team > :nth-child(4) {
-    margin-left: 10px; /* SETENGAH SLOT + GAP */
+    margin-left: calc(96px / 2 + 8px);
   }
 }
 
+/* =========================================================
+   MOBILE & TABLET UMUM
+   ========================================================= */
+
+/* CURRENT TEAM INFO */
 @media (max-width: 600px) {
   .current-team-info {
     flex-direction: column;
   }
 }
 
-/* RESPONSIVE MOBILE */
+/* SAVED TEAM & EQUIP */
 @media (max-width: 768px) {
-  .saved-team-body {
-    flex-direction: column;
-  }
 
-  .saved-team-note {
-    width: 100%;
-  }
-  
-  .equip-grid { 
-    margin-top: 3px; 
-  }
-}
-
-/* ===== DEVICE POPUP RESPONSIVE TEXT ===== */
-
-/* MOBILE */
-@media (max-width: 767px) {
-  .device-popup-content {
-    font-size: 14px;
-    padding: 20px 22px;
-  }
-  
   .saved-team-body {
     display: flex;
     flex-direction: column;
   }
 
   .saved-team-note {
-    margin-left: 0;        /* hapus jarak horizontal */
-    margin-top: 16px;      /* jarak ke bawah */
+    width: 100%;
+    margin-left: 0;
+    margin-top: 16px;
   }
 
   .saved-team-note textarea {
-    min-height: 120px;     /* nyaman buat ngetik */
+    min-height: 120px;
+  }
+
+  .equip-grid {
+    margin-top: 3px;
+  }
+}
+
+/* =========================================================
+   DEVICE POPUP RESPONSIVE
+   ========================================================= */
+
+/* MOBILE */
+@media (max-width: 767px) {
+  .device-popup-content {
+    font-size: 14px;
+    padding: 20px 22px;
   }
 }
 
@@ -1959,3 +3044,4 @@ header button {
     padding: 22px 26px;
   }
 }
+

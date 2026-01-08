@@ -295,31 +295,26 @@ function switchPage(page) {
 
   const saveBtn = document.getElementById("save-team-btn");
   const resetBtn = document.getElementById("reset-team-btn");
-
-const titleInputWrap = document.getElementById("teamTitleInput");
-const categoryWrap = document.getElementById("teamCategorySelect");
+  const teamInfoGroup = document.getElementById("teamInfoGroup");
 
   if (page === "current") {
-  pageCurrent.classList.add("active");
-  navCurrent.classList.add("active");
+    pageCurrent.classList.add("active");
+    navCurrent.classList.add("active");
 
-  if (saveBtn) saveBtn.style.display = "block";
-  if (resetBtn) resetBtn.style.display = "block";
+    if (saveBtn) saveBtn.style.display = "block";
+    if (resetBtn) resetBtn.style.display = "block";
+    if (teamInfoGroup) teamInfoGroup.style.display = "flex";
 
-  if (titleInputWrap) titleInputWrap.style.display = "block";
-  if (categoryWrap) categoryWrap.style.display = "flex";
-} else {
-  pageSaved.classList.add("active");
-  navSaved.classList.add("active");
+  } else {
+    pageSaved.classList.add("active");
+    navSaved.classList.add("active");
 
-  if (saveBtn) saveBtn.style.display = "none";
-  if (resetBtn) resetBtn.style.display = "none";
+    if (saveBtn) saveBtn.style.display = "none";
+    if (resetBtn) resetBtn.style.display = "none";
+    if (teamInfoGroup) teamInfoGroup.style.display = "none";
 
-  if (titleInputWrap) titleInputWrap.style.display = "none";
-  if (categoryWrap) categoryWrap.style.display = "none";
-
-  renderSavedTeams();
-}
+    renderSavedTeams();
+  }
 }
 
 // DEVICE POPUP (MOBILE & TABLET TEXT)
