@@ -41,5 +41,6 @@
   { "name": "Summer Merry", "element": "Frost", "class": "Wizard", "position": "Back", "image": "images/characters/SummerMerry.webp" },
   { "name": "Tiamat", "element": "Holy", "class": "Wizard", "position": "Back", "image": "images/characters/Tiamat.webp" },
   { "name": "Tristan", "element": "Nature", "class": "Archer", "position": "Back", "image": "images/characters/Tristan.webp" },
-  { "name": "Vivien", "element": "Nature", "class": "Wizard", "position": "Middle", "image": "images/characters/Vivien.webp" }
+  { "name": "Vivien", "element": "Nature", "class": "Wizard", "position": "Middle", "image": "images/characters/Vivien.webp" },
+  { "name": "Morgan", "element": "Holy", "class": "Wizard", "position": "Middle", "image": "images/characters/Morgan.webp" }
     ]
