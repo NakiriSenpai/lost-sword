@@ -49,6 +49,7 @@
   { "id": "card_44", "name": "Incarnation (Esmeralda)", "img": "images/cards/card_esmeralda.webp" },
   { "id": "card_45", "name": "Demon Pact (Rowena)", "img": "images/cards/card_rowena.webp" },
   { "id": "card_46", "name": "World Tree's Energy (Bedivere)", "img": "images/cards/card_bedivere.webp" },
-  { "id": "card_47", "name": "Queen's Temptation (Morgan le Fay)", "img": "images/cards/card_morgan.webp" }
+  { "id": "card_47", "name": "Queen's Temptation (Morgan le Fay)", "img": "images/cards/card_morgan.webp" },
+    { "id": "card_48", "name": "Abyss 60F", "img": "images/cards/card_abyss60.webp" }
 ]
 
