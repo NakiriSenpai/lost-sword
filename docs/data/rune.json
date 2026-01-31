@@ -2,5 +2,7 @@
   { "id": "rune_01", "img": "images/rune/rune_1.png" },
   { "id": "rune_02", "img": "images/rune/rune_2.webp" },
   { "id": "rune_03", "img": "images/rune/rune_3.webp" },
-  { "id": "rune_04", "img": "images/rune/rune_4.webp" }
+  { "id": "rune_04", "img": "images/rune/rune_4.webp" },
+  { "id": "rune_05", "img": "images/rune/rune_5.webp" },
+  { "id": "rune_06", "img": "images/rune/rune_6.webp" }
 ]
