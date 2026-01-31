@@ -27,6 +27,7 @@
   { "name": "Lisa", "element": "Chaos", "class": "Archer", "position": "Middle", "image": "images/characters/Lisa.webp" },
   { "name": "Lohengrin", "element": "Chaos", "class": "Knight", "position": "Back", "image": "images/characters/Lohengrin.webp" },
   { "name": "Lua", "element": "Shock", "class": "Knight", "position": "Front", "image": "images/characters/Lua.webp" },
+  { "name": "Lueira", "element": "Frost", "class": "Healer", "position": "Back", "image": "images/characters/Leira.webp" },
   { "name": "Merlin", "element": "Holy", "class": "Wizard", "position": "Back", "image": "images/characters/Merlin.webp" },
 
   { "name": "Mia", "element": "Shock", "class": "Knight", "position": "Front", "image": "images/characters/Mia.webp" },
