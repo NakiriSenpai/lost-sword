@@ -35,6 +35,6 @@
 
   { "id": "pet_31", "name": "Diancecht", "img": "images/pets/pet_diancecht.webp" },
   { "id": "pet_32", "name": "Galahad", "img": "images/pets/pet_galahad.webp" },
-  { "id": "pet_33", "name": "Katrin", "img": "images/pets/pet_katrin.webp" }
-  
+  { "id": "pet_33", "name": "Katrin", "img": "images/pets/pet_katrin.webp" },
+   { "id": "pet_34", "name": "Morgan", "img": "images/pets/pet_morgan.webp" }
 ]
