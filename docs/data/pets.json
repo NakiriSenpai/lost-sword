@@ -36,5 +36,8 @@
   { "id": "pet_31", "name": "Diancecht", "img": "images/pets/pet_diancecht.webp" },
   { "id": "pet_32", "name": "Galahad", "img": "images/pets/pet_galahad.webp" },
   { "id": "pet_33", "name": "Katrin", "img": "images/pets/pet_katrin.webp" },
-   { "id": "pet_34", "name": "Morgan", "img": "images/pets/pet_morgan.webp" }
+   { "id": "pet_34", "name": "Morgan", "img": "images/pets/pet_morgan.webp" },
+   { "id": "pet_35", "name": "Guinevere", "img": "images/pets/pet_guinevere.webp" },
+   { "id": "pet_36", "name": "Luwak", "img": "images/pets/pet_luwak.webp" },
+   { "id": "pet_37", "name": "Nesha", "img": "images/pets/pet_nesha.webp" }
 ]
