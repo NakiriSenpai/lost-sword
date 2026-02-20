@@ -51,7 +51,7 @@
   { "id": "card_46", "name": "World Tree's Energy (Bedivere)", "img": "images/cards/card_bedivere.webp" },
   { "id": "card_47", "name": "Queen's Temptation (Morgan le Fay)", "img": "images/cards/card_morgan.webp" },
     { "id": "card_48", "name": "Abyss 60F", "img": "images/cards/card_abyss60.webp" },
-   { "id": "card_49", "name": "Abyss 60F", "img": "images/cards/card_luwak.webp" },
-   { "id": "card_50", "name": "Abyss 60F", "img": "images/cards/card_nesha.webp" }
+   { "id": "card_49", "name": "Sweet Afternoon (Lueira)", "img": "images/cards/card_luwak.webp" },
+   { "id": "card_50", "name": "Constricting Gaze (Nesha)", "img": "images/cards/card_nesha.webp" }
 ]
 
