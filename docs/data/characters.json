@@ -34,7 +34,8 @@
   { "name": "Morgana", "element": "Chaos", "class": "Wizard", "position": "Back", "image": "images/characters/Morgana.webp" },
   { "name": "Morgan", "element": "Holy", "class": "Wizard", "position": "Middle", "image": "images/characters/Morgan.webp" },
   { "name": "Morgause", "element": "Fire", "class": "Wizard", "position": "Back", "image": "images/characters/Morgause.webp" },
-  { "name": "NEO Bedivere", "element": "Holy", "class": "Archer", "position": "Middle", "image": "images/characters/NEOBedivere.webp" },
+  { "name": "NEO Bedivere", "element": "Holy", "class": "Archer", "position": "Middle", "image": "images/characters/NEOBedivere.webp"},
+  { "name": "Nesha", "element": "Radiance", "class": "Archer", "position": "Middle", "image": "images/characters/Nesha.webp" },
   { "name": "Percival", "element": "Frost", "class": "Knight", "position": "Front", "image": "images/characters/Percival.webp" },
   { "name": "Palamedes", "element": "Nature", "class": "Knight", "position": "Front", "image": "images/characters/Palamedes.webp" },
   
